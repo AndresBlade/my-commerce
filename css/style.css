@@ -74,6 +74,7 @@ header ul li a:hover::before{
     transform: scaleY(1);
     transform-origin: left;
 }
+
 header .search{
     position: relative;
     display: flex;
