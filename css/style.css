@@ -42,11 +42,14 @@ header{
 .group{
     display: flex;
     align-items: center;
+    
 }
 header ul{
     position: relative;
     display: flex;
-    gap: 30px;
+    flex-wrap: wrap;
+    gap: 4rem;
+    padding: .5rem 0;   
 }
 header ul li{
     list-style: none;
@@ -167,6 +170,12 @@ header .search{
         height: calc(100vh - 80px);
         padding: 40px;
         border-top: 1px solid rgba(0,0,0,0.5);
+    }
+    header.open .navigation li a {
+        font-size: 1.25rem;
+    }
+    .hide{
+        display: none;
     }
 }
 
