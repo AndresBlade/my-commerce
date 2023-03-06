@@ -19,3 +19,4 @@ closeBtn.onclick = function(){
 menuToggle.onclick = function(){
     header.classList.toggle('open');
 }
+
