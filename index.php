@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
+    <header class="header">
         <a href="#" class="logo">LOGO</a>
         <div class="group">
             <ul class="navigation">
