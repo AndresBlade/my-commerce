@@ -2,6 +2,14 @@
 :root{
     --main-color:#1e5bd6;
 }
+body::-webkit-scrollbar{
+    width: 12px;
+    
+}
+body::-webkit-scrollbar-thumb{
+    background: #000C18;
+    border-radius: 50px;
+}
 *{
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -11,17 +19,16 @@
     border: none;
     transition: all .2s linear;
     line-height: 1.5;
+    color: #fff;
 }
 body{
-    background: rgb(47,66,216);
-    background: linear-gradient(221deg, rgba(47,66,216,1) 0%, rgba(122,144,255,1) 100%);
+    background: linear-gradient(50.94deg, #7C92FF 1.31%, #4D62FF 42.31%, #3145E3 74.71%);
     min-height: 100vh;
     overflow-x: hidden;
 }
 header{
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    padding: 1rem;
     width: 100%;
     height: 80px;
     padding: 20px 40px;
@@ -36,15 +43,14 @@ header{
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
-    
 }
 .icon{
     color: #fff;
 }
 .group{
+    top: auto;
     display: flex;
     align-items: center;
-    
 }
 header ul{
     position: relative;
@@ -62,7 +68,6 @@ header ul li a{
     font-size: 1em;
     color:#fff;
     text-transform: uppercase;
-    
 }
 header ul li a::before{
     content: '';
@@ -79,7 +84,6 @@ header ul li a:hover::before{
     transform: scaleY(1);
     transform-origin: left;
 }
-
 header .search{
     position: relative;
     display: flex;
@@ -91,23 +95,25 @@ header .search{
 }
 .searchBox{
     position: absolute;
-    right: -100%;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    border-radius: .5rem;
+    width: 500px;
+    height: 2rem;
     display: flex;
     background-color: #fff;
     align-items: center;
-    padding: 0 30px;
+    justify-content: center;
+    margin-top: 5rem;
     transition: 0.5s ease-in-out;
 }
 .searchBox.active{
     right: 0;
 }
 .searchBox input{
-    width: 100%;
+    width: 80%;/**/
     border: none;
     outline: none;
-    height: 50px;
+    height: 20px;
     color: #333;
     font-size: 1.25em;
     background-color: #fff;
@@ -121,7 +127,6 @@ header .search{
 }
 .searchBtn.active{
     left: 0;
-    
 }
 .closeBtn{
     opacity: 0;
@@ -142,14 +147,15 @@ header .search{
 }
 /*parte responsive*/
 @media (max-width: 800px){
-
     .searchBtn{
         left: 0;
+    }
+    .searchBox{
+        width: 300px;
     }
     header ul li a{
         color: #333;
     }
-    
     .menuToggle{
         color: #fff;
         position: absolute;
@@ -169,7 +175,7 @@ header .search{
         left: 100%;
     }
     header.open .navigation{
-        top: 80px;
+        top: 100px;
         opacity: 1;
         visibility: visible;
         left: 0;
@@ -192,19 +198,50 @@ header .search{
         fin del header
         inicio del main
 */
-main{
-    background: rgb(47,66,216);
-    background: linear-gradient(221deg, rgba(47,66,216,1) 0%, rgba(122,144,255,1) 100%);
+.box-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 2rem;
 }
-
-
-
-
-
-
-
-/*
-background degradado
-background: rgb(47,66,216);
-background: linear-gradient(221deg, rgba(47,66,216,1) 0%, rgba(122,144,255,1) 100%);
-*/
+.box-container .box{
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+.box-container .box h3{
+    padding: 1rem;
+    text-transform: capitalize;
+}
+.box-container .box p{
+    padding: 1rem;
+}
+.box-container .box input{
+    position: relative;
+    display: flex;
+    margin-top: 1rem;
+    padding: .8rem 3rem;
+    color: #333;
+    cursor: pointer;
+    border-radius: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    /* cuando se despliega el menu se sigue viendo 
+    el boton, con responsive creo que se arregla pero
+    teno sueñito*/
+}
+.box-container .box-1{
+    width: 40%;
+    resize: none;
+    padding: 2rem;
+}
+.box-container .box-2{
+    width: 60%;
+    padding-left: 5rem;
+    justify-content: center;
+    align-items: center;
+}
+.img-1{
+    width: 450px;
+}

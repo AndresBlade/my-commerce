@@ -10,6 +10,9 @@
 <body>
     <header class="header">
         <a href="#" class="logo">LOGO</a>
+        <div class="searchBox">
+            <input type="text" placeholder="Buscar">
+        </div>
         <div class="group">
             <ul class="navigation">
                 <li><a href="#">Iniciar Sesión</a></li>
@@ -25,14 +28,31 @@
             </div>
             <ion-icon name="menu-outline"class="menuToggle"></ion-icon>
         </div>
-        <div class="searchBox">
-            <input type="text" placeholder="Buscar">
-        </div>
     </header>
-
-    
     <main>
+        <!-- primera parte -->
+        <section class="box-container">
+            <div class="box box-1" >
+                <h3>Compra de forma segura</h3>
+                <p>
+                    crea tu cuenta de forma gratuita para comprar en tiendas responsables y seguras
+                </p>
+                <input type="button" value="Crea tu cuenta">
+            </div>
+            <div class="box box-2">
+                <img src="img/asdf.png" alt="" class="img-1">
+            </div>
+        </section>
+        <!-- Tiendas destacadas -->
+        <section>
+            <div class="box1">
 
+            </div>
+            <div class="box2">
+
+            </div>
+
+        </section>
     </main>
     <!-- link de iconos -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
