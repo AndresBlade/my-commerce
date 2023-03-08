@@ -13,6 +13,7 @@
         <div class="searchBox">
             <input type="text" placeholder="Buscar">
         </div>
+        
         <div class="group">
             <ul class="navigation">
                 <li><a href="#">Iniciar Sesión</a></li>
@@ -28,12 +29,15 @@
             </div>
             <ion-icon name="menu-outline"class="menuToggle"></ion-icon>
         </div>
+        
     </header>
+    
+
     <main>
         <!-- primera parte -->
         <section class="box-container">
             <div class="box box-1" >
-                <h3>Compra de forma segura</h3>
+                <h3 class="heading">Compra de forma segura</h3>
                 <p>
                     crea tu cuenta de forma gratuita para comprar en tiendas responsables y seguras
                 </p>
@@ -44,15 +48,45 @@
             </div>
         </section>
         <!-- Tiendas destacadas -->
-        <section>
-            <div class="box1">
+        <section class="tiendas-destacadas">
+            <h1 class="heading mover">Tiendas Destacadas</h1>
+            <div class="box-container">
 
-            </div>
-            <div class="box2">
+                <div class="box">
+                    <img src="img/logoDrpantalla.jpg" alt="" class="circular">
+                    <h3 class="heading">DoctorPantalla</h3>
+                    <img src="img/pc.jpeg" alt="" class="foto-normal">
+                    <!-- imagen -->
+                    
+                    <div class="texto">
+                        <h4>Clasificacion y comentarios:</h4>
+                        <p>4.5 / 5 </p>
+                        <ul>
+                            <li>Venezuela - Lara</li>
+                            <li>10 años de servicio</li>
+                            <li>Laptops y remplazo de pantallas</li>
+                        </ul>
+                    </div>
+                    
+                </div>
+
+                <div class="box">
+                    <img src="img/kiocherry.png" alt="" class="circular"> 
+                    <!-- imagen -->
+                    <h3 class="heading">Kiocherry</h3>
+                    <p></p>
+                </div>
 
             </div>
 
         </section>
+        
+
+
+
+
+
+
     </main>
     <!-- link de iconos -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

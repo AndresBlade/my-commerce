@@ -7,7 +7,7 @@ body::-webkit-scrollbar{
     
 }
 body::-webkit-scrollbar-thumb{
-    background: #000C18;
+    background: #999;
     border-radius: 50px;
 }
 *{
@@ -19,7 +19,7 @@ body::-webkit-scrollbar-thumb{
     border: none;
     transition: all .2s linear;
     line-height: 1.5;
-    color: #fff;
+    color: #000;
 }
 body{
     background: linear-gradient(50.94deg, #7C92FF 1.31%, #4D62FF 42.31%, #3145E3 74.71%);
@@ -35,6 +35,12 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.heading{
+    font-size: 1.7rem;
+    padding-bottom: 1rem;
+    color: #000;
+    text-transform: uppercase;
 }
 .logo{
     color: #fff;
@@ -244,4 +250,47 @@ header .search{
 }
 .img-1{
     width: 450px;
+}
+.tiendas-destacadas .mover{
+    padding: 2rem;
+}
+.tiendas-destacadas .box-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    
+}
+.tiendas-destacadas .box-container .box{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 30rem;
+    text-align: center;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: .5rem;
+    
+}
+.tiendas-destacadas .box-container .box .circular{
+    width: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.tiendas-destacadas .box-container .box .foto-normal{
+    width: 110px;
+    display: flex;
+    justify-content: space-between;
+}
+.tiendas-destacadas .box-container .box h3{
+    display: flex;    
+}
+.tiendas-destacadas .box-container .box .texto{
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    
+}
+.tiendas-destacadas .box-container .box .texto ul li{
+    list-style-type:none;
 }
