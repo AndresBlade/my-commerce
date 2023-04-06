@@ -5,6 +5,7 @@ let navigation = document.querySelector('.navigation');
 let menuToggle = document.querySelector('.menuToggle'); 
 let header = document.querySelector('.header');
 
+
 searchBtn.onclick = function(){
     searchBox.classList.add('active');
     closeBtn.classList.add('active');

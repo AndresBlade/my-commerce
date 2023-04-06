@@ -22,18 +22,20 @@ body::-webkit-scrollbar-thumb{
     color: #000;
 }
 body{
-    background: linear-gradient(50.94deg, #7C92FF 1.31%, #4D62FF 42.31%, #3145E3 74.71%);
+    background: #fff;
     min-height: 100vh;
     overflow-x: hidden;
 }
 header{
-    position: relative;
+    background: linear-gradient(50.94deg, #7C92FF 1.31%, #4D62FF 42.31%, #3145E3 74.71%);
+    position: absolute;
+    top: 0;
     padding: 1rem;
     width: 100%;
     height: 80px;
     padding: 20px 40px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 .heading{
@@ -53,23 +55,27 @@ header{
 .icon{
     color: #fff;
 }
+.icon #blanco{
+    color: #fff;
+}
 .group{
     top: auto;
     display: flex;
     align-items: center;
+    
 }
 header ul{
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    gap: 4rem;
+    gap: .5rem;
     padding: .5rem 0;   
 }
 header ul li{
     list-style: none;
 }
 header ul li a{
-    position: relative;
+    position: sticky;
     text-decoration: none;
     font-size: 1em;
     color:#fff;
@@ -100,16 +106,17 @@ header .search{
     cursor: pointer;
 }
 .searchBox{
-    position: absolute;
-    right: 0;
+    
+    position: relative;
+    
     border-radius: .5rem;
     width: 500px;
     height: 2rem;
-    display: flex;
-    background-color: #fff;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5rem;
+    
+    background-color: #e7e7e7;
+    text-align: center;
+    
+    
     transition: 0.5s ease-in-out;
 }
 .searchBox.active{
@@ -122,8 +129,10 @@ header .search{
     height: 20px;
     color: #333;
     font-size: 1.25em;
-    background-color: #fff;
+    background-color: #e7e7e7;
     border-bottom: 1px solid rgba(0,0,0,0.5);
+    text-align: center;
+
 }
 .searchBtn{
     position: relative;
@@ -205,11 +214,11 @@ header .search{
         inicio del main
 */
 .box-container{
-    width: 100%;
+    margin-top: 4rem;
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 2rem;
 }
 .box-container .box{
     justify-content: center;
@@ -223,19 +232,16 @@ header .search{
 .box-container .box p{
     padding: 1rem;
 }
-.box-container .box input{
-    position: relative;
+.box-container .box .btnCrearCuenta{
     display: flex;
     margin-top: 1rem;
     padding: .8rem 3rem;
-    color: #333;
+    color: #fff;
+    background-color: #1e5bd6;
     cursor: pointer;
     border-radius: 10rem;
     margin-left: auto;
     margin-right: auto;
-    /* cuando se despliega el menu se sigue viendo 
-    el boton, con responsive creo que se arregla pero
-    teno sueñito*/
 }
 .box-container .box-1{
     width: 40%;
@@ -251,40 +257,39 @@ header .search{
 .img-1{
     width: 450px;
 }
-.tiendas-destacadas .mover{
+
+.tiendas-destacadas .heading{
+    text-align: center;
     padding: 2rem;
 }
 .tiendas-destacadas .box-container{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 1.5rem;
-    
 }
 .tiendas-destacadas .box-container .box{
-    display: flex;
-    flex-wrap: wrap;
-    flex: 1 1 30rem;
+    width: calc(45% - 1rem);
+    margin: 0.5rem;
     text-align: center;
-    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     background-color: #fff;
-    border-radius: .5rem;
+    
     
 }
 .tiendas-destacadas .box-container .box .circular{
     width: 70px;
     border-radius: 50%;
-    display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    text-align: center;
 }
 .tiendas-destacadas .box-container .box .foto-normal{
     width: 110px;
-    display: flex;
+    
     justify-content: space-between;
 }
-.tiendas-destacadas .box-container .box h3{
-    display: flex;    
-}
+
 .tiendas-destacadas .box-container .box .texto{
     display: flex;
     justify-content: center;
@@ -294,3 +299,4 @@ header .search{
 .tiendas-destacadas .box-container .box .texto ul li{
     list-style-type:none;
 }
+
