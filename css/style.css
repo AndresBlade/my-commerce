@@ -142,25 +142,27 @@ header .search {
 	background-color: #e7e7e7;
 	text-align: center;
 
+	font-size: 1.25em;
+
 	transition: 0.5s ease-in-out;
 }
 
-.searchBox.active {
+.searchBox:focus {
 	right: 0;
+	box-shadow: inset #ccc 0 0 4px 4px;
 }
 
-.searchBox input {
+/* .searchBox input {
 	width: 80%;
-	/**/
 	border: none;
 	outline: none;
 	height: 20px;
 	color: #333;
-	font-size: 1.25em;
+
 	background-color: #e7e7e7;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 	text-align: center;
-}
+} */
 
 .searchBtn {
 	position: relative;
