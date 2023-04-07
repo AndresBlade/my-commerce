@@ -34,11 +34,11 @@ body {
 header {
 	background: linear-gradient(
 		50.94deg,
-		#7c92ff 1.31%,
-		#4d62ff 42.31%,
-		#3145e3 74.71%
+		#7c92ffcc 1.31%,
+		#4d62ffcc 42.31%,
+		#3145e3cc 74.71%
 	);
-	position: fixed;
+	position: sticky;
 	z-index: 50;
 	top: 0;
 	width: 100%;
@@ -46,6 +46,8 @@ header {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
 }
 
 .heading {
