@@ -257,6 +257,33 @@ header .search {
 	.hide {
 		display: none;
 	}
+
+	.tiendas-destacadas .box-container {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 1.5rem;
+		flex-direction: column;
+
+	}
+
+	.tiendas-destacadas .box-container .box .texto {
+		display: flex;
+		justify-content: center;
+		padding: 1rem;
+		gap: 1rem;
+		flex-direction: column;
+	}
+
+	.tiendas-miPerfil .box-container-miPerfil .box-miPerfil .texto-miPerfil {
+		display: flex;
+		justify-content: center;
+		padding: 1rem;
+		gap: 1rem;
+		flex-direction: column;
+		
+	}
 }
 
 /*
@@ -325,6 +352,7 @@ header .search {
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 1.5rem;
+	
 }
 
 .tiendas-destacadas .box-container .box {
@@ -370,7 +398,7 @@ header .search {
 }
 
 .searchBox-container .searchBox {
-	width: 200px;
+	width: 500px;
 	height: 2rem;
 	padding: 12px 20px 12px 1rem;
 	margin: 8px 0;
@@ -393,8 +421,17 @@ header .search {
 		#3145e3 79.1%
 	);
 	border-radius: 5px 40px 40px 5px;
-	width: 35%;
+	width: 500px;
 	height: 5rem;
+	display: flex;
+	align-items: center;
+	justify-content: left;
+	
+}
+
+.cajita .texto-cajita{
+	flex-direction: column;
+	text-align: left;
 }
 
 /*		perfil		*/
@@ -519,3 +556,48 @@ header .search {
 .menu-dashboard.open .menu .enlace span {
     opacity: 1;
 }
+
+/* ======================================*/
+.tiendas-miPerfil{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+}
+.tiendas-miPerfil .heading {
+	text-align: center;
+	padding: 2rem;
+}
+
+.tiendas-miPerfil .box-container-miPerfil {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1.5rem;
+}
+
+.tiendas-miPerfil .box-container-miPerfil .box-miPerfil {
+	width: calc(55% - 1rem);
+	margin: 0.5rem;
+	text-align: var(center+5px);
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+	background-color: #fff;
+}
+
+.tiendas-miPerfil .box-container-miPerfil .box-miPerfil .circular-miPerfil {
+	width: 70px;
+	border-radius: 50%;
+	justify-content: center;
+	text-align: center;
+	
+}
+
+.tiendas-miPerfil .box-container-miPerfil .box-miPerfil .texto-miPerfil {
+	display: flex;
+	justify-content: center;
+	padding: 2rem;
+	gap: 2rem;
+}
+
