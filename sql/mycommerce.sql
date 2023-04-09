@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: Apr 09, 2023 at 05:11 AM
+-- Generation Time: Apr 09, 2023 at 06:43 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -83,6 +83,37 @@ CREATE TABLE `regiones` (
   `id` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `regiones`
+--
+
+INSERT INTO `regiones` (`id`, `descripcion`) VALUES
+(4, 'Amazonas'),
+(5, 'Anzoátegui'),
+(6, 'Apure'),
+(7, 'Aragua'),
+(8, 'Barinas'),
+(9, 'Bolívar'),
+(10, 'Carabobo'),
+(11, 'Cojedes'),
+(12, 'Delta Amacuro'),
+(13, 'Dependencias Federales'),
+(14, 'Distrito Federal'),
+(15, 'Falcón'),
+(16, 'Guárico'),
+(17, 'Lara'),
+(18, 'Mérida'),
+(19, 'Miranda'),
+(20, 'Monagas'),
+(21, 'Nueva Esparta'),
+(22, 'Portuguesa'),
+(23, 'Sucre'),
+(24, 'Táchira'),
+(25, 'Trujillo'),
+(26, 'Vargas'),
+(27, 'Yaracuy'),
+(28, 'Zulia');
 
 -- --------------------------------------------------------
 
@@ -261,7 +292,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT for table `regiones`
 --
 ALTER TABLE `regiones`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `tiendas`
