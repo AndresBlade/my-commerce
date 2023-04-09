@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: Apr 09, 2023 at 06:43 PM
+-- Generation Time: Apr 09, 2023 at 06:58 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -44,6 +44,39 @@ CREATE TABLE `categorias` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `descripcion`) VALUES
+(4, 'Agricultura'),
+(5, 'Alimentos y Bebidas'),
+(6, 'Animales y Mascotas'),
+(7, 'Antigüedades y Colecciones'),
+(8, 'Arte'),
+(9, 'Bebés'),
+(10, 'Belleza'),
+(11, 'Vehículos'),
+(12, 'Teléfonos'),
+(13, 'Computación'),
+(14, 'Construcción'),
+(15, 'Deportes'),
+(16, 'Electrodomésticos'),
+(17, 'Electrónica'),
+(18, 'Herramientas'),
+(19, 'Muebles'),
+(20, 'Industria'),
+(21, 'Inmuebles'),
+(22, 'Instrumentos Musicales'),
+(23, 'Juegos y Juguetes'),
+(24, 'Libros, Revistas y cómics'),
+(25, 'Música, Películas y Series'),
+(26, 'Fiestas'),
+(27, 'Joyería'),
+(28, 'Ropa'),
+(29, 'Servicios'),
+(30, 'Otros');
 
 -- --------------------------------------------------------
 
@@ -274,7 +307,7 @@ ALTER TABLE `ventas_detalle`
 -- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `clientes`
