@@ -210,7 +210,7 @@ header .search {
 		left: 0;
 	}
 
-	.searchBox {
+	.searchBox.active {
 		width: 300px;
 	}
 
