@@ -136,11 +136,11 @@ header .search {
 
 .searchBox {
 	position: relative;
-	visibility: hidden;
 
 	border-radius: 0.5rem;
-	width: 0;
+	width: 500px;
 	height: 2rem;
+	width: 500px;
 
 	background-color: #e7e7e7;
 	text-align: center;
@@ -174,6 +174,8 @@ header .search {
 
 .searchBtn {
 	position: relative;
+	opacity: 0;
+	scale: 0;
 	left: 30px;
 	top: 2.5px;
 	transition: 0.5s ease-in-out;
@@ -181,12 +183,10 @@ header .search {
 
 .searchBtn.active {
 	left: 0;
-	visibility: visible;
 }
 
 .closeBtn {
 	opacity: 0;
-	visibility: hidden;
 	transition: 0.5s;
 	scale: 0;
 }
@@ -208,10 +208,22 @@ header .search {
 @media (max-width: 800px) {
 	.searchBtn {
 		left: 0;
+		visibility: visible;
+		opacity: 1;
+		scale: 1;
+	}
+	.searchBox {
+		width: 0;
+		opacity: 0;
+		scale: 0;
+		visibility: hidden;
 	}
 
 	.searchBox.active {
 		width: 300px;
+		opacity: 1;
+		scale: 1;
+		visibility: visible;
 	}
 
 	header ul li a {
