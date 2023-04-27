@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: Apr 09, 2023 at 06:58 PM
+-- Generation Time: Apr 27, 2023 at 02:41 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -20,19 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mycommerce`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `administradores`
---
-
-CREATE TABLE `administradores` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `annosExperiencia` tinyint(3) UNSIGNED NOT NULL,
-  `regionId` int(10) UNSIGNED NOT NULL,
-  `usuario_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Tabla maestra de administradores';
+CREATE DATABASE IF NOT EXISTS `mycommerce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mycommerce`;
 
 -- --------------------------------------------------------
 
@@ -77,19 +66,6 @@ INSERT INTO `categorias` (`id`, `descripcion`) VALUES
 (28, 'Ropa'),
 (29, 'Servicios'),
 (30, 'Otros');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `clientes`
---
-
-CREATE TABLE `clientes` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `edad` tinyint(3) UNSIGNED NOT NULL,
-  `baneado` enum('0','1') NOT NULL DEFAULT '0' COMMENT '''0'' = No Baneado. ''1'' = Baneado',
-  `usuario_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -178,6 +154,18 @@ CREATE TABLE `usuarios` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `usuarios_tienda`
+--
+
+CREATE TABLE `usuarios_tienda` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `usuario_id` int(10) UNSIGNED NOT NULL,
+  `tienda_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usuarios_tipos`
 --
 
@@ -226,26 +214,10 @@ CREATE TABLE `ventas_detalle` (
 --
 
 --
--- Indexes for table `administradores`
---
-ALTER TABLE `administradores`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Administrador_UsuarioIdIndex` (`usuario_id`),
-  ADD KEY `FK_administrador_region_idx` (`regionId`),
-  ADD KEY `usuarioid` (`usuario_id`);
-
---
 -- Indexes for table `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_cliente_usuario_idx` (`usuario_id`);
 
 --
 -- Indexes for table `productos`
@@ -279,6 +251,14 @@ ALTER TABLE `usuarios`
   ADD KEY `FK_usuario_tipo_idx` (`tipo_id`);
 
 --
+-- Indexes for table `usuarios_tienda`
+--
+ALTER TABLE `usuarios_tienda`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `tienda_id` (`tienda_id`);
+
+--
 -- Indexes for table `usuarios_tipos`
 --
 ALTER TABLE `usuarios_tipos`
@@ -310,12 +290,6 @@ ALTER TABLE `categorias`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
@@ -340,6 +314,12 @@ ALTER TABLE `usuarios`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `usuarios_tienda`
+--
+ALTER TABLE `usuarios_tienda`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `usuarios_tipos`
 --
 ALTER TABLE `usuarios_tipos`
@@ -356,19 +336,6 @@ ALTER TABLE `ventas_cabecera`
 --
 
 --
--- Constraints for table `administradores`
---
-ALTER TABLE `administradores`
-  ADD CONSTRAINT `administradores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `administradores_ibfk_2` FOREIGN KEY (`regionId`) REFERENCES `regiones` (`id`);
-
---
--- Constraints for table `clientes`
---
-ALTER TABLE `clientes`
-  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
-
---
 -- Constraints for table `productos`
 --
 ALTER TABLE `productos`
@@ -379,7 +346,6 @@ ALTER TABLE `productos`
 -- Constraints for table `tiendas`
 --
 ALTER TABLE `tiendas`
-  ADD CONSTRAINT `tiendas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `tiendas_ibfk_2` FOREIGN KEY (`regionId`) REFERENCES `regiones` (`id`);
 
 --
@@ -389,10 +355,17 @@ ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`tipo_id`) REFERENCES `usuarios_tipos` (`id`);
 
 --
+-- Constraints for table `usuarios_tienda`
+--
+ALTER TABLE `usuarios_tienda`
+  ADD CONSTRAINT `usuarios_tienda_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `usuarios_tienda_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`id`);
+
+--
 -- Constraints for table `ventas_cabecera`
 --
 ALTER TABLE `ventas_cabecera`
-  ADD CONSTRAINT `ventas_cabecera_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
+  ADD CONSTRAINT `ventas_cabecera_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Constraints for table `ventas_detalle`
