@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: Apr 27, 2023 at 02:41 AM
+-- Generation Time: Apr 27, 2023 at 02:57 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -147,6 +147,7 @@ CREATE TABLE `tiendas` (
 CREATE TABLE `usuarios` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(45) NOT NULL,
+  `correo` varchar(250) NOT NULL,
   `contrasenna` varchar(45) NOT NULL,
   `tipo_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
