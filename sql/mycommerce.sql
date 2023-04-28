@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: Apr 27, 2023 at 02:57 AM
+-- Generation Time: Apr 28, 2023 at 02:18 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -133,9 +133,9 @@ INSERT INTO `regiones` (`id`, `descripcion`) VALUES
 CREATE TABLE `tiendas` (
   `id` int(10) UNSIGNED NOT NULL,
   `RIF` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(60) NOT NULL,
   `regionId` int(10) UNSIGNED NOT NULL,
-  `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada',
-  `usuario_id` int(10) UNSIGNED DEFAULT NULL
+  `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -240,7 +240,6 @@ ALTER TABLE `regiones`
 ALTER TABLE `tiendas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `Tienda_RIF_UNIQUE` (`RIF`),
-  ADD KEY `FK_tienda_usuario_idx` (`usuario_id`),
   ADD KEY `FK_tienda_region_idx` (`regionId`);
 
 --
@@ -342,12 +341,6 @@ ALTER TABLE `ventas_cabecera`
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`),
   ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`id`);
-
---
--- Constraints for table `tiendas`
---
-ALTER TABLE `tiendas`
-  ADD CONSTRAINT `tiendas_ibfk_2` FOREIGN KEY (`regionId`) REFERENCES `regiones` (`id`);
 
 --
 -- Constraints for table `usuarios`
