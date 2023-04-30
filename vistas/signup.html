@@ -18,7 +18,13 @@
 					placeholder="Nombre"
 					required
 				/>
-				<input type="email" class="userForm__email" name="correo" />
+				<input
+					type="email"
+					class="userForm__email"
+					name="correo"
+					placeholder="Correo"
+					required
+				/>
 				<input
 					type="password"
 					class="userForm__password"
@@ -27,12 +33,18 @@
 				/>
 				<input
 					type="password"
+					class="userForm__confirmPassword"
 					placeholder="Confirmar Contraseña"
 					required
 				/>
 			</form>
 			<div class="terms">
-				<input type="checkbox" id="checkbox" required />
+				<input
+					type="checkbox"
+					id="checkbox"
+					class="termsCheckbox"
+					required
+				/>
 				<label for="checkbox"
 					>Acepto <a href="#">Términos y Condiciones</a></label
 				>
@@ -43,5 +55,7 @@
 				<a href="../vistas/login.html">Inicia Sesión aqui</a>
 			</div>
 		</div>
+
+		<script src="../js/registro.js" type="module"></script>
 	</body>
 </html>
