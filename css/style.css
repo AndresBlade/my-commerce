@@ -793,6 +793,7 @@ input:focus {
 	background-color: #ff9a98;
 	font-size: 12px;
 	border-radius: 5px;
+	padding: 10px 0;
 	animation-name: mostrarMensaje;
 	animation-duration: 0.6s;
 }
