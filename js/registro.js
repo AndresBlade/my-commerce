@@ -5,6 +5,16 @@ function mostrarMensajeError(msg) {
 	const cuadro = document.createElement('p');
 	const parent = document.querySelector('.userForm');
 
+	const mensajeAnterior = document.querySelector('.userForm__mensajeError');
+
+	if (mensajeAnterior && mensajeAnterior.textContent === msg) {
+		return;
+	}
+
+	if (mensajeAnterior) {
+		mensajeAnterior.remove();
+	}
+
 	cuadro.classList.add('userForm__mensajeError');
 
 	cuadro.textContent = msg;
