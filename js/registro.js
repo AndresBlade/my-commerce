@@ -15,10 +15,19 @@ function validarCamposCorrectos() {
 	if (!camposRellenos)
 		return mostrarMensajeError('Faltan campos por rellenar');
 
+	if (
+		document.querySelector('.userForm__password').value !==
+		document.querySelector('.userForm__confirmPassword').value
+	) {
+		return mostrarMensajeError('Las contraseñas deben de coincidir');
+	}
+
 	const checkTerminos = document.querySelector('.termsCheckbox');
 
 	if (!checkTerminos.checked)
 		return mostrarMensajeError('Debe aceptar los términos y condiciones');
+
+	return true;
 }
 
 btnLogin.addEventListener('click', e => {
@@ -31,7 +40,9 @@ btnLogin.addEventListener('click', e => {
 		tipo_id: 2,
 	};
 
-	validarCamposCorrectos();
+	const valido = validarCamposCorrectos();
+
+	if (!valido) return;
 
 	// if (
 	// 	user.contrasenna !== document.querySelector('userForm__confirmPassword')
