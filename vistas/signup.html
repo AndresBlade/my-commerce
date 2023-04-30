@@ -23,6 +23,7 @@
 					class="userForm__email"
 					name="correo"
 					placeholder="Correo"
+					required
 				/>
 				<input
 					type="password"
@@ -32,12 +33,18 @@
 				/>
 				<input
 					type="password"
+					class="userForm__confirmPassword"
 					placeholder="Confirmar Contraseña"
 					required
 				/>
 			</form>
 			<div class="terms">
-				<input type="checkbox" id="checkbox" required />
+				<input
+					type="checkbox"
+					id="checkbox"
+					class="termsCheckbox"
+					required
+				/>
 				<label for="checkbox"
 					>Acepto <a href="#">Términos y Condiciones</a></label
 				>
