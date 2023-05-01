@@ -6,7 +6,7 @@ const validatorRegisterUser = [
     .exists()
     .notEmpty()
     .isLength({ min: 3, max: 20 }),
-    check('email')
+    check('correo')
     .exists()
     .notEmpty()
     .isEmail(),
@@ -21,9 +21,10 @@ const validatorRegisterUser = [
     (req, res, next) => {
         return validationResults(req, res, next)
     }
+    
 ]
 const validatorLoginUser = [
-    check('email')
+    check('correo')
     .exists()
     .notEmpty()
     .isEmail(),

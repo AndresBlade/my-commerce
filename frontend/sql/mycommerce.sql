@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3366
--- Generation Time: Apr 28, 2023 at 02:34 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Servidor: localhost
+-- Tiempo de generación: 02-05-2023 a las 00:31:29
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mycommerce`
+-- Base de datos: `mycommerce`
 --
 CREATE DATABASE IF NOT EXISTS `mycommerce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `mycommerce`;
@@ -26,16 +26,17 @@ USE `mycommerce`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorias`
+-- Estructura de tabla para la tabla `categorias`
 --
 
+DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE `categorias` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `categorias`
+-- Volcado de datos para la tabla `categorias`
 --
 
 INSERT INTO `categorias` (`id`, `descripcion`) VALUES
@@ -70,9 +71,10 @@ INSERT INTO `categorias` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productos`
+-- Estructura de tabla para la tabla `productos`
 --
 
+DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(45) NOT NULL,
@@ -85,16 +87,17 @@ CREATE TABLE `productos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `regiones`
+-- Estructura de tabla para la tabla `regiones`
 --
 
+DROP TABLE IF EXISTS `regiones`;
 CREATE TABLE `regiones` (
   `id` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `regiones`
+-- Volcado de datos para la tabla `regiones`
 --
 
 INSERT INTO `regiones` (`id`, `descripcion`) VALUES
@@ -127,36 +130,61 @@ INSERT INTO `regiones` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tiendas`
+-- Estructura de tabla para la tabla `tiendas`
 --
 
+DROP TABLE IF EXISTS `tiendas`;
 CREATE TABLE `tiendas` (
-  `RIF` int(10) UNSIGNED NOT NULL,
-  `nombre` varchar(60) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `RIF` varchar(15) NOT NULL,
   `regionId` int(10) UNSIGNED NOT NULL,
-  `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada'
+  `status` enum('0','1','2','3') DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada',
+  `usuario_id` int(10) UNSIGNED DEFAULT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `tiendas`
+--
+
+INSERT INTO `tiendas` (`id`, `nombre`, `RIF`, `regionId`, `status`, `usuario_id`, `createdAt`, `updatedAt`) VALUES
+(2, 'Grows', 'J-123456789', 17, '0', 1, '2023-05-01 15:02:06', '2023-05-01 15:02:06'),
+(3, 'Doctor Pantalla', 'J-17823182', 17, '0', 2, '2023-05-01 21:49:52', '2023-05-01 21:49:52');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `correo` varchar(250) NOT NULL,
-  `contrasenna` varchar(45) NOT NULL,
-  `tipo_id` int(10) UNSIGNED NOT NULL
+  `contrasenna` varchar(60) NOT NULL,
+  `tipo_id` int(10) UNSIGNED NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasenna`, `tipo_id`, `createdAt`, `updatedAt`) VALUES
+(1, 'Juan Pérez', 'juan.perez@example.com', '$2b$10$MVgsWvoPyM91rY5HjSebiOULTr1p0QduI79j3HznDDEtf1mtHoMCK', 2, '2023-05-01 03:12:57', '2023-05-01 03:12:57'),
+(2, 'Torpas', 'torpas.jimenez@example.com', '$2b$10$kSgzRPYROepAkiHUwPtgPOPA7uDMBG34e4.1jjPuBLpFVCKXD6NHe', 1, '2023-05-01 21:48:56', '2023-05-01 21:48:56');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios_tienda`
+-- Estructura de tabla para la tabla `usuarios_tienda`
 --
 
+DROP TABLE IF EXISTS `usuarios_tienda`;
 CREATE TABLE `usuarios_tienda` (
   `id` int(10) UNSIGNED NOT NULL,
   `usuario_id` int(10) UNSIGNED NOT NULL,
@@ -166,16 +194,17 @@ CREATE TABLE `usuarios_tienda` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios_tipos`
+-- Estructura de tabla para la tabla `usuarios_tipos`
 --
 
+DROP TABLE IF EXISTS `usuarios_tipos`;
 CREATE TABLE `usuarios_tipos` (
   `id` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `usuarios_tipos`
+-- Volcado de datos para la tabla `usuarios_tipos`
 --
 
 INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
@@ -186,9 +215,10 @@ INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ventas_cabecera`
+-- Estructura de tabla para la tabla `ventas_cabecera`
 --
 
+DROP TABLE IF EXISTS `ventas_cabecera`;
 CREATE TABLE `ventas_cabecera` (
   `id` int(10) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
@@ -198,9 +228,10 @@ CREATE TABLE `ventas_cabecera` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ventas_detalle`
+-- Estructura de tabla para la tabla `ventas_detalle`
 --
 
+DROP TABLE IF EXISTS `ventas_detalle`;
 CREATE TABLE `ventas_detalle` (
   `id` int(11) NOT NULL,
   `ventas_cabecera_id` int(10) UNSIGNED NOT NULL,
@@ -210,17 +241,17 @@ CREATE TABLE `ventas_detalle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categorias`
+-- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `productos`
+-- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`),
@@ -228,20 +259,22 @@ ALTER TABLE `productos`
   ADD KEY `FK_producto_tienda_idx` (`tienda_id`);
 
 --
--- Indexes for table `regiones`
+-- Indices de la tabla `regiones`
 --
 ALTER TABLE `regiones`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tiendas`
+-- Indices de la tabla `tiendas`
 --
 ALTER TABLE `tiendas`
-  ADD PRIMARY KEY (`RIF`),
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `Tienda_RIF_UNIQUE` (`RIF`),
+  ADD KEY `FK_tienda_usuario_idx` (`usuario_id`),
   ADD KEY `FK_tienda_region_idx` (`regionId`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
@@ -249,7 +282,7 @@ ALTER TABLE `usuarios`
   ADD KEY `FK_usuario_tipo_idx` (`tipo_id`);
 
 --
--- Indexes for table `usuarios_tienda`
+-- Indices de la tabla `usuarios_tienda`
 --
 ALTER TABLE `usuarios_tienda`
   ADD PRIMARY KEY (`id`),
@@ -257,20 +290,20 @@ ALTER TABLE `usuarios_tienda`
   ADD KEY `tienda_id` (`tienda_id`);
 
 --
--- Indexes for table `usuarios_tipos`
+-- Indices de la tabla `usuarios_tipos`
 --
 ALTER TABLE `usuarios_tipos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ventas_cabecera`
+-- Indices de la tabla `ventas_cabecera`
 --
 ALTER TABLE `ventas_cabecera`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_ventacab_cliente_idx` (`cliente_id`);
 
 --
--- Indexes for table `ventas_detalle`
+-- Indices de la tabla `ventas_detalle`
 --
 ALTER TABLE `ventas_detalle`
   ADD PRIMARY KEY (`id`),
@@ -278,83 +311,95 @@ ALTER TABLE `ventas_detalle`
   ADD KEY `FK_ventasdet_cabecera_idx` (`ventas_cabecera_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categorias`
+-- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT for table `productos`
+-- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `regiones`
+-- AUTO_INCREMENT de la tabla `regiones`
 --
 ALTER TABLE `regiones`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de la tabla `tiendas`
 --
-ALTER TABLE `usuarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tiendas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `usuarios_tienda`
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios_tienda`
 --
 ALTER TABLE `usuarios_tienda`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `usuarios_tipos`
+-- AUTO_INCREMENT de la tabla `usuarios_tipos`
 --
 ALTER TABLE `usuarios_tipos`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `ventas_cabecera`
+-- AUTO_INCREMENT de la tabla `ventas_cabecera`
 --
 ALTER TABLE `ventas_cabecera`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `productos`
+-- Filtros para la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`),
-  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`);
+  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`id`);
 
 --
--- Constraints for table `usuarios`
+-- Filtros para la tabla `tiendas`
+--
+ALTER TABLE `tiendas`
+  ADD CONSTRAINT `tiendas_ibfk_2` FOREIGN KEY (`regionId`) REFERENCES `regiones` (`id`);
+
+--
+-- Filtros para la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`tipo_id`) REFERENCES `usuarios_tipos` (`id`);
 
 --
--- Constraints for table `usuarios_tienda`
+-- Filtros para la tabla `usuarios_tienda`
 --
 ALTER TABLE `usuarios_tienda`
   ADD CONSTRAINT `usuarios_tienda_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `usuarios_tienda_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`);
+  ADD CONSTRAINT `usuarios_tienda_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`id`);
 
 --
--- Constraints for table `ventas_cabecera`
+-- Filtros para la tabla `ventas_cabecera`
 --
 ALTER TABLE `ventas_cabecera`
   ADD CONSTRAINT `ventas_cabecera_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`);
 
 --
--- Constraints for table `ventas_detalle`
+-- Filtros para la tabla `ventas_detalle`
 --
 ALTER TABLE `ventas_detalle`
   ADD CONSTRAINT `ventas_detalle_ibfk_1` FOREIGN KEY (`ventas_cabecera_id`) REFERENCES `ventas_cabecera` (`id`),

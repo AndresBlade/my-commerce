@@ -34,7 +34,7 @@ const loginUser = async (req, res) => {
         req = matchedData(req);
         const user = await userModel.findOne({
             where:{
-                email:req.email
+                correo:req.correo
             }
         });
 
