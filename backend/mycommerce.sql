@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: May 04, 2023 at 09:04 PM
+-- Generation Time: May 04, 2023 at 09:36 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -85,6 +85,8 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `tienda_id` int(10) UNSIGNED NOT NULL,
   `descripcion` text DEFAULT NULL,
   `imagenes` text NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_producto_categoria_idx` (`categoria_id`),
   KEY `FK_producto_tienda_idx` (`tienda_id`)
@@ -147,6 +149,8 @@ CREATE TABLE IF NOT EXISTS `tiendas` (
   `imagen` text NOT NULL,
   `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada',
   `cliente_id` int(11) UNSIGNED NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`RIF`),
   KEY `cliente_id` (`cliente_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
