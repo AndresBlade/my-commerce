@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: Apr 28, 2023 at 02:34 AM
+-- Generation Time: May 04, 2023 at 09:04 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -29,10 +30,12 @@ USE `mycommerce`;
 -- Table structure for table `categorias`
 --
 
-CREATE TABLE `categorias` (
-  `id` tinyint(3) UNSIGNED NOT NULL,
-  `descripcion` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `categorias`;
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `categorias`
@@ -73,13 +76,18 @@ INSERT INTO `categorias` (`id`, `descripcion`) VALUES
 -- Table structure for table `productos`
 --
 
-CREATE TABLE `productos` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `productos`;
+CREATE TABLE IF NOT EXISTS `productos` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `precio` decimal(10,2) UNSIGNED NOT NULL,
   `categoria_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `tienda_id` int(10) UNSIGNED NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `descripcion` text DEFAULT NULL,
+  `imagenes` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_producto_categoria_idx` (`categoria_id`),
+  KEY `FK_producto_tienda_idx` (`tienda_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -88,10 +96,12 @@ CREATE TABLE `productos` (
 -- Table structure for table `regiones`
 --
 
-CREATE TABLE `regiones` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `descripcion` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `regiones`;
+CREATE TABLE IF NOT EXISTS `regiones` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `regiones`
@@ -130,11 +140,31 @@ INSERT INTO `regiones` (`id`, `descripcion`) VALUES
 -- Table structure for table `tiendas`
 --
 
-CREATE TABLE `tiendas` (
-  `RIF` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `tiendas`;
+CREATE TABLE IF NOT EXISTS `tiendas` (
+  `RIF` int(11) UNSIGNED NOT NULL,
   `nombre` varchar(60) NOT NULL,
-  `regionId` int(10) UNSIGNED NOT NULL,
-  `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada'
+  `imagen` text NOT NULL,
+  `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada',
+  `cliente_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`RIF`),
+  KEY `cliente_id` (`cliente_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tiendas_regiones`
+--
+
+DROP TABLE IF EXISTS `tiendas_regiones`;
+CREATE TABLE IF NOT EXISTS `tiendas_regiones` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tienda_id` int(10) UNSIGNED NOT NULL,
+  `region_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tienda_id` (`tienda_id`),
+  KEY `region_id` (`region_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -143,24 +173,19 @@ CREATE TABLE `tiendas` (
 -- Table structure for table `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
-  `correo` varchar(250) NOT NULL,
+  `email` varchar(250) NOT NULL,
   `contrasenna` varchar(45) NOT NULL,
-  `tipo_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `usuarios_tienda`
---
-
-CREATE TABLE `usuarios_tienda` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `usuario_id` int(10) UNSIGNED NOT NULL,
-  `tienda_id` int(10) UNSIGNED NOT NULL
+  `imagen` text DEFAULT NULL,
+  `tipo_id` int(10) UNSIGNED NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  KEY `FK_usuario_tipo_idx` (`tipo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -169,10 +194,12 @@ CREATE TABLE `usuarios_tienda` (
 -- Table structure for table `usuarios_tipos`
 --
 
-CREATE TABLE `usuarios_tipos` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `descripcion` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+DROP TABLE IF EXISTS `usuarios_tipos`;
+CREATE TABLE IF NOT EXISTS `usuarios_tipos` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `usuarios_tipos`
@@ -180,7 +207,6 @@ CREATE TABLE `usuarios_tipos` (
 
 INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 (1, 'CLIENTE'),
-(2, 'TIENDA'),
 (3, 'ADMINISTRADOR');
 
 -- --------------------------------------------------------
@@ -189,10 +215,13 @@ INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 -- Table structure for table `ventas_cabecera`
 --
 
-CREATE TABLE `ventas_cabecera` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ventas_cabecera`;
+CREATE TABLE IF NOT EXISTS `ventas_cabecera` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
-  `cliente_id` int(10) UNSIGNED NOT NULL
+  `cliente_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_ventacab_cliente_idx` (`cliente_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Cabecera de ventas';
 
 -- --------------------------------------------------------
@@ -201,127 +230,17 @@ CREATE TABLE `ventas_cabecera` (
 -- Table structure for table `ventas_detalle`
 --
 
-CREATE TABLE `ventas_detalle` (
+DROP TABLE IF EXISTS `ventas_detalle`;
+CREATE TABLE IF NOT EXISTS `ventas_detalle` (
   `id` int(11) NOT NULL,
   `ventas_cabecera_id` int(10) UNSIGNED NOT NULL,
   `producto_id` int(10) UNSIGNED NOT NULL,
   `cantidad` int(10) UNSIGNED NOT NULL,
-  `precio` decimal(10,2) UNSIGNED NOT NULL
+  `precio` decimal(10,2) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_ventasdet_producto_idx` (`producto_id`),
+  KEY `FK_ventasdet_cabecera_idx` (`ventas_cabecera_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `categorias`
---
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_producto_categoria_idx` (`categoria_id`),
-  ADD KEY `FK_producto_tienda_idx` (`tienda_id`);
-
---
--- Indexes for table `regiones`
---
-ALTER TABLE `regiones`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tiendas`
---
-ALTER TABLE `tiendas`
-  ADD PRIMARY KEY (`RIF`),
-  ADD KEY `FK_tienda_region_idx` (`regionId`);
-
---
--- Indexes for table `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
-  ADD KEY `FK_usuario_tipo_idx` (`tipo_id`);
-
---
--- Indexes for table `usuarios_tienda`
---
-ALTER TABLE `usuarios_tienda`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `tienda_id` (`tienda_id`);
-
---
--- Indexes for table `usuarios_tipos`
---
-ALTER TABLE `usuarios_tipos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ventas_cabecera`
---
-ALTER TABLE `ventas_cabecera`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ventacab_cliente_idx` (`cliente_id`);
-
---
--- Indexes for table `ventas_detalle`
---
-ALTER TABLE `ventas_detalle`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ventasdet_producto_idx` (`producto_id`),
-  ADD KEY `FK_ventasdet_cabecera_idx` (`ventas_cabecera_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `categorias`
---
-ALTER TABLE `categorias`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT for table `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `regiones`
---
-ALTER TABLE `regiones`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT for table `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `usuarios_tienda`
---
-ALTER TABLE `usuarios_tienda`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `usuarios_tipos`
---
-ALTER TABLE `usuarios_tipos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `ventas_cabecera`
---
-ALTER TABLE `ventas_cabecera`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -335,17 +254,23 @@ ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`);
 
 --
+-- Constraints for table `tiendas`
+--
+ALTER TABLE `tiendas`
+  ADD CONSTRAINT `tiendas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`);
+
+--
+-- Constraints for table `tiendas_regiones`
+--
+ALTER TABLE `tiendas_regiones`
+  ADD CONSTRAINT `tiendas_regiones_ibfk_2` FOREIGN KEY (`region_id`) REFERENCES `regiones` (`id`),
+  ADD CONSTRAINT `tiendas_regiones_ibfk_3` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`);
+
+--
 -- Constraints for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`tipo_id`) REFERENCES `usuarios_tipos` (`id`);
-
---
--- Constraints for table `usuarios_tienda`
---
-ALTER TABLE `usuarios_tienda`
-  ADD CONSTRAINT `usuarios_tienda_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `usuarios_tienda_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`);
 
 --
 -- Constraints for table `ventas_cabecera`
@@ -359,6 +284,7 @@ ALTER TABLE `ventas_cabecera`
 ALTER TABLE `ventas_detalle`
   ADD CONSTRAINT `ventas_detalle_ibfk_1` FOREIGN KEY (`ventas_cabecera_id`) REFERENCES `ventas_cabecera` (`id`),
   ADD CONSTRAINT `ventas_detalle_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
