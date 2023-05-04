@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: May 04, 2023 at 09:36 PM
+-- Generation Time: May 04, 2023 at 09:39 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -222,8 +222,9 @@ INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 DROP TABLE IF EXISTS `ventas_cabecera`;
 CREATE TABLE IF NOT EXISTS `ventas_cabecera` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
   `cliente_id` int(10) UNSIGNED NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_ventacab_cliente_idx` (`cliente_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Cabecera de ventas';
