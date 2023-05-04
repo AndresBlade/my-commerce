@@ -211,6 +211,7 @@ CREATE TABLE IF NOT EXISTS `usuarios_tipos` (
 
 INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 (1, 'CLIENTE'),
+(2, 'TIENDA'),
 (3, 'ADMINISTRADOR');
 
 -- --------------------------------------------------------

@@ -37,7 +37,7 @@ btnLogin.addEventListener('click', e => {
 		nombre: document.querySelector('.userForm__name').value,
 		email: document.querySelector('.userForm__email').value,
 		contrasenna: document.querySelector('.userForm__password').value,
-		tipo_id: 2,
+		tipo_id: 1,
 	};
 
 	const valido = validarCamposCorrectos();
