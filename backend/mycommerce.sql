@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3366
--- Generation Time: May 04, 2023 at 09:39 PM
+-- Generation Time: May 05, 2023 at 10:47 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `email` varchar(250) NOT NULL,
-  `contrasenna` varchar(45) NOT NULL,
+  `contrasenna` varchar(60) NOT NULL,
   `imagen` text DEFAULT NULL,
   `tipo_id` int(10) UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
@@ -190,7 +190,14 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   KEY `FK_usuario_tipo_idx` (`tipo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contrasenna`, `imagen`, `tipo_id`, `createdAt`, `updatedAt`) VALUES
+(1, 'Pablo Nerudaso', 'pablo.neruda@gmail.comaso', '$2b$10$KuCEaAYsKIuVUgLmPr9RSO0sETB.jGiwYyAhdQ', NULL, 1, '2023-05-04 20:03:26', '2023-05-04 20:03:26');
 
 -- --------------------------------------------------------
 
