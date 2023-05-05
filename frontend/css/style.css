@@ -10,6 +10,17 @@
 	#3145e3cc 0%, 
 	#4d62ffcc 51%, 
 	#7c92ffcc 100%);
+
+	/*
+	Degradado viejo
+	--degradadoFondo-color: 
+	linear-gradient(50.94deg,
+	#7c92ffcc 1.31%,
+	#4d62ffcc 42.31%,
+	#3145e3cc 74.71%)
+
+	
+	*/
 }
 
 body::-webkit-scrollbar {
@@ -43,8 +54,6 @@ body {
 .box-container-inicio
 {
 	background: var(--degradadoFondo-color);
-	margin-right: 4rem;
-	margin-left: 4rem;
 	border-radius: 1rem;
 	border-radius: 0 0 1rem 1rem;
 }
@@ -52,7 +61,6 @@ body {
 header {
 	background: var(--degradadoFondo-color);
 	position: sticky;
-	border-radius: 0px 0px 1rem;
 	z-index: 50;
 	font-size: 0.8rem;
 	top: 0;
@@ -138,14 +146,6 @@ header .search {
 	padding-bottom: 1.5rem;
 	padding-top: 1.5rem;
 	width: 400px;
-}
-
-.heading-2
-{
-	color: var(--letrasBlancas-color);
-	font-size: 2.5rem;
-	padding-bottom: 1rem;
-	width: 450px;
 }
 
 .rectangulo
@@ -451,28 +451,42 @@ header .search {
 }
 
 /*
-        fin del header
-        inicio del main
+        fin del header---------inicio del main
 */
-.tiendas-destacadas
+
+.tiendas-destacadas_heading
 {
 	display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem 4rem;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.tiendas-destacadas_heading .heading
+{
+	color: var(--letrasAzules-color);
+	font-size: 2.5rem;
+	font-weight: 500;
+	padding-top: 3rem;
+	padding-bottom: 0rem;
+	width: 410px;
+}
+
+.tiendas-destacadas_heading .rectangulo-2
+{
+	background-color: var(--letrasAzules-color);
 }
 
 .tiendas-destacadas .tiendas-container
 {
-	width: 100%;
-	position: relative;
-	gap: 2rem;
-	display: flex;
-	flex-wrap: wrap;
-	align-content: space-between;
-	justify-content: space-between;
+	min-height: 100vh;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 280px);
+	grid-gap: 2rem;
+	justify-content: space-around;
+	padding: 3rem;
 }
+
 
 .tiendas-destacadas .tiendas-container .tiendas
 {
@@ -482,13 +496,39 @@ header .search {
     border-radius: 10px;
 	width: 400px;
 	background: var(--letrasBlancas-color);
+	padding: 12.5rem 1rem 1rem 1rem;
+	position: relative;
+
+	max-width: 280px;
+	display: flex;
+	flex-flow: column;
+	cursor: pointer;
+	transition-property: box-shadow;
+	transition-duration: 0.3s;
 }
 
-.tiendas-destacadas .tiendas-container .tiendas:hover
+.tiendas-destacadas .tiendas-container .tiendas .heading
+{
+	font-size: 25px;
+	font-weight: 500;
+	width: 400px;
+	color: #000;
+	padding-bottom: 0;
+
+}
+
+
+.tiendas-destacadas .tiendas-container .tiendas:hover 
 {
 	transform: translateY(-4px);
     box-shadow: 0 1px 6px 1px rgba(0,0,0,.15);
 }
+
+.tiendas-destacadas .tiendas-container .tiendas:hover .ubicacion
+{
+	opacity: 1;
+}
+
 
 .tiendas .perfil
 {
@@ -497,6 +537,9 @@ header .search {
     background-size: cover;
     background-position: center;
     transition: .2s;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 .grid-tiendas
@@ -528,30 +571,30 @@ header .search {
 }
 
 .tiendas-destacadas .heading {
-	display: flex;
-	text-align: center;
-	align-items: center;
-	justify-content: center;
-	padding: 2rem;
+	/*
+	width: 300px;
 	margin: auto;
 	color: var(--letrasAzules-color);
 	font-size: 30px;
+	font-weight: 500;*/
 }
 
 .inner-container .inner-box p
 {
 	font-size: 15px;
 	color: black;
-	margin-bottom: 2.5rem;
-	text-align: center;
-	margin-top: 1rem; ;
-	margin-top: 2rem; ;
+	padding-bottom: 1rem;
+	text-align: center; 
+	font-weight: 100;
+	font-size: 15px;
 }
 
 .inner-container .inner-box h3
 {
 	text-align: center;
 	padding-top: 1rem;
+	font-weight: 500;
+	font-size: 20px;
 }
 
 .inner-container .inner-box ul
@@ -559,6 +602,7 @@ header .search {
 	text-align: center;
 	margin-top: 1rem;
 	margin-bottom: 2rem;
+	list-style: none;
 }
 
 .inner-container .inner-box li
@@ -566,7 +610,7 @@ header .search {
 	margin-top: 0.5rem;
 }
 
-.inner-btnCrearCuenta
+/*.inner-btnCrearCuenta
 {
 	display: flex;
 	margin: auto;
@@ -584,20 +628,40 @@ header .search {
 .inner-btnCrearCuenta:hover
 {
 	color: rgba(256, 256, 256, 0.5);
+}*/
+
+
+/*---------- Productos destacados */
+
+.productos-destacados_heading
+{
+	display: flex;	
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.productos-destacados_heading .heading
+{
+	color: var(--letrasAzules-color);
+	font-size: 2.5rem;
+	font-weight: 500;
+	padding-top: 3rem;
+	padding-bottom: 0rem;
+	width: 454px;
+}
+
+.productos-destacados_heading .rectangulo-2
+{
+	width: 500px;
+	height: 5px;
+	background-color: var(--letrasAzules-color);
 }
 
 
 /* -------------- vista ayuda -------------------        */
 
-.tiendas-destacadas .heading {
-	display: flex;
-	text-align: center;
-	align-items: center;
-	justify-content: center;
-	padding: 2rem;
-	margin: auto;
-	color: var(--letrasAzules-color);
-}
+
 
 .searchBox-container {
 	display: flex;
@@ -970,6 +1034,7 @@ input:focus {
 	opacity: 0;
 	transition-duration: 0.3s;
 	transition-property: opacity;
+	font-weight: 100;
 }
 .producto:hover .calificacion,
 .producto:hover .ubicacion {
