@@ -5,21 +5,20 @@ const User = require('./user');
 const Tienda = sequelize.define(
     'tiendas',
     {
+        RIF:{ type: DataTypes.INTEGER, allowNull: false, primaryKey: true,},
         nombre: { type: DataTypes.STRING, allowNull: false,},
-        RIF:{ type: DataTypes.INTEGER, allowNull: false,},
-        regionId:{ type: DataTypes.STRING, allowNull: false,},
+        imagen: { type: DataTypes.STRING, allowNull: false,},
         status: {type: DataTypes.ENUM('En espera', 'Aceptada', 'Rechazada')},
-        usuario_id:{type: DataTypes.INTEGER},
-        
+        cliente_id:{type: DataTypes.INTEGER},
     },
     {
-        timestamps: true, // createdAt, updatedAt
+        timestamps: true,   
     }
 );
 
 Tienda.findTiendaByName = function(name){
     Tienda.belongsTo(User, { 
-        foreignKey: 'usuario_id',
+        foreignKey: 'cliente_id',
         as: 'usuarioTienda' });
 
     return Tienda.findAll({

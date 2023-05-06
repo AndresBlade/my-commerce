@@ -4,6 +4,8 @@ const tienda = require('../controllers/tiendaControl');
 const {validatorRegisterTienda} = require('../validators/tiendaValidator');
 const authMiddleware = require('../middleware/session');
 const checkRole = require('../middleware/rol');
+const uploadMiddleware = require('../utils/handleStorage');
+const customParam = require('../middleware/customParams');
 
 router.get('/tienda/:name',
             authMiddleware,
@@ -18,6 +20,8 @@ router.get('/tiendas',
 router.post('/register', 
             authMiddleware,
             checkRole(['CLIENTE']),
+            customParam('tiendaProfile'),
+            uploadMiddleware.single('imagen'),
             validatorRegisterTienda,
             tienda.createTienda);
 

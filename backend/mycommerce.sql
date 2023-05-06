@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-04-2023 a las 11:51:03
+-- Tiempo de generación: 06-05-2023 a las 19:15:25
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -18,21 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `myComerce`
+-- Base de datos: `mycommerce`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `administradores`
---
-
-CREATE TABLE `administradores` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `annosExperiencia` tinyint(3) UNSIGNED NOT NULL,
-  `regionId` int(10) UNSIGNED NOT NULL,
-  `usuario_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Tabla maestra de administradores';
+CREATE DATABASE IF NOT EXISTS `mycommerce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mycommerce`;
 
 -- --------------------------------------------------------
 
@@ -40,6 +29,7 @@ CREATE TABLE `administradores` (
 -- Estructura de tabla para la tabla `categorias`
 --
 
+DROP TABLE IF EXISTS `categorias`;
 CREATE TABLE `categorias` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
@@ -81,29 +71,20 @@ INSERT INTO `categorias` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
---
-
-CREATE TABLE `clientes` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `edad` tinyint(3) UNSIGNED NOT NULL,
-  `baneado` enum('0','1') NOT NULL DEFAULT '0' COMMENT '''0'' = No Baneado. ''1'' = Baneado',
-  `usuario_id` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `productos`
 --
 
+DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `precio` decimal(10,2) UNSIGNED NOT NULL,
   `categoria_id` tinyint(3) UNSIGNED DEFAULT NULL,
   `tienda_id` int(10) UNSIGNED NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `descripcion` text DEFAULT NULL,
+  `imagenes` text NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -112,6 +93,7 @@ CREATE TABLE `productos` (
 -- Estructura de tabla para la tabla `regiones`
 --
 
+DROP TABLE IF EXISTS `regiones`;
 CREATE TABLE `regiones` (
   `id` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
@@ -154,12 +136,15 @@ INSERT INTO `regiones` (`id`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `tiendas`
 --
 
+DROP TABLE IF EXISTS `tiendas`;
 CREATE TABLE `tiendas` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `RIF` int(10) UNSIGNED NOT NULL,
-  `regionId` int(10) UNSIGNED NOT NULL,
+  `RIF` int(11) UNSIGNED NOT NULL,
+  `nombre` varchar(60) NOT NULL,
+  `imagen` text NOT NULL,
   `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada',
-  `usuario_id` int(10) UNSIGNED DEFAULT NULL
+  `cliente_id` int(11) UNSIGNED NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -168,22 +153,17 @@ CREATE TABLE `tiendas` (
 -- Estructura de tabla para la tabla `usuarios`
 --
 
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `nombre` varchar(45) NOT NULL,
-  `email` varchar(80) NOT NULL,
+  `correo` varchar(250) NOT NULL,
   `contrasenna` varchar(60) NOT NULL,
+  `imagen` text DEFAULT NULL,
   `tipo_id` int(10) UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contrasenna`, `tipo_id`, `createdAt`, `updatedAt`) VALUES
-(1, 'Juan Pérez', 'juan.perez@example.com', '$2b$10$lPNt7H2J0LX5vnVhIz6s2e7bXoaPZ4dEawL7F2/i2VOmtH.Bk9KPu', 2, '2023-04-27 09:43:19', '2023-04-27 09:43:19');
 
 -- --------------------------------------------------------
 
@@ -191,6 +171,7 @@ INSERT INTO `usuarios` (`id`, `nombre`, `email`, `contrasenna`, `tipo_id`, `crea
 -- Estructura de tabla para la tabla `usuarios_tipos`
 --
 
+DROP TABLE IF EXISTS `usuarios_tipos`;
 CREATE TABLE `usuarios_tipos` (
   `id` int(10) UNSIGNED NOT NULL,
   `descripcion` varchar(45) NOT NULL
@@ -211,10 +192,12 @@ INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `ventas_cabecera`
 --
 
+DROP TABLE IF EXISTS `ventas_cabecera`;
 CREATE TABLE `ventas_cabecera` (
   `id` int(10) UNSIGNED NOT NULL,
-  `fecha` date NOT NULL,
-  `cliente_id` int(10) UNSIGNED NOT NULL
+  `cliente_id` int(10) UNSIGNED NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Cabecera de ventas';
 
 -- --------------------------------------------------------
@@ -223,6 +206,7 @@ CREATE TABLE `ventas_cabecera` (
 -- Estructura de tabla para la tabla `ventas_detalle`
 --
 
+DROP TABLE IF EXISTS `ventas_detalle`;
 CREATE TABLE `ventas_detalle` (
   `id` int(11) NOT NULL,
   `ventas_cabecera_id` int(10) UNSIGNED NOT NULL,
@@ -236,26 +220,10 @@ CREATE TABLE `ventas_detalle` (
 --
 
 --
--- Indices de la tabla `administradores`
---
-ALTER TABLE `administradores`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Administrador_UsuarioIdIndex` (`usuario_id`),
-  ADD KEY `FK_administrador_region_idx` (`regionId`),
-  ADD KEY `usuarioid` (`usuario_id`);
-
---
 -- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_cliente_usuario_idx` (`usuario_id`);
 
 --
 -- Indices de la tabla `productos`
@@ -275,10 +243,8 @@ ALTER TABLE `regiones`
 -- Indices de la tabla `tiendas`
 --
 ALTER TABLE `tiendas`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `Tienda_RIF_UNIQUE` (`RIF`),
-  ADD KEY `FK_tienda_usuario_idx` (`usuario_id`),
-  ADD KEY `FK_tienda_region_idx` (`regionId`);
+  ADD PRIMARY KEY (`RIF`),
+  ADD KEY `cliente_id` (`cliente_id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -320,12 +286,6 @@ ALTER TABLE `categorias`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
--- AUTO_INCREMENT de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -338,16 +298,10 @@ ALTER TABLE `regiones`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT de la tabla `tiendas`
---
-ALTER TABLE `tiendas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios_tipos`
@@ -366,31 +320,17 @@ ALTER TABLE `ventas_cabecera`
 --
 
 --
--- Filtros para la tabla `administradores`
---
-ALTER TABLE `administradores`
-  ADD CONSTRAINT `administradores_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `administradores_ibfk_2` FOREIGN KEY (`regionId`) REFERENCES `regiones` (`id`);
-
---
--- Filtros para la tabla `clientes`
---
-ALTER TABLE `clientes`
-  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
-
---
 -- Filtros para la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`),
-  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`id`);
+  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`);
 
 --
 -- Filtros para la tabla `tiendas`
 --
 ALTER TABLE `tiendas`
-  ADD CONSTRAINT `tiendas_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `tiendas_ibfk_2` FOREIGN KEY (`regionId`) REFERENCES `regiones` (`id`);
+  ADD CONSTRAINT `tiendas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `usuarios`
@@ -402,7 +342,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `ventas_cabecera`
 --
 ALTER TABLE `ventas_cabecera`
-  ADD CONSTRAINT `ventas_cabecera_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
+  ADD CONSTRAINT `ventas_cabecera_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `ventas_detalle`

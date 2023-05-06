@@ -1,4 +1,5 @@
 const { matchedData } = require('express-validator');
+const PUBLIC_URL = process.env.PUBLIC_URL;
 const {userModel} = require('../models');
 const { encryptPassword, comparePassword } = require('../utils/handlePassword');
 const {tokenSign} = require('../utils/handleJwt');
@@ -9,7 +10,6 @@ const createUser = async (req, res) => {
     try{
         req = matchedData(req);
         console.log(req);
-
         const contrasenna = await encryptPassword(req.contrasenna);
         const body = {...req, contrasenna};
 

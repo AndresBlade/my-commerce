@@ -16,11 +16,7 @@ const authMiddleware = async (req, res, next) =>{
             handleHttpErros(res, 'NOT_PAYLOAD_DATA', 401);
         }
 
-        const query = {
-            id: dataToken.id,
-        }
-
-        const user = await userModel.findOne(query);
+        const user = await userModel.findUserById(dataToken.id);
         
         req.user = user;
         next();

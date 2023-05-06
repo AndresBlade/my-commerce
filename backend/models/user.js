@@ -8,6 +8,7 @@ const User = sequelize.define(
         nombre: { type: DataTypes.STRING, allowNull: false,},
         correo: { type: DataTypes.STRING},
         contrasenna: { type: DataTypes.STRING, select: false,},
+        imagen: { type: DataTypes.STRING},
         tipo_id: { type: DataTypes.INTEGER },
     },
     {
@@ -20,11 +21,15 @@ User.findUserById = function(id){
         foreignKey: 'tipo_id',
         as: 'tipo_usuario' });
 
-    return User.findAll({
+    return User.findOne({
         where: { id: id },
         include: { model: usuarios_tipos, as: 'tipo_usuario' }
         });
 };
+
+User.updateUserType = function(id, tipo_id){
+    return User.update({ tipo_id: tipo_id }, { where: { id: id }});
+}
 
 module.exports = User;
     

@@ -1,5 +1,6 @@
 const { matchedData } = require('express-validator');
 const { tiendaModel } = require('../models');
+const {userModel} = require('../models');
 
 const {handleHttpErros} = require('../utils/handleErrors');
 
@@ -10,6 +11,7 @@ const createTienda = async (req, res) => {
         console.log(req);
 
         const dataTienda = await tiendaModel.create(req);
+        const updateUser = await userModel.updateUserType(req.cliente_id, 2);
 
         res.send({dataTienda});
     }
