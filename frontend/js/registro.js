@@ -53,6 +53,7 @@ btnLogin.addEventListener('click', e => {
 	// }
 
 	let response;
+	let error;
 
 	console.log(user);
 
@@ -68,8 +69,17 @@ btnLogin.addEventListener('click', e => {
 		body: JSON.stringify(user),
 	})
 		.then(respuesta => respuesta.json())
-		.then(respuesta => console.log(respuesta))
-		.catch(err => console.log(err));
+		.then(respuesta =>
+			localStorage.setItem('user', JSON.stringify(respuesta))
+		)
+		.then(
+			respuesta =>
+				(window.location.href =
+					'http://127.0.0.1/e-commerce-tarea/frontend/vistas/perfil.html')
+		)
+		.catch(err => (error = err));
+
+	if (error) return console.log(error);
 
 	// fetch('http://127.0.0.1:3000/api/user/register', {
 	// 	method: 'POST',

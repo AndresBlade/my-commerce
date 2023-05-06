@@ -1,126 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Mi Perfil</title>
+		<link
+			href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="../js/main.js" defer></script>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil</title>
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/main.js" defer></script>
-</head>
+	<body>
+		<header>
+			<a href="../index.html" class="heading-white"
+				>bienvenido, emprendedor</a
+			>
+			<div class="group">
+				<ul class="navigation">
+					<li><a href="login.html">Iniciar Sesión</a></li>
+					<li><a href="explorar.html">Explorar</a></li>
+					<li><a href="ayuda.html">Ayuda</a></li>
+					<li><a href="contactanos.html">Contactanos</a></li>
+				</ul>
+				<div class="search">
+					<span class="icon">
+						<ion-icon
+							name="search-outline"
+							id="blanco"
+							class="searchBtn"
+						>
+						</ion-icon>
+						<ion-icon
+							name="close-outline"
+							class="closeBtn"
+						></ion-icon>
+					</span>
+				</div>
+				<ion-icon name="menu-outline" class="menuToggle"></ion-icon>
+			</div>
+		</header>
 
-<body>
-    <header>
-        <a href="../index.html" class="heading-white">bienvenido, emprendedor</a>
-        <div class="group">
-            <ul class="navigation">
-                <li><a href="login.html">Iniciar Sesión</a></li>
-                <li><a href="explorar.html">Explorar</a></li>
-                <li><a href="ayuda.html">Ayuda</a></li>
-                <li><a href="contactanos.html">Contactanos</a></li>
-            </ul>
-            <div class="search">
-                <span class="icon">
-                    <ion-icon name="search-outline" id="blanco" class="searchBtn"> </ion-icon>
-                    <ion-icon name="close-outline" class="closeBtn"></ion-icon>
-                </span>
-            </div>
-            <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
-        </div>
-    </header>
+		<main>
+			<div class="menu-dashboard">
+				<!-- TOP MENU -->
+				<div class="top-menu">
+					<div class="logo">
+						<span class="heading-white">MyCommerce</span>
+					</div>
+					<div class="toggle">
+						<i class="bx bx-menu heading-white"></i>
+					</div>
+				</div>
+				<!-- INPUT SEARCH -->
+				<div class="input-search">
+					<i class="bx bx-search"></i>
+					<input type="text" class="input" placeholder="Buscar" />
+				</div>
+				<!-- MENU -->
+				<div class="menu">
+					<div class="enlace">
+						<i class="bx bx-grid-alt heading-white"></i>
+						<span class="heading-white">Mi Cuenta</span>
+					</div>
 
-    <main>
-        <div class="menu-dashboard">
-            <!-- TOP MENU -->
-            <div class="top-menu">
-                <div class="logo">
-                    
-                    <span class="heading-white">MyCommerce</span>
-                </div>
-                <div class="toggle">
-                    <i class='bx bx-menu heading-white'></i>
-                </div>
-            </div>
-            <!-- INPUT SEARCH -->
-            <div class="input-search">
-                <i class='bx bx-search'></i>
-                <input type="text" class="input" placeholder="Buscar">
-            </div>
-            <!-- MENU -->
-            <div class="menu">
-                <div class="enlace">
-                    <i class="bx bx-grid-alt heading-white"></i>
-                    <span class="heading-white">Mi Cuenta</span>
-                </div>
+					<div class="enlace">
+						<i class="bx bx-user heading-white"></i>
+						<span class="heading-white">Compras</span>
+					</div>
 
-                <div class="enlace">
-                    <i class="bx bx-user heading-white"></i>
-                    <span class="heading-white">Compras</span>
-                </div>
+					<div class="enlace">
+						<i class="bx bx-grid-alt heading-white"></i>
+						<span class="heading-white">Ventas</span>
+					</div>
 
-                <div class="enlace">
-                    <i class="bx bx-grid-alt heading-white"></i>
-                    <span class="heading-white">Ventas</span>
-                </div>
+					<div class="enlace">
+						<i class="bx bx-message-square heading-white"></i>
+						<span class="heading-white">Mi Perfil</span>
+					</div>
 
-                <div class="enlace">
-                    <i class="bx bx-message-square heading-white"></i>
-                    <span class="heading-white">Mi Perfil</span>
-                </div>
+					<div class="enlace">
+						<i class="bx bx-file-blank heading-white"></i>
+						<span class="heading-white">Mis Tiendas</span>
+					</div>
+				</div>
+			</div>
 
-                <div class="enlace">
-                    <i class="bx bx-file-blank heading-white"></i>
-                    <span class="heading-white">Mis Tiendas</span>
-                </div>
+			<section class="tiendas-miPerfil">
+				<div class="box-container-miPerfil">
+					<div class="box-miPerfil">
+						<div class="inner-container-miPerfil arriba">
+							<img
+								src="../img/default_user_image.png"
+								alt=""
+								class="circular-miPerfil"
+							/>
+							<h3 class="heading">DoctorPantalla</h3>
+							<a href="#">Editar</a>
+						</div>
 
-                
-            </div>
-        </div>
+						<!-- <div class="inner-container-miPerfil texto-miPerfil">
+							<div class="inner-box-miPerfil">
+								<h4>Sedes:</h4>
+								<p>Centro comercial Paris</p>
+								<p>Centro comercial cosmos</p>
+							</div>
+							<div class="inner-box-miPerfil">
+								<h4>Redes Sociales</h4>
+								<a href="">@Doctorpantalla</a> <br />
+								<a href="">@Doctorpantalla</a> <br />
+								<a href="">+58 4245544886</a> <br />
+								<a href="">www.drpantalla.com</a> <br />
+							</div>
+							<div class="inner-box-miPerfil">
+								<h4>Descripcion:</h4>
+								<p>
+									Tienda de venta de laptops y remplazo de
+									pantallas
+								</p>
+							</div>
+						</div> -->
 
-        <section class="tiendas-miPerfil">
-            
-            <div class="box-container-miPerfil">
-                <div class="box-miPerfil">
-                    <div class="inner-container-miPerfil arriba">    
-                        <img
-                        src="../img/logoDrpantalla.jpg"
-                        alt=""
-                        class="circular-miPerfil"
-                        />
-                        <h3 class="heading">DoctorPantalla</h3>
-                        <a href="#">Editar</a>
-                    </div>
-                    
-                    <div class="inner-container-miPerfil texto-miPerfil">
-                        <div class="inner-box-miPerfil">
-                            <h4>Sedes:</h4>
-                            <p>Centro comercial Paris</p>
-                            <p>Centro comercial cosmos</p>
-                        </div>
-                        <div class="inner-box-miPerfil">
-                            <h4>Redes Sociales</h4>
-                            <a href="">@Doctorpantalla</a> <br>
-                            <a href="">@Doctorpantalla</a> <br>
-                            <a href="">+58 4245544886</a> <br>
-                            <a href="">www.drpantalla.com</a> <br>
-                        </div>
-                        <div class="inner-box-miPerfil">
-                            <h4>Descripcion:</h4>
-                            <p>
-                                Tienda de venta de laptops y remplazo de pantallas
-                            </p>
-                        </div>
-                    </div>
-                </div>
-        </section>
+						<p class="userProfile__name">Nombre:</p>
+						<p class="userProfile__email">Correo:</p>
+						<p class="userProfile__type">Tipo:</p>
+					</div>
+				</div>
+			</section>
+		</main>
 
-    </main>
+		<footer></footer>
 
-    <footer>
-
-    </footer>
-</body>
-
+		<script src="../js/perfil.js" type="module"></script>
+	</body>
 </html>
