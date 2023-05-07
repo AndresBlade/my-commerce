@@ -148,6 +148,10 @@ header .search {
 	width: 400px;
 }
 
+.heading--nombreTienda {
+	color: #000;
+}
+
 .rectangulo {
 	width: 150px;
 	height: 5px;
