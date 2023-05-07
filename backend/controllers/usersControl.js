@@ -46,7 +46,6 @@ const loginUser = async (req, res) => {
         const hashPassword = user.get('contrasenna');
         const passwordMatch = await comparePassword(req.contrasenna, hashPassword);
 
-        console.log(req.contrasenna, hashPassword);
 
         if(!passwordMatch){
             handleHttpErros(res, 'PASSWORD_NOT_MATCH', 401);
@@ -58,6 +57,7 @@ const loginUser = async (req, res) => {
             token: await tokenSign(user),
             user
         }
+        
         res.send({data});
     }catch(e){
         console.log(e);
@@ -81,6 +81,31 @@ const getUsersById = async (req, res) => {
     }
 }
 
+const editProfile = async (req, res) => {
+    try{    
+        const id_user = req.params.id;
+        const {id, ...body} = req.body;
+        const data = await userModel.update(body, {where:{ id: id_user }});
+        res.send(data);
+    }catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_EDIT_USER', 503);
+    }
+}
 
-module.exports = {createUser, loginUser, getUsers, getUsersById};
+const editUserImagen = async (req, res) => {
+    try{    
+        const id_user = req.params.id;
+        console.log(`id_user: ${id_user}`);
+        const {id, ...body} = req.body;
+        const data = await userModel.update(body, {where:{ id: id_user }});
+        res.send(data);
+    }catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_EDIT_USER_IMAGE', 503);
+    }
+}
+
+
+module.exports = {createUser, loginUser, getUsers, getUsersById, editProfile, editUserImagen};
 

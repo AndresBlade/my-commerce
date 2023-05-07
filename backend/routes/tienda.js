@@ -8,14 +8,12 @@ const uploadMiddleware = require('../utils/handleStorage');
 const customParam = require('../middleware/customParams');
 
 router.get('/tienda/:name',
-            authMiddleware,
-            checkRole(['CLIENTE']),
             tienda.getTiendaByName);
 
+
 router.get('/tiendas',
-            authMiddleware,
-            checkRole(['CLIENTE']),
             tienda.getTiendas);
+
 
 router.post('/register', 
             authMiddleware,
