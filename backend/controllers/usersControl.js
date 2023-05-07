@@ -84,6 +84,9 @@ const getUsersById = async (req, res) => {
 const editProfile = async (req, res) => {
     try{    
         const id_user = req.params.id;
+        const contrasenna = await encryptPassword(req.body.contrasenna);
+        req.body.contrasenna = contrasenna;
+
         const {id, ...body} = req.body;
         const data = await userModel.update(body, {where:{ id: id_user }});
         res.send(data);

@@ -44,4 +44,4 @@ router.put('/editarImagen/:id',
             users.editUserImagen);
 
 
-module.exports = router;
+module.exports = router;    
