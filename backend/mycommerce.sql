@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-05-2023 a las 21:53:14
+-- Tiempo de generación: 07-05-2023 a las 22:09:02
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -150,6 +150,19 @@ CREATE TABLE `tiendas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `tiendas_regiones`
+--
+
+DROP TABLE IF EXISTS `tiendas_regiones`;
+CREATE TABLE `tiendas_regiones` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `tienda_id` int(10) UNSIGNED NOT NULL,
+  `region_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -254,6 +267,14 @@ ALTER TABLE `tiendas`
   ADD KEY `cliente_id` (`cliente_id`);
 
 --
+-- Indices de la tabla `tiendas_regiones`
+--
+ALTER TABLE `tiendas_regiones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tienda_id` (`tienda_id`),
+  ADD KEY `region_id` (`region_id`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -305,6 +326,12 @@ ALTER TABLE `regiones`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
+-- AUTO_INCREMENT de la tabla `tiendas_regiones`
+--
+ALTER TABLE `tiendas_regiones`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -338,6 +365,13 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `tiendas`
   ADD CONSTRAINT `tiendas_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `tiendas_regiones`
+--
+ALTER TABLE `tiendas_regiones`
+  ADD CONSTRAINT `tiendas_regiones_ibfk_2` FOREIGN KEY (`region_id`) REFERENCES `regiones` (`id`),
+  ADD CONSTRAINT `tiendas_regiones_ibfk_3` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`);
 
 --
 -- Filtros para la tabla `usuarios`
