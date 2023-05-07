@@ -68,7 +68,11 @@ btnLogin.addEventListener('click', e => {
 		},
 		body: JSON.stringify(user),
 	})
-		.then(respuesta => respuesta.json())
+		.then(respuesta => {
+			if (!respuesta.ok)
+				return respuesta.text().then(texto => Promise.reject(texto)); //si no es ok, rechaza la promesa y pasa al catch
+			return respuesta.json();
+		})
 		.then(respuesta =>
 			localStorage.setItem('user', JSON.stringify(respuesta))
 		)
@@ -77,9 +81,7 @@ btnLogin.addEventListener('click', e => {
 				(window.location.href =
 					'http://127.0.0.1/e-commerce-tarea/frontend/vistas/perfil.html')
 		)
-		.catch(err => (error = err));
-
-	if (error) return console.log(error);
+		.catch(err => console.log(JSON.parse(err)));
 
 	// fetch('http://127.0.0.1:3000/api/user/register', {
 	// 	method: 'POST',
