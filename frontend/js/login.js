@@ -24,7 +24,7 @@ btnLogin.addEventListener('click', e => {
 	// btnLogin.setAttribute('disabled', true);
 
 	const user = {
-		email: document.querySelector('.userForm__email').value,
+		correo: document.querySelector('.userForm__email').value,
 		contrasenna: document.querySelector('.userForm__password').value,
 	};
 

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const data = JSON.parse(localStorage.getItem('user')).data;
 	console.log(data);
 	const name = data.user.nombre;
-	const email = data.user.email;
+	const email = data.user.correo;
 	const type = data.user.tipo_id === 1 ? 'Cliente' : 'Otro tipo rarito';
 
 	document.querySelector('.userProfile__name').textContent = name;
