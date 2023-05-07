@@ -35,7 +35,7 @@ btnLogin.addEventListener('click', e => {
 
 	const user = {
 		nombre: document.querySelector('.userForm__name').value,
-		email: document.querySelector('.userForm__email').value,
+		correo: document.querySelector('.userForm__email').value,
 		contrasenna: document.querySelector('.userForm__password').value,
 		tipo_id: 1,
 	};

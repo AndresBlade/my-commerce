@@ -630,7 +630,6 @@ header .search {
 }
 
 /* -------------- vista ayuda -------------------        */
-
 .searchBox-container {
 	display: flex;
 	justify-content: flex-start;
@@ -801,6 +800,7 @@ header .search {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+	
 }
 
 .tiendas-miPerfil .heading {
@@ -822,6 +822,20 @@ header .search {
 	border-radius: 10px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 	background-color: #fff;
+}
+
+.labelImg{
+	display: block;
+	width: 200px;
+	color: #fff;
+	padding: 12px;
+	margin: 10px auto;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.input-fileImg{
+	display: none;
 }
 
 .tiendas-miPerfil .box-container-miPerfil .box-miPerfil .circular-miPerfil {
