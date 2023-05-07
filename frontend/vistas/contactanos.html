@@ -8,6 +8,97 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+
+    <header class="header">
+        <a href="../index.html" class="logo">LOGO</a>
+        <input class="searchBox" type="text" placeholder="Buscar" />
+
+        <div class="group">
+            <ul class="navigation">
+                <li><a href="login.html">Iniciar Sesión</a></li>
+                <li><a href="explorar.html">Explorar</a></li>
+                <li><a href="ayuda.html">Ayuda</a></li>
+                <li><a href="perfil.html">Mi Perfil</a></li>
+                <li><a href="contactanos.html">Contactanos</a></li>
+            </ul>
+
+            <div class="search">
+                <span class="icon">
+                    <ion-icon
+                        name="search-outline"
+                        id="blanco"
+                        class="searchBtn"
+                    >
+                    </ion-icon>
+                    <ion-icon
+                        name="close-outline"
+                        class="closeBtn"
+                    ></ion-icon>
+                </span>
+            </div>
+            <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
+        </div>
+    </header>
+
+    <section class="section-contactanos">
+        <div class="contacto-form">
+            <div class="form">
+                <div class="contact-form-text">
+                    <h2>¡Habla con nosotros!</h2>
+                    <p>¡Hola! En MyCommerce nos encantaría saber de ti. Si tienes alguna duda, 
+                        problema o sugerencia sobre nuestros productos o servicios, escríbenos a través de 
+                        nuestro correo electrónico o redes sociales. Estamos siempre buscando maneras 
+                        de mejorar para ofrecerte la mejor experiencia posible. ¡Gracias por escogernos!
+                    </p>
+                </div>
+                <form action="">
+                    <div class="inputbox">  
+                        <label for="">Tu nombre</label>
+                        <input type="text" placeholder="Nombre...">
+                    </div>
+
+                    <div class="inputbox">  
+                        <label for="">Tu email</label>
+                        <input type="email" placeholder="Email...">
+                    </div>
+                    
+                    <div class="inputbox">  
+                        <label for=""></label>
+                        <textarea name="" id="" cols="30" rows="5" placeholder="Mensaje..."></textarea>
+                    </div>
+                    <input type="submit" value="Enviar Mensaje">
+                </form>
+            </div>
+
+            <div class="info">
+                <div class="imgBox">
+                    <img src="../img/contactanos.png" alt="">
+                </div>
+                <div class="info-textBox">
+                    <div class="info-contact">
+                        <ion-icon name="location-outline"></ion-icon> <p>Burundí, Cankuzo</p>
+                    </div>
+
+                    <div class="info-contact">
+                        <ion-icon name="mail-outline"></ion-icon> <p>cmmh2004iujo@gmail.com</p>            
+                    </div>
+
+                    <div class="info-rrss">
+                        <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                        <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+                        <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                        <a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </section>
+    
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     
 </body>
 </html>
