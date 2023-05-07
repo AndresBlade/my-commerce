@@ -1,12 +1,13 @@
 const { check } = require('express-validator');
 const validationResults = require('../utils/handleValidator')
 
+
 const validatorRegisterUser = [
     check('nombre')
     .exists()
     .notEmpty()
     .isLength({ min: 3, max: 20 }),
-    check('email')
+    check('correo')
     .exists()
     .notEmpty()
     .isEmail(),
@@ -14,16 +15,19 @@ const validatorRegisterUser = [
     .exists()
     .notEmpty()
     .isLength({ min: 6, max: 20 }),
+    check('imagen'),
     check('tipo_id')
     .exists()
     .notEmpty()
     .isInt(),
     (req, res, next) => {
+        console.log(req.body);
         return validationResults(req, res, next)
     }
+    
 ]
 const validatorLoginUser = [
-    check('email')
+    check('correo')
     .exists()
     .notEmpty()
     .isEmail(),
