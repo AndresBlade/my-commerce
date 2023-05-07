@@ -881,6 +881,11 @@ form input {
 	margin-right: auto;
 }
 
+.btn-login--disabled {
+	background-color: #c7c7c7;
+	cursor: not-allowed;
+}
+
 .btn-login:hover {
 	background-color: #3145e3;
 }
