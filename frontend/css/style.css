@@ -766,7 +766,7 @@ header .search {
 }
 
 .menu .enlace span {
-	opacity: 0;
+	/* opacity: 0; */
 	transition: opacity 0.3s ease;
 }
 
