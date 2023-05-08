@@ -2,19 +2,121 @@
 
 import { mostrarMensajeError } from './utilidades.js';
 
-const btnAgregarTienda = document.querySelector('.btnAgregarTienda');
+class UI {
+	constructor() {
+		this.data = JSON.parse(localStorage.getItem('user'));
+		// this.tiendas = this.data.tiendas;
+		// this.region = this.data.regiones;
+		// this.tienda = {
+		// 	id: this.tiendas.length + 1,
+		// 	nombre: this.nombre,
+		// 	RIF: this.RIF,
+		// 	imagen: this.imagen,
+		// 	regionId: this.regionId,
+		// };
+		// this.tiendas.push(this.tienda);
+		// this.data.tiendas = this.tiendas;
+	}
+
+	get btnAgregarTienda() {
+		return document.querySelector('.btnAgregarTienda');
+	}
+
+	get modalAgregarTienda() {
+		return document.querySelector('.modalAgregarTienda');
+	}
+
+	get dialogAgregarTienda() {
+		return document.querySelector('.modalAgregarTienda__dialog');
+	}
+
+	get btnSubirImagen() {
+		return document.querySelector('.formularioTienda__image');
+	}
+
+	get btnSubmitTienda() {
+		return document.querySelector('.formularioTienda__submit');
+	}
+
+	get formularioTienda() {
+		return document.querySelector('.formularioTienda');
+	}
+
+	get inputName() {
+		return document.querySelector('.formularioTienda__name');
+	}
+
+	get inputRIF() {
+		return document.querySelector('.formularioTienda__RIF');
+	}
+
+	get inputImage() {
+		return document.querySelector('.formularioTienda__image');
+	}
+
+	get inputRegion() {
+		return document.querySelector('.formularioTienda__regionSelect');
+	}
+
+	get inputImagePreview() {
+		return document.querySelector('.formularioTienda__imagePreview');
+	}
+
+	validarCamposCorrectos() {
+		const inputName = this.inputName;
+		const inputRIF = this.inputRIF;
+		const inputImage = this.inputImage;
+		const inputRegion = this.inputRegion;
+
+		const inputsText = [inputName, inputRIF, inputRegion];
+
+		const camposRellenos = inputsText.every(input => input.value !== '');
+
+		if (!camposRellenos)
+			return mostrarMensajeError(
+				'Faltan campos por rellenar',
+				'.formularioTienda__errorBox'
+			);
+
+		if (inputImage.files.length === 0)
+			return mostrarMensajeError(
+				'Debe subir una imagen',
+				'.formularioTienda__errorBox'
+			);
+
+		if (inputName.value.length < 4)
+			return mostrarMensajeError(
+				'El nombre debe tener mínimo 4 caracteres',
+				'.formularioTienda__errorBox'
+			);
+
+		if (inputRIF.value > 2000000000)
+			return mostrarMensajeError(
+				'El RIF debe ser un número menor a 1.000.000.000',
+				'.formularioTienda__errorBox'
+			);
+
+		return true;
+	}
+
+	crearTienda() {}
+}
+
+const ui = new UI();
+
+const btnAgregarTienda = ui.btnAgregarTienda;
+
+const modalAgregarTienda = ui.modalAgregarTienda;
+
+const dialogAgregarTienda = ui.dialogAgregarTienda;
+
+const btnSubirImagen = ui.btnSubirImagen;
+
+const btnSubmitTienda = ui.btnSubmitTienda;
 
 btnAgregarTienda.addEventListener('click', e => {
-	document
-		.querySelector('.modalAgregarTienda')
-		.classList.add('modalAgregarTienda--visible');
+	modalAgregarTienda.classList.add('modalAgregarTienda--visible');
 }); //abre el modal
-
-const modalAgregarTienda = document.querySelector('.modalAgregarTienda');
-
-const dialogAgregarTienda = document.querySelector(
-	'.modalAgregarTienda__dialog'
-);
 
 function cerrarModal() {
 	modalAgregarTienda.classList.remove('modalAgregarTienda--visible'); //cierra el modal
@@ -28,8 +130,6 @@ dialogAgregarTienda.addEventListener('mouseenter', e => {
 	modalAgregarTienda.removeEventListener('click', cerrarModal);
 });
 
-const btnSubirImagen = document.querySelector('.formularioTienda__image');
-
 btnSubirImagen.addEventListener('change', e => {
 	const file = btnSubirImagen.files[0];
 	const reader = new FileReader();
@@ -37,7 +137,7 @@ btnSubirImagen.addEventListener('change', e => {
 	console.log('eventoloco');
 	reader.addEventListener('loadend', e => {
 		console.log('readerloco');
-		let image = document.querySelector('.formularioTienda__imagePreview');
+		let image = ui.inputImagePreview;
 		image.src = e.target.result; //obtiene la imagen del file reader
 		image.classList.add('formularioTienda__imagePreview--visible');
 	});
@@ -45,65 +145,20 @@ btnSubirImagen.addEventListener('change', e => {
 	reader.readAsDataURL(file);
 });
 
-const btnSubmitTienda = document.querySelector('.formularioTienda__submit');
-
-function validarCamposCorrectos() {
-	const form = document.querySelector('.formularioTienda');
-
-	const inputName = document.querySelector('.formularioTienda__name');
-	const inputRIF = document.querySelector('.formularioTienda__RIF');
-	const inputImage = document.querySelector('.formularioTienda__image');
-	const inputRegion = document.querySelector(
-		'.formularioTienda__regionSelect'
-	);
-
-	const inputsText = [inputName, inputRIF, inputRegion];
-
-	const camposRellenos = inputsText.every(input => input.value !== '');
-
-	if (!camposRellenos)
-		return mostrarMensajeError(
-			'Faltan campos por rellenar',
-			'.formularioTienda__errorBox'
-		);
-
-	if (inputImage.files.length === 0)
-		return mostrarMensajeError(
-			'Debe subir una imagen',
-			'.formularioTienda__errorBox'
-		);
-
-	if (inputName.value.length < 4)
-		return mostrarMensajeError(
-			'El nombre debe tener mínimo 4 caracteres',
-			'.formularioTienda__errorBox'
-		);
-
-	if (inputRIF.value > 2000000000)
-		return mostrarMensajeError(
-			'El RIF debe ser un número menor a 1.000.000.000',
-			'.formularioTienda__errorBox'
-		);
-
-	return true;
-}
-
 btnSubmitTienda.addEventListener('click', e => {
 	//Aquí se hace el fetch para registrar la tienda
 	e.preventDefault();
 
-	const camposCorrectos = validarCamposCorrectos();
+	const camposCorrectos = ui.validarCamposCorrectos();
 
 	if (!camposCorrectos) return;
 
-	const RIF = document.querySelector('.formularioTienda__RIF').value;
-	const nombre = document.querySelector('.formularioTienda__name').value;
-	const imagen = document.querySelector('.formularioTienda__image').files[0];
-	const regionId = document.querySelector(
-		'.formularioTienda__regionSelect'
-	).value;
+	const RIF = ui.inputRIF.value;
+	const nombre = ui.inputName.value;
+	const imagen = ui.inputImage.files[0];
+	const regionId = ui.inputRegion.value;
 
-	const data = JSON.parse(localStorage.getItem('user')).data;
+	const data = ui.data.data;
 
 	const token = data.token;
 
