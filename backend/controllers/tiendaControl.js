@@ -42,4 +42,15 @@ const getTiendas = async (req, res) => {
     }
 }
 
-module.exports = {createTienda, getTiendaByName, getTiendas}
+const getTiendasByUser = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const data = await userModel.FindTiendasByUser(id);
+        res.send({data});   
+    }catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_TIENDAS_BY_USER');
+    }
+}
+
+module.exports = {createTienda, getTiendaByName, getTiendas, getTiendasByUser}
