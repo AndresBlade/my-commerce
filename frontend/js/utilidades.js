@@ -1,10 +1,10 @@
 'use strict';
 
-export function mostrarMensajeError(msg) {
+export function mostrarMensajeError(msg, parentClass) {
 	const cuadro = document.createElement('p');
-	const parent = document.querySelector('.userForm');
+	const parent = document.querySelector(parentClass);
 
-	const mensajeAnterior = document.querySelector('.userForm__mensajeError');
+	const mensajeAnterior = document.querySelector('.mensajeError');
 
 	if (mensajeAnterior && mensajeAnterior.textContent === msg) {
 		return;
@@ -14,14 +14,14 @@ export function mostrarMensajeError(msg) {
 		mensajeAnterior.remove();
 	}
 
-	cuadro.classList.add('userForm__mensajeError');
+	cuadro.classList.add('mensajeError');
 
 	cuadro.textContent = msg;
 
 	parent.append(cuadro);
 
 	setTimeout(() => {
-		cuadro.classList.add('userForm__mensajeError--fade');
+		cuadro.classList.add('mensajeError--fade');
 	}, 4400);
 
 	setTimeout(() => {
