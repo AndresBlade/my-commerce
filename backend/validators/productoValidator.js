@@ -1,7 +1,7 @@
 const { check } = require('express-validator');
 const validationResults = require('../utils/handleValidator')
 
-const validatorRegisterProdcuto = [
+const validatorRegisterProducto = [
     check('nombre')
     .exists()
     .notEmpty()
@@ -18,7 +18,7 @@ const validatorRegisterProdcuto = [
     check('descripcion')
     .exists()
     .notEmpty(),
-    check('imagenes')
+    check('imagen')
     .exists()
     .notEmpty(),
     (req, res, next) => {

@@ -99,8 +99,8 @@ const editProfile = async (req, res) => {
 const editUserImagen = async (req, res) => {
     try{    
         const id_user = req.params.id;
-        console.log(`id_user: ${id_user}`);
         const {id, ...body} = req.body;
+        body.imagen = body.imagen.trim();
         const data = await userModel.update(body, {where:{ id: id_user }});
         res.send(data);
     }catch(e){

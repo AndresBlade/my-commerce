@@ -8,7 +8,9 @@ const app = express();
 app.use(cors());
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('storage'));
+app.use(express.static('storage/tiendas/products'));
+app.use(express.static('storage/tiendas/profile'));
+app.use(express.static('storage/usersProfile'));
 const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
