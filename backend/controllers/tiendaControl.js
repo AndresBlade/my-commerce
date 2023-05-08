@@ -47,7 +47,7 @@ const getTiendas = async (req, res) => {
 const getTiendasByUser = async (req, res) => {
     try{
         const {id} = req.params;
-        const data = await userModel.FindTiendasByUser(id);
+        const data = await tiendaModel.FindTiendasByUser(id);
         res.send({data});   
     }catch(e){
         console.log(e);

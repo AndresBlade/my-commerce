@@ -1,6 +1,6 @@
 const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
-const products = require('./producto');
+const User = require('./user');
 
 
 const Tienda = sequelize.define(
@@ -17,30 +17,30 @@ const Tienda = sequelize.define(
     }
 );
 
-//mal
-Tienda.findTiendaByName = function(name){
-    const User = () => require('./user');
-    Tienda.belongsTo(User(), { 
-        foreignKey: 'cliente_id',
-        as: 'usuarioTienda' });
+Tienda.belongsTo(User, { 
+    foreignKey: 'cliente_id',
+    as: 'usuarioTienda'
+});
 
+
+Tienda.findTiendaByName = function(name){
     return Tienda.findAll({
         where: { nombre: name },
         include: { model: User(), as: 'usuarioTienda' }
         });
 };
 
-//bien
 Tienda.FindTiendas = function(){
-    const User = () => require('./user');
-    Tienda.belongsTo(User(), { 
-        foreignKey: 'cliente_id',
-        as: 'usuarioTienda' });
-
     return Tienda.findAll({
-        include: { model: User(), as: 'usuarioTienda' }
+        include: { model: User, as: 'usuarioTienda' }
         });
 };
+
+Tienda.FindTiendasByUser = function(id){
+    return Tienda.findAll({
+        where: { cliente_id: id },
+    });
+}
 
 module.exports = Tienda;
     

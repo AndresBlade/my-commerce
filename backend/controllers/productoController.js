@@ -59,7 +59,7 @@ const getProductByCategory = async (req, res) => {
 const getProductsByName = async (req, res) => {
     try{
         const {name} = req.params;   
-        const tiendaProducts = await productoModel.findProductsByName(name);
+        const productsByName = await productoModel.findProductsByName(name);
         res.send({productsByName});
     }
     catch(e){

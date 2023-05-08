@@ -1,5 +1,8 @@
 const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
+const categorias = require('./categorias');
+const tiendas = require('./tiendas');
+
 
 const Producto = sequelize.define(
     'productos',
@@ -16,16 +19,20 @@ const Producto = sequelize.define(
     }
 );
 
-Producto.findAllProducts = async function(){
-    const getTiendaModel = () => require('./tiendas');
-    Producto.belongsTo(getTiendaModel(), {
-        foreignKey: 'tienda_id',
-        attributes: ['nombre', 'imagen'],
-        as: 'tienda'
-    });
+Producto.belongsTo(tiendas, {
+    foreignKey: 'tienda_id',
+    as: 'tienda',
+    attributes: ['nombre', 'imagen']
+});
 
+Producto.belongsTo(categorias, {
+    foreignKey: 'categoria_id',
+    as: 'categoria',
+});
+
+Producto.findAllProducts = async function(){
     return Producto.findAll({
-        include: { model: getTiendaModel(), 
+        include: { model: tiendas, 
                    as: 'tienda',
                    attributes: ['nombre', 'imagen']
                 }
@@ -33,54 +40,27 @@ Producto.findAllProducts = async function(){
 }
 
 Producto.FindProductsByTienda = function(id){
-    const getTiendaModel = () => require('./tiendas');
-    Producto.belongsTo(getTiendaModel(), {
-        foreignKey: 'tienda_id',
-        as: 'tienda'
-    });
-
     return Producto.findAll({
         where: { tienda_id: id },
     });
 }
 
 Producto.findProductsByCategory = function(id){
-    const getCategoriaModel = () => require('./categorias');
-    const getTiendaModel = () => require('./tiendas');
-    Producto.belongsTo(getCategoriaModel(), {
-        foreignKey: 'categoria_id',
-        as: 'categoria',
-    });
-
-    Producto.belongsTo(getTiendaModel(), {
-        foreignKey: 'tienda_id',
-        as: 'tienda',
-    });
-
-
     return Producto.findAll({
         where: { categoria_id: id },
-        include: { model: getTiendaModel(), 
+        include: { model: tiendas, 
                     as: 'tienda',
                     attributes: ['nombre', 'imagen'] }
     });
 }
 
-Producto.findProductsByName = function(name){
-    const getTiendaModel = () => require('./tiendas');
-    Producto.belongsTo(getTiendaModel(), {
-        foreignKey: 'tienda_id',
-        as: 'tienda'
-    });
-    
-
+Producto.findProductsByName = function(name){    
     return Producto.findAll({
         where: { nombre: name },
-        include: { model: getTiendaModel(), 
+        include: { model: tiendas, 
             as: 'tienda',
             attributes: ['nombre', 'imagen'] }
     });
 }
-
 
 module.exports = Producto;
