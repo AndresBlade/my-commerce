@@ -15,7 +15,7 @@ router.post('/createProduct',
             validatorRegisterProducto,
             producto.createProduct);
 
-router.get('/getProduct', 
-            producto.getProduct);
+router.get('/getProductsByTienda/:rif', 
+            producto.getProductsByTienda);
 
 module.exports = router;

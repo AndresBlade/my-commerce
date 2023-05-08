@@ -20,8 +20,9 @@ const createProduct = async (req, res) => {
     }
 }
 
-const getProduct = async (req, res) => {
+const getProductsByTienda = async (req, res) => {
     try{
+        const {rif} = req.params;   
         const dataTienda = await productoModel.findAll();
 
         res.send({dataTienda});
@@ -32,4 +33,4 @@ const getProduct = async (req, res) => {
     }
 }
 
-module.exports = {createProduct, getProduct};
+module.exports = {createProduct, getProductsByTienda};
