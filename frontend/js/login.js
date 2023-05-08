@@ -67,10 +67,16 @@ btnLogin.addEventListener('click', e => {
 				err.error === 'USER_NOT_FOUND'
 			)
 				//si el error es que la contraseña no coincide o el usuario no existe
-				mostrarMensajeError(
+				return mostrarMensajeError(
 					'El correo o contraseña son incorrectos',
 					'.userForm'
-				); //
+				);
+
+			if (err.erros.some(error => error.msg === 'Invalid value'))
+				return mostrarMensajeError(
+					'Ingrese un correo o contraseña reales (correo con @, contraseña con al menos una mayúscula, etc)',
+					'.userForm'
+				); //si el error es que el correo o contraseña no es valido
 		})
 		.finally(() => {
 			btnLogin.disabled = false;

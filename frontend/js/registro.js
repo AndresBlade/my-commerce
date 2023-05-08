@@ -15,6 +15,16 @@ function validarCamposCorrectos() {
 	if (!camposRellenos)
 		return mostrarMensajeError('Faltan campos por rellenar', '.userForm');
 
+	const email = document.querySelector('.userForm__email').value;
+	const emailRegex = /^\S+@\S+\.\S+$/; // Expresión regular para validar formato de correo electrónico
+
+	if (!emailRegex.test(email)) {
+		return mostrarMensajeError(
+			'Ingrese un correo electrónico válido',
+			'.userForm'
+		);
+	}
+
 	if (
 		document.querySelector('.userForm__password').value !==
 		document.querySelector('.userForm__confirmPassword').value
@@ -24,6 +34,16 @@ function validarCamposCorrectos() {
 			'.userForm'
 		);
 	}
+
+	if (
+		document.querySelector('.userForm__password').value.length < 8 ||
+		document.querySelector('.userForm__name').value.length < 8 ||
+		document.querySelector('.userForm__email').value.length < 8
+	)
+		return mostrarMensajeError(
+			'Los campos deben tener mínimo 8 caracteres',
+			'.userForm'
+		);
 
 	const checkTerminos = document.querySelector('.termsCheckbox');
 
@@ -74,7 +94,11 @@ btnLogin.addEventListener('click', e => {
 		},
 		body: JSON.stringify(user),
 	})
-		.then(respuesta => respuesta.json())
+		.then(respuesta => {
+			if (!respuesta.ok)
+				return respuesta.text().then(texto => Promise.reject(texto)); //si no es ok, rechaza la promesa y pasa al catch
+			return respuesta.json();
+		})
 		.then(respuesta =>
 			localStorage.setItem('user', JSON.stringify(respuesta))
 		)
@@ -83,9 +107,7 @@ btnLogin.addEventListener('click', e => {
 				(window.location.href =
 					'http://127.0.0.1/e-commerce-tarea/frontend/vistas/perfil.html')
 		)
-		.catch(err => (error = err));
-
-	if (error) return console.log(error);
+		.catch(err => console.log(JSON.parse(err)));
 
 	// fetch('http://127.0.0.1:3000/api/user/register', {
 	// 	method: 'POST',
