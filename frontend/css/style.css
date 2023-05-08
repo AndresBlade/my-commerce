@@ -655,7 +655,6 @@ header .search {
 .cajita:hover {
 	transform: translateY(-4px);
 	box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.15);
-	
 }
 
 .cajita .texto-cajita {
@@ -670,13 +669,10 @@ header .search {
 	font-size: 0.9rem;
 }
 
-.cajita .texto-cajita h4 
-{
+.cajita .texto-cajita h4 {
 	font-size: 1.1rem;
 	font-weight: 500;
 }
-
-
 
 /*		perfil		*/
 /* LAYOUT */
@@ -693,7 +689,8 @@ header .search {
 	);
 	padding: 5px;
 	transition: max-width 0.3s ease;
-	position: absolute;
+	position: sticky;
+	top: 80px;
 }
 
 .top-menu {
@@ -808,7 +805,6 @@ header .search {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	
 }
 
 .tiendas-miPerfil .heading {
@@ -832,7 +828,7 @@ header .search {
 	background-color: #fff;
 }
 
-.labelImg{
+.labelImg {
 	display: block;
 	width: 200px;
 	color: #fff;
@@ -842,7 +838,7 @@ header .search {
 	cursor: pointer;
 }
 
-.input-fileImg{
+.input-fileImg {
 	display: none;
 }
 
@@ -1425,4 +1421,53 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 
 .formularioTienda__errorBox {
 	padding: 20px;
+}
+
+.misTiendas {
+	width: 100%;
+	display: flex;
+}
+
+.misTiendas__grid {
+	padding: 20px 40px;
+	display: grid;
+	flex: 5 1 auto;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	gap: 20px;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: 400px;
+}
+
+.misTiendas__tienda {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-items: center;
+	background-color: #ccd4ff;
+	padding: 10px 20px;
+	border-radius: 20px;
+	box-shadow: #555 0 0 4px 2px;
+	cursor: pointer;
+	transition: all 0.4s;
+}
+
+.misTiendas__tienda:hover {
+	transform: scale(1.05);
+	box-shadow: #222 0 0 4px 3px;
+}
+
+.misTiendas__img {
+	height: 200px;
+	border-radius: 10px;
+}
+
+.misTiendas__title {
+	font-weight: 700;
+}
+
+.misTiendas__nombre {
+	font-weight: 700;
+	text-align: center;
 }

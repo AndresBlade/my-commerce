@@ -2,6 +2,7 @@ const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
 const User = require('./user');
 
+
 const Tienda = sequelize.define(
     'tiendas',
     {
@@ -16,28 +17,30 @@ const Tienda = sequelize.define(
     }
 );
 
-Tienda.findTiendaByName = function(name){
-    Tienda.belongsTo(User, { 
-        foreignKey: 'cliente_id',
-        as: 'usuarioTienda' });
+Tienda.belongsTo(User, { 
+    foreignKey: 'cliente_id',
+    as: 'usuarioTienda'
+});
 
+
+Tienda.findTiendaByName = function(name){
     return Tienda.findAll({
         where: { nombre: name },
-        include: { model: User, as: 'usuarioTienda' }
+        include: { model: User(), as: 'usuarioTienda' }
         });
 };
 
 Tienda.FindTiendas = function(){
-    Tienda.belongsTo(User, { 
-        foreignKey: 'usuario_id',
-        as: 'usuarioTienda' });
-
     return Tienda.findAll({
         include: { model: User, as: 'usuarioTienda' }
         });
 };
 
-
+Tienda.FindTiendasByUser = function(id){
+    return Tienda.findAll({
+        where: { cliente_id: id },
+    });
+}
 
 module.exports = Tienda;
     
