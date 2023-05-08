@@ -28,7 +28,7 @@ const getProductsByTienda = async (req, res) => {
     }
     catch(e){
         console.log(e);
-        handleHttpErros(res, 'ERROR_GET_PRODUCTS');
+        handleHttpErros(res, 'ERROR_GET_PRODUCTS_BY_TIENDA');
     }
 }
 
@@ -44,4 +44,18 @@ const getProducts = async (req, res) => {
     }
 }
 
-module.exports = {createProduct, getProductsByTienda, getProducts};
+const getProductByCategory = async (req, res) => {
+    try{
+        const {categoryID} = req.params;   
+        const tiendaProducts = await productoModel.findProductsByCategory(categoryID);
+        res.send({tiendaProducts});
+    }
+    catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_PRODUCTS_BY_CATEGORY');
+    }
+}
+
+
+
+module.exports = {createProduct, getProductsByTienda, getProducts,getProductByCategory };

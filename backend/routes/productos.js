@@ -20,4 +20,7 @@ router.get('/getProducts', producto.getProducts);
 router.get('/getProductsByTienda/:rif', 
             producto.getProductsByTienda);
 
+router.get('/getProductByCategory/:categoryID', 
+            producto.getProductByCategory);
+
 module.exports = router;

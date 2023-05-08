@@ -40,4 +40,16 @@ Producto.FindProductsByTienda = function(id){
     });
 }
 
+Producto.findProductsByCategory = function(id){
+    const getCategoriaModel = () => require('./categorias');
+    Producto.belongsTo(getCategoriaModel(), {
+        foreignKey: 'categoria_id',
+        as: 'categoria'
+    });
+
+    return Producto.findAll({
+        where: { categoria_id: id },
+        include: { model: getCategoriaModel(), as: 'categoria' }
+    });
+}
 module.exports = Producto;
