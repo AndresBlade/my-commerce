@@ -4,7 +4,7 @@ import { mostrarMensajeError } from './utilidades.js';
 
 class UI {
 	constructor() {
-		this.data = JSON.parse(localStorage.getItem('user'));
+		this.data = JSON.parse(localStorage.getItem('user')).data;
 		// this.tiendas = this.data.tiendas;
 		// this.region = this.data.regiones;
 		// this.tienda = {
@@ -16,7 +16,10 @@ class UI {
 		// };
 		// this.tiendas.push(this.tienda);
 		// this.data.tiendas = this.tiendas;
+		this.mostrarMisTiendas();
 	}
+
+	#tiendas = [];
 
 	get btnAgregarTienda() {
 		return document.querySelector('.btnAgregarTienda');
@@ -99,7 +102,74 @@ class UI {
 		return true;
 	}
 
-	crearTienda() {}
+	#obtenerMisTiendas() {
+		const { id } = this.data.user;
+		const { token } = this.data;
+
+		return fetch(
+			`http://127.0.0.1:3000/api/tienda/getTiendasByUser/${id}`,
+			{
+				method: 'GET',
+				url: 'http://127.0.0.1:3000',
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			}
+		)
+			.then(respuesta => {
+				if (!respuesta.ok)
+					return respuesta
+						.text()
+						.then(texto => Promise.reject(texto)); //si no es ok, rechaza la promesa y pasa al catch
+				return respuesta.json();
+			})
+			.then(respuesta => {
+				console.log(respuesta);
+				this.#tiendas = respuesta.data;
+			})
+			.catch(err => console.log(err));
+	}
+
+	mostrarMisTiendas() {
+		this.#obtenerMisTiendas().then(respuesta => {
+			console.log(this.#tiendas);
+			const misTiendas = document.querySelector('.misTiendas__grid');
+
+			const regexReemplazoRuta = /:\d\d\d\d/;
+			this.#tiendas.forEach(tienda => {
+				let { nombre, RIF, imagen, createdAt: fechaCreacion } = tienda;
+
+				// let [rutaImagen, nombreImagen] =
+				// 	imagen.split(regexReemplazoRuta);
+
+				// imagen = imagen.replace(regexReemplazoRuta, '');
+
+				console.log(imagen);
+
+				fechaCreacion = fechaCreacion.split('T')[0];
+
+				const tiendaHTML = document.createElement('div');
+				tiendaHTML.classList.add('misTiendas__tienda');
+
+				const nombreHTML = document.createElement('h3');
+				nombreHTML.textContent = nombre;
+
+				const RIFHTML = document.createElement('p');
+				RIFHTML.innerHTML = `<span class="misTiendas__title">RIF</span>: ${RIF}`;
+
+				const imagenHTML = document.createElement('img');
+				imagenHTML.src = imagen;
+
+				imagenHTML.classList.add('misTiendas__img');
+
+				const fechaHTML = document.createElement('p');
+				fechaHTML.textContent = fechaCreacion;
+
+				tiendaHTML.append(nombreHTML, RIFHTML, imagenHTML, fechaHTML);
+				misTiendas.append(tiendaHTML);
+			});
+		});
+	}
 }
 
 const ui = new UI();
@@ -158,7 +228,7 @@ btnSubmitTienda.addEventListener('click', e => {
 	const imagen = ui.inputImage.files[0];
 	const regionId = ui.inputRegion.value;
 
-	const data = ui.data.data;
+	const data = ui.data;
 
 	const token = data.token;
 
@@ -194,6 +264,7 @@ btnSubmitTienda.addEventListener('click', e => {
 		})
 		.then(respuesta => {
 			cerrarModal();
+			console.log(respuesta);
 		})
 		.catch(err =>
 			mostrarMensajeError(
