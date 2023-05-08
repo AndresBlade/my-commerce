@@ -153,6 +153,7 @@ class UI {
 
 				const nombreHTML = document.createElement('h3');
 				nombreHTML.textContent = nombre;
+				nombreHTML.classList.add('misTiendas__nombre');
 
 				const RIFHTML = document.createElement('p');
 				RIFHTML.innerHTML = `<span class="misTiendas__title">RIF</span>: ${RIF}`;
@@ -163,7 +164,7 @@ class UI {
 				imagenHTML.classList.add('misTiendas__img');
 
 				const fechaHTML = document.createElement('p');
-				fechaHTML.textContent = fechaCreacion;
+				fechaHTML.innerHTML = `<span class="misTiendas__title">Fecha de creación</span>: ${fechaCreacion}`;
 
 				tiendaHTML.append(nombreHTML, RIFHTML, imagenHTML, fechaHTML);
 				misTiendas.append(tiendaHTML);
@@ -265,6 +266,7 @@ btnSubmitTienda.addEventListener('click', e => {
 		.then(respuesta => {
 			cerrarModal();
 			console.log(respuesta);
+			window.location.reload();
 		})
 		.catch(err =>
 			mostrarMensajeError(

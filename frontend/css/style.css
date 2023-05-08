@@ -1429,6 +1429,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 }
 
 .misTiendas__grid {
+	padding: 20px 40px;
 	display: grid;
 	flex: 5 1 auto;
 	flex-direction: column;
@@ -1436,20 +1437,37 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	align-content: center;
 	gap: 20px;
 	grid-template-columns: repeat(3, 1fr);
-	grid-auto-rows: 1fr;
+	grid-auto-rows: 400px;
 }
 
 .misTiendas__tienda {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	align-items: center;
+	background-color: #ccd4ff;
+	padding: 10px 20px;
+	border-radius: 20px;
+	box-shadow: #555 0 0 4px 2px;
+	cursor: pointer;
+	transition: all 0.4s;
+}
+
+.misTiendas__tienda:hover {
+	transform: scale(1.05);
+	box-shadow: #222 0 0 4px 3px;
 }
 
 .misTiendas__img {
-	width: 200px;
-	max-height: 200px;
+	height: 200px;
+	border-radius: 10px;
 }
 
 .misTiendas__title {
-	font-style: bold;
+	font-weight: 700;
+}
+
+.misTiendas__nombre {
+	font-weight: 700;
+	text-align: center;
 }
