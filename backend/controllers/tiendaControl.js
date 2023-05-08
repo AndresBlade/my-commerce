@@ -9,6 +9,8 @@ const createTienda = async (req, res) => {
     try{
         req = matchedData(req);
         console.log(req);
+        req.imagen = req.imagen.trim();
+
 
         const dataTienda = await tiendaModel.create(req);
         const updateUser = await userModel.updateUserType(req.cliente_id, 2);
