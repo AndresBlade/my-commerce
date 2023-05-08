@@ -1,6 +1,5 @@
 const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
-const tiendas = require('./tiendas');
 const usuarios_tipos = require('./usersType');
 
 const User = sequelize.define(
@@ -29,12 +28,13 @@ User.findUserById = function(id){
 };
 
 User.FindTiendasByUser = function(id){
-    tiendas.belongsTo(User, {
+    const tiendas  = () => require('./tiendas');
+    tiendas().belongsTo(User, {
         foreignKey: 'cliente_id',
         as: 'usuarioTienda'
     });
 
-    return tiendas.findAll({
+    return tiendas().findAll({
         where: { cliente_id: id },
     });
 }

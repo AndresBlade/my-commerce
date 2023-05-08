@@ -1,4 +1,3 @@
-const { use } = require('../routes/productos');
 const {handleHttpErros} = require('../utils/handleErrors');
 
 const checkRole = (roles) => async (req, res, next) =>{

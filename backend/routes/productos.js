@@ -15,6 +15,8 @@ router.post('/createProduct',
             validatorRegisterProducto,
             producto.createProduct);
 
+router.get('/getProducts', producto.getProducts);
+
 router.get('/getProductsByTienda/:rif', 
             producto.getProductsByTienda);
 

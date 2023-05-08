@@ -23,7 +23,18 @@ const createProduct = async (req, res) => {
 const getProductsByTienda = async (req, res) => {
     try{
         const {rif} = req.params;   
-        const dataTienda = await productoModel.findAll();
+        const tiendaProducts = await productoModel.FindProductsByTienda(rif);
+        res.send({tiendaProducts});
+    }
+    catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_PRODUCTS');
+    }
+}
+
+const getProducts = async (req, res) => {
+    try{
+        const dataTienda = await productoModel.findAllProducts();
 
         res.send({dataTienda});
     }
@@ -33,4 +44,4 @@ const getProductsByTienda = async (req, res) => {
     }
 }
 
-module.exports = {createProduct, getProductsByTienda};
+module.exports = {createProduct, getProductsByTienda, getProducts};

@@ -1,6 +1,5 @@
 const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
-const Tienda = require('./tiendas');
 
 const Producto = sequelize.define(
     'productos',
@@ -16,5 +15,29 @@ const Producto = sequelize.define(
         timestamps: true, // createdAt, updatedAt
     }
 );
+
+Producto.findAllProducts = async function(){
+    const getTiendaModel = () => require('./tiendas');
+    Producto.belongsTo(getTiendaModel(), {
+        foreignKey: 'tienda_id',
+        as: 'tienda'
+    });
+
+    return Producto.findAll({
+        include: { model: getTiendaModel(), as: 'tienda' }
+    });
+}
+
+Producto.FindProductsByTienda = function(id){
+    const getTiendaModel = () => require('./tiendas');
+    Producto.belongsTo(getTiendaModel(), {
+        foreignKey: 'tienda_id',
+        as: 'tienda'
+    });
+
+    return Producto.findAll({
+        where: { tienda_id: id },
+    });
+}
 
 module.exports = Producto;
