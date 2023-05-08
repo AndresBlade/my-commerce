@@ -650,6 +650,7 @@ header .search {
 	box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
 	transition: 0.2s;
 	cursor: pointer;
+	text-decoration: none;
 }
 
 .cajita:hover {
@@ -659,7 +660,7 @@ header .search {
 }
 
 .cajita .texto-cajita {
-	display: flex;
+	display: block;
 	flex-direction: column;
 	text-align: left;
 	margin: 1.5rem;
@@ -667,20 +668,13 @@ header .search {
 
 .cajita .texto-cajita p {
 	color: var(--main-color) !important;
+	font-size: 0.9rem;
 }
 
 .cajita .texto-cajita h4 
 {
 	font-size: 1.1rem;
 	font-weight: 500;
-}
-
-.cajita .texto-cajita a
-{
-	font-size: 1.1rem;
-	font-weight: 500;
-	text-decoration: none;
-
 }
 
 
