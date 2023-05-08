@@ -1043,18 +1043,18 @@ input:focus {
 
 /* userForm */
 
-.userForm__mensajeError {
+.mensajeError {
 	width: 100%;
 	color: #f00;
 	background-color: #ff9a98;
 	font-size: 12px;
 	border-radius: 5px;
-	padding: 10px 0;
+	padding: 10px 10px;
 	animation-name: mostrarMensaje;
 	animation-duration: 0.6s;
 }
 
-.userForm__mensajeError--fade {
+.mensajeError--fade {
 	animation-name: fadeMensaje;
 }
 
@@ -1279,4 +1279,144 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	section .contacto-form .info {
 		margin-bottom: 30px;
 	}
+}
+
+.btnAgregarTienda {
+	background-color: var(--letrasAzules-color);
+	display: inline-block;
+	text-align: center;
+	width: 250px;
+	padding: 10px;
+	border-radius: 15px;
+	color: var(--background-color);
+	letter-spacing: 1px;
+	border: none;
+	cursor: pointer;
+	box-shadow: 1px 9px 20px -5px rgba(0, 0, 0, 0.59);
+	transition: 0.3s;
+	font-weight: 600;
+	position: fixed;
+	bottom: 40px;
+	right: 40px;
+	transition: all 0.4s;
+}
+
+.btnAgregarTienda:hover {
+	transform: scale(1.05);
+}
+
+.modalAgregarTienda {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	background: #0008;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 0.35s ease-in;
+	z-index: 1000;
+}
+
+.modalAgregarTienda__dialog {
+	position: relative;
+	max-width: 80vw;
+	max-height: 80vh;
+	border-radius: 5px;
+	background: #fff;
+	overflow: auto;
+	cursor: default;
+}
+
+.modalAgregarTienda__header {
+	padding: 5px 10px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #ccc;
+	gap: 40px;
+}
+
+.modalAgregarTienda__title {
+	padding: 0;
+	margin: 0;
+	color: #fff;
+}
+
+.modalAgregarTienda__footer {
+	padding: 1rem 1.5rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	border-top: 1px solid #ccc;
+}
+
+.modalAgregarTienda--visible {
+	visibility: visible;
+	opacity: 1;
+}
+
+.formularioTienda {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.formularioTienda__Divider {
+	padding: 20px 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.formularioTienda__regionSelect {
+	background-color: #c7c7c7;
+	padding: 15px 5px;
+	border-radius: 20px;
+}
+
+.formularioTienda__regionOption {
+	background-color: #fff;
+}
+
+.formularioTienda__imagePreview {
+	display: none;
+	max-height: 200px;
+}
+
+.formularioTienda__imagePreview--visible {
+	display: block;
+}
+
+.formularioTienda__submit {
+	display: block;
+	background-color: var(--letrasAzules-color);
+	color: var(--background-color);
+	padding: 10px;
+	width: 200px;
+	margin: 0 auto 20px auto;
+	border-radius: 15px;
+	border: none;
+	cursor: pointer;
+	box-shadow: 1px 9px 20px -5px rgba(0, 0, 0, 0.59);
+	transition: 0.3s;
+	font-weight: 600;
+}
+
+.formularioTienda__submit--disabled {
+	background-color: #c7c7c7;
+	color: #fff;
+	cursor: not-allowed;
+}
+
+.formularioTienda__label {
+	display: block;
+	margin-bottom: 10px;
+	margin-left: 20px;
+}
+
+.formularioTienda__errorBox {
+	padding: 20px;
 }

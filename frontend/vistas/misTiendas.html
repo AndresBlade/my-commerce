@@ -87,7 +87,232 @@
 					</a>
 				</div>
 			</div>
+
+			<button type="button" class="btnAgregarTienda">
+				Agregar Tienda
+			</button>
 		</main>
+
+		<div class="modalAgregarTienda" id="modalAgregarTienda">
+			<div class="modalAgregarTienda__dialog">
+				<header class="modalAgregarTienda__header">
+					<h2 class="modalAgregarTienda__title">Agregar Tienda</h2>
+					<!-- <button class="modalAgregarTienda__close">X</button> -->
+				</header>
+				<section class="modalAgregarTienda__content">
+					<form
+						action=""
+						class="modalAgregarTienda__formularioTienda formularioTienda"
+						enctype="multipart/form-data"
+					>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="RIF"
+								>RIF</label
+							>
+							<input
+								type="number"
+								class="formularioTienda__RIF"
+								name="RIF"
+								id="RIF"
+							/>
+						</div>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="name"
+								>Nombre</label
+							>
+							<input
+								type="text"
+								name="name"
+								id="name"
+								class="formularioTienda__name"
+							/>
+						</div>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="Image"
+								>Imagen</label
+							>
+							<input
+								type="file"
+								name="Image"
+								id="Image"
+								class="formularioTienda__image"
+								accept="image/png, image/jpeg"
+							/>
+							<img
+								class="formularioTienda__imagePreview"
+								alt="Imagen de tienda"
+							/>
+						</div>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="region"
+								>Región</label
+							>
+							<select
+								name="region"
+								id="region"
+								class="formularioTienda__regionSelect"
+							>
+								<option
+									class="formularioTienda__regionOption"
+									value="4"
+								>
+									Amazonas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="5"
+								>
+									Anzoátegui
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="6"
+								>
+									Apure
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="7"
+								>
+									Aragua
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="8"
+								>
+									Barinas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="9"
+								>
+									Bolívar
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="10"
+								>
+									Carabobo
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="11"
+								>
+									Cojedes
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="12"
+								>
+									Delta Amacuro
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="13"
+								>
+									Dependencias Federales
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="14"
+								>
+									Distrito Federal
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="15"
+								>
+									Falcón
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="16"
+								>
+									Guárico
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="17"
+								>
+									Lara
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="18"
+								>
+									Mérida
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="19"
+								>
+									Miranda
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="20"
+								>
+									Monagas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="21"
+								>
+									Nueva Esparta
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="22"
+								>
+									Portuguesa
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="23"
+								>
+									Sucre
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="24"
+								>
+									Táchira
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="25"
+								>
+									Trujillo
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="26"
+								>
+									Vargas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="27"
+								>
+									Yaracuy
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="28"
+								>
+									Zulia
+								</option>
+							</select>
+						</div>
+
+						<div class="formularioTienda__errorBox"></div>
+					</form>
+					<button type="button" class="formularioTienda__submit">
+						Crear Tienda
+					</button>
+				</section>
+			</div>
+		</div>
 
 		<footer></footer>
 

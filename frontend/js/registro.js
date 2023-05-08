@@ -13,19 +13,25 @@ function validarCamposCorrectos() {
 	});
 
 	if (!camposRellenos)
-		return mostrarMensajeError('Faltan campos por rellenar');
+		return mostrarMensajeError('Faltan campos por rellenar', '.userForm');
 
 	if (
 		document.querySelector('.userForm__password').value !==
 		document.querySelector('.userForm__confirmPassword').value
 	) {
-		return mostrarMensajeError('Las contraseñas deben de coincidir');
+		return mostrarMensajeError(
+			'Las contraseñas deben de coincidir',
+			'.userForm'
+		);
 	}
 
 	const checkTerminos = document.querySelector('.termsCheckbox');
 
 	if (!checkTerminos.checked)
-		return mostrarMensajeError('Debe aceptar los términos y condiciones');
+		return mostrarMensajeError(
+			'Debe aceptar los términos y condiciones',
+			'.userForm'
+		);
 
 	return true;
 }

@@ -13,7 +13,7 @@ function validarCamposCorrectos() {
 	});
 
 	if (!camposRellenos)
-		return mostrarMensajeError('Faltan campos por rellenar');
+		return mostrarMensajeError('Faltan campos por rellenar', '.userForm');
 
 	return true;
 }
@@ -67,7 +67,10 @@ btnLogin.addEventListener('click', e => {
 				err.error === 'USER_NOT_FOUND'
 			)
 				//si el error es que la contraseña no coincide o el usuario no existe
-				mostrarMensajeError('El correo o contraseña son incorrectos'); //
+				mostrarMensajeError(
+					'El correo o contraseña son incorrectos',
+					'.userForm'
+				); //
 		})
 		.finally(() => {
 			btnLogin.disabled = false;
