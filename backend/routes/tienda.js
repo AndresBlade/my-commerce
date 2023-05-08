@@ -23,4 +23,10 @@ router.post('/register',
             validatorRegisterTienda,
             tienda.createTienda);
 
+router.get('/getTiendasByUser/:id', 
+            authMiddleware,
+            checkRole(['TIENDA']),
+            tienda.getTiendasByUser);
+
+
 module.exports = router;

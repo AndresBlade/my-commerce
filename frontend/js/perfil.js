@@ -11,3 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('.userProfile__email').textContent = email;
 	document.querySelector('.userProfile__type').textContent = type;
 });
+
+var profilePic = document.getElementById("profile-pic");
+var inputFile = document.getElementById("input-file");
+
+inputFile.onchange = function(){
+	profilePic.src = URL.createObjectURL(inputFile.files[0])
+}
+
