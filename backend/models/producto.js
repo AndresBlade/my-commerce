@@ -20,11 +20,15 @@ Producto.findAllProducts = async function(){
     const getTiendaModel = () => require('./tiendas');
     Producto.belongsTo(getTiendaModel(), {
         foreignKey: 'tienda_id',
+        attributes: ['nombre', 'imagen'],
         as: 'tienda'
     });
 
     return Producto.findAll({
-        include: { model: getTiendaModel(), as: 'tienda' }
+        include: { model: getTiendaModel(), 
+                   as: 'tienda',
+                   attributes: ['nombre', 'imagen']
+                }
     });
 }
 
@@ -42,14 +46,41 @@ Producto.FindProductsByTienda = function(id){
 
 Producto.findProductsByCategory = function(id){
     const getCategoriaModel = () => require('./categorias');
+    const getTiendaModel = () => require('./tiendas');
     Producto.belongsTo(getCategoriaModel(), {
         foreignKey: 'categoria_id',
-        as: 'categoria'
+        as: 'categoria',
     });
+
+    Producto.belongsTo(getTiendaModel(), {
+        foreignKey: 'tienda_id',
+        as: 'tienda',
+    });
+
 
     return Producto.findAll({
         where: { categoria_id: id },
-        include: { model: getCategoriaModel(), as: 'categoria' }
+        include: { model: getTiendaModel(), 
+                    as: 'tienda',
+                    attributes: ['nombre', 'imagen'] }
     });
 }
+
+Producto.findProductsByName = function(name){
+    const getTiendaModel = () => require('./tiendas');
+    Producto.belongsTo(getTiendaModel(), {
+        foreignKey: 'tienda_id',
+        as: 'tienda'
+    });
+    
+
+    return Producto.findAll({
+        where: { nombre: name },
+        include: { model: getTiendaModel(), 
+            as: 'tienda',
+            attributes: ['nombre', 'imagen'] }
+    });
+}
+
+
 module.exports = Producto;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const producto = require('../controllers/productoController');
+const productModel = require('../controllers/productoController');
 const {validatorRegisterProducto} = require('../validators/productoValidator');
 const authMiddleware = require('../middleware/session');
 const checkRole = require('../middleware/rol');
@@ -13,14 +13,20 @@ router.post('/createProduct',
             customParam('tiendaProducts'),
             uploadMiddleware.array('imagen'),
             validatorRegisterProducto,
-            producto.createProduct);
+            productModel.createProduct);
 
-router.get('/getProducts', producto.getProducts);
+router.get('/getProducts', 
+            productModel.getProducts);
 
 router.get('/getProductsByTienda/:rif', 
-            producto.getProductsByTienda);
+            productModel.getProductsByTienda);
 
 router.get('/getProductByCategory/:categoryID', 
-            producto.getProductByCategory);
+            productModel.getProductByCategory);
+
+router.get('/getProductsByName/:name',
+            productModel.getProductsByName);
+
+
 
 module.exports = router;
