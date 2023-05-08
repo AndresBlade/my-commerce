@@ -15,12 +15,26 @@ function validarCamposCorrectos() {
 	if (!camposRellenos)
 		return mostrarMensajeError('Faltan campos por rellenar');
 
+		const email = document.querySelector('.userForm__email').value;
+		const emailRegex = /^\S+@\S+\.\S+$/; // Expresión regular para validar formato de correo electrónico
+
+	if (!emailRegex.test(email)) 
+	{
+		return mostrarMensajeError('Ingrese un correo electrónico válido');
+	}
+
 	if (
 		document.querySelector('.userForm__password').value !==
 		document.querySelector('.userForm__confirmPassword').value
 	) {
 		return mostrarMensajeError('Las contraseñas deben de coincidir');
 	}
+
+	if (document.querySelector('.userForm__password').value.length < 8 ||
+    	document.querySelector('.userForm__name').value.length < 8 ||
+		document.querySelector('.userForm__email').value.length < 8) 
+        
+	return mostrarMensajeError('Los campos deben tener mínimo 8 caracteres');
 
 	const checkTerminos = document.querySelector('.termsCheckbox');
 
@@ -29,6 +43,7 @@ function validarCamposCorrectos() {
 
 	return true;
 }
+
 
 btnLogin.addEventListener('click', e => {
 	e.preventDefault();
