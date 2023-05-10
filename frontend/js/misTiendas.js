@@ -1,5 +1,4 @@
 'use strict';
-
 import { mostrarMensajeError } from './utilidades.js';
 
 class UI {
@@ -151,6 +150,7 @@ class UI {
 				const tiendaHTML = document.createElement('a');
 				tiendaHTML.href = `${window.location.href}/../miTienda.html`;
 				tiendaHTML.classList.add('misTiendas__tienda');
+				tiendaHTML.addEventListener('click', e => irATienda(e, tienda));
 
 				const nombreHTML = document.createElement('h3');
 				nombreHTML.textContent = nombre;
@@ -172,6 +172,14 @@ class UI {
 			});
 		});
 	}
+}
+
+function irATienda(e, tienda) {
+	e.preventDefault();
+
+	sessionStorage.setItem('tienda', JSON.stringify(tienda));
+
+	window.location.href = `${window.location.href}/../miTienda.html`;
 }
 
 const ui = new UI();

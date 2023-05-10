@@ -1443,6 +1443,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 .misTiendas__tienda {
 	display: flex;
 	flex-direction: column;
+	text-decoration: none;
 	gap: 10px;
 	align-items: center;
 	background-color: #ccd4ff;
