@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const categoryModule = require('../models/categorias');
+const regionsModule = require('../models/regiones');
 
 router.get('/getRegions',async (req, res) => {
     try{
-        const regiones = await categoryModule.findAll();
+        const regiones = await regionsModule.findAll();
         res.send({regiones});
     }
     catch(e){
