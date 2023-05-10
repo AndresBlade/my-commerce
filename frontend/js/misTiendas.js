@@ -148,7 +148,8 @@ class UI {
 
 				fechaCreacion = fechaCreacion.split('T')[0];
 
-				const tiendaHTML = document.createElement('div');
+				const tiendaHTML = document.createElement('a');
+				tiendaHTML.href = `${window.location.href}/../miTienda.html`;
 				tiendaHTML.classList.add('misTiendas__tienda');
 
 				const nombreHTML = document.createElement('h3');
