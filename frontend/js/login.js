@@ -13,7 +13,7 @@ function validarCamposCorrectos() {
 	});
 
 	if (!camposRellenos)
-		return mostrarMensajeError('Faltan campos por rellenar');
+		return mostrarMensajeError('Faltan campos por rellenar', '.userForm');
 
 	return true;
 }
@@ -24,7 +24,7 @@ btnLogin.addEventListener('click', e => {
 	// btnLogin.setAttribute('disabled', true);
 
 	const user = {
-		email: document.querySelector('.userForm__email').value,
+		correo: document.querySelector('.userForm__email').value,
 		contrasenna: document.querySelector('.userForm__password').value,
 	};
 
@@ -67,7 +67,16 @@ btnLogin.addEventListener('click', e => {
 				err.error === 'USER_NOT_FOUND'
 			)
 				//si el error es que la contraseña no coincide o el usuario no existe
-				mostrarMensajeError('El correo o contraseña son incorrectos'); //
+				return mostrarMensajeError(
+					'El correo o contraseña son incorrectos',
+					'.userForm'
+				);
+
+			if (err.erros.some(error => error.msg === 'Invalid value'))
+				return mostrarMensajeError(
+					'Ingrese un correo o contraseña reales (correo con @, contraseña con al menos una mayúscula, etc)',
+					'.userForm'
+				); //si el error es que el correo o contraseña no es valido
 		})
 		.finally(() => {
 			btnLogin.disabled = false;

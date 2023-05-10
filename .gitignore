@@ -1,1 +1,4 @@
 backend/node_modules
+backend/storage/tiendas/profile/*.jpg
+backend/storage/tiendas/profile/*.jpeg
+backend/storage/tiendas/profile/*.png

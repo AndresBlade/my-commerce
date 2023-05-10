@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Mi Perfil</title>
+		<link
+			href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="../js/main.js" defer></script>
+	</head>
+
+	<body>
+		<header>
+			<a href="../index.html" class="heading-white"
+				>bienvenido, emprendedor</a
+			>
+			<div class="group">
+				<ul class="navigation">
+					<li><a href="login.html">Iniciar Sesión</a></li>
+					<li><a href="explorar.html">Explorar</a></li>
+					<li><a href="ayuda.html">Ayuda</a></li>
+					<li><a href="contactanos.html">Contactanos</a></li>
+				</ul>
+				<div class="search">
+					<span class="icon">
+						<ion-icon
+							name="search-outline"
+							id="blanco"
+							class="searchBtn"
+						>
+						</ion-icon>
+						<ion-icon
+							name="close-outline"
+							class="closeBtn"
+						></ion-icon>
+					</span>
+				</div>
+				<ion-icon name="menu-outline" class="menuToggle"></ion-icon>
+			</div>
+		</header>
+
+		<main class="misTiendas">
+			<div class="menu-dashboard">
+				<!-- TOP MENU -->
+				<div class="top-menu">
+					<div class="logo">
+						<span class="heading-white">MyCommerce</span>
+					</div>
+					<div class="toggle">
+						<i class="bx bx-menu heading-white"></i>
+					</div>
+				</div>
+				<!-- INPUT SEARCH -->
+				<div class="input-search">
+					<i class="bx bx-search"></i>
+					<input type="text" class="input" placeholder="Buscar" />
+				</div>
+				<!-- MENU -->
+				<div class="menu">
+					<a class="enlace">
+						<i class="bx bx-grid-alt heading-white"></i>
+						<span class="heading-white">Mi Cuenta</span>
+					</a>
+
+					<a class="enlace">
+						<i class="bx bx-user heading-white"></i>
+						<span class="heading-white">Compras</span>
+					</a>
+
+					<a class="enlace">
+						<i class="bx bx-grid-alt heading-white"></i>
+						<span class="heading-white">Ventas</span>
+					</a>
+
+					<a href="misTiendas.html" class="enlace">
+						<i class="bx bx-message-square heading-white"></i>
+						<span class="heading-white">Mi Perfil</span>
+					</a>
+
+					<a class="enlace">
+						<i class="bx bx-file-blank heading-white"></i>
+						<span class="heading-white">Mis Tiendas</span>
+					</a>
+				</div>
+			</div>
+
+			<button type="button" class="btnAgregarTienda">
+				Agregar Tienda
+			</button>
+
+			<div class="misTiendas__grid"></div>
+		</main>
+
+		<div class="modalAgregarTienda" id="modalAgregarTienda">
+			<div class="modalAgregarTienda__dialog">
+				<header class="modalAgregarTienda__header">
+					<h2 class="modalAgregarTienda__title">Agregar Tienda</h2>
+					<!-- <button class="modalAgregarTienda__close">X</button> -->
+				</header>
+				<section class="modalAgregarTienda__content">
+					<form
+						action=""
+						class="modalAgregarTienda__formularioTienda formularioTienda"
+						enctype="multipart/form-data"
+					>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="RIF"
+								>RIF</label
+							>
+							<input
+								type="number"
+								class="formularioTienda__RIF"
+								name="RIF"
+								id="RIF"
+							/>
+						</div>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="name"
+								>Nombre</label
+							>
+							<input
+								type="text"
+								name="name"
+								id="name"
+								class="formularioTienda__name"
+							/>
+						</div>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="Image"
+								>Imagen</label
+							>
+							<input
+								type="file"
+								name="Image"
+								id="Image"
+								class="formularioTienda__image"
+								accept="image/png, image/jpeg"
+							/>
+							<img
+								class="formularioTienda__imagePreview"
+								alt="Imagen de tienda"
+							/>
+						</div>
+						<div class="formularioTienda__Divider">
+							<label class="formularioTienda__label" for="region"
+								>Región</label
+							>
+							<select
+								name="region"
+								id="region"
+								class="formularioTienda__regionSelect"
+							>
+								<option
+									class="formularioTienda__regionOption"
+									value="4"
+								>
+									Amazonas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="5"
+								>
+									Anzoátegui
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="6"
+								>
+									Apure
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="7"
+								>
+									Aragua
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="8"
+								>
+									Barinas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="9"
+								>
+									Bolívar
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="10"
+								>
+									Carabobo
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="11"
+								>
+									Cojedes
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="12"
+								>
+									Delta Amacuro
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="13"
+								>
+									Dependencias Federales
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="14"
+								>
+									Distrito Federal
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="15"
+								>
+									Falcón
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="16"
+								>
+									Guárico
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="17"
+								>
+									Lara
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="18"
+								>
+									Mérida
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="19"
+								>
+									Miranda
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="20"
+								>
+									Monagas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="21"
+								>
+									Nueva Esparta
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="22"
+								>
+									Portuguesa
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="23"
+								>
+									Sucre
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="24"
+								>
+									Táchira
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="25"
+								>
+									Trujillo
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="26"
+								>
+									Vargas
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="27"
+								>
+									Yaracuy
+								</option>
+								<option
+									class="formularioTienda__regionOption"
+									value="28"
+								>
+									Zulia
+								</option>
+							</select>
+						</div>
+
+						<div class="formularioTienda__errorBox"></div>
+					</form>
+					<button type="button" class="formularioTienda__submit">
+						Crear Tienda
+					</button>
+				</section>
+			</div>
+		</div>
+
+		<footer></footer>
+
+		<script src="../js/misTiendas.js" type="module"></script>
+	</body>
+</html>
