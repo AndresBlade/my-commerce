@@ -1,3 +1,4 @@
+
 let searchBtn = document.querySelector('.searchBtn');
 let closeBtn = document.querySelector('.closeBtn');
 let searchBox = document.querySelector('.searchBox');
@@ -27,39 +28,46 @@ menuToggle.onclick = function () {
 };
 
 //---------------***** Index dinamico ***********----------------
-
 const boton_header = document.querySelector('.btn_sesion');
 const boton_perfil = document.querySelector('.btn_perfil');
 const boton_creaCuenta = document.querySelector('.btn-texto');
+const boton_creaCuentaLink = document.querySelector('.btnCrearCuenta');
+
 
 document.addEventListener('DOMContentLoaded', () => {
-	const data = JSON.parse(localStorage.getItem('user')).data;
-	const type = data.user.tipo_id === 1 ? 'Cliente' : 'Otro tipo rarito';
-
-	if(type === 'Cliente')
+	try
 	{
-		console.log('hay una sesion abierta');
-		boton_header.textContent = 'Cerrar Sesión';
-		boton_perfil.style.display = 'block';
-		boton_creaCuenta.textContent = 'Registra tu tienda'
-
-		boton_header.addEventListener('click', e =>
+		const data = JSON.parse(localStorage.getItem('user')).data;
+		const type = data.user.tipo_id === 1 ? 'Cliente' : 'Otro tipo rarito';
+		
+		if(type === 'Cliente')
 		{
-			e.preventDefault();
-			localStorage.removeItem('user');
-		})
+			console.log('hay una sesion abierta');
+			boton_header.textContent = 'Cerrar Sesión';
+			boton_creaCuenta.textContent = 'Registra tu tienda'
+			boton_perfil.style.display = 'block';
 
-		boton_creaCuenta.addEventListener('click', e =>
+			boton_creaCuentaLink.href = 'http://127.0.0.1/e-commerce-tarea/frontend/vistas/misTiendas.html';
+			
+
+			boton_header.addEventListener('click', e =>
+			{
+				localStorage.removeItem('user');
+				boton_header.href = 'http://127.0.0.1/e-commerce-tarea/frontend/index.html';
+				location.reload();
+			})
+
+		}
+		else
 		{
-			e.preventDefault();
-			window.location.href = 'http://127.0.0.1\e-commerce-tarea\frontend\vistas\misTiendas.html';
-		})
-	}
-	else
+
+		}
+
+	}catch(err)
 	{
-		boton_header.textContent = 'Iniciar Sesion';
+		err = "error";
+		console.log(err);
 	}
-
 
 
 });
