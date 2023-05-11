@@ -105,6 +105,11 @@ header ul {
 	padding: 0.5rem 0;
 }
 
+.btn_perfil
+{
+	display: none;
+}
+
 header ul li {
 	list-style: none;
 	padding: 0.5rem;
@@ -211,22 +216,37 @@ header .search {
 
 .box-container .box .btnCrearCuenta {
 	display: flex;
+	justify-content: center;
+	width: 280px;
 	margin-top: 2rem;
 	margin-bottom: 4rem;
 	padding: 1rem 3rem;
-	color: var(--letrasAzules-color);
-	background-color: var(--letrasBlancas-color);
 	cursor: pointer;
 	border-radius: 10rem;
 	font-size: 20px;
 	font-weight: 600;
+	background-color: var(--letrasBlancas-color);
 	border-color: var(--letrasBlancas-color);
+	text-decoration: none;
 }
 
-.box-container .box .btnCrearCuenta:hover {
+.box-container .box .btnCrearCuenta .btn-texto
+{
+	display: block;
+	color: var(--letrasAzules-color);
+	background-color: var(--letrasBlancas-color);
+}
+
+.box-container .box .btnCrearCuenta:hover{
 	background-color: var(--letrasAzules-color);
 	color: var(--letrasBlancas-color);
 	border-color: var(--letrasAzules-color);
+	transition: 0.05s;
+}
+
+.box-container .box .btnCrearCuenta:hover .btn-texto{
+	background-color: var(--letrasAzules-color);
+	color: var(--letrasBlancas-color);
 	transition: 0.05s;
 }
 
