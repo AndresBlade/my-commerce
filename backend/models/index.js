@@ -1,7 +1,9 @@
 const models = {
     userModel: require(`./user`),
     tiendaModel: require(`./tiendas`),
-    productoModel: require(`./producto`)
+    productoModel: require(`./producto`),
+    ventasCabeceraModel: require(`./ventas_cabecera`),
+    ventasDetalleModel: require(`./ventas_detalle`),
 
 }
 

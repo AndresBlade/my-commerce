@@ -1,22 +1,19 @@
 const { check } = require('express-validator');
 const validationResults = require('../utils/handleValidator')
 
-const validatorRegisterTienda = [
-    check('nombre')
-    .exists()
-    .notEmpty()
-    .isLength({ min: 3, max: 20 }),
-    check('RIF')
+const ventas_detalles_validator = [
+    check('producto_id')
     .exists()
     .notEmpty(),
-    check('imagen')
+    check('cantidad')
     .exists()
     .notEmpty(),
-    check('status'),
-    check('cliente_id'),
+    check('precio')
+    .exists()
+    .notEmpty(),
     (req, res, next) => {
         return validationResults(req, res, next)
     }
-];
+]
 
-module.exports = {validatorRegisterTienda};
+module.exports = {ventas_detalles_validator};
