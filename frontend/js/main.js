@@ -28,6 +28,47 @@ menuToggle.onclick = function () {
 	menuToggle.classList.remove('hide');
 };
 
+//---------------***** Index dinamico ***********----------------
+
+const boton_header = document.querySelector('.btn_sesion');
+const boton_perfil = document.querySelector('.btn_perfil');
+const boton_creaCuenta = document.querySelector('.btn-texto');
+
+document.addEventListener('DOMContentLoaded', () => {
+	const data = JSON.parse(localStorage.getItem('user')).data;
+	const type = data.user.tipo_id === 1 ? 'Cliente' : 'Otro tipo rarito';
+
+	if(type === 'Cliente')
+	{
+		console.log('hay una sesion abierta');
+		boton_header.textContent = 'Cerrar Sesión';
+		boton_perfil.style.display = 'block';
+		boton_creaCuenta.textContent = 'Registra tu tienda'
+
+		boton_header.addEventListener('click', e =>
+		{
+			e.preventDefault();
+			localStorage.removeItem('user');
+		})
+
+		boton_creaCuenta.addEventListener('click', e =>
+		{
+			e.preventDefault();
+			window.location.href = 'http://127.0.0.1\e-commerce-tarea\frontend\vistas\misTiendas.html';
+		})
+	}
+	else
+	{
+		boton_header.textContent = 'Iniciar Sesion';
+	}
+
+
+
+});
+
+
+
+
 //      perfil
 // const toggle = document.querySelector(".toggle");
 // const menuDashboard = document.querySelector(".menu-dashboard");
