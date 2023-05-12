@@ -35,8 +35,12 @@ const tokenVerify = async (tokenJWT) => {
                 name: 'TokenExpiredError',
                 message: 'Token expired'
             }
-        }
-        throw new Error('Invalid token');
+        }else if (error.name === 'JsonWebTokenError'){
+            throw{
+                name: 'JsonWebTokenError',
+                message: 'Invalid token'
+            }
+        }        
     }
 }
 

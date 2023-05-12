@@ -24,8 +24,10 @@ const authMiddleware = async (req, res, next) =>{
     }catch(error){
         if (error.name === 'TokenExpiredError') {
             handleHttpErros(res, 'SESSION_EXPIRED', 401);
-        } else {
-            handleHttpErros(res, 'ERROR_AUTH', 401);
+        } else if (error.name === 'JsonWebTokenError'){
+            handleHttpErros(res, 'NOT_PAYLOAD_DATA', 403);
+        }else{
+            handleHttpErros(res, 'ERROR_AUTH', 403);
         }
     }
 }
