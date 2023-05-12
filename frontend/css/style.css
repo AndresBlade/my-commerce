@@ -843,7 +843,9 @@ header .search {
 }
 
 .tiendas-miPerfil .box-container-miPerfil .box-miPerfil .circular-miPerfil {
-	width: 70px;
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
 	border-radius: 50%;
 	justify-content: center;
 	text-align: center;
