@@ -1,3 +1,4 @@
+'use strict';
 
 let searchBtn = document.querySelector('.searchBtn');
 let closeBtn = document.querySelector('.closeBtn');
@@ -26,54 +27,6 @@ menuToggle.onclick = function () {
 	searchBtn.classList.remove('active');
 	menuToggle.classList.remove('hide');
 };
-
-//---------------***** Index dinamico ***********----------------
-const boton_header = document.querySelector('.btn_sesion');
-const boton_perfil = document.querySelector('.btn_perfil');
-const boton_creaCuenta = document.querySelector('.btn-texto');
-const boton_creaCuentaLink = document.querySelector('.btnCrearCuenta');
-
-
-document.addEventListener('DOMContentLoaded', () => {
-	try
-	{
-		const data = JSON.parse(localStorage.getItem('user')).data;
-		const type = data.user.tipo_id === 1 ? 'Cliente' : 'Otro tipo rarito';
-		
-		if(type === 'Cliente')
-		{
-			console.log('hay una sesion abierta');
-			boton_header.textContent = 'Cerrar Sesión';
-			boton_creaCuenta.textContent = 'Registra tu tienda'
-			boton_perfil.style.display = 'block';
-
-			boton_creaCuentaLink.href = 'http://127.0.0.1/e-commerce-tarea/frontend/vistas/misTiendas.html';
-			
-
-			boton_header.addEventListener('click', e =>
-			{
-				localStorage.removeItem('user');
-				boton_header.href = 'http://127.0.0.1/e-commerce-tarea/frontend/index.html';
-				location.reload();
-			})
-
-		}
-		else
-		{
-
-		}
-
-	}catch(err)
-	{
-		err = "error";
-		console.log(err);
-	}
-
-
-});
-
-
-
 
 //      perfil
 // const toggle = document.querySelector(".toggle");

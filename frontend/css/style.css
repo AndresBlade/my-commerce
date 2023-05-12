@@ -378,6 +378,106 @@ header .search {
 	display: none;
 }
 
+/*---- Modal salir de sesion -----*/
+
+.modal__sesion
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .6s .9s;
+    --transform: translateY(-100vh);
+    --transition: transform .8s;
+}
+
+.modal__sesion--show
+{
+    opacity: 1;
+    pointer-events: unset;
+    transition: opacity .4s;
+    --transform: translateY(0);
+    --transition: transform .2s .2s;
+}
+
+.modal__sesion-container
+{
+    margin: auto;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 3rem 2.5rem;
+    display: grid;
+    gap: 1em;
+    place-items: center;
+    grid-auto-columns: 100%;
+    transform: var(--transform);
+    transition:var(--transition);
+}
+
+.modal__sesion-title
+{
+    font-size: 1.5rem;
+}
+
+.modal__sesion-img
+{
+    width: 40%;
+    max-width: 300px;
+}
+
+.modal__sesion-options
+{
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.modal__si
+{
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--letrasAzules-color);
+    padding: 1em 3em;
+    border: 1px solid ;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 300;
+    transition: background-color .3s;
+}
+
+.modal__no
+{
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--letrasAzules-color);
+    padding: 1em 3em;
+    border: 1px solid ;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 300;
+    transition: background-color .3s;
+}
+
+.modal__no:hover
+{
+    color: var(--letrasAzules-color);
+    background-color: #fff;
+}
+
+.modal__si:hover
+{
+	color: var(--letrasAzules-color);
+    background-color: #fff;
+}
+
 /*parte responsive*/
 @media (max-width: 800px) {
 	.searchBtn {
@@ -656,6 +756,84 @@ header .search {
 }
 
 /* -------------- vista ayuda -------------------        */
+
+.modal
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .6s .9s;
+    --transform: translateY(-100vh);
+    --transition: transform .8s;
+}
+
+.modal--show
+{
+    opacity: 1;
+    pointer-events: unset;
+    transition: opacity .4s;
+    --transform: translateY(0);
+    --transition: transform .2s .2s;
+}
+
+.modal__container
+{
+    margin: auto;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 3rem 2.5rem;
+    display: grid;
+    gap: 1em;
+    place-items: center;
+    grid-auto-columns: 100%;
+    transform: var(--transform);
+    transition:var(--transition);
+}
+
+.modal__title
+{
+    font-size: 1.5rem;
+}
+
+.modal__paragraph
+{
+    margin-bottom: 10px;
+}
+
+.modal__img
+{
+    width: 40%;
+    max-width: 300px;
+}
+
+.modal__close
+{
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--letrasAzules-color);
+    padding: 1em 3em;
+    border: 1px solid ;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 300;
+    transition: background-color .3s;
+}
+
+.modal__close:hover
+{
+    color: var(--letrasAzules-color);
+    background-color: #fff;
+}
+
 .searchBox-container {
 	display: flex;
 	justify-content: flex-start;

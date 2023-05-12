@@ -10,7 +10,6 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/style.css" />
-		<script src="../js/main.js" defer></script>
 	</head>
 
 	<body>
@@ -22,6 +21,7 @@
 				<ul class="navigation">
 					<li><a href="explorar.html">Explorar</a></li>
 					<li><a href="ayuda.html">Ayuda</a></li>
+					<li class="btn_perfil"><a href="perfil.html">Mi Perfil</a></li>
 					<li><a href="contactanos.html">Contactanos</a></li>
 					<li><a class="btn_sesion" href="login.html">Iniciar Sesión</a></li>
 				</ul>
@@ -139,10 +139,22 @@
 					</div>
 				</div>
 			</section>
+			<section class="modal__sesion">
+				<div class="modal__sesion-container">
+					<img src="../img/cancel.png" class="modal__sesion-img">
+					<h2 class="modal__sesion-title">¿Desea salir de sesión?</h2>
+					<div class="modal__sesion-options">
+						<a href="#" class="modal__si">Sí</a>
+						<a href="#" class="modal__no">No</a>
+					</div>
+				</div>
+			</section>
 		</main>
 
 		<footer></footer>
 
 		<script src="../js/perfil.js" type="module"></script>
+		<script src="../js/Btnperfil.js"></script>
+
 	</body>
 </html>
