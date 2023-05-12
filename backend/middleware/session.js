@@ -5,6 +5,7 @@ const { tokenVerify } = require('../utils/handleJwt');
 
 const authMiddleware = async (req, res, next) =>{
     try{
+
         if(!req.headers.authorization){
             handleHttpErros(res, 'NEED_SESSION', 401);
         }

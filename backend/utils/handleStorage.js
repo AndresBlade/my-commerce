@@ -29,7 +29,6 @@ const storage = multer.diskStorage({
           req.body.imagen = '';
         }
         req.body.imagen += url + ' ';
-        console.log(req.body.imagen + 'imagen');
         cb(null, filename);
     }
 });

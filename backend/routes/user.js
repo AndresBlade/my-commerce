@@ -20,7 +20,7 @@ router.post('/register',
 /******************************* */
 router.get('/users/:id',
             authMiddleware,
-            checkRole(['ADMINISTRADOR']),
+            checkRole(['CLIENTE']),
             users.getUsersById);
 
 router.get('/users', 
