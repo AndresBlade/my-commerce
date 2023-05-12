@@ -30,10 +30,16 @@ const tokenVerify = async (tokenJWT) => {
         const data = await jsonwebtoken.verify(tokenJWT, SECRET_KEY);
         return data;
     }catch(error){
-        console.log(error);
-        return null;
+        if (error.name === 'TokenExpiredError') {
+            throw{
+                name: 'TokenExpiredError',
+                message: 'Token expired'
+            }
+        }
+        throw new Error('Invalid token');
     }
 }
+
 
 
 module.exports = { tokenSign, tokenVerify };

@@ -21,9 +21,12 @@ const authMiddleware = async (req, res, next) =>{
         
         req.user = user;
         next();
-    }catch(e){
-        console.log(e);
-        handleHttpErros(res, 'ERROR_AUTH', 401);
+    }catch(error){
+        if (error.name === 'TokenExpiredError') {
+            handleHttpErros(res, 'SESSION_EXPIRED', 401);
+        } else {
+            handleHttpErros(res, 'ERROR_AUTH', 401);
+        }
     }
 }
 
