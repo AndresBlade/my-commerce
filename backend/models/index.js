@@ -4,6 +4,7 @@ const models = {
     productoModel: require(`./producto`),
     ventasCabeceraModel: require(`./ventas_cabecera`),
     ventasDetalleModel: require(`./ventas_detalle`),
+    ventas_Tiendas: require(`./ventas_Tiendas`),
 
 }
 

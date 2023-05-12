@@ -1,7 +1,7 @@
 const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
 
-const Categorias = sequelize.define(
+const ventas_detalles = sequelize.define(
     'ventas_detalle',
     {
         producto_id: { type: DataTypes.INTEGER, allowNull: false,},
@@ -9,8 +9,8 @@ const Categorias = sequelize.define(
         precio: { type: DataTypes.FLOAT, allowNull: false,},
     },
     {
-        timestamps: false, // createdAt, updatedAt
+        timestamps: true, // createdAt, updatedAt
     }
 )
 
-module.exports = Categorias;
+module.exports = ventas_detalles;

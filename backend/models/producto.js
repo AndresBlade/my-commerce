@@ -63,4 +63,15 @@ Producto.findProductsByName = function(name){
     });
 }
 
+Producto.FindProductAndTienda = function(id){
+    return Producto.findOne({
+        where: { id: id },
+        attributes: ['id', 'nombre'],
+        include: { model: tiendas, 
+            where: { id: sequelize.col('productos.tienda_id') },
+            as: 'tienda',
+            attributes: ['RIF'] }
+    });
+}
+
 module.exports = Producto;
