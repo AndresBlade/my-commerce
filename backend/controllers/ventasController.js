@@ -25,16 +25,15 @@ const individualPurchase = async (req, res) => {
         //conseguimos el producto que se vendio
         const {dataValues} = await productoModel.FindProductAndTienda(ventaDetalle.producto_id);
 
-
+        //construimos un objeto con los datos de la tienda y el id de la venta para enviarlo a la tabla de ventas_tiendas
         const dataTiendaVentas = {
             tienda_id: dataValues.tienda.RIF,
             venta_cabecera_id: ventaCabecera.id,
         }
         const ventaTienda = await ventas_Tiendas.create(dataTiendaVentas);
 
-        console.log(dataTiendaVentas);
         res.send({ventaRealizada: venta,
-                    idVenta: ventaCabecera.id,
+                  idVenta: ventaCabecera.id,
                   ventaTienda: ventaTienda});
     }catch(e){
         console.log(e);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-05-2023 a las 22:09:02
+-- Tiempo de generación: 12-05-2023 a las 04:26:41
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -87,6 +87,16 @@ CREATE TABLE `productos` (
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `nombre`, `precio`, `categoria_id`, `tienda_id`, `descripcion`, `imagenes`, `createdAt`, `updatedAt`) VALUES
+(3, 'Short', '8.00', 28, 17823182, 'Short de caballero', 'http://localhost:3000/file-1683504282852.png http://localhost:3000/file-1683504282854.png http://localhost:3000/file-1683504282855.png', '2023-05-08 00:04:42', '2023-05-08 00:04:42'),
+(4, 'Camisa', '6.00', 28, 17823182, 'Short de caballero', 'http://localhost:3000/file-1683517005657.png http://localhost:3000/file-1683517005663.png http://localhost:3000/file-1683517005664.png', '2023-05-08 03:36:45', '2023-05-08 03:36:45'),
+(5, 'Juguetes', '12.00', 23, 12823282, 'Juguetes de niños', 'http://localhost:3000/file-1683565353943.png http://localhost:3000/file-1683565353946.png http://localhost:3000/file-1683565353947.png', '2023-05-08 17:02:33', '2023-05-08 17:02:33'),
+(6, 'Buñuelos', '11.00', 23, 12823282, 'Buñuelos ricos', 'http://localhost:3000/file-1683566709842.png http://localhost:3000/file-1683566709844.png http://localhost:3000/file-1683566709845.png', '2023-05-08 17:25:09', '2023-05-08 17:25:09');
+
 -- --------------------------------------------------------
 
 --
@@ -147,6 +157,19 @@ CREATE TABLE `tiendas` (
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Volcado de datos para la tabla `tiendas`
+--
+
+INSERT INTO `tiendas` (`RIF`, `nombre`, `imagen`, `status`, `cliente_id`, `createdAt`, `updatedAt`) VALUES
+(11823282, 'segundaTienda', 'http://localhost:3000/file-1683566264850.jpg', '0', 15, '2023-05-08 17:17:44', '2023-05-08 17:17:44'),
+(12823282, 'TiendaDeLoquito', 'http://localhost:3000/file-1683565199504.jpg', '0', 15, '2023-05-08 16:59:59', '2023-05-08 16:59:59'),
+(17823182, 'Grows', 'http://localhost:3000/file-1683500567082.jpg', '0', 14, '2023-05-07 23:02:47', '2023-05-07 23:02:47'),
+(17823282, 'Pantallero', 'http://localhost:3000/file-1683508356574.jpg', '0', 14, '2023-05-08 01:12:36', '2023-05-08 01:12:36'),
+(21823282, 'terceraTienda', 'http://localhost:3000/file-1683566652324.jpg', '0', 15, '2023-05-08 17:24:12', '2023-05-08 17:24:12'),
+(31823282, 'cuartaTienda', 'http://localhost:3000/file-1683567310002.jpg', '0', 15, '2023-05-08 17:35:10', '2023-05-08 17:35:10'),
+(51823282, 'quintaTienda', 'http://localhost:3000/file-1683567323659.jpg', '0', 15, '2023-05-08 17:35:23', '2023-05-08 17:35:23');
+
 -- --------------------------------------------------------
 
 --
@@ -183,7 +206,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasenna`, `imagen`, `tipo_id`, `createdAt`, `updatedAt`) VALUES
-(13, 'Torpasio', 'Torpasio@example.com', '30405110', 'http://localhost:3000/file-1683481403428.jpg', 1, '2023-05-07 01:54:18', '2023-05-07 17:43:23');
+(13, 'Torpasio', 'Torpasio@example.com', '30405110', 'http://localhost:3000/file-1683481403428.jpg', 1, '2023-05-07 01:54:18', '2023-05-07 17:43:23'),
+(14, 'Loquito', 'Loquito@example.com', '$2b$10$qHkcaxLumMbspnQ0nb73/.zk6CIAzHJqaGqU513e2xdEk/zwmKoYK', NULL, 2, '2023-05-07 20:21:00', '2023-05-08 01:12:36'),
+(15, 'Loquito49', 'loquito49@example.com', '$2b$10$3bdrRkdLT5T2Jr8jF7Fjpui.zSBzha/pMB41Gmj4V9nSqm61MlPQ2', NULL, 2, '2023-05-08 16:59:11', '2023-05-08 17:35:23');
 
 -- --------------------------------------------------------
 
@@ -209,31 +234,93 @@ INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ventas_cabecera`
+-- Estructura de tabla para la tabla `ventas_cabeceras`
 --
 
-DROP TABLE IF EXISTS `ventas_cabecera`;
-CREATE TABLE `ventas_cabecera` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `ventas_cabeceras`;
+CREATE TABLE `ventas_cabeceras` (
+  `id` int(11) NOT NULL,
   `cliente_id` int(10) UNSIGNED NOT NULL,
+  `ventas_detalles_id` int(11) NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Cabecera de ventas';
 
+--
+-- Volcado de datos para la tabla `ventas_cabeceras`
+--
+
+INSERT INTO `ventas_cabeceras` (`id`, `cliente_id`, `ventas_detalles_id`, `createdAt`, `updatedAt`) VALUES
+(1, 15, 17, '2023-05-11 04:42:11', '2023-05-11 04:42:11'),
+(2, 14, 18, '2023-05-11 04:51:03', '2023-05-11 04:51:03'),
+(3, 15, 20, '2023-05-11 22:34:14', '2023-05-11 22:34:14'),
+(4, 15, 21, '2023-05-11 22:36:20', '2023-05-11 22:36:20'),
+(5, 15, 22, '2023-05-11 22:36:41', '2023-05-11 22:36:41'),
+(6, 15, 23, '2023-05-11 23:59:11', '2023-05-11 23:59:11'),
+(7, 15, 24, '2023-05-11 23:59:43', '2023-05-11 23:59:43');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ventas_detalle`
+-- Estructura de tabla para la tabla `ventas_detalles`
 --
 
-DROP TABLE IF EXISTS `ventas_detalle`;
-CREATE TABLE `ventas_detalle` (
+DROP TABLE IF EXISTS `ventas_detalles`;
+CREATE TABLE `ventas_detalles` (
   `id` int(11) NOT NULL,
-  `ventas_cabecera_id` int(10) UNSIGNED NOT NULL,
   `producto_id` int(10) UNSIGNED NOT NULL,
   `cantidad` int(10) UNSIGNED NOT NULL,
-  `precio` decimal(10,2) UNSIGNED NOT NULL
+  `precio` decimal(10,2) UNSIGNED NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas_detalles`
+--
+
+INSERT INTO `ventas_detalles` (`id`, `producto_id`, `cantidad`, `precio`, `createdAt`, `updatedAt`) VALUES
+(6, 3, 2, '19.99', '2023-05-11 04:19:59', '2023-05-11 04:19:59'),
+(7, 3, 2, '19.99', '2023-05-11 04:23:58', '2023-05-11 04:23:58'),
+(8, 3, 2, '19.99', '2023-05-11 04:24:22', '2023-05-11 04:24:22'),
+(9, 3, 2, '19.99', '2023-05-11 04:25:04', '2023-05-11 04:25:04'),
+(10, 3, 2, '19.99', '2023-05-11 04:29:58', '2023-05-11 04:29:58'),
+(11, 3, 2, '19.99', '2023-05-11 04:37:56', '2023-05-11 04:37:56'),
+(12, 3, 2, '19.99', '2023-05-11 04:39:35', '2023-05-11 04:39:35'),
+(13, 3, 2, '19.99', '2023-05-11 04:39:54', '2023-05-11 04:39:54'),
+(14, 3, 2, '19.99', '2023-05-11 04:40:16', '2023-05-11 04:40:16'),
+(15, 3, 2, '19.99', '2023-05-11 04:40:34', '2023-05-11 04:40:34'),
+(16, 3, 2, '19.99', '2023-05-11 04:40:54', '2023-05-11 04:40:54'),
+(17, 3, 2, '19.99', '2023-05-11 04:42:11', '2023-05-11 04:42:11'),
+(18, 4, 1, '39.99', '2023-05-11 04:51:02', '2023-05-11 04:51:02'),
+(19, 3, 1, '39.99', '2023-05-11 22:17:00', '2023-05-11 22:17:00'),
+(20, 3, 1, '39.99', '2023-05-11 22:34:14', '2023-05-11 22:34:14'),
+(21, 3, 1, '39.99', '2023-05-11 22:36:20', '2023-05-11 22:36:20'),
+(22, 5, 1, '39.99', '2023-05-11 22:36:41', '2023-05-11 22:36:41'),
+(23, 5, 1, '39.99', '2023-05-11 23:59:11', '2023-05-11 23:59:11'),
+(24, 5, 1, '39.99', '2023-05-11 23:59:43', '2023-05-11 23:59:43');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas_Tiendas`
+--
+
+DROP TABLE IF EXISTS `ventas_Tiendas`;
+CREATE TABLE `ventas_Tiendas` (
+  `id` int(11) NOT NULL,
+  `tienda_id` int(11) UNSIGNED NOT NULL,
+  `venta_cabecera_id` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas_Tiendas`
+--
+
+INSERT INTO `ventas_Tiendas` (`id`, `tienda_id`, `venta_cabecera_id`, `createdAt`, `updatedAt`) VALUES
+(1, 12823282, 7, '2023-05-11 23:59:44', '2023-05-11 23:59:44');
 
 --
 -- Índices para tablas volcadas
@@ -289,19 +376,32 @@ ALTER TABLE `usuarios_tipos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `ventas_cabecera`
+-- Indices de la tabla `ventas_cabeceras`
 --
-ALTER TABLE `ventas_cabecera`
+ALTER TABLE `ventas_cabeceras`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ventacab_cliente_idx` (`cliente_id`);
+  ADD KEY `FK_ventacab_cliente_idx` (`cliente_id`),
+  ADD KEY `ventas_detalle_id` (`ventas_detalles_id`),
+  ADD KEY `id` (`id`);
 
 --
--- Indices de la tabla `ventas_detalle`
+-- Indices de la tabla `ventas_detalles`
 --
-ALTER TABLE `ventas_detalle`
+ALTER TABLE `ventas_detalles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_ventasdet_producto_idx` (`producto_id`),
-  ADD KEY `FK_ventasdet_cabecera_idx` (`ventas_cabecera_id`);
+  ADD KEY `id` (`id`),
+  ADD KEY `id_2` (`id`);
+
+--
+-- Indices de la tabla `ventas_Tiendas`
+--
+ALTER TABLE `ventas_Tiendas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `tienda_id` (`tienda_id`,`venta_cabecera_id`),
+  ADD KEY `id_2` (`id`),
+  ADD KEY `venta_cabecera_id` (`venta_cabecera_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -317,7 +417,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `regiones`
@@ -335,7 +435,7 @@ ALTER TABLE `tiendas_regiones`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios_tipos`
@@ -344,10 +444,22 @@ ALTER TABLE `usuarios_tipos`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `ventas_cabecera`
+-- AUTO_INCREMENT de la tabla `ventas_cabeceras`
 --
-ALTER TABLE `ventas_cabecera`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `ventas_cabeceras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas_detalles`
+--
+ALTER TABLE `ventas_detalles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de la tabla `ventas_Tiendas`
+--
+ALTER TABLE `ventas_Tiendas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -380,17 +492,24 @@ ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`tipo_id`) REFERENCES `usuarios_tipos` (`id`);
 
 --
--- Filtros para la tabla `ventas_cabecera`
+-- Filtros para la tabla `ventas_cabeceras`
 --
-ALTER TABLE `ventas_cabecera`
-  ADD CONSTRAINT `ventas_cabecera_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`);
+ALTER TABLE `ventas_cabeceras`
+  ADD CONSTRAINT `ventas_cabeceras_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `ventas_cabeceras_ibfk_2` FOREIGN KEY (`ventas_detalles_id`) REFERENCES `ventas_detalles` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `ventas_detalle`
+-- Filtros para la tabla `ventas_detalles`
 --
-ALTER TABLE `ventas_detalle`
-  ADD CONSTRAINT `ventas_detalle_ibfk_1` FOREIGN KEY (`ventas_cabecera_id`) REFERENCES `ventas_cabecera` (`id`),
-  ADD CONSTRAINT `ventas_detalle_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
+ALTER TABLE `ventas_detalles`
+  ADD CONSTRAINT `ventas_detalles_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
+
+--
+-- Filtros para la tabla `ventas_Tiendas`
+--
+ALTER TABLE `ventas_Tiendas`
+  ADD CONSTRAINT `ventas_Tiendas_ibfk_1` FOREIGN KEY (`venta_cabecera_id`) REFERENCES `ventas_cabeceras` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ventas_Tiendas_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
