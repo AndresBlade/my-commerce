@@ -53,6 +53,12 @@ body {
 	background-color: var(--background-color);
 }
 
+/* utilidades */
+
+.bold {
+	font-weight: 700;
+}
+
 .box-container-inicio {
 	background: var(--degradadoFondo-color);
 	/* border-radius: 1rem;
@@ -1285,7 +1291,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	}
 }
 
-.btnAgregarTienda {
+.btnAgregar {
 	background-color: var(--letrasAzules-color);
 	display: inline-block;
 	text-align: center;
@@ -1303,13 +1309,14 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	bottom: 40px;
 	right: 40px;
 	transition: all 0.4s;
+	z-index: 500;
 }
 
-.btnAgregarTienda:hover {
+.btnAgregar:hover {
 	transform: scale(1.05);
 }
 
-.modalAgregarTienda {
+.modal {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -1326,7 +1333,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	z-index: 1000;
 }
 
-.modalAgregarTienda__dialog {
+.modal__dialog {
 	position: relative;
 	max-width: 80vw;
 	max-height: 80vh;
@@ -1336,7 +1343,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	cursor: default;
 }
 
-.modalAgregarTienda__header {
+.modal__header {
 	padding: 5px 10px;
 	display: flex;
 	align-items: center;
@@ -1344,13 +1351,13 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	gap: 40px;
 }
 
-.modalAgregarTienda__title {
+.modal__title {
 	padding: 0;
 	margin: 0;
 	color: #fff;
 }
 
-.modalAgregarTienda__footer {
+.modal__footer {
 	padding: 1rem 1.5rem;
 	display: flex;
 	justify-content: flex-end;
@@ -1358,43 +1365,48 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	border-top: 1px solid #ccc;
 }
 
-.modalAgregarTienda--visible {
+.modal--visible {
 	visibility: visible;
 	opacity: 1;
 }
 
-.formularioTienda {
+.formModal {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-.formularioTienda__Divider {
+.formModal__Divider {
 	padding: 20px 20px;
 	display: flex;
 	flex-direction: column;
 }
 
-.formularioTienda__regionSelect {
+.formModal__select {
 	background-color: #c7c7c7;
 	padding: 15px 5px;
 	border-radius: 20px;
 }
 
-.formularioTienda__regionOption {
+.formModal__option {
 	background-color: #fff;
 }
 
-.formularioTienda__imagePreview {
+.formModal__imagePreview {
 	display: none;
-	max-height: 200px;
+	height: 200px;
+	width: 200px;
+	text-align: center;
+	margin: 0 auto;
+	border-radius: 30px;
+	object-fit: cover;
 }
 
-.formularioTienda__imagePreview--visible {
+.formModal__imagePreview--visible {
 	display: block;
 }
 
-.formularioTienda__submit {
+.formModal__submit {
 	display: block;
 	background-color: var(--letrasAzules-color);
 	color: var(--background-color);
@@ -1409,19 +1421,26 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	font-weight: 600;
 }
 
-.formularioTienda__submit--disabled {
+.formModal__textarea {
+	background-color: #c7c7c7;
+	border-radius: 15px;
+	resize: none;
+	padding: 10px;
+}
+
+.formModal__submit--disabled {
 	background-color: #c7c7c7;
 	color: #fff;
 	cursor: not-allowed;
 }
 
-.formularioTienda__label {
+.formModal__label {
 	display: block;
 	margin-bottom: 10px;
 	margin-left: 20px;
 }
 
-.formularioTienda__errorBox {
+.formModal__errorBox {
 	padding: 20px;
 }
 
@@ -1463,6 +1482,8 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 
 .misTiendas__img {
 	height: 200px;
+	width: 200px;
+	object-fit: cover;
 	border-radius: 10px;
 }
 
@@ -1473,4 +1494,53 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 .misTiendas__nombre {
 	font-weight: 700;
 	text-align: center;
+}
+
+.misTiendas__perfilTienda {
+	display: flex;
+	width: 100%;
+	gap: 30px;
+	padding: 20px 0 0 20px;
+}
+
+.perfilTienda {
+}
+
+.perfilTienda__contenedor {
+	display: flex;
+	width: 300px;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	background-color: #b8c3ef;
+	border-radius: 30px;
+	padding: 10px;
+	gap: 25px;
+	font-size: 20px;
+}
+
+.productosTienda {
+	flex-grow: 1;
+}
+
+.perfilTienda__nombre {
+	font-weight: 700;
+}
+
+.perfilTienda__imagen {
+	width: 100%;
+	height: 280px;
+	object-fit: cover;
+	transition: all 0.4s linear;
+	border-radius: 50px;
+}
+
+.perfilTienda__imagen--expanded {
+	border-radius: 100%;
+}
+
+.productosTienda__producto {
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
 }
