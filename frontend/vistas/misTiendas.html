@@ -88,228 +88,151 @@
 				</div>
 			</div>
 
-			<button type="button" class="btnAgregarTienda">
-				Agregar Tienda
-			</button>
+			<button type="button" class="btnAgregar">Agregar Tienda</button>
 
 			<div class="misTiendas__grid"></div>
 		</main>
 
-		<div class="modalAgregarTienda" id="modalAgregarTienda">
-			<div class="modalAgregarTienda__dialog">
-				<header class="modalAgregarTienda__header">
-					<h2 class="modalAgregarTienda__title">Agregar Tienda</h2>
-					<!-- <button class="modalAgregarTienda__close">X</button> -->
+		<div class="modal" id="modal">
+			<div class="modal__dialog">
+				<header class="modal__header">
+					<h2 class="modal__title">Agregar Tienda</h2>
+					<!-- <button class="modal__close">X</button> -->
 				</header>
-				<section class="modalAgregarTienda__content">
+				<section class="modal__content">
 					<form
 						action=""
-						class="modalAgregarTienda__formularioTienda formularioTienda"
+						class="modal__formModal formModal"
 						enctype="multipart/form-data"
 					>
-						<div class="formularioTienda__Divider">
-							<label class="formularioTienda__label" for="RIF"
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="RIF"
 								>RIF</label
 							>
 							<input
 								type="number"
-								class="formularioTienda__RIF"
+								class="formModal__number"
 								name="RIF"
 								id="RIF"
 							/>
 						</div>
-						<div class="formularioTienda__Divider">
-							<label class="formularioTienda__label" for="name"
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="name"
 								>Nombre</label
 							>
 							<input
 								type="text"
 								name="name"
 								id="name"
-								class="formularioTienda__name"
+								class="formModal__text"
 							/>
 						</div>
-						<div class="formularioTienda__Divider">
-							<label class="formularioTienda__label" for="Image"
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="Image"
 								>Imagen</label
 							>
 							<input
 								type="file"
 								name="Image"
 								id="Image"
-								class="formularioTienda__image"
+								class="formModal__image"
 								accept="image/png, image/jpeg"
 							/>
 							<img
-								class="formularioTienda__imagePreview"
+								class="formModal__imagePreview"
 								alt="Imagen de tienda"
 							/>
 						</div>
-						<div class="formularioTienda__Divider">
-							<label class="formularioTienda__label" for="region"
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="region"
 								>Región</label
 							>
 							<select
 								name="region"
 								id="region"
-								class="formularioTienda__regionSelect"
+								class="formModal__select"
 							>
-								<option
-									class="formularioTienda__regionOption"
-									value="4"
-								>
+								<option class="formModal__option" value="4">
 									Amazonas
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="5"
-								>
+								<option class="formModal__option" value="5">
 									Anzoátegui
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="6"
-								>
+								<option class="formModal__option" value="6">
 									Apure
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="7"
-								>
+								<option class="formModal__option" value="7">
 									Aragua
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="8"
-								>
+								<option class="formModal__option" value="8">
 									Barinas
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="9"
-								>
+								<option class="formModal__option" value="9">
 									Bolívar
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="10"
-								>
+								<option class="formModal__option" value="10">
 									Carabobo
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="11"
-								>
+								<option class="formModal__option" value="11">
 									Cojedes
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="12"
-								>
+								<option class="formModal__option" value="12">
 									Delta Amacuro
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="13"
-								>
+								<option class="formModal__option" value="13">
 									Dependencias Federales
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="14"
-								>
+								<option class="formModal__option" value="14">
 									Distrito Federal
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="15"
-								>
+								<option class="formModal__option" value="15">
 									Falcón
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="16"
-								>
+								<option class="formModal__option" value="16">
 									Guárico
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="17"
-								>
+								<option class="formModal__option" value="17">
 									Lara
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="18"
-								>
+								<option class="formModal__option" value="18">
 									Mérida
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="19"
-								>
+								<option class="formModal__option" value="19">
 									Miranda
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="20"
-								>
+								<option class="formModal__option" value="20">
 									Monagas
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="21"
-								>
+								<option class="formModal__option" value="21">
 									Nueva Esparta
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="22"
-								>
+								<option class="formModal__option" value="22">
 									Portuguesa
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="23"
-								>
+								<option class="formModal__option" value="23">
 									Sucre
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="24"
-								>
+								<option class="formModal__option" value="24">
 									Táchira
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="25"
-								>
+								<option class="formModal__option" value="25">
 									Trujillo
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="26"
-								>
+								<option class="formModal__option" value="26">
 									Vargas
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="27"
-								>
+								<option class="formModal__option" value="27">
 									Yaracuy
 								</option>
-								<option
-									class="formularioTienda__regionOption"
-									value="28"
-								>
+								<option class="formModal__option" value="28">
 									Zulia
 								</option>
 							</select>
 						</div>
 
-						<div class="formularioTienda__errorBox"></div>
+						<div class="formModal__errorBox"></div>
 					</form>
-					<button type="button" class="formularioTienda__submit">
+					<button type="button" class="formModal__submit">
 						Crear Tienda
 					</button>
 				</section>
