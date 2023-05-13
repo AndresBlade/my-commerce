@@ -68,5 +68,16 @@ const getProductsByName = async (req, res) => {
     }
 }
 
+const getProductByID = async (req, res) => {
+    try{
+        const {id} = req.params;   
+        const productByID = await productoModel.findProductByID(id);
+        res.send({productByID});
+    }
+    catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_PRODUCT_BY_ID');
+    }
+}
 
-module.exports = {createProduct, getProductsByTienda, getProducts,getProductByCategory, getProductsByName };
+module.exports = {createProduct, getProductsByTienda, getProducts,getProductByCategory, getProductsByName, getProductByID };
