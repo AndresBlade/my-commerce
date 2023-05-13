@@ -71,6 +71,15 @@ Producto.FindProductAndTienda = function(id){
             where: { id: sequelize.col('productos.tienda_id') },
             as: 'tienda',
             attributes: ['RIF'] }
+        });
+};
+
+Producto.findProductByID = function(id){
+    return Producto.findAll({
+        where: { id: id },
+        include: { model: tiendas, 
+            as: 'tienda',
+            attributes: ['nombre', 'imagen'] }
     });
 }
 
