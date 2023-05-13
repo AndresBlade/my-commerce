@@ -60,14 +60,17 @@ inputFile.addEventListener('change', e => {
 				})
 				.then(
 					respuesta => {
-						localStorage.setItem('user', JSON.stringify(respuesta));
+						const user = {};
+						user.data = {
+							token: token,
+							user: respuesta.data,
+						};
+						localStorage.setItem('user', JSON.stringify(user));
 						console.log(respuesta);
 					}
 					//guarda el usuario en el localstorage
 				)
-				.then(
-					respuesta => window.location.reload() //redirige al perfil
-				);
+				.then(respuesta => window.location.reload()); //redirige al perfil
 		})
 		.catch(err => console.log(err));
 });

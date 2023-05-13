@@ -1544,3 +1544,9 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	flex-direction: column;
 	text-decoration: none;
 }
+
+.producto__imagen {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+}
