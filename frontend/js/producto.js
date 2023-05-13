@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     document.querySelector('.productName').textContent = productName;
-    document.querySelector('.price').textContent = productPrice;
+    document.querySelector('.price').textContent = `$${productPrice}`;
     document.querySelector('.descripcion').textContent = productDescripcion;
     document.querySelector('.tiendaName').textContent = tiendaNombre;
 
