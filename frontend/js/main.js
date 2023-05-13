@@ -34,8 +34,10 @@ const boton_perfil = document.querySelector('.btn_perfil');
 const boton_creaCuenta = document.querySelector('.btn-texto');
 const boton_creaCuentaLink = document.querySelector('.btnCrearCuenta');
 
+const dataJSON = localStorage.getItem('user');
+
 document.addEventListener('DOMContentLoaded', () => {
-	try {
+	if (dataJSON) {
 		const data = JSON.parse(localStorage.getItem('user')).data;
 		const type = data.user.tipo_id === 1 ? 'Cliente' : 'Otro tipo rarito';
 
@@ -54,11 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					'http://127.0.0.1/e-commerce-tarea/frontend/index.html';
 				location.reload();
 			});
-		} else {
 		}
-	} catch (err) {
-		err = 'error';
-		console.log(err);
 	}
 });
 
