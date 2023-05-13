@@ -44,6 +44,7 @@
 		</header>
 
 		<main class="misTiendas">
+			<button type="button" class="btnAgregar">Agregar Producto</button>
 			<div class="menu-dashboard">
 				<!-- TOP MENU -->
 				<div class="top-menu">
@@ -88,8 +89,109 @@
 				</div>
 			</div>
 
-			<div class="misTiendas__perfil"></div>
+			<div class="misTiendas__perfilTienda perfilTienda">
+				<div>
+					<div class="perfilTienda__contenedor">
+						<p class="perfilTienda__nombre"></p>
+						<img class="perfilTienda__imagen"></i>
+						<p class="perfilTienda__RIF"></p>
+						<p class="perfilTienda__fechaCreacion"></p>
+					</div>
+				</div>
+
+                <div class="productosTienda">
+                    
+                </div>
+			</div>
 		</main>
+
+		<div class="modal" id="modal">
+			<div class="modal__dialog">
+				<header class="modal__header">
+					<h2 class="modal__title">Agregar Tienda</h2>
+					<!-- <button class="modal__close">X</button> -->
+				</header>
+				<section class="modal__content">
+					<form
+						action=""
+						class="modal__formModal formModal"
+						enctype="multipart/form-data"
+					>
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="name"
+								>Nombre</label
+							>
+							<input
+								type="text"
+								name="nombre"
+								id="name"
+								class="formModal__text"
+							/>
+						</div>
+
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="price"
+								>Precio</label
+							>
+							<input
+								type="number"
+								step="0.01"
+								min="0"
+								name="precio"
+								id="price"
+								class="formModal__number"
+							/>
+						</div>
+
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="category"
+								>Categoría</label
+							>
+							<select
+								name="categoria_id"
+								id="category"
+								class="formModal__select"
+							>
+								
+							</select>
+						</div>
+
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="description"
+								>Descripción</label
+							>
+
+							<textarea name="descripcion" class="formModal__textarea" id="description" cols="30" rows="10"></textarea>
+						</div>
+
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="Image"
+								>Imagen</label
+							>
+							<input
+								type="file"
+								name="imagen"
+								id="Image"
+								class="formModal__image"
+								accept="image/png, image/jpeg"
+								multiple
+							/>
+							<!-- <img
+								class="formModal__imagePreview"
+								alt="Imagen de producto"
+							/> -->
+						</div>
+						
+
+						<div class="formModal__errorBox"></div>
+					</form>
+					<button type="button" class="formModal__submit">
+						Crear Tienda
+					</button>
+				</section>
+			</div>
+		</div>
+
 
 		<footer></footer>
 

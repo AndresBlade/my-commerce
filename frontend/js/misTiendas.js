@@ -15,53 +15,57 @@ class UI {
 		// };
 		// this.tiendas.push(this.tienda);
 		// this.data.tiendas = this.tiendas;
+
+		if (this.data.user.tipo_id === 1) return;
+
+		console.log(this.data);
 		this.mostrarMisTiendas();
 	}
 
 	#tiendas = [];
 
 	get btnAgregarTienda() {
-		return document.querySelector('.btnAgregarTienda');
+		return document.querySelector('.btnAgregar');
 	}
 
 	get modalAgregarTienda() {
-		return document.querySelector('.modalAgregarTienda');
+		return document.querySelector('.modal');
 	}
 
 	get dialogAgregarTienda() {
-		return document.querySelector('.modalAgregarTienda__dialog');
+		return document.querySelector('.modal__dialog');
 	}
 
 	get btnSubirImagen() {
-		return document.querySelector('.formularioTienda__image');
+		return document.querySelector('.formModal__image');
 	}
 
 	get btnSubmitTienda() {
-		return document.querySelector('.formularioTienda__submit');
+		return document.querySelector('.formModal__submit');
 	}
 
-	get formularioTienda() {
-		return document.querySelector('.formularioTienda');
+	get formModal() {
+		return document.querySelector('.formModal');
 	}
 
 	get inputName() {
-		return document.querySelector('.formularioTienda__name');
+		return document.querySelector('#name');
 	}
 
 	get inputRIF() {
-		return document.querySelector('.formularioTienda__RIF');
+		return document.querySelector('#RIF');
 	}
 
 	get inputImage() {
-		return document.querySelector('.formularioTienda__image');
+		return document.querySelector('.formModal__image');
 	}
 
 	get inputRegion() {
-		return document.querySelector('.formularioTienda__regionSelect');
+		return document.querySelector('.formModal__select');
 	}
 
 	get inputImagePreview() {
-		return document.querySelector('.formularioTienda__imagePreview');
+		return document.querySelector('.formModal__imagePreview');
 	}
 
 	validarCamposCorrectos() {
@@ -77,25 +81,25 @@ class UI {
 		if (!camposRellenos)
 			return mostrarMensajeError(
 				'Faltan campos por rellenar',
-				'.formularioTienda__errorBox'
+				'.formModal__errorBox'
 			);
 
 		if (inputImage.files.length === 0)
 			return mostrarMensajeError(
 				'Debe subir una imagen',
-				'.formularioTienda__errorBox'
+				'.formModal__errorBox'
 			);
 
 		if (inputName.value.length < 4)
 			return mostrarMensajeError(
 				'El nombre debe tener mínimo 4 caracteres',
-				'.formularioTienda__errorBox'
+				'.formModal__errorBox'
 			);
 
 		if (inputRIF.value > 2000000000)
 			return mostrarMensajeError(
 				'El RIF debe ser un número menor a 1.000.000.000',
-				'.formularioTienda__errorBox'
+				'.formModal__errorBox'
 			);
 
 		return true;
@@ -195,11 +199,11 @@ const btnSubirImagen = ui.btnSubirImagen;
 const btnSubmitTienda = ui.btnSubmitTienda;
 
 btnAgregarTienda.addEventListener('click', e => {
-	modalAgregarTienda.classList.add('modalAgregarTienda--visible');
+	modalAgregarTienda.classList.add('modal--visible');
 }); //abre el modal
 
 function cerrarModal() {
-	modalAgregarTienda.classList.remove('modalAgregarTienda--visible'); //cierra el modal
+	modalAgregarTienda.classList.remove('modal--visible'); //cierra el modal
 }
 
 dialogAgregarTienda.addEventListener('mouseleave', e => {
@@ -219,7 +223,7 @@ btnSubirImagen.addEventListener('change', e => {
 		console.log('readerloco');
 		let image = ui.inputImagePreview;
 		image.src = e.target.result; //obtiene la imagen del file reader
-		image.classList.add('formularioTienda__imagePreview--visible');
+		image.classList.add('formModal__imagePreview--visible');
 	});
 
 	reader.readAsDataURL(file);
@@ -254,7 +258,7 @@ btnSubmitTienda.addEventListener('click', e => {
 	console.log(formData);
 
 	btnSubmitTienda.disabled = true;
-	btnSubmitTienda.classList.add('.formularioTienda__submit--disabled');
+	btnSubmitTienda.classList.add('.formModal__submit--disabled');
 
 	fetch('http://127.0.0.1:3000/api/tienda/register', {
 		mode: 'cors',
@@ -274,19 +278,21 @@ btnSubmitTienda.addEventListener('click', e => {
 		})
 		.then(respuesta => {
 			cerrarModal();
+			const data = { data: ui.data };
+			data.data.user.tipo_id = 2;
+
+			localStorage.setItem('user', JSON.stringify(data));
 			console.log(respuesta);
 			window.location.reload();
 		})
 		.catch(err =>
 			mostrarMensajeError(
 				'El RIF ya se encuentra registrado, inténtelo nuevamente',
-				'.formularioTienda__errorBox'
+				'.formModal__errorBox'
 			)
 		)
 		.finally(() => {
 			btnSubmitTienda.disabled = false;
-			btnSubmitTienda.classList.remove(
-				'.formularioTienda__submit--disabled'
-			);
+			btnSubmitTienda.classList.remove('.formModal__submit--disabled');
 		});
 });
