@@ -32,9 +32,9 @@ menuToggle.onclick = function () {
 const boton_header = document.querySelector('.btn_sesion');
 const boton_creaCuenta = document.querySelector('.btn-texto');
 const boton_creaCuentaLink = document.querySelector('.btnCrearCuenta');
-const modalSesion = document.querySelector('.modal__sesion');
-const btnSi = document.querySelector('.modal__si');
-const btnNo = document.querySelector('.modal__no');
+const modalSesion = document.querySelector('.modalSesion__sesion');
+const btnSi = document.querySelector('.modalSesion__si');
+const btnNo = document.querySelector('.modalSesion__no');
 
 const dataJSON = localStorage.getItem('user');
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	boton_header.href = '#';
 
 	boton_header.addEventListener('click', e => {
-		modalSesion.classList.add('modal__sesion--show');
+		modalSesion.classList.add('modalSesion__sesion--show');
 		btnSi.addEventListener('click', e => {
 			localStorage.removeItem('user');
 			window.location.href = 'http://127.0.0.1/e-commerce-tarea/frontend';
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		btnNo.addEventListener('click', e => {
 			e.preventDefault();
-			modalSesion.classList.remove('modal__sesion--show');
+			modalSesion.classList.remove('modalSesion__sesion--show');
 		});
 	});
 });
