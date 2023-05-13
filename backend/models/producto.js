@@ -63,4 +63,13 @@ Producto.findProductsByName = function(name){
     });
 }
 
+Producto.findProductByID = function(id){
+    return Producto.findAll({
+        where: { id: id },
+        include: { model: tiendas, 
+            as: 'tienda',
+            attributes: ['nombre', 'imagen'] }
+    });
+}
+
 module.exports = Producto;
