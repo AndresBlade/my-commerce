@@ -8,7 +8,7 @@ const checkRole = require('../middleware/rol');
 
 router.post('/individualPurchase',
             authMiddleware,
-            checkRole(['CLIENTE']),
+            checkRole(['CLIENTE','TIENDA']),
             ventas_detalles_validator,
             ventasController.individualPurchase);
 
