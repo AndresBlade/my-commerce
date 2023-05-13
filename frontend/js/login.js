@@ -14,7 +14,6 @@ function validarCamposCorrectos() {
 
 	if (!camposRellenos)
 		return mostrarMensajeError('Faltan campos por rellenar', '.userForm');
-
 	return true;
 }
 
@@ -74,7 +73,7 @@ btnLogin.addEventListener('click', e => {
 
 			if (err.erros.some(error => error.msg === 'Invalid value'))
 				return mostrarMensajeError(
-					'Ingrese un correo o contraseña reales (correo con @, contraseña con al menos una mayúscula, etc)',
+					'Ingrese un correo o contraseña reales (correo con @, contraseña con al menos una mayúscula)',
 					'.userForm'
 				); //si el error es que el correo o contraseña no es valido
 		})

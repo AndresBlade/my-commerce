@@ -1,3 +1,5 @@
+'use strict';
+
 let searchBtn = document.querySelector('.searchBtn');
 let closeBtn = document.querySelector('.closeBtn');
 let searchBox = document.querySelector('.searchBox');
@@ -25,6 +27,43 @@ menuToggle.onclick = function () {
 	searchBtn.classList.remove('active');
 	menuToggle.classList.remove('hide');
 };
+
+//---------------***** Index dinamico ***********----------------
+const boton_header = document.querySelector('.btn_sesion');
+const boton_creaCuenta = document.querySelector('.btn-texto');
+const boton_creaCuentaLink = document.querySelector('.btnCrearCuenta');
+const modalSesion = document.querySelector('.modalSesion__sesion');
+const btnSi = document.querySelector('.modalSesion__si');
+const btnNo = document.querySelector('.modalSesion__no');
+
+const dataJSON = localStorage.getItem('user');
+
+document.addEventListener('DOMContentLoaded', () => {
+	if (!dataJSON) return;
+
+	if (boton_creaCuenta) {
+		boton_creaCuenta.textContent = 'Registra tu tienda';
+		boton_creaCuentaLink.href =
+			'http://127.0.0.1/e-commerce-tarea/frontend/vistas/misTiendas.html';
+	}
+
+	console.log('hay una sesion abierta');
+	boton_header.textContent = 'Cerrar Sesión';
+	boton_header.href = '#';
+
+	boton_header.addEventListener('click', e => {
+		modalSesion.classList.add('modalSesion__sesion--show');
+		btnSi.addEventListener('click', e => {
+			localStorage.removeItem('user');
+			window.location.href = 'http://127.0.0.1/e-commerce-tarea/frontend';
+		});
+
+		btnNo.addEventListener('click', e => {
+			e.preventDefault();
+			modalSesion.classList.remove('modalSesion__sesion--show');
+		});
+	});
+});
 
 //      perfil
 // const toggle = document.querySelector(".toggle");
