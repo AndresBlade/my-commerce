@@ -75,7 +75,7 @@ Producto.FindProductAndTienda = function(id){
 };
 
 Producto.findProductByID = function(id){
-    return Producto.findAll({
+    return Producto.findOne({
         where: { id: id },
         include: { model: tiendas, 
             as: 'tienda',

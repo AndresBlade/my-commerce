@@ -109,7 +109,7 @@ class UI {
 		const { id } = this.data.user;
 		const { token } = this.data;
 
-		return fetch(
+		return fetch(	
 			`http://127.0.0.1:3000/api/tienda/getTiendasByUser/${id}`,
 			{
 				method: 'GET',
