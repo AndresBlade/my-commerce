@@ -14,7 +14,7 @@ fetch('http://127.0.0.1:3000/api/productos/getProducts', {
 	.then(respuesta => respuesta.allProducts)
 	.then(productos =>
 		productos.forEach(producto => {
-			const productoHTML = document.createElement('div');
+			const productoHTML = document.createElement('a');
 			productoHTML.classList.add('producto');
 			const imagenes = producto.imagenes.split(' ');
 			console.log(imagenes);
@@ -38,6 +38,14 @@ fetch('http://127.0.0.1:3000/api/productos/getProducts', {
 			    </div>
 			    <span class="ubicacion">Cabudare</span>
 			</div>`;
+
+			const url = new URL(
+				'http://127.0.0.1/e-commerce-tarea/frontend/vistas/producto.html'
+			);
+
+			url.searchParams.set('id', producto.id);
+
+			productoHTML.href = url.href;
 
 			grid.append(productoHTML);
 		})
