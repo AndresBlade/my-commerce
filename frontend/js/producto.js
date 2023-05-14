@@ -67,7 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
 					return respuesta.json();
 				})
 				.then(respuesta => console.log(respuesta))
-				.catch(err => console.log(JSON.parse(err)));
+				.then(() => {
+					btnComprar.textContent = 'Comprado con exito!';
+					btnComprar.classList.add(
+						'compraProducto__btnComprar--comprado'
+					);
+				})
+				.catch(err => {
+					console.log(JSON.parse(err));
+					btnComprar.textContent = 'Error al comprar';
+					btnComprar.classList.add(
+						'compraProducto__btnComprar--error'
+					);
+				});
 		});
 
 		document.querySelector('.productName').textContent = productName;
