@@ -1,5 +1,6 @@
 const productID = new URLSearchParams(window.location.search);
 const id = productID.get('id');
+const imageContainer = document.querySelector('.gallery__container_img');
 
 function fetchProducto(id) {
   return fetch(`http://127.0.0.1:3000/api/productos/getProductByID/${id}`, {
@@ -14,6 +15,20 @@ function fetchProducto(id) {
     })
     .catch(err => console.log(err));
 }
+
+const imagesModal = document.querySelector('.modal-gallery__background');
+const closeModalBtn = document.querySelector('.modal-gallery__close');
+
+imageContainer.addEventListener('click', ()=>{
+    if(window.innerWidth >= 1115){
+        imagesModal.style.display = 'grid';
+    }
+    
+});
+
+closeModalBtn.addEventListener('click', ()=>{
+    imagesModal.style.display = 'none';
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchProducto(id).then(respuesta => {
@@ -34,10 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.tiendaName').textContent = tiendaNombre;
 
     if (tiendaImagen != null){
-        document.querySelector('.img_tienda').src = tiendaImagen;
+       /* document.querySelector('.img_tienda').src = tiendaImagen;*/
+        imageContainer.style.backgroundImage = "url('" + tiendaImagen + "')";
     }
 
-    const slider = document.querySelector('.slider');
+  
+
+    /*const slider = document.querySelector('.slider');
     const slider_nav = document.querySelector('.slider-nav');
 
     const imagenes = productImagenes.split(' ');
@@ -56,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const scroll = ` <a href="#slide-${slide_nav}"></a>`
         slider_nav.innerHTML += scroll;
         slide_nav--;
-    }
+    }*/
+
   });
 });
     
