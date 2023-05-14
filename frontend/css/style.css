@@ -1681,6 +1681,10 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	padding: 20px 0 0 20px;
 }
 
+.misTiendas__descripcion {
+	overflow: auto;
+}
+
 .perfilTienda {
 }
 
@@ -1727,4 +1731,104 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	width: 200px;
 	height: 200px;
 	object-fit: cover;
+}
+
+.compraProducto__btnComprar--comprado {
+	cursor: not-allowed;
+	animation-name: compraRealizada;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+.compraProducto__btnComprar--error {
+	cursor: not-allowed;
+	animation-name: compraError;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes compraRealizada {
+	100% {
+		background-color: #00a650;
+	}
+}
+
+@keyframes compraError {
+	100% {
+		background-color: #d33;
+	}
+}
+
+.ventas {
+	width: 100%;
+	display: flex;
+}
+
+.ventas__flex {
+	display: flex;
+	flex: 5 1 auto;
+	flex-direction: column;
+	padding: 20px 20px 20px 0;
+	padding: 20px;
+}
+
+.ventas__tienda {
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
+	gap: 10px;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #ccd4ff;
+	padding: 10px 20px;
+	border-radius: 20px;
+	box-shadow: #555 0 0 4px 2px;
+	cursor: pointer;
+	transition: all 0.4s;
+}
+
+.ventas__contenedor {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-auto-rows: auto;
+	gap: 20px;
+}
+
+.ventas__venta {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	justify-content: center;
+	background-color: #59b;
+	padding: 20px;
+	border-radius: 20px;
+}
+
+.ventas__title {
+	font-weight: 700;
+}
+
+.compras {
+	width: 100%;
+	display: flex;
+}
+
+.compras__flex {
+	display: flex;
+	flex: 5 1 auto;
+	flex-direction: column;
+	padding: 20px 20px 20px 0;
+	padding: 20px;
+}
+
+.compras__compra {
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+	justify-content: space-around;
+	padding: 10px 0;
+}
+
+.compras__compra:nth-child(2n - 1) {
+	background-color: #aab8ee;
 }

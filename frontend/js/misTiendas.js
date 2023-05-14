@@ -64,6 +64,10 @@ class UI {
 		return document.querySelector('.formModal__select');
 	}
 
+	get inputDescription() {
+		return document.querySelector('#description');
+	}
+
 	get inputImagePreview() {
 		return document.querySelector('.formModal__imagePreview');
 	}
@@ -73,6 +77,7 @@ class UI {
 		const inputRIF = this.inputRIF;
 		const inputImage = this.inputImage;
 		const inputRegion = this.inputRegion;
+		const inputDescription = this.inputDescription;
 
 		const inputsText = [inputName, inputRIF, inputRegion];
 
@@ -102,6 +107,13 @@ class UI {
 				'.formModal__errorBox'
 			);
 
+		if (inputDescription.value.trim().length < 30) {
+			return mostrarMensajeError(
+				'La descripción debe tener mínimo 30 caracteres',
+				'.formModal__errorBox'
+			);
+		}
+
 		return true;
 	}
 
@@ -109,7 +121,7 @@ class UI {
 		const { id } = this.data.user;
 		const { token } = this.data;
 
-		return fetch(	
+		return fetch(
 			`http://127.0.0.1:3000/api/tienda/getTiendasByUser/${id}`,
 			{
 				method: 'GET',
@@ -140,7 +152,13 @@ class UI {
 
 			const regexReemplazoRuta = /:\d\d\d\d/;
 			this.#tiendas.forEach(tienda => {
-				let { nombre, RIF, imagen, createdAt: fechaCreacion } = tienda;
+				let {
+					nombre,
+					RIF,
+					imagen,
+					createdAt: fechaCreacion,
+					descripcion,
+				} = tienda;
 
 				// let [rutaImagen, nombreImagen] =
 				// 	imagen.split(regexReemplazoRuta);
@@ -171,7 +189,18 @@ class UI {
 				const fechaHTML = document.createElement('p');
 				fechaHTML.innerHTML = `<span class="misTiendas__title">Fecha de creación</span>: ${fechaCreacion}`;
 
-				tiendaHTML.append(nombreHTML, RIFHTML, imagenHTML, fechaHTML);
+				const descripcionHTML = document.createElement('p');
+				descripcionHTML.classList.add('misTiendas__descripcion');
+
+				descripcionHTML.innerHTML = `<span class="misTiendas__title">Descripción</span>: ${descripcion}`;
+
+				tiendaHTML.append(
+					nombreHTML,
+					RIFHTML,
+					imagenHTML,
+					fechaHTML,
+					descripcionHTML
+				);
 				misTiendas.append(tiendaHTML);
 			});
 		});
@@ -241,6 +270,7 @@ btnSubmitTienda.addEventListener('click', e => {
 	const nombre = ui.inputName.value;
 	const imagen = ui.inputImage.files[0];
 	const regionId = ui.inputRegion.value;
+	const descripcion = ui.inputDescription.value;
 
 	const data = ui.data;
 
@@ -251,6 +281,7 @@ btnSubmitTienda.addEventListener('click', e => {
 	const formData = new FormData();
 	formData.append('RIF', RIF);
 	formData.append('nombre', nombre);
+	formData.append('descripcion', descripcion);
 	formData.append('regionId', regionId);
 	formData.append('cliente_id', cliente_id);
 	formData.append('imagen', imagen);

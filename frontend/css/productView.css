@@ -1,5 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+	--main-color: #1e5bd6;
+	--background-color: #dde6f5;
+	--rectangulo-color: #f4f0a4;
+	--letrasBlancas-color: #f1f4fe;
+	--letrasAzules-color: #4d7cff;
+	--degradadoFondo-color: linear-gradient(
+		265deg,
+		#3145e3cc 0%,
+		#4d62ffcc 51%,
+		#7c92ffcc 100%
+	);
+
+	/*
+	Degradado viejo
+	--degradadoFondo-color: 
+	linear-gradient(50.94deg,
+	#7c92ffcc 1.31%,
+	#4d62ffcc 42.31%,
+	#3145e3cc 74.71%)
+
+	
+	*/
+}
+
 body {
 	background-color: #f8fafc;
+    font-family: 'Popins', sans-serif;
 }
 
 main{
@@ -7,133 +35,241 @@ main{
     height: 100%;
     display: flex;
     justify-content:space-evenly;
-    align-items:center;
+    background: var(--degradadoFondo-color);
 }
 
-/*---------------- sliderVar  -------------- */
-
-.container_img {
-    padding: 20px;
-}
-
-.slider-wrapper {
-	position: relative;
-	max-width: 50rem;
-}
-
-.slider {
-	display: flex;
-    width: 700px;
-    height: 500px;  
-	aspect-ratio: 16 / 9;
-	overflow-x: auto;
-	scroll-snap-type: x mandatory;
-	scroll-behavior: smooth;
-	box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
-	border-radius: 0.5rem;
-	-ms-overflow-style: none; /* Hide scrollbar IE and Edge */
-	scrollbar-width: none; /* Hide scrollbar Firefox */
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.slider::-webkit-scrollbar {
-	display: none;
-}
-
-.slider img {
-	flex: 1 0 100%;
-	scroll-snap-align: start;
-	object-fit: cover;
-}
-
-.slider-nav {
-	display: flex;
-	column-gap: 1rem;
-	position: absolute;
-	bottom: 1.25rem;
-	left: 50%;
-	transform: translateX(-50%);
-	z-index: 1;
-}
-
-.slider-nav a {
-	width: 0.5rem;
-	height: 0.5rem;
-	border-radius: 50%;
-	background-color: #fff;
-	opacity: 0.75;
-	transition: opacity ease 250ms;
-}
-
-.slider-nav a:hover {
-	opacity: 1;
-}
-
-/*---------------- CONTAINER PRODUCT INFO -------------- */
-
-main .container_product{
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
+.content
+{
     display: flex;
-    flex-direction: column; 
-    align-items: center;
+    flex-wrap: wrap ;
+    padding: 90px 50px;
+    gap: 124px;
+}
+
+/*-------- GALLERY -------*/
+
+main .gallery
+{
+    width: 450px;
+    cursor: pointer;
+}
+
+.gallery__container_img
+{
+    height: 500px;
+    width: 100%;
+    background-image: url("../img/BolsitosKio.jpg");
+    border-radius: 1.2rem;
+    background-size: cover;
+    margin-bottom: 2rem;
+}
+
+.gallery__thumnails {
+    display: flex;
     justify-content: center;
-    gap: 10%;
+    gap: 2rem;
 }
 
-.container_product .productName{
-    font-family: 'Kanit', sans-serif;
-    letter-spacing: 4px;
+.gallery__thumnail {
+    width: 90px;
+    border-radius: 16px;
+  }
+
+  .gallery__thumnail:hover {
+    cursor: pointer;
+    border: 2px solid var(--main-color);
+  }
+
+  .gallery__previus 
+{
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 170px;
+    left: 15px;
 }
 
-.container_product .price{
-    margin-top: -30px;
-    font-size: 64px;
+  .gallery__previus:hover
+{
+    cursor: pointer;
 }
 
-.container_product .descripcion{
-    font-size: 18px;
-    text-align: center;
-    padding: 0 30px; 
-    margin-top: -30px;
+.gallery__next 
+{
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 170px;
+    left: 320px;
+  }
+  .gallery__next:hover 
+  {
+    cursor: pointer;
+  }
 
+/*---------------- DETAILS -------------- */
+.details{
+    padding: 2rem;
 }
 
-
-.button{
-  background-color: #405cf5;
-  border-radius: 6px;
-  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
-  color: #fff;
-  cursor: pointer;
-  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
-  height: 44px;
-  width: 50%;
+main .details{
+    width: 550px;
+    height: 550px;
+    display: flex;
+    border-radius: 8px;
+    flex-direction: column;
+    background: var(--letrasBlancas-color); 
 }
 
-.button:disabled {
-  cursor: default;
-}
-
-.button:focus {
-  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
-}
-/*---------------- CONTAINER MORE PRODUCT -------------- */
 .container_tienda {
     width: 100%;
-    margin-top: 30px;
+    margin-bottom: 1rem;
     display: flex;
-    justify-content: space-evenly;
+    gap: 2rem;
     align-items: center;
+    text-decoration: none;
 }
 
 .container_tienda .img_tienda{
     width: 100px; 
     height: 100px;
-}
-.img_tienda img{
     border-radius: 50%;
 }
 
+.container_tienda .tiendaName{
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 400;
+}
 
+.details .productName{
+    font-size: 2em;
+    margin-bottom: 48px;
+    font-weight: 600;
+}
+
+.details .descripcion{
+    font-size: .90rem;
+    margin-bottom: 37px;
+}
+
+.details .price{
+    font-size: 2rem;
+    font-weight: 700;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.button{
+  background-color: var(--letrasAzules-color);
+  padding: 1rem 3rem;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  color: var(--letrasBlancas-color);
+  font-size: 0.9em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+/*---------------- CONTAINER MORE PRODUCT -------------- */
+
+
+  /*Modal galeria*/
+
+  .modal-gallery__background {
+    background-color: #00000080;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    display: none;
+    place-content: center;
+  }
+  .modal-gallery__close-container {
+    text-align: right;
+    height: 30px;
+  }
+  .modal-gallery__close {
+    width: 20px;
+    margin-top: 5rem;
+  }
+  .modal-gallery__close:hover {
+    cursor: pointer;
+    content: url("../img/icon-close-orange.svg");
+  }
+  .modal-gallery__image-container {
+    background-image: url("../img/BolsitosKio.jpg");
+    height: 446px;
+    background-size: cover;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    margin-top: 6rem;
+    position: relative;
+  }
+  .modal-gallery__thumnails {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+    margin: auto;
+  }
+  .modal-gallery__thumnail {
+    width: 90px;
+    border-radius: 16px;
+  }
+  .modal-gallery__thumnail:hover {
+    cursor: pointer;
+    border: 2px solid var(--letrasAzules-color);
+  }
+  .modal-gallery__previus {
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 190px;
+    left: -15px;
+  }
+  .modal-gallery__previus:hover {
+    cursor: pointer;
+  }
+  @media (min-width: 1115px) {
+    .modal-gallery__previus {
+      display: block;
+    }
+  }
+  .modal-gallery__next {
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 190px;
+    left: 520px;
+  }
+  .modal-gallery__next:hover {
+    cursor: pointer;
+  }
+  @media (min-width: 1115px) {
+    .modal-gallery__next {
+      display: block;
+    }
+  }
+  

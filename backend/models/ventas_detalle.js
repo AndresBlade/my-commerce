@@ -1,5 +1,6 @@
 const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
+const Producto = require('./producto');
 
 const ventas_detalles = sequelize.define(
     'ventas_detalle',
@@ -12,5 +13,11 @@ const ventas_detalles = sequelize.define(
         timestamps: true, // createdAt, updatedAt
     }
 )
+ventas_detalles.belongsTo(Producto, {
+    foreignKey: 'producto_id',
+    as: 'producto',
+});
+
+
 
 module.exports = ventas_detalles;

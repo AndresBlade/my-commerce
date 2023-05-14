@@ -21,6 +21,9 @@
 				<ul class="navigation">
 					<li><a href="explorar.html">Explorar</a></li>
 					<li><a href="ayuda.html">Ayuda</a></li>
+					<li class="btn_perfil">
+						<a href="perfil.html">Mi Perfil</a>
+					</li>
 					<li><a href="contactanos.html">Contactanos</a></li>
 					<li>
 						<a class="btn_sesion" href="login.html"
@@ -64,7 +67,7 @@
 				</div>
 				<!-- MENU -->
 				<div class="menu">
-					<a class="enlace">
+					<a href="perfil.html" class="enlace">
 						<i class="bx bx-grid-alt heading-white"></i>
 						<span class="heading-white">Mi Cuenta</span>
 					</a>
@@ -79,12 +82,12 @@
 						<span class="heading-white">Ventas</span>
 					</a>
 
-					<a href="misTiendas.html" class="enlace">
+					<a href="producto.html" class="enlace">
 						<i class="bx bx-message-square heading-white"></i>
-						<span class="heading-white">Mi Perfil</span>
+						<span class="heading-white">Publicaciones</span>
 					</a>
 
-					<a class="enlace">
+					<a href="misTiendas.html" class="enlace">
 						<i class="bx bx-file-blank heading-white"></i>
 						<span class="heading-white">Mis Tiendas</span>
 					</a>
@@ -129,6 +132,19 @@
 								id="name"
 								class="formModal__text"
 							/>
+						</div>
+						<div class="formModal__Divider">
+							<label class="formModal__label" for="description"
+								>Descripción</label
+							>
+
+							<textarea
+								name="descripcion"
+								class="formModal__textarea"
+								id="description"
+								cols="30"
+								rows="10"
+							></textarea>
 						</div>
 						<div class="formModal__Divider">
 							<label class="formModal__label" for="Image"
