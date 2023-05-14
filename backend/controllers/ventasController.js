@@ -42,5 +42,37 @@ const individualPurchase = async (req, res) => {
 }
 
 
+const getPurchasesByUser = async (req, res) => {
+    try{
+        const userData = req.user.dataValues;
+        const {id} = req.params;
 
-module.exports = {individualPurchase};
+        const compras = await ventasCabeceraModel.findPurchasesByUser(id);
+
+        res.send(compras);
+
+    }catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_PURCHASES_BY_USER');
+    }
+}   
+
+const getSellsByTienda = async (req, res) => {
+    try{
+        console.log('Hola')
+        const {RIF} = req.params;
+
+        console.log('Hola')
+
+        const ventas = await ventas_Tiendas.findSellsByTienda(RIF);
+        console.log('Hola')
+
+        res.send(ventas);
+    }catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_SELLS_BY_TIENDA');
+    }
+}
+
+
+module.exports = {individualPurchase, getPurchasesByUser, getSellsByTienda};
