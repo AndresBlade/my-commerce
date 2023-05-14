@@ -1803,3 +1803,28 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 .ventas__title {
 	font-weight: 700;
 }
+
+.compras {
+	width: 100%;
+	display: flex;
+}
+
+.compras__flex {
+	display: flex;
+	flex: 5 1 auto;
+	flex-direction: column;
+	padding: 20px 20px 20px 0;
+	padding: 20px;
+}
+
+.compras__compra {
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+	justify-content: space-around;
+	padding: 10px 0;
+}
+
+.compras__compra:nth-child(2n - 1) {
+	background-color: #aab8ee;
+}
