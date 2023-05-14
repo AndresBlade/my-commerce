@@ -9,6 +9,7 @@ const Tienda = sequelize.define(
         RIF:{ type: DataTypes.INTEGER, allowNull: false, primaryKey: true,},
         nombre: { type: DataTypes.STRING, allowNull: false,},
         imagen: { type: DataTypes.STRING, allowNull: false,},
+        descripcion: { type: DataTypes.STRING, allowNull: false,},
         status: {type: DataTypes.ENUM('En espera', 'Aceptada', 'Rechazada')},
         cliente_id:{type: DataTypes.INTEGER},
     },
@@ -26,9 +27,17 @@ Tienda.belongsTo(User, {
 Tienda.findTiendaByName = function(name){
     return Tienda.findAll({
         where: { nombre: name },
-        include: { model: User(), as: 'usuarioTienda' }
+        include: { model: User, as: 'usuarioTienda' }
         });
 };
+
+Tienda.findTiendaByRIF = function(rif){
+    return Tienda.findOne({
+        where: { RIF: rif },
+        include: { model: User, as: 'usuarioTienda' }
+        });
+}
+
 
 Tienda.FindTiendas = function(){
     return Tienda.findAll({

@@ -28,5 +28,8 @@ router.get('/getTiendasByUser/:id',
             checkRole(['TIENDA']),
             tienda.getTiendasByUser);
 
+router.get('/getTiendasByRIF/:RIF', 
+            tienda.getTiendaByRIF);
+
 
 module.exports = router;
