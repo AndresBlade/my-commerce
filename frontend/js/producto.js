@@ -1,3 +1,5 @@
+'use strict';
+
 const productID = new URLSearchParams(window.location.search);
 const id = productID.get('id');
 const imageContainer = document.querySelector('.gallery__container_img');
@@ -19,14 +21,11 @@ function fetchProducto(id) {
 const imagesModal = document.querySelector('.modal-gallery__background');
 const closeModalBtn = document.querySelector('.modal-gallery__close');
 
-imageContainer.addEventListener('click', ()=>{
-    if(window.innerWidth >= 1115){
-        imagesModal.style.display = 'grid';
-    }
-    
+imageContainer.addEventListener('click', () => {
+	if (window.innerWidth >= 1115) {
+		imagesModal.style.display = 'grid';
+	}
 });
-    
-
 
 document.addEventListener('DOMContentLoaded', () => {
 	fetchProducto(id).then(respuesta => {
@@ -39,37 +38,39 @@ document.addEventListener('DOMContentLoaded', () => {
 		const tienda = respuesta.productByID.tienda;
 		const tiendaNombre = tienda.nombre;
 		const tiendaImagen = tienda.imagen;
-        document.querySelector('.productName').textContent = productName;
-        document.querySelector('.price').textContent = `$${productPrice}`;
-        document.querySelector('.descripcion').textContent = productDescripcion;
-        document.querySelector('.tiendaName').textContent = tiendaNombre;
-        if (tiendaImagen != null){
-            document.querySelector('.img_tienda').src = tiendaImagen;
-        }
+		document.querySelector('.productName').textContent = productName;
+		document.querySelector('.price').textContent = `$${productPrice}`;
+		document.querySelector('.descripcion').textContent = productDescripcion;
+		document.querySelector('.tiendaName').textContent = tiendaNombre;
+		if (tiendaImagen != null) {
+			document.querySelector('.img_tienda').src = tiendaImagen;
+		}
 
-        let gallery = document.querySelector('.gallery__thumnails')
-        gallery.innerHTML = '';
+		let gallery = document.querySelector('.gallery__thumnails');
+		gallery.innerHTML = '';
 
-        const imagenes = productImagenes.split(' ');
-        let slide = imagenes.length - 1;
+		const imagenes = productImagenes.split(' ');
+		let slide = imagenes.length - 1;
 
-        document.querySelector('.gallery__container_img').style.backgroundImage =  `url('${imagenes[0]}')`;
-        while(slide >= 0){
-            const imagenHTML = `<img class="gallery__thumnail" id="${slide}" src="${imagenes[slide]}" alt="ImagenProducto"/>`
-            gallery.innerHTML += imagenHTML;
-            slide--;
-        }
-        const imagenesGaleria = document.querySelectorAll('.gallery__thumnail');
-        imagenesGaleria.forEach(imagen => {
-        imagen.addEventListener('click', () => {
-            const url = imagen.src;
-            imagenGrande.style.backgroundImage = `url('${url}')`;
-        });
-        });
+		document.querySelector(
+			'.gallery__container_img'
+		).style.backgroundImage = `url('${imagenes[0]}')`;
+		while (slide >= 0) {
+			const imagenHTML = `<img class="gallery__thumnail" id="${slide}" src="${imagenes[slide]}" alt="ImagenProducto"/>`;
+			gallery.innerHTML += imagenHTML;
+			slide--;
+		}
+		const imagenesGaleria = document.querySelectorAll('.gallery__thumnail');
+		imagenesGaleria.forEach(imagen => {
+			imagen.addEventListener('click', () => {
+				const url = imagen.src;
+				imagenGrande.style.backgroundImage = `url('${url}')`;
+			});
+		});
 
-        const btnComprar = document
-            .querySelector('compraProducto')
-            .querySelector('button');
+		const btnComprar = document
+			.querySelector('.details')
+			.querySelector('button');
 
 		console.log(btnComprar);
 		btnComprar.addEventListener('click', () => {
@@ -106,14 +107,23 @@ document.addEventListener('DOMContentLoaded', () => {
 					}
 					return respuesta.json();
 				})
-				.then(respuesta => console.log(respuesta))
-				.catch(err => console.log(JSON.parse(err)));
+				.then(respuesta => {
+					console.log(respuesta);
+					btnComprar.classList.add(
+						'compraProducto__btnComprar--comprado'
+					);
+					btnComprar.textContent = 'Comprado Exitosamente!';
+				})
+				.catch(err => {
+					console.log(err);
+					btnComprar.classList.add(
+						'compraProducto__btnComprar--error'
+					);
+					btnComprar.textContent = 'Error al comprar';
+					return;
+				});
 		});
-        });
-  
-    
+	});
 });
-   
-
 
 let imagenGrande = document.querySelector('.gallery__container_img');
