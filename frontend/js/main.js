@@ -41,6 +41,11 @@ const dataJSON = localStorage.getItem('user');
 document.addEventListener('DOMContentLoaded', () => {
 	if (!dataJSON) return;
 
+	const data = JSON.parse(dataJSON).data;
+
+	const linkVentas = document.querySelector('[href="./ventas.html"]');
+
+	if (data.user.tipo_id === 1 && linkVentas) linkVentas.remove();
 	if (boton_creaCuenta) {
 		boton_creaCuenta.textContent = 'Registra tu tienda';
 		boton_creaCuentaLink.href =
