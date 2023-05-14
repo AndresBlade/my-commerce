@@ -58,7 +58,7 @@ main .gallery
 {
     height: 500px;
     width: 100%;
-    background-image: url("../img/BolsitosKio.jpg");
+
     border-radius: 1.2rem;
     background-size: cover;
     margin-bottom: 2rem;
@@ -72,7 +72,9 @@ main .gallery
 
 .gallery__thumnail {
     width: 90px;
+    max-width: 100%;
     border-radius: 16px;
+    height: 90px;
   }
 
   .gallery__thumnail:hover {

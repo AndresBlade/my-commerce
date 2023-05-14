@@ -25,10 +25,8 @@ imageContainer.addEventListener('click', ()=>{
     }
     
 });
+    
 
-closeModalBtn.addEventListener('click', ()=>{
-    imagesModal.style.display = 'none';
-});
 
 document.addEventListener('DOMContentLoaded', () => {
 	fetchProducto(id).then(respuesta => {
@@ -41,33 +39,81 @@ document.addEventListener('DOMContentLoaded', () => {
 		const tienda = respuesta.productByID.tienda;
 		const tiendaNombre = tienda.nombre;
 		const tiendaImagen = tienda.imagen;
+        document.querySelector('.productName').textContent = productName;
+        document.querySelector('.price').textContent = `$${productPrice}`;
+        document.querySelector('.descripcion').textContent = productDescripcion;
+        document.querySelector('.tiendaName').textContent = tiendaNombre;
+        if (tiendaImagen != null){
+            document.querySelector('.img_tienda').src = tiendaImagen;
+        }
 
-    if (tiendaImagen != null){
-       /* document.querySelector('.img_tienda').src = tiendaImagen;*/
-        imageContainer.style.backgroundImage = "url('" + tiendaImagen + "')";
-    }
+        let gallery = document.querySelector('.gallery__thumnails')
+        gallery.innerHTML = '';
 
-  
+        const imagenes = productImagenes.split(' ');
+        let slide = imagenes.length - 1;
 
-    /*const slider = document.querySelector('.slider');
-    const slider_nav = document.querySelector('.slider-nav');
+        document.querySelector('.gallery__container_img').style.backgroundImage =  `url('${imagenes[0]}')`;
+        while(slide >= 0){
+            const imagenHTML = `<img class="gallery__thumnail" id="${slide}" src="${imagenes[slide]}" alt="ImagenProducto"/>`
+            gallery.innerHTML += imagenHTML;
+            slide--;
+        }
+        const imagenesGaleria = document.querySelectorAll('.gallery__thumnail');
+        imagenesGaleria.forEach(imagen => {
+        imagen.addEventListener('click', () => {
+            const url = imagen.src;
+            imagenGrande.style.backgroundImage = `url('${url}')`;
+        });
+        });
+
+        const btnComprar = document
+            .querySelector('compraProducto')
+            .querySelector('button');
+
+		console.log(btnComprar);
+		btnComprar.addEventListener('click', () => {
+			const token = JSON.parse(localStorage.getItem('user')).data.token;
+			const venta = {
+				producto_id: id,
+				cantidad: '1',
+				precio: respuesta.productByID.precio,
+			};
 
 			console.log(venta);
 
 			const ventaJSON = JSON.stringify(venta);
 
-    while(slide >= 0){
-            const imagenHTML = `<img id="slide-${slide}" src="${imagenes[slide]}" alt="ImagenProducto"/>`;
-            slider.innerHTML += imagenHTML;
-            slide--;
-        }
+			console.log(ventaJSON);
+			fetch(
+				`http://127.0.0.1:3000/api/ventas_detalle/individualPurchase`,
+				{
+					mode: 'cors',
+					credentials: 'same-origin',
+					method: 'POST',
+					headers: {
+						Authorization: 'Bearer ' + token,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(venta),
+				}
+			)
+				.then(respuesta => {
+					if (!respuesta.ok) {
+						return respuesta
+							.text()
+							.then(texto => Promise.reject(texto));
+					}
+					return respuesta.json();
+				})
+				.then(respuesta => console.log(respuesta))
+				.catch(err => console.log(JSON.parse(err)));
+		});
+        });
+  
     
-    let slide_nav = imagenes.length - 1;
-    while(slide_nav >= 0){
-        const scroll = ` <a href="#slide-${slide_nav}"></a>`
-        slider_nav.innerHTML += scroll;
-        slide_nav--;
-    }*/
-
-  });
 });
+   
+
+
+let imagenGrande = document.querySelector('.gallery__container_img');
