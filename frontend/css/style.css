@@ -1681,6 +1681,10 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	padding: 20px 0 0 20px;
 }
 
+.misTiendas__descripcion {
+	overflow: auto;
+}
+
 .perfilTienda {
 }
 
