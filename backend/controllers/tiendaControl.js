@@ -55,4 +55,15 @@ const getTiendasByUser = async (req, res) => {
     }
 }
 
-module.exports = {createTienda, getTiendaByName, getTiendas, getTiendasByUser}
+const getTiendaByRIF = async (req, res) => {
+    try{
+        const {RIF} = req.params;
+        const data = await tiendaModel.findTiendaByRIF(RIF);
+        res.send({data});   
+    }catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_TIENDA_BY_RIF');
+    }
+}
+
+module.exports = {createTienda, getTiendaByName, getTiendas, getTiendasByUser, getTiendaByRIF}
