@@ -18,10 +18,17 @@
         >
         <div class="group">
             <ul class="navigation">
-                <li><a href="login.html">Iniciar Sesión</a></li>
                 <li><a href="explorar.html">Explorar</a></li>
                 <li><a href="ayuda.html">Ayuda</a></li>
+                <li class="btn_perfil">
+                    <a href="perfil.html">Mi Perfil</a>
+                </li>
                 <li><a href="contactanos.html">Contactanos</a></li>
+                <li>
+                    <a class="btn_sesion" href="login.html"
+                        >Iniciar Sesión</a
+                    >
+                </li>
             </ul>
             <div class="search">
                 <span class="icon">
@@ -50,11 +57,11 @@
             </div>
         </section>
 
-        <div class="container_product">
+        <div class="container_product compraProducto">
             <h1 class="productName">productName</h1>
             <h2 class="price">price</h2>
             <p class="descripcion">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit itaque id sit repudiandae eaque nisi blanditiis, incidunt deserunt nesciunt praesentium minus veniam aliquid pariatur? Sint est beatae sunt magni labore.</p>
-            <button class="button" role="button">Comprar ahora</button>
+            <button class="button" class="compraProducto__btnComprar">Comprar ahora</button>
             <div class="container_tienda">
                 <img src="" class="img_tienda" alt="">
                 <a href="" class="tiendaName">TiendaName</a>
@@ -67,5 +74,6 @@
 
     </footer>
 		<script src="../js/producto.js" type="module"></script>
+        <script src="../js/main.js"></script>
 </body>
 </html>
