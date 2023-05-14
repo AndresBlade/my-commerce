@@ -133,6 +133,7 @@ main .details{
     display: flex;
     gap: 2rem;
     align-items: center;
+    text-decoration: none;
 }
 
 .container_tienda .img_tienda{
@@ -144,6 +145,7 @@ main .details{
 .container_tienda .tiendaName{
     text-decoration: none;
     font-size: 2rem;
+    font-weight: 400;
 }
 
 .details .productName{
