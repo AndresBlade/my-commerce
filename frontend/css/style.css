@@ -1728,3 +1728,29 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	height: 200px;
 	object-fit: cover;
 }
+
+.compraProducto__btnComprar--comprado {
+	cursor: not-allowed;
+	animation-name: compraRealizada;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+.compraProducto__btnComprar--error {
+	cursor: not-allowed;
+	animation-name: compraError;
+	animation-duration: 0.4s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes compraRealizada {
+	100% {
+		background-color: #00a650;
+	}
+}
+
+@keyframes compraError {
+	100% {
+		background-color: #d33;
+	}
+}

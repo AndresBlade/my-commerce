@@ -13,4 +13,14 @@ router.post('/individualPurchase',
             ventasController.individualPurchase);
 
 
+router.get('/getPurchasesByUser/:id',
+            authMiddleware,
+            checkRole(['CLIENTE','TIENDA']),
+            ventasController.getPurchasesByUser);
+
+router.get('/getSellsByTienda/:RIF', 
+            authMiddleware,
+            checkRole(['TIENDA']),
+            ventasController.getSellsByTienda);
+
 module.exports = router;

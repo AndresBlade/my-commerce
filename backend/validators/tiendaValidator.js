@@ -12,6 +12,9 @@ const validatorRegisterTienda = [
     check('imagen')
     .exists()
     .notEmpty(),
+    check('descripcion')
+    .exists()
+    .notEmpty(),
     check('status'),
     check('cliente_id'),
     (req, res, next) => {
