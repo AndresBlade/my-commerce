@@ -4,10 +4,9 @@ import { getCategories } from './api/getCategories.js';
 
 const grid = document.querySelector('.grid');
 
-const productos = [];
+let productos = [];
 
 const mostrarProducto = producto => {
-	productos.push(producto);
 	const productoHTML = document.createElement('a');
 	productoHTML.classList.add('producto');
 	const imagenes = producto.imagenes.split(' ');
@@ -54,6 +53,7 @@ const fetchProductos = () =>
 		.then(respuesta => respuesta.allProducts)
 		.then(respuesta => {
 			grid.innerHTML = '';
+			productos = respuesta;
 			respuesta.forEach(producto => {
 				mostrarProducto(producto);
 			});

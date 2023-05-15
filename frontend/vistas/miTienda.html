@@ -21,9 +21,14 @@
 				<ul class="navigation">
 					<li><a href="explorar.html">Explorar</a></li>
 					<li><a href="ayuda.html">Ayuda</a></li>
-					<li class="btn_perfil"><a href="perfil.html">Mi Perfil</a></li>
+					<li class="btn_perfil">
+						<a href="perfil.html">Mi Perfil</a>
+					</li>
 					<li><a href="contactanos.html">Contactanos</a></li>
-					<li><a class="btn_sesion" href="login.html">Iniciar Sesión</a>
+					<li>
+						<a class="btn_sesion" href="login.html"
+							>Iniciar Sesión</a
+						>
 					</li>
 				</ul>
 				<div class="search">
@@ -94,15 +99,13 @@
 				<div>
 					<div class="perfilTienda__contenedor">
 						<p class="perfilTienda__nombre"></p>
-						<img class="perfilTienda__imagen"></i>
+						<img class="perfilTienda__imagen" />
 						<p class="perfilTienda__RIF"></p>
 						<p class="perfilTienda__fechaCreacion"></p>
 					</div>
 				</div>
 
-                <div class="productosTienda">
-                    
-                </div>
+				<div class="productosTienda"></div>
 			</div>
 		</main>
 
@@ -152,9 +155,7 @@
 								name="categoria_id"
 								id="category"
 								class="formModal__select"
-							>
-								
-							</select>
+							></select>
 						</div>
 
 						<div class="formModal__Divider">
@@ -162,7 +163,13 @@
 								>Descripción</label
 							>
 
-							<textarea name="descripcion" class="formModal__textarea" id="description" cols="30" rows="10"></textarea>
+							<textarea
+								name="descripcion"
+								class="formModal__textarea"
+								id="description"
+								cols="30"
+								rows="10"
+							></textarea>
 						</div>
 
 						<div class="formModal__Divider">
@@ -182,7 +189,6 @@
 								alt="Imagen de producto"
 							/> -->
 						</div>
-						
 
 						<div class="formModal__errorBox"></div>
 					</form>
@@ -195,10 +201,7 @@
 
 		<section class="modalSesion__sesion">
 			<div class="modalSesion__sesion-container">
-				<img
-					src="../img/cancel.png"
-					class="modalSesion__sesion-img"
-				/>
+				<img src="../img/cancel.png" class="modalSesion__sesion-img" />
 				<h2 class="modalSesion__sesion-title">
 					¿Desea salir de sesión?
 				</h2>
@@ -208,38 +211,15 @@
 				</div>
 			</div>
 		</section>
-
-
-		<footer class="pie-pagina">
-			<div class="grupo-1">
-				<div class="caja-footer">
-					<figure>
-						<a href="index.html" class="logo">LOGO</a>
-					</figure>
-				</div>
-				<div class="caja-footer">
-					<h2>Sobre Nosotros</h2>
-					<p>Compra y vende de forma segura utilizando nuestro servicio de My-Ecommerce</p>
-					<p> <ion-icon name="location-outline"></ion-icon> Barquisimeto, Venezuela </p>
-					<p> <ion-icon name="mail-outline"></ion-icon> myecommerce@contact.com </p>
-				</div>
-					<ul class="caja-footer">
-						
-					<li><h2><a href="./ayuda.html">¿Requieres ayuda?</a></h2></li>
-					<li><h2><a href="./contactanos.html">¿Cómo contactarnos?</a><h2></li>
-					<li><h2><a href="#">Terminos y Condiciones</a><h2></li>
-	
-				</ul>
-			</div>
-			<!-- link de iconos -->
+		<!-- link de iconos -->
 		<script
-		type="module"
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-	></script>
-	<script
-		nomodule
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-	></script>
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
 		<script src="../js/main.js" type="module"></script>
 		<script src="../js/miTienda.js" type="module"></script>
 	</body>
