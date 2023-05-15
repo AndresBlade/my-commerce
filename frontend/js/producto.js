@@ -74,6 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		console.log(btnComprar);
 		btnComprar.addEventListener('click', () => {
+			if (!localStorage.getItem('user'))
+				window.location.href =
+					'http://127.0.0.1/e-commerce-tarea/frontend/vistas/signup.html';
+
 			const token = JSON.parse(localStorage.getItem('user')).data.token;
 			const venta = {
 				producto_id: id,
