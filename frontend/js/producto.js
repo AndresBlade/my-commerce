@@ -76,7 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
 				.querySelector('button');
 
 			console.log(btnComprar);
-			const token = JSON.parse(localStorage.getItem('user')).data.token;
+			let token;
+
+			if (localStorage.getItem('user')) {
+				token = JSON.parse(localStorage.getItem('user')).data.token;
+			}
+
 			btnComprar.addEventListener('click', () => {
 				if (!localStorage.getItem('user'))
 					window.location.href =
