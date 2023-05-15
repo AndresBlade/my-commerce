@@ -1751,6 +1751,19 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	animation-fill-mode: forwards;
 }
 
+.compraProducto__btnComprar--error:hover {
+	cursor: not-allowed;
+}
+
+.compraProducto__btnComprar--deshabilitado {
+	cursor: not-allowed;
+	background-color: #a7a7a7;
+}
+
+.compraProducto__btnComprar--deshabilitado:hover {
+	cursor: not-allowed;
+}
+
 @keyframes compraRealizada {
 	100% {
 		background-color: #00a650;
