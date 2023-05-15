@@ -82,7 +82,6 @@ header {
 	align-items: center;
 	backdrop-filter: blur(6px);
 	-webkit-backdrop-filter: blur(6px);
-	
 }
 
 .header-2 {
@@ -993,10 +992,9 @@ header .search {
 }
 
 /* ======================================*/
-.perfil__container
-{
+.perfil__container {
 	display: flex;
-    width: 100%;
+	width: 100%;
 }
 
 .tiendas-miPerfil {
@@ -1049,7 +1047,6 @@ header .search {
 	height: 150px;
 	object-fit: cover;
 	border-radius: 50%;
-
 }
 
 .tiendas-miPerfil .box-container-miPerfil .box-miPerfil .texto-miPerfil {
@@ -1059,8 +1056,7 @@ header .search {
 	gap: 2rem;
 }
 
-.miPerfil__info
-{
+.miPerfil__info {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
@@ -1068,15 +1064,13 @@ header .search {
 	align-content: space-around;
 }
 
-.miPerfil__info p
-{
+.miPerfil__info p {
 	padding: 1rem 0rem 2rem 0rem;
 	font-size: 1rem;
 	font-weight: 300;
 }
 
-.miPerfil__info a
-{
+.miPerfil__info a {
 	display: flex;
 	justify-content: center;
 	width: 280px;
@@ -1093,8 +1087,7 @@ header .search {
 	text-decoration: none;
 }
 
-.miPerfil__info a:hover
-{
+.miPerfil__info a:hover {
 	opacity: 0.7;
 }
 
@@ -1137,7 +1130,7 @@ header .search {
 	text-align: center;
 	box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5);
 }
-.box-body{
+.box-body {
 	display: grid;
 	min-height: 100vh;
 	grid-template-rows: auto 1fr auto;
@@ -1765,8 +1758,6 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	overflow: auto;
 }
 
-
-
 .perfilTienda__contenedor {
 	display: flex;
 	width: 300px;
@@ -1925,27 +1916,32 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	background-color: #aab8ee;
 }
 
-.caja-filtrado{
+.caja-filtrado {
 	background: #eef1f5;
 	border-radius: 5px 5px;
 	margin: 0 auto;
 	box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
-	height: 12rem;
-	width: 20%;
+	width: 30%;
 	transition: 0.2s;
 	text-decoration: none;
+	padding: 20px;
 }
-.filtros-box{
+
+.caja-filtrado__header {
+	text-align: center;
+	padding: 20px;
+}
+
+.filtros-box {
 	display: grid;
 	align-items: center;
-	place-items:center;
-	padding-top: 1rem;
+	place-items: center;
 }
-.filtros-box p{
-
+.filtros-box p {
 	text-align: center;
 }
-.opciones-categorias{
+.opciones-categorias {
+	display: block;
 	border-radius: 2px 2px;
 	background: white;
 	box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
@@ -1953,9 +1949,8 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	width: 10rem;
 	text-align: center;
 	font-weight: 500;
-	margin-bottom: 1rem;
 }
-.precio-filtro{
+.precio-filtro {
 	border-radius: 3px;
 	background: white;
 	box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
@@ -1966,7 +1961,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	margin: 0rem 0.3rem 0rem 0.3rem;
 }
 
-.boton-filtrar{
+.boton-filtrar {
 	margin-top: 0.4rem;
 	background: #5adbb5;
 	box-shadow: 0 1px 6px 1px rgba(0, 0, 0, 0.1);
@@ -1976,19 +1971,19 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	cursor: pointer;
 	margin-top: 1rem;
 }
-.pie-pagina{
+.pie-pagina {
 	background: var(--degradadoFondo-color);
 	padding: 1em 0;
 	width: 100%;
 }
-.pie-pagina-ayuda{
+.pie-pagina-ayuda {
 	background: var(--degradadoFondo-color);
 	padding: 1em 0;
 	width: 100%;
 	position: relative;
 	top: 93%;
 }
-.grupo-1{
+.grupo-1 {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -1996,35 +1991,35 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	justify-content: space-around;
 	padding: 50px;
 }
-.caja-footer{
+.caja-footer {
 	list-style: none;
 }
-.caja-footer h2{
+.caja-footer h2 {
 	color: #fff;
 	margin-bottom: 1rem;
 	font-weight: 500;
 }
-.caja-footer p{
+.caja-footer p {
 	color: #fff;
 	font-weight: 100;
 	margin-bottom: 0.5rem;
 }
 
-.caja-footer a{
+.caja-footer a {
 	color: #fff;
 	text-decoration: none;
 	font-size: 15px;
 	font-weight: 150;
 }
-.caja-footer a:hover{
+.caja-footer a:hover {
 	color: #fff;
 	text-decoration: underline;
 }
-.pie-pagina-ayuda .caja-footer ion-icon{
+.pie-pagina-ayuda .caja-footer ion-icon {
 	font-size: 1.4em;
 	text-align: center;
 	color: var(--letrasBlancas-color);
-	float:left;
+	float: left;
 	position: relative;
 	left: 11rem;
 }
@@ -2032,7 +2027,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	font-size: 1.4em;
 	text-align: center;
 	color: var(--letrasBlancas-color);
-	float:left;
+	float: left;
 	position: relative;
 	left: 11rem;
 }

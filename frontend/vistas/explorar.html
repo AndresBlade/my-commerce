@@ -6,7 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Explorar</title>
 		<link rel="stylesheet" href="../css/style.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
 	</head>
 
 	<body>
@@ -50,14 +53,17 @@
 				<div class="tiendas-destacadas">
 					<h1 class="heading mover">Productos Destacados</h1>
 					<div class="caja-filtrado">
+						<h3 class="caja-filtrado__header">
+							Filtrar por categoría
+						</h3>
 						<form>
-						   <div class="filtros-box">
-							   <div>
-								<select class="opciones-categorias">
-								   <option disabled selected>Categorias</option>
-								   <option>Cualquiera</option>
-								   <option id="option"><script src="../js/api/getCategories.js"></script></option>
-								   <!-- <option>Agricultura</option>
+							<div class="filtros-box">
+								<div>
+									<select class="opciones-categorias">
+										<option selected value="-1">
+											Todos
+										</option>
+										<!-- <option>Agricultura</option>
 								   <option>Alimentos y Bebidas</option>
 								   <option>Antigüedades y Colecciones</option>
 								   <option>Arte</option>
@@ -83,17 +89,12 @@
 								   <option>Ropa</option>
 								   <option>Servicios</option>
 								   <option>Otros</option> -->
-							   </select> 
-					   </div>
-					   <div>
-						<p>Precio</p>
-						<input class="precio-filtro" placeholder="Min" min="0" max="4999" type="number">   
-						<input class="precio-filtro" placeholder="Max" min="0" max="5000" type="number">
+									</select>
+								</div>
+							</div>
+						</form>
 					</div>
-	
-					<button type="submit"  class="boton-filtrar"><i class="fa fa-search" style="font-size:24px"></i></button>
-	
-					 </form>
+				</div>
 				<div class="grid">
 					<!-- <div class="producto">
         <div class="group">
@@ -464,20 +465,40 @@
 				</div>
 				<div class="caja-footer">
 					<h2>Sobre Nosotros</h2>
-					<p>Compra y vende de forma segura utilizando nuestro servicio de My-Ecommerce</p>
-					<p> <ion-icon name="location-outline"></ion-icon> Barquisimeto, Venezuela </p>
-					<p> <ion-icon name="mail-outline"></ion-icon> myecommerce@contact.com </p>
+					<p>
+						Compra y vende de forma segura utilizando nuestro
+						servicio de My-Ecommerce
+					</p>
+					<p>
+						<ion-icon name="location-outline"></ion-icon>
+						Barquisimeto, Venezuela
+					</p>
+					<p>
+						<ion-icon name="mail-outline"></ion-icon>
+						myecommerce@contact.com
+					</p>
 				</div>
-					<ul class="caja-footer">
-						
-					<li><h2><a href="./signup.html">Comienza a trabajar con nosotros</a></h2></li>
-					<li><h2><a href="./ayuda.html">¿Requieres ayuda?</a></h2></li>
-					<li><h2><a href="./contactanos.html">¿Cómo contactarnos?</a><h2></li>
-					<li><h2><a href="#">Terminos y Condiciones</a><h2></li>
-
+				<ul class="caja-footer">
+					<li>
+						<h2>
+							<a href="./signup.html"
+								>Comienza a trabajar con nosotros</a
+							>
+						</h2>
+					</li>
+					<li>
+						<h2><a href="./ayuda.html">¿Requieres ayuda?</a></h2>
+					</li>
+					<li>
+						<h2>
+							<a href="./contactanos.html">¿Cómo contactarnos?</a>
+						</h2>
+					</li>
+					<li>
+						<h2><a href="#">Terminos y Condiciones</a></h2>
+					</li>
 				</ul>
 			</div>
-
 		</footer>
 
 		<script
