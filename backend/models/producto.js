@@ -79,7 +79,7 @@ Producto.findProductByID = function(id){
         where: { id: id },
         include: { model: tiendas, 
             as: 'tienda',
-            attributes: ['nombre', 'imagen'] }
+            attributes: ['nombre', 'imagen', 'RIF'] }
     });
 }
 
