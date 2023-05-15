@@ -36,12 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		const productImagenes = respuesta.productByID.imagenes;
 
 		const tienda = respuesta.productByID.tienda;
+		console.log(tienda);
 		const tiendaNombre = tienda.nombre;
 		const tiendaImagen = tienda.imagen;
 		document.querySelector('.productName').textContent = productName;
 		document.querySelector('.price').textContent = `$${productPrice}`;
 		document.querySelector('.descripcion').textContent = productDescripcion;
 		document.querySelector('.tiendaName').textContent = tiendaNombre;
+		document.querySelector('.tiendaName').href = 'tienda.html?RIF=' + tienda.RIF;
 		if (tiendaImagen != null) {
 			document.querySelector('.img_tienda').src = tiendaImagen;
 		}

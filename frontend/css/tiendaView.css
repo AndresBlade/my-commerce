@@ -58,6 +58,7 @@
 .menu-logo
 {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
 }
@@ -138,4 +139,85 @@
   }
 
 
-
+.producto_tienda{
+    max-width: 280px;
+    max-height: 350px;
+    display: flex;
+    flex-flow: column;
+    border-radius: 6px;
+    box-shadow: 0 0 0 0.1em rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    cursor: pointer;
+    transition-property: box-shadow;
+    transition-duration: 0.3s;
+}
+  .producto_tienda:hover {
+    box-shadow: 0 0 1.5em rgba(0, 0, 0, 0.2);
+  }
+  .producto_tienda > img {
+    width: 100%;
+    object-fit: cover;
+  }
+  .informacion {
+    border-top: 1px solid #e6e6e6;
+    padding: 1rem;
+    display: flex;
+    flex-flow: column;
+  }
+  .informacion * + * {
+    margin-bottom: 0.5em;
+  }
+  .tipo-envio {
+    background-color: var(--main-color);
+    color: #fff;
+    font-weight: 600;
+    max-width: max-content;
+    padding: 0 0 0.2em;
+    border-radius: 3px;
+  }
+  .precio {
+    font-size: 1.5rem;
+  }
+  .precio-envio {
+    color: #00a650;
+  }
+  .descripcion {
+    font-weight: 300;
+  }
+  .precio-envio .descripcion,
+  .ubicacion {
+    font-size: 0.9em;
+  }
+  
+  .calificacion,
+  .ubicacion {
+    opacity: 0;
+    transition-duration: 0.3s;
+    transition-property: opacity;
+    font-weight: 100;
+  }
+  .producto:hover .calificacion,
+  .producto:hover .ubicacion {
+    opacity: 1;
+  }
+  
+  .tipo-envio,
+  .calificacion {
+    font-size: 0.8em;
+  }
+  .calificacion {
+    display: flex;
+    flex-direction: row nowrap;
+    align-items: center;
+  }
+  .calificacion > * {
+    margin: 0;
+  }
+  .calificacion ion-icon {
+    color: var(--main-color);
+  }
+  .icono-centrado {
+    display: flex;
+    justify-content: center;
+  }
+  
