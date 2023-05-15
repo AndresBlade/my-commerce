@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Explorar</title>
 		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 
 	<body>
@@ -48,7 +49,51 @@
 			<section>
 				<div class="tiendas-destacadas">
 					<h1 class="heading mover">Productos Destacados</h1>
-				</div>
+					<div class="caja-filtrado">
+						<form>
+						   <div class="filtros-box">
+							   <div>
+								<select class="opciones-categorias">
+								   <option disabled selected>Categorias</option>
+								   <option>Cualquiera</option>
+								   <option id="option"><script src="../js/api/getCategories.js"></script></option>
+								   <!-- <option>Agricultura</option>
+								   <option>Alimentos y Bebidas</option>
+								   <option>Antigüedades y Colecciones</option>
+								   <option>Arte</option>
+								   <option>Bebés</option>
+								   <option>Belleza</option>
+								   <option>Vehículos</option>
+								   <option>Teléfonos</option>
+								   <option>Computación</option>
+								   <option>Construcción</option>
+								   <option>Deportes</option>
+								   <option>Electrodomésticos</option>
+								   <option>Electrónica</option>
+								   <option>Herramientas</option>
+								   <option>Muebles</option>
+								   <option>Industria</option>
+								   <option>Inmuebles</option>
+								   <option>Instrumentos Musicales</option>
+								   <option>Juegos y Juguetes</option>
+								   <option>Libros, Revistas y cómics</option>
+								   <option>Música, Películas y Series</option>
+								   <option>Fiestas</option>
+								   <option>Joyería</option>
+								   <option>Ropa</option>
+								   <option>Servicios</option>
+								   <option>Otros</option> -->
+							   </select> 
+					   </div>
+					   <div>
+						<p>Precio</p>
+						<input class="precio-filtro" placeholder="Min" min="0" max="4999" type="number">   
+						<input class="precio-filtro" placeholder="Max" min="0" max="5000" type="number">
+					</div>
+	
+					<button type="submit"  class="boton-filtrar"><i class="fa fa-search" style="font-size:24px"></i></button>
+	
+					 </form>
 				<div class="grid">
 					<!-- <div class="producto">
         <div class="group">
@@ -410,7 +455,30 @@
 				</div>
 			</section>
 		</main>
-		<footer></footer>
+		<footer class="pie-pagina">
+			<div class="grupo-1">
+				<div class="caja-footer">
+					<figure>
+						<a href="index.html" class="logo">LOGO</a>
+					</figure>
+				</div>
+				<div class="caja-footer">
+					<h2>Sobre Nosotros</h2>
+					<p>Compra y vende de forma segura utilizando nuestro servicio de My-Ecommerce</p>
+					<p> <ion-icon name="location-outline"></ion-icon> Barquisimeto, Venezuela </p>
+					<p> <ion-icon name="mail-outline"></ion-icon> myecommerce@contact.com </p>
+				</div>
+					<ul class="caja-footer">
+						
+					<li><h2><a href="./signup.html">Comienza a trabajar con nosotros</a></h2></li>
+					<li><h2><a href="./ayuda.html">¿Requieres ayuda?</a></h2></li>
+					<li><h2><a href="./contactanos.html">¿Cómo contactarnos?</a><h2></li>
+					<li><h2><a href="#">Terminos y Condiciones</a><h2></li>
+
+				</ul>
+			</div>
+
+		</footer>
 
 		<script
 			type="module"
