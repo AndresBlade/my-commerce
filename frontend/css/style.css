@@ -984,41 +984,50 @@ header .search {
 }
 
 /* ======================================*/
-.tiendas-miPerfil {
+.perfil__container
+{
 	display: flex;
+    width: 100%;
+}
+
+.tiendas-miPerfil {
+	display: grid;
+	flex: 5 1 auto;
 	justify-content: center;
-	align-items: center;
-	text-align: center;
+	align-content: center;
+	grid-template-columns: repeat(1, 1fr);
 }
 
 .tiendas-miPerfil .heading {
-	text-align: center;
-	padding: 2rem;
+	color: #000;
+	font-size: 2rem;
+	font-weight: 500;
+	padding-bottom: 0;
+	padding-top: 0;
+	margin: 10px auto;
+	width: 100%;
 }
 
 .tiendas-miPerfil .box-container-miPerfil {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 1.5rem;
 }
 
 .tiendas-miPerfil .box-container-miPerfil .box-miPerfil {
 	width: calc(55% - 1rem);
-	margin: 0.5rem;
-	text-align: var(center + 5px);
+	margin: 2rem;
+	text-align: center;
 	border-radius: 10px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-	background-color: #fff;
+	background-color: var(--letrasBlancas-color);
 }
 
 .labelImg {
 	display: block;
 	width: 200px;
-	color: #fff;
 	padding: 12px;
 	margin: 10px auto;
-	border-radius: 5px;
 	cursor: pointer;
 }
 
@@ -1027,12 +1036,11 @@ header .search {
 }
 
 .tiendas-miPerfil .box-container-miPerfil .box-miPerfil .circular-miPerfil {
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	object-fit: cover;
 	border-radius: 50%;
-	justify-content: center;
-	text-align: center;
+
 }
 
 .tiendas-miPerfil .box-container-miPerfil .box-miPerfil .texto-miPerfil {
@@ -1040,6 +1048,64 @@ header .search {
 	justify-content: center;
 	padding: 2rem;
 	gap: 2rem;
+}
+
+.miPerfil__info
+{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: space-around;
+}
+
+.miPerfil__info p
+{
+	padding: 1rem 0rem 2rem 0rem;
+	font-size: 1rem;
+	font-weight: 300;
+}
+
+.miPerfil__info a
+{
+	display: flex;
+	justify-content: center;
+	width: 280px;
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+	padding: 1rem 3rem;
+	cursor: pointer;
+	border-radius: 10rem;
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--letrasBlancas-color);
+	background-color: var(--letrasAzules-color);
+	border-color: var(--letrasBlancas-color);
+	text-decoration: none;
+}
+
+.miPerfil__info a:hover
+{
+	opacity: 0.7;
+}
+
+.box-container .box .btnCrearCuenta .btn-texto {
+	display: block;
+	color: var(--letrasAzules-color);
+	background-color: var(--letrasBlancas-color);
+}
+
+.box-container .box .btnCrearCuenta:hover {
+	background-color: var(--letrasAzules-color);
+	color: var(--letrasBlancas-color);
+	border-color: var(--letrasAzules-color);
+	transition: 0.05s;
+}
+
+.box-container .box .btnCrearCuenta:hover .btn-texto {
+	background-color: var(--letrasAzules-color);
+	color: var(--letrasBlancas-color);
+	transition: 0.05s;
 }
 
 /* 		Login		 */
