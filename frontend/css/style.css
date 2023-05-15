@@ -109,6 +109,10 @@ header ul {
 	display: none;
 }
 
+.btn_perfil--show {
+	display: list-item;
+}
+
 header ul li {
 	list-style: none;
 	padding: 0.5rem;

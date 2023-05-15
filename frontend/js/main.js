@@ -30,6 +30,7 @@ menuToggle.onclick = function () {
 
 //---------------***** Index dinamico ***********----------------
 const boton_header = document.querySelector('.btn_sesion');
+const boton_perfil = document.querySelector('.btn_perfil');
 const boton_creaCuenta = document.querySelector('.btn-texto');
 const boton_creaCuentaLink = document.querySelector('.btnCrearCuenta');
 const modalSesion = document.querySelector('.modalSesion__sesion');
@@ -40,6 +41,8 @@ const dataJSON = localStorage.getItem('user');
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (!dataJSON) return;
+
+	boton_perfil.classList.add('btn_perfil--show');
 
 	const data = JSON.parse(dataJSON).data;
 
