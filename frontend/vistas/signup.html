@@ -7,63 +7,70 @@
 		<title>Registrate</title>
 		<link rel="stylesheet" href="../css/style.css" />
 	</head>
-
-	<header class="header-2">
-        <a href="../index.html" class="logo">LOGO</a>
-    </header>
-
-
-
 	<body class="background-degradado">
-		<div class="wrapper">
-			<h1>Regístrate</h1>
-			<form action="../index.html" class="userForm">
-				<input
-					type="text"
-					class="userForm__name"
-					placeholder="Nombre"
-					maxlength="45"
-					required
-				/>
-				<input
-					type="email"
-					class="userForm__email"
-					name="correo"
-					placeholder="Correo"
-					maxlength="80"
-					required
-				/>
-				<input
-					type="password"
-					class="userForm__password"
-					placeholder="Contraseña"
-					required
-				/>
-				<input
-					type="password"
-					class="userForm__confirmPassword"
-					placeholder="Confirmar Contraseña"
-					required
-				/>
-			</form>
-			<div class="terms">
-				<input
-					type="checkbox"
-					id="checkbox"
-					class="termsCheckbox"
-					required
-				/>
-				<label for="checkbox"
-					>Acepto <a href="#">Términos y Condiciones</a></label
-				>
-			</div>
-			<button class="btn-login">Regístrate</button>
-			<div class="member">
-				Ya esta Registrado?
-				<a href="../vistas/login.html">Inicia Sesión aqui</a>
+		<header class="header-2">
+			<a href="../index.html" class="logo">LOGO</a>
+		</header>
+
+		<div class="box-body">
+			<div class="wrapper">
+				<h1>Regístrate</h1>
+				<form action="../index.html" class="userForm">
+					<input
+						type="text"
+						class="userForm__name"
+						placeholder="Nombre"
+						maxlength="45"
+						required
+					/>
+					<input
+						type="email"
+						class="userForm__email"
+						name="correo"
+						placeholder="Correo"
+						maxlength="80"
+						required
+					/>
+					<input
+						type="password"
+						class="userForm__password"
+						placeholder="Contraseña"
+						required
+					/>
+					<input
+						type="password"
+						class="userForm__confirmPassword"
+						placeholder="Confirmar Contraseña"
+						required
+					/>
+				</form>
+				<div class="terms">
+					<input
+						type="checkbox"
+						id="checkbox"
+						class="termsCheckbox"
+						required
+					/>
+					<label for="checkbox"
+						>Acepto <a href="#">Términos y Condiciones</a></label
+					>
+				</div>
+				<button class="btn-login">Regístrate</button>
+				<div class="member">
+					Ya esta Registrado?
+					<a href="../vistas/login.html">Inicia Sesión aqui</a>
+				</div>
 			</div>
 		</div>
-
+		<!-- link de iconos -->
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
 		<script src="../js/registro.js" type="module"></script>
 	</body>
 </html>
