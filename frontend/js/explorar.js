@@ -18,10 +18,8 @@ fetch('http://127.0.0.1:3000/api/productos/getProducts', {
 			productoHTML.classList.add('producto');
 			const imagenes = producto.imagenes.split(' ');
 			console.log(imagenes);
-			for (const imagen of imagenes) {
-				const imagenHTML = `<img class="producto__imagen" src="${imagen}" />`;
-				productoHTML.innerHTML += imagenHTML;
-			}
+			const imagenHTML = `<img class="producto__imagen" src="${imagenes[0]}" />`;
+			productoHTML.innerHTML += imagenHTML;
 			productoHTML.innerHTML += `
 			<div class="informacion">
 			    <span class="tipo-envio">Envio Con normalidad</span>

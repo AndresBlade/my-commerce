@@ -109,6 +109,10 @@ header ul {
 	display: none;
 }
 
+.btn_perfil--show {
+	display: list-item;
+}
+
 header ul li {
 	list-style: none;
 	padding: 0.5rem;
@@ -1811,6 +1815,19 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	animation-name: compraError;
 	animation-duration: 0.4s;
 	animation-fill-mode: forwards;
+}
+
+.compraProducto__btnComprar--error:hover {
+	cursor: not-allowed;
+}
+
+.compraProducto__btnComprar--deshabilitado {
+	cursor: not-allowed;
+	background-color: #a7a7a7;
+}
+
+.compraProducto__btnComprar--deshabilitado:hover {
+	cursor: not-allowed;
 }
 
 @keyframes compraRealizada {
