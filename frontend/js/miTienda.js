@@ -91,8 +91,8 @@ class UI {
 		});
 
 		nombreHTML.textContent = nombre;
-		RIFHTML.innerHTML = `<span class="bold">RIF</span>: ${RIF}`;
-		fechaCreacionHTML.innerHTML = `<span class="bold">Fecha de creación</span>: ${
+		RIFHTML.innerHTML = `<span class="perfilTienda__RIF">RIF</span>: ${RIF}`;
+		fechaCreacionHTML.innerHTML = `<span class="perfilTienda__RIF">Fecha de creación</span>: ${
 			createdAt.split('T')[0]
 		}`;
 		imagenHTML.src = imagen;
@@ -187,12 +187,12 @@ class UI {
 				console.log(productos);
 
 				const productosContenedor =
-					document.querySelector('.productosTienda');
+					document.querySelector('.misTiendas__grid');
 
 				productos.forEach(producto => {
 					console.log(producto.imagenes);
 					const productoHTML = document.createElement('a');
-					productoHTML.classList.add('productosTienda__producto');
+					productoHTML.classList.add('producto_tienda_perfil');
 
 					const nombreProductoHTML = document.createElement('h4');
 					nombreProductoHTML.classList.add(
@@ -206,13 +206,15 @@ class UI {
 					);
 					precioProductoHTML.textContent = producto.precio;
 
-					const descripcionProductoHTML = document.createElement('p');
+					const descripcionProductoHTML =
+						document.createElement('span');
 					descripcionProductoHTML.classList.add(
 						'productosTienda__descripcionProducto'
 					);
 					descripcionProductoHTML.textContent = producto.descripcion;
 
-					const categoriaProductoHTML = document.createElement('p');
+					const categoriaProductoHTML =
+						document.createElement('span');
 					categoriaProductoHTML.classList.add(
 						'productosTienda__categoriaProducto'
 					);
@@ -234,16 +236,14 @@ class UI {
 						imagenesHTML.push(imagenProductoHTML);
 					}
 
+					productoHTML.append(imagenesHTML[0]);
+
 					productoHTML.append(
-						nombreProductoHTML,
 						precioProductoHTML,
+						nombreProductoHTML,
 						descripcionProductoHTML,
 						categoriaProductoHTML
 					);
-
-					imagenesHTML.forEach(imagen => {
-						productoHTML.append(imagen);
-					});
 
 					productosContenedor.append(productoHTML);
 				});

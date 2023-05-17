@@ -159,7 +159,6 @@ header .search {
 	font-size: 2rem;
 	padding-bottom: 1.5rem;
 	padding-top: 1.5rem;
-	width: 400px;
 }
 
 .heading--nombreTienda {
@@ -581,11 +580,12 @@ header .search {
 	font-weight: 500;
 	padding-top: 3rem;
 	padding-bottom: 0rem;
-	width: 410px;
+	margin: 10px auto;
 }
 
 .tiendas-destacadas_heading .rectangulo-2 {
 	background-color: var(--letrasAzules-color);
+	margin-bottom: 1rem;
 }
 
 .tiendas-destacadas .tiendas-container {
@@ -866,18 +866,17 @@ header .search {
 /* LAYOUT */
 
 .menu-dashboard {
+	position: sticky;
 	max-width: max-content;
 	max-height: fit-content;
-	height: 92vh;
+	height: 100%;
 	background: linear-gradient(
-		50.94deg,
+		149.94deg,
 		#7c92ffcc 1.31%,
 		#4d62ffcc 42.31%,
 		#3145e3cc 74.71%
 	);
-	padding: 5px;
 	transition: max-width 0.3s ease;
-	position: sticky;
 	top: 80px;
 }
 
@@ -949,7 +948,11 @@ header .search {
 	text-decoration: none;
 }
 
-.menu .enlace:hover {
+.menu .enlaces__container {
+	padding: 0rem 1rem 0rem 0rem;
+}
+
+.menu .enlaces__container:hover {
 	background: #3145e3cc;
 }
 
@@ -1756,11 +1759,10 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 
 .perfilTienda__contenedor {
 	display: flex;
-	width: 300px;
+	width: 100%;
 	flex-direction: column;
 	justify-content: start;
 	align-items: center;
-	background-color: #b8c3ef;
 	border-radius: 30px;
 	padding: 10px;
 	gap: 25px;
@@ -1768,29 +1770,60 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 }
 
 .productosTienda {
+	max-width: 280px;
+	display: flex;
+	flex-flow: column;
+	border-radius: 8px;
+	box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.2);
+	background-color: rgb(255, 255, 255);
+	cursor: pointer;
 	flex-grow: 1;
 }
 
-.perfilTienda__nombre {
-	font-weight: 700;
+.productosTienda:hover {
+	box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.2);
 }
 
-.perfilTienda__imagen {
+.productosTienda > img {
 	width: 100%;
-	height: 280px;
 	object-fit: cover;
-	transition: all 0.4s linear;
-	border-radius: 50px;
+}
+
+.perfilTienda__nombre {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 1.5rem;
+	color: var(--letrasBlancas-color);
+}
+
+.perfilTienda__RIF {
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-bottom: 1.5rem;
+	color: var(--letrasBlancas-color);
+}
+
+.perfilTienda__fechaCreacion {
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-bottom: 1.5rem;
+	color: var(--letrasBlancas-color);
 }
 
 .perfilTienda__imagen--expanded {
-	border-radius: 100%;
+	border-radius: 100% !important;
 }
 
 .productosTienda__producto {
+	max-width: 280px;
 	display: flex;
-	flex-direction: column;
-	text-decoration: none;
+	flex-flow: column;
+	border-radius: 8px;
+	box-shadow: 0 0 0.1rem rgba(0, 0, 0, 0.2);
+	background-color: rgb(255, 255, 255);
+	cursor: pointer;
 }
 
 .producto__imagen {
@@ -1970,4 +2003,51 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	color: #1e5bd6;
 	border-bottom: #1e5bd6 2px solid;
 	margin: 0 auto 20px auto;
+}
+
+.bntChance_container {
+	display: flex;
+}
+
+.btnChange {
+	appearance: none;
+	background-color: var(--letrasAzules-color);
+	border: 2px solid var(--letrasAzules-color);
+	border-radius: 15px;
+	box-sizing: border-box;
+	color: var(--letrasBlancas-color);
+	cursor: pointer;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: normal;
+	margin: 10px auto;
+	min-height: 60px;
+	outline: none;
+	text-align: center;
+	text-decoration: none;
+	transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	width: 10%;
+	will-change: transform;
+	position: relative;
+}
+
+.btnChange:disabled {
+	pointer-events: none;
+}
+
+.btnChange:hover {
+	opacity: 0.7;
+	box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+	transform: translateY(-2px);
+}
+
+.btnChange:active {
+	box-shadow: none;
+	transform: translateY(0);
 }

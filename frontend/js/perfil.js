@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	document.querySelector('.userProfile__name').textContent = name;
 	document.querySelector('.userProfile__email').textContent = email;
-	document.querySelector('.userProfile__type').textContent = type;
 
 	if (imagen != null) document.querySelector('#profile-pic').src = imagen;
 });
