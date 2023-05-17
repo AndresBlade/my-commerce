@@ -10,6 +10,7 @@
 			rel="stylesheet"
 		/>
 		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/tiendaView.css" />
 	</head>
 
 	<body>
@@ -50,69 +51,45 @@
 		</header>
 
 		<main class="misTiendas">
-			<button type="button" class="btnAgregar">Agregar Producto</button>
-			<div class="menu-dashboard">
-				<!-- TOP MENU -->
-				<div class="top-menu">
-					<div class="logo">
-						<span class="heading-white">MyCommerce</span>
+			<div class="Perfil__tienda">
+				<button type="button" class="btnAgregar">Agregar Producto</button>
+				<aside class="menu-dashboard">
+					<div class="sidebar-perfil">
+						<div>
+							<div class="perfilTienda__contenedor">
+								<img class="perfilTienda__imagen"/>
+								<p class="perfilTienda__nombre"></p>
+								<p class="perfilTienda__RIF"></p>
+								<p class="perfilTienda__fechaCreacion"></p>
+							</div>
+						</div>
+						
+						<div class="btn__principales">
+							<button class="selectAllProducts">Seleccionar Todo</button> 
+			
+							<button class="selectAllProducts Borrar__tienda">Borrar Tienda</button> 
+						</div>
+						
+						<div class="btn__accion">
+							<button class="btn__accion delete">Eliminar Producto</button>
+							<button class="btn__accion edit">Editar Producto</button>
+						</div>
 					</div>
-					<div class="toggle">
-						<i class="bx bx-menu heading-white"></i>
-					</div>
-				</div>
-				<!-- INPUT SEARCH -->
-				<div class="input-search">
-					<i class="bx bx-search"></i>
-					<input type="text" class="input" placeholder="Buscar" />
-				</div>
-				<!-- MENU -->
-				<div class="menu">
-					<a href="perfil.html" class="enlace">
-						<i class="bx bx-grid-alt heading-white"></i>
-						<span class="heading-white">Mi Cuenta</span>
-					</a>
+				</aside>
 
-					<a class="enlace">
-						<i class="bx bx-user heading-white"></i>
-						<span class="heading-white">Compras</span>
-					</a>
-
-					<a class="enlace">
-						<i class="bx bx-grid-alt heading-white"></i>
-						<span class="heading-white">Ventas</span>
-					</a>
-
-					<a href="misTiendas.html" class="enlace">
-						<i class="bx bx-message-square heading-white"></i>
-						<span class="heading-white">Mi Perfil</span>
-					</a>
-
-					<a class="enlace">
-						<i class="bx bx-file-blank heading-white"></i>
-						<span class="heading-white">Mis Tiendas</span>
-					</a>
-				</div>
+				<div class="misTiendas__perfilTienda perfilTienda">
+					<div class="misTiendas__grid">
+					
+					</div>                    
 			</div>
-
-			<div class="misTiendas__perfilTienda perfilTienda">
-				<div>
-					<div class="perfilTienda__contenedor">
-						<p class="perfilTienda__nombre"></p>
-						<img class="perfilTienda__imagen" />
-						<p class="perfilTienda__RIF"></p>
-						<p class="perfilTienda__fechaCreacion"></p>
-					</div>
 				</div>
-
-				<div class="productosTienda"></div>
 			</div>
 		</main>
 
 		<div class="modal" id="modal">
 			<div class="modal__dialog">
 				<header class="modal__header">
-					<h2 class="modal__title">Agregar Tienda</h2>
+					<h2 class="modal__title">Agregar Producto</h2>
 					<!-- <button class="modal__close">X</button> -->
 				</header>
 				<section class="modal__content">
@@ -193,7 +170,7 @@
 						<div class="formModal__errorBox"></div>
 					</form>
 					<button type="button" class="formModal__submit">
-						Crear Tienda
+						Crear Producto
 					</button>
 				</section>
 			</div>
