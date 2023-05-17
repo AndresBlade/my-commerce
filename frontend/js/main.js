@@ -126,6 +126,18 @@ const btnNo = document.querySelector('.modalSesion__no');
 const dataJSON = localStorage.getItem('user');
 
 document.addEventListener('DOMContentLoaded', () => {
+	fetchProducto()
+		.then(productos => {
+			console.log(productos);
+			renderizarProductos(productos.products);
+		})
+		.catch(err => console.log(err));
+
+	fetchTienda()
+		.then(tiendas => {
+			renderizarTiendas(tiendas.tiendas);
+		})
+		.catch(err => console.log(err));
 	if (!dataJSON) return;
 
 	boton_perfil.classList.add('btn_perfil--show');
@@ -155,16 +167,4 @@ document.addEventListener('DOMContentLoaded', () => {
 			modalSesion.classList.remove('modalSesion__sesion--show');
 		});
 	});
-	fetchProducto()
-		.then(productos => {
-			console.log(productos);
-			renderizarProductos(productos.products);
-		})
-		.catch(err => console.log(err));
-
-	fetchTienda()
-		.then(tiendas => {
-			renderizarTiendas(tiendas.tiendas);
-		})
-		.catch(err => console.log(err));
 });
