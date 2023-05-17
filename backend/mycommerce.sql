@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 12-05-2023 a las 04:26:41
+-- Servidor: 127.0.0.1:3366
+-- Tiempo de generación: 17-05-2023 a las 05:04:59
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -30,10 +30,11 @@ USE `mycommerce`;
 --
 
 DROP TABLE IF EXISTS `categorias`;
-CREATE TABLE `categorias` (
-  `id` tinyint(3) UNSIGNED NOT NULL,
-  `descripcion` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -75,8 +76,8 @@ INSERT INTO `categorias` (`id`, `descripcion`) VALUES
 --
 
 DROP TABLE IF EXISTS `productos`;
-CREATE TABLE `productos` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `productos` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `precio` decimal(10,2) UNSIGNED NOT NULL,
   `categoria_id` tinyint(3) UNSIGNED DEFAULT NULL,
@@ -84,18 +85,28 @@ CREATE TABLE `productos` (
   `descripcion` text DEFAULT NULL,
   `imagenes` text NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
-  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `FK_producto_categoria_idx` (`categoria_id`),
+  KEY `FK_producto_tienda_idx` (`tienda_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `categoria_id`, `tienda_id`, `descripcion`, `imagenes`, `createdAt`, `updatedAt`) VALUES
-(3, 'Short', '8.00', 28, 17823182, 'Short de caballero', 'http://localhost:3000/file-1683504282852.png http://localhost:3000/file-1683504282854.png http://localhost:3000/file-1683504282855.png', '2023-05-08 00:04:42', '2023-05-08 00:04:42'),
-(4, 'Camisa', '6.00', 28, 17823182, 'Short de caballero', 'http://localhost:3000/file-1683517005657.png http://localhost:3000/file-1683517005663.png http://localhost:3000/file-1683517005664.png', '2023-05-08 03:36:45', '2023-05-08 03:36:45'),
-(5, 'Juguetes', '12.00', 23, 12823282, 'Juguetes de niños', 'http://localhost:3000/file-1683565353943.png http://localhost:3000/file-1683565353946.png http://localhost:3000/file-1683565353947.png', '2023-05-08 17:02:33', '2023-05-08 17:02:33'),
-(6, 'Buñuelos', '11.00', 23, 12823282, 'Buñuelos ricos', 'http://localhost:3000/file-1683566709842.png http://localhost:3000/file-1683566709844.png http://localhost:3000/file-1683566709845.png', '2023-05-08 17:25:09', '2023-05-08 17:25:09');
+(14, 'Shorts', '8.00', 28, 30178530, 'Short individual unicolor con cuerda de ajuste y doble bolsillo', 'http://localhost:3000/file-1684290854488.png http://localhost:3000/file-1684290854494.png http://localhost:3000/file-1684290854508.png http://localhost:3000/file-1684290854518.png', '2023-05-17 02:34:14', '2023-05-17 02:34:14'),
+(15, 'Conjunto Short Camisa', '20.00', 28, 30178530, 'Short estampado con paisajes junto con camisa blanca de Grows', 'http://localhost:3000/file-1684290980569.png http://localhost:3000/file-1684290980575.png http://localhost:3000/file-1684290980587.png', '2023-05-17 02:36:20', '2023-05-17 02:36:20'),
+(16, 'Intel Core I3th ', '65.00', 13, 30405110, ' 10th Generation Intel Core i3 Processor - 4 Cores; 8 Threads - 4.30 GHz Max Turbo Frequency, 3.60 GHz Processor Base Frequency - 6 MB Intel Smart Cache', 'http://localhost:3000/file-1684291354642.jpg', '2023-05-17 02:42:34', '2023-05-17 02:42:34'),
+(17, 'OLOy DDR4 RAM', '45.00', 13, 30405110, 'DDR4 2x8GB UDIMM, total 16 GB - Frequency : 3200 MHz CL16-20-20-38 - 1.35V UDIMM (Intel XMP 2.0 Automated Overclocking Technology) - Lifetime Warranty - Compatible with Intel and AMD', 'http://localhost:3000/file-1684291416682.jpg', '2023-05-17 02:43:36', '2023-05-17 02:43:36'),
+(18, 'Race Mouse Bungee', '15.00', 13, 30405110, 'Soporte para cable de Mouse', 'http://localhost:3000/file-1684291474634.jpg', '2023-05-17 02:44:34', '2023-05-17 02:44:34'),
+(19, 'Aretes Roach', '1000.00', 27, 30266948, 'Aretes con forma de esposas de plata', 'http://localhost:3000/file-1684292010423.png', '2023-05-17 02:53:30', '2023-05-17 02:53:30'),
+(20, 'Anillo Don Roach', '500.00', 27, 30266948, 'Anillo clásico de plata Don Roach', 'http://localhost:3000/file-1684292053177.jpg', '2023-05-17 02:54:13', '2023-05-17 02:54:13'),
+(21, 'Dije Solitario', '800.00', 27, 30266948, 'Dije solitario de plata Don Roach', 'http://localhost:3000/file-1684292126654.png', '2023-05-17 02:55:26', '2023-05-17 02:55:26'),
+(22, 'Toyota Hilux', '10000.00', 11, 30396149, 'Toyota Hilux 2021 Motor 3.5L alta revolución', 'http://localhost:3000/file-1684292401109.jpg', '2023-05-17 03:00:01', '2023-05-17 03:00:01'),
+(23, 'Toyota Fortuner', '15000.00', 11, 30396149, 'Toyota Fortuner 5 asientos 4 puertas techo descapotable', 'http://localhost:3000/file-1684292449515.jpg', '2023-05-17 03:00:49', '2023-05-17 03:00:49'),
+(24, 'Toyota Ford Runner', '20000.00', 11, 30396149, 'Toyota Ford runner edición especial con 3 cauchos de repuesto', 'http://localhost:3000/file-1684292489533.jpg', '2023-05-17 03:01:29', '2023-05-17 03:01:29');
 
 -- --------------------------------------------------------
 
@@ -104,10 +115,11 @@ INSERT INTO `productos` (`id`, `nombre`, `precio`, `categoria_id`, `tienda_id`, 
 --
 
 DROP TABLE IF EXISTS `regiones`;
-CREATE TABLE `regiones` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `descripcion` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE IF NOT EXISTS `regiones` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `regiones`
@@ -147,28 +159,28 @@ INSERT INTO `regiones` (`id`, `descripcion`) VALUES
 --
 
 DROP TABLE IF EXISTS `tiendas`;
-CREATE TABLE `tiendas` (
+CREATE TABLE IF NOT EXISTS `tiendas` (
   `RIF` int(11) UNSIGNED NOT NULL,
   `nombre` varchar(60) NOT NULL,
   `imagen` text NOT NULL,
   `status` enum('0','1','2','3') NOT NULL DEFAULT '0' COMMENT '''0'' = En espera. ''1'' = Aceptada. ''2'' = Rechazada. ''3'' = Eliminada/Baneada',
   `cliente_id` int(11) UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
-  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  `descripcion` text NOT NULL,
+  PRIMARY KEY (`RIF`),
+  KEY `cliente_id` (`cliente_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `tiendas`
 --
 
-INSERT INTO `tiendas` (`RIF`, `nombre`, `imagen`, `status`, `cliente_id`, `createdAt`, `updatedAt`) VALUES
-(11823282, 'segundaTienda', 'http://localhost:3000/file-1683566264850.jpg', '0', 15, '2023-05-08 17:17:44', '2023-05-08 17:17:44'),
-(12823282, 'TiendaDeLoquito', 'http://localhost:3000/file-1683565199504.jpg', '0', 15, '2023-05-08 16:59:59', '2023-05-08 16:59:59'),
-(17823182, 'Grows', 'http://localhost:3000/file-1683500567082.jpg', '0', 14, '2023-05-07 23:02:47', '2023-05-07 23:02:47'),
-(17823282, 'Pantallero', 'http://localhost:3000/file-1683508356574.jpg', '0', 14, '2023-05-08 01:12:36', '2023-05-08 01:12:36'),
-(21823282, 'terceraTienda', 'http://localhost:3000/file-1683566652324.jpg', '0', 15, '2023-05-08 17:24:12', '2023-05-08 17:24:12'),
-(31823282, 'cuartaTienda', 'http://localhost:3000/file-1683567310002.jpg', '0', 15, '2023-05-08 17:35:10', '2023-05-08 17:35:10'),
-(51823282, 'quintaTienda', 'http://localhost:3000/file-1683567323659.jpg', '0', 15, '2023-05-08 17:35:23', '2023-05-08 17:35:23');
+INSERT INTO `tiendas` (`RIF`, `nombre`, `imagen`, `status`, `cliente_id`, `createdAt`, `updatedAt`, `descripcion`) VALUES
+(30178530, 'Grows', 'http://localhost:3000/file-1684290716409.jpg', '0', 18, '2023-05-17 02:31:56', '2023-05-17 02:31:56', 'Vendemos shorts y camisas al por menor'),
+(30266948, 'Don Roach', 'http://localhost:3000/file-1684291861560.jpg', '0', 19, '2023-05-17 02:51:01', '2023-05-17 02:51:01', 'Tienda dedicada a la venta de joyería y productos de alhaja'),
+(30396149, 'IUJOCars', 'http://localhost:3000/file-1684292300246.jpg', '0', 19, '2023-05-17 02:58:20', '2023-05-17 02:58:20', 'Nos dedicamos a la venta de vehiculos de primera calidad y años recientes'),
+(30405110, 'MiGolilla', 'http://localhost:3000/file-1684290503712.png', '0', 18, '2023-05-17 02:28:23', '2023-05-17 02:28:23', 'Venta de aparatos electrónicos, gadgets y accesorios');
 
 -- --------------------------------------------------------
 
@@ -177,10 +189,13 @@ INSERT INTO `tiendas` (`RIF`, `nombre`, `imagen`, `status`, `cliente_id`, `creat
 --
 
 DROP TABLE IF EXISTS `tiendas_regiones`;
-CREATE TABLE `tiendas_regiones` (
-  `id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `tiendas_regiones` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `tienda_id` int(10) UNSIGNED NOT NULL,
-  `region_id` int(10) UNSIGNED NOT NULL
+  `region_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tienda_id` (`tienda_id`),
+  KEY `region_id` (`region_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -190,25 +205,28 @@ CREATE TABLE `tiendas_regiones` (
 --
 
 DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE `usuarios` (
-  `id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `correo` varchar(250) NOT NULL,
   `contrasenna` varchar(60) NOT NULL,
   `imagen` text DEFAULT NULL,
   `tipo_id` int(10) UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
-  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  KEY `FK_usuario_tipo_idx` (`tipo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasenna`, `imagen`, `tipo_id`, `createdAt`, `updatedAt`) VALUES
-(13, 'Torpasio', 'Torpasio@example.com', '30405110', 'http://localhost:3000/file-1683481403428.jpg', 1, '2023-05-07 01:54:18', '2023-05-07 17:43:23'),
-(14, 'Loquito', 'Loquito@example.com', '$2b$10$qHkcaxLumMbspnQ0nb73/.zk6CIAzHJqaGqU513e2xdEk/zwmKoYK', NULL, 2, '2023-05-07 20:21:00', '2023-05-08 01:12:36'),
-(15, 'Loquito49', 'loquito49@example.com', '$2b$10$3bdrRkdLT5T2Jr8jF7Fjpui.zSBzha/pMB41Gmj4V9nSqm61MlPQ2', NULL, 2, '2023-05-08 16:59:11', '2023-05-08 17:35:23');
+(18, 'tienda123', 'tienda123@gmail.com', '$2b$10$tVKj2UHCsSnNQTPrqv4jlOuJBoRn4CjPhpY1qhhPjPpaESJ5RY.S2', 'http://localhost:3000/file-1684291276057.jpg', 2, '2023-05-17 02:24:38', '2023-05-17 02:41:16'),
+(19, 'joyeria123', 'joyeria123@gmail.com', '$2b$10$/CcdVeJIhTYyt/VHfSdZe.GlXdG9EVCgDPDpj8Gv34ykAF9vBBXge', 'http://localhost:3000/file-1684291715670.jpg', 2, '2023-05-17 02:47:27', '2023-05-17 02:58:20'),
+(20, 'usuario123', 'usuario123@gmail.com', '$2b$10$OmMGz226v0efsx8M7SnC6unBzazNAajbiB2fm7ZrDkH3fLAbFA8mm', NULL, 1, '2023-05-17 03:03:07', '2023-05-17 03:03:07');
 
 -- --------------------------------------------------------
 
@@ -217,10 +235,11 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contrasenna`, `imagen`, `tipo
 --
 
 DROP TABLE IF EXISTS `usuarios_tipos`;
-CREATE TABLE `usuarios_tipos` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `descripcion` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+CREATE TABLE IF NOT EXISTS `usuarios_tipos` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios_tipos`
@@ -238,26 +257,17 @@ INSERT INTO `usuarios_tipos` (`id`, `descripcion`) VALUES
 --
 
 DROP TABLE IF EXISTS `ventas_cabeceras`;
-CREATE TABLE `ventas_cabeceras` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ventas_cabeceras` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `cliente_id` int(10) UNSIGNED NOT NULL,
   `ventas_detalles_id` int(11) NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
-  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Cabecera de ventas';
-
---
--- Volcado de datos para la tabla `ventas_cabeceras`
---
-
-INSERT INTO `ventas_cabeceras` (`id`, `cliente_id`, `ventas_detalles_id`, `createdAt`, `updatedAt`) VALUES
-(1, 15, 17, '2023-05-11 04:42:11', '2023-05-11 04:42:11'),
-(2, 14, 18, '2023-05-11 04:51:03', '2023-05-11 04:51:03'),
-(3, 15, 20, '2023-05-11 22:34:14', '2023-05-11 22:34:14'),
-(4, 15, 21, '2023-05-11 22:36:20', '2023-05-11 22:36:20'),
-(5, 15, 22, '2023-05-11 22:36:41', '2023-05-11 22:36:41'),
-(6, 15, 23, '2023-05-11 23:59:11', '2023-05-11 23:59:11'),
-(7, 15, 24, '2023-05-11 23:59:43', '2023-05-11 23:59:43');
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `FK_ventacab_cliente_idx` (`cliente_id`),
+  KEY `ventas_detalle_id` (`ventas_detalles_id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='Cabecera de ventas';
 
 -- --------------------------------------------------------
 
@@ -266,200 +276,38 @@ INSERT INTO `ventas_cabeceras` (`id`, `cliente_id`, `ventas_detalles_id`, `creat
 --
 
 DROP TABLE IF EXISTS `ventas_detalles`;
-CREATE TABLE `ventas_detalles` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ventas_detalles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `producto_id` int(10) UNSIGNED NOT NULL,
   `cantidad` int(10) UNSIGNED NOT NULL,
   `precio` decimal(10,2) UNSIGNED NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
-  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Volcado de datos para la tabla `ventas_detalles`
---
-
-INSERT INTO `ventas_detalles` (`id`, `producto_id`, `cantidad`, `precio`, `createdAt`, `updatedAt`) VALUES
-(6, 3, 2, '19.99', '2023-05-11 04:19:59', '2023-05-11 04:19:59'),
-(7, 3, 2, '19.99', '2023-05-11 04:23:58', '2023-05-11 04:23:58'),
-(8, 3, 2, '19.99', '2023-05-11 04:24:22', '2023-05-11 04:24:22'),
-(9, 3, 2, '19.99', '2023-05-11 04:25:04', '2023-05-11 04:25:04'),
-(10, 3, 2, '19.99', '2023-05-11 04:29:58', '2023-05-11 04:29:58'),
-(11, 3, 2, '19.99', '2023-05-11 04:37:56', '2023-05-11 04:37:56'),
-(12, 3, 2, '19.99', '2023-05-11 04:39:35', '2023-05-11 04:39:35'),
-(13, 3, 2, '19.99', '2023-05-11 04:39:54', '2023-05-11 04:39:54'),
-(14, 3, 2, '19.99', '2023-05-11 04:40:16', '2023-05-11 04:40:16'),
-(15, 3, 2, '19.99', '2023-05-11 04:40:34', '2023-05-11 04:40:34'),
-(16, 3, 2, '19.99', '2023-05-11 04:40:54', '2023-05-11 04:40:54'),
-(17, 3, 2, '19.99', '2023-05-11 04:42:11', '2023-05-11 04:42:11'),
-(18, 4, 1, '39.99', '2023-05-11 04:51:02', '2023-05-11 04:51:02'),
-(19, 3, 1, '39.99', '2023-05-11 22:17:00', '2023-05-11 22:17:00'),
-(20, 3, 1, '39.99', '2023-05-11 22:34:14', '2023-05-11 22:34:14'),
-(21, 3, 1, '39.99', '2023-05-11 22:36:20', '2023-05-11 22:36:20'),
-(22, 5, 1, '39.99', '2023-05-11 22:36:41', '2023-05-11 22:36:41'),
-(23, 5, 1, '39.99', '2023-05-11 23:59:11', '2023-05-11 23:59:11'),
-(24, 5, 1, '39.99', '2023-05-11 23:59:43', '2023-05-11 23:59:43');
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `FK_ventasdet_producto_idx` (`producto_id`),
+  KEY `id` (`id`),
+  KEY `id_2` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ventas_Tiendas`
+-- Estructura de tabla para la tabla `ventas_tiendas`
 --
 
-DROP TABLE IF EXISTS `ventas_Tiendas`;
-CREATE TABLE `ventas_Tiendas` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ventas_tiendas`;
+CREATE TABLE IF NOT EXISTS `ventas_tiendas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tienda_id` int(11) UNSIGNED NOT NULL,
   `venta_cabecera_id` int(11) NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT current_timestamp(),
-  `updatedAt` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Volcado de datos para la tabla `ventas_Tiendas`
---
-
-INSERT INTO `ventas_Tiendas` (`id`, `tienda_id`, `venta_cabecera_id`, `createdAt`, `updatedAt`) VALUES
-(1, 12823282, 7, '2023-05-11 23:59:44', '2023-05-11 23:59:44');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_producto_categoria_idx` (`categoria_id`),
-  ADD KEY `FK_producto_tienda_idx` (`tienda_id`);
-
---
--- Indices de la tabla `regiones`
---
-ALTER TABLE `regiones`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `tiendas`
---
-ALTER TABLE `tiendas`
-  ADD PRIMARY KEY (`RIF`),
-  ADD KEY `cliente_id` (`cliente_id`);
-
---
--- Indices de la tabla `tiendas_regiones`
---
-ALTER TABLE `tiendas_regiones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tienda_id` (`tienda_id`),
-  ADD KEY `region_id` (`region_id`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nombre_UNIQUE` (`nombre`),
-  ADD KEY `FK_usuario_tipo_idx` (`tipo_id`);
-
---
--- Indices de la tabla `usuarios_tipos`
---
-ALTER TABLE `usuarios_tipos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `ventas_cabeceras`
---
-ALTER TABLE `ventas_cabeceras`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ventacab_cliente_idx` (`cliente_id`),
-  ADD KEY `ventas_detalle_id` (`ventas_detalles_id`),
-  ADD KEY `id` (`id`);
-
---
--- Indices de la tabla `ventas_detalles`
---
-ALTER TABLE `ventas_detalles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_ventasdet_producto_idx` (`producto_id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `id_2` (`id`);
-
---
--- Indices de la tabla `ventas_Tiendas`
---
-ALTER TABLE `ventas_Tiendas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `tienda_id` (`tienda_id`,`venta_cabecera_id`),
-  ADD KEY `id_2` (`id`),
-  ADD KEY `venta_cabecera_id` (`venta_cabecera_id`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `regiones`
---
-ALTER TABLE `regiones`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT de la tabla `tiendas_regiones`
---
-ALTER TABLE `tiendas_regiones`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT de la tabla `usuarios_tipos`
---
-ALTER TABLE `usuarios_tipos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de la tabla `ventas_cabeceras`
---
-ALTER TABLE `ventas_cabeceras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `ventas_detalles`
---
-ALTER TABLE `ventas_detalles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT de la tabla `ventas_Tiendas`
---
-ALTER TABLE `ventas_Tiendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `tienda_id` (`tienda_id`,`venta_cabecera_id`),
+  KEY `id_2` (`id`),
+  KEY `venta_cabecera_id` (`venta_cabecera_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Restricciones para tablas volcadas
@@ -505,9 +353,9 @@ ALTER TABLE `ventas_detalles`
   ADD CONSTRAINT `ventas_detalles_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
 
 --
--- Filtros para la tabla `ventas_Tiendas`
+-- Filtros para la tabla `ventas_tiendas`
 --
-ALTER TABLE `ventas_Tiendas`
+ALTER TABLE `ventas_tiendas`
   ADD CONSTRAINT `ventas_Tiendas_ibfk_1` FOREIGN KEY (`venta_cabecera_id`) REFERENCES `ventas_cabeceras` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ventas_Tiendas_ibfk_2` FOREIGN KEY (`tienda_id`) REFERENCES `tiendas` (`RIF`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
