@@ -2,6 +2,7 @@ import { ProductList } from '../../products/components/ProductList';
 import { Header } from '../../ui/components';
 import { LandingHero } from '../components/LandingHero';
 import CancelImg from '../../assets/cancel.png';
+import { getShops } from '../../shops/helpers/getShops';
 
 export default function LandingPage() {
 	return (

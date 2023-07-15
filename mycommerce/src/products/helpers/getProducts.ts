@@ -7,10 +7,10 @@ export function getProducts(pageProduct = 0): Promise<ProductWrapper> {
 			method: 'GET',
 			// url: 'http://127.0.0.1:3000', daba error en react o typescript
 		}
-	).then(respuesta => {
-		if (!respuesta.ok) {
-			throw new Error(respuesta.statusText);
+	).then(response => {
+		if (!response.ok) {
+			throw new Error(response.statusText);
 		}
-		return respuesta.json() as Promise<ProductWrapper>;
+		return response.json() as Promise<ProductWrapper>;
 	});
 }
