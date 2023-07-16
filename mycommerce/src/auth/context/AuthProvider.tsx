@@ -7,7 +7,7 @@ type Props = {
 
 export const AuthProvider = ({ children }: Props) => {
 	return (
-		<AuthContext.Provider value={{ nombre: 'madrid' }}>
+		<AuthContext.Provider value={{ nombre: 'pelasbolas' }}>
 			{children}
 		</AuthContext.Provider>
 	);

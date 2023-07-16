@@ -16,18 +16,15 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/',
-		element: <ProtectedRoutes />,
+		element: <Layout />,
 
 		children: [
 			{
-				element: <Layout />,
+				element: <ProtectedRoutes />,
 
-				children: [
-					{ path: 'perfil' },
-					{ path: 'tiendas' },
-					{ index: true, element: <LandingPage /> },
-				],
+				children: [{ path: 'perfil' }, { path: 'tiendas' }],
 			},
+			{ index: true, element: <LandingPage /> },
 		],
 
 		errorElement: <PaginaError />,
