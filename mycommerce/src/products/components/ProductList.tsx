@@ -10,8 +10,8 @@ export function ProductList() {
 
 	useEffect(() => {
 		getProducts()
-			.then((respuesta: ProductWrapper) => {
-				setProducts(respuesta.products);
+			.then((response: ProductWrapper) => {
+				setProducts(response.products);
 			})
 			.catch(error => console.log(error));
 	}, []);
