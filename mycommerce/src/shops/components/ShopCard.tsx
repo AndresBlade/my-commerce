@@ -9,8 +9,8 @@ export const ShopCard = ({ RIF, imagen, nombre, descripcion }: Shop) => {
 		<a href={url.toString()} className="producto">
 			<img src={imagen} alt="" />
 			<div className="informacion">
-				<span className="tienda_nombre">${nombre}</span>
-				<span className="descripcion">${descripcion}</span>
+				<span className="tienda_nombre">{nombre}</span>
+				<span className="descripcion">{descripcion}</span>
 				<span className="ubicacion">Ir a ver</span>
 			</div>
 		</a>
