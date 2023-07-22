@@ -5,6 +5,6 @@ export interface Shop {
 	descripcion: string;
 	status: string;
 	cliente_id: number;
-	createdAt: Date;
+	createdAt: string;
 	updatedAt: Date;
 }
