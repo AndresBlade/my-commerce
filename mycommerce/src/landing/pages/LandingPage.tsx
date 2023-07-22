@@ -1,9 +1,9 @@
 import { ProductList } from '../../products/components/ProductList';
 import { Header } from '../../ui/components';
 import { LandingHero } from '../components/LandingHero';
-import CancelImg from '../../assets/cancel.png';
 import { getShops } from '../../shops/helpers/getShops';
 import { ShopList } from '../../shops/components/ShopList';
+import { SesionModal } from '../../ui/components/SesionModal';
 
 export default function LandingPage() {
 	document.title = 'Bienvenido a MyCommerce';
@@ -29,25 +29,7 @@ export default function LandingPage() {
 
 					<ProductList />
 				</section>
-				<section className="modalSesion__sesion">
-					<div className="modalSesion__sesion-container">
-						<img
-							src={CancelImg}
-							className="modalSesion__sesion-img"
-						/>
-						<h2 className="modalSesion__sesion-title">
-							¿Desea salir de sesión?
-						</h2>
-						<div className="modalSesion__sesion-options">
-							<a href="#" className="modalSesion__si">
-								Sí
-							</a>
-							<a href="#" className="modalSesion__no">
-								No
-							</a>
-						</div>
-					</div>
-				</section>
+				<SesionModal />
 			</main>
 		</>
 	);
