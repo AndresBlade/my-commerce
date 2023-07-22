@@ -14,6 +14,7 @@ import { getShops } from './shops/helpers/getShops';
 import { getProducts } from './products/helpers/getProducts';
 import { ShopWrapper } from './shops/interfaces/ShopWrapper';
 import { LandingLoader } from './landing/interfaces/LandingLoader';
+// import { getSingleShop } from './shops/helpers/getSingleShop';
 
 const router = createBrowserRouter([
 	{
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
 
 				children: [
 					{ path: 'perfil', element: <div>Eres hombre muerto</div> },
-					{ path: 'tiendas' },
+					{ path: 'locas' },
 				],
 			},
 			{
@@ -45,6 +46,17 @@ const router = createBrowserRouter([
 					return data;
 				},
 			},
+			{
+				path: 'tienda/:RIF',
+				element: <div>Estas en una tienda</div>,
+
+				// loader: async ({ params }) => {
+				// 	const RIF = params.RIF as string;
+
+				// 	return await getSingleShop(RIF);
+				// },
+			},
+			{ path: 'producto/:RIF', element: <div>Estas en un elemento</div> },
 		],
 
 		errorElement: <PaginaError />,
