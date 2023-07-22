@@ -6,6 +6,7 @@ import { getShops } from '../../shops/helpers/getShops';
 import { ShopList } from '../../shops/components/ShopList';
 
 export default function LandingPage() {
+	document.title = 'Bienvenido a MyCommerce';
 	return (
 		<>
 			<main>
