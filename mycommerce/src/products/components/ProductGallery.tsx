@@ -1,21 +1,37 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { SingleProduct } from '../interfaces/SingleProduct';
 
+interface ImageProps {
+	id?: number;
+}
+
 export const ProductGallery = ({ imagenes: productImages }: SingleProduct) => {
-	const images = productImages.split(' ');
+	const images: string[] = productImages.split(' ');
 	const galleryContainerImg = useRef<HTMLDivElement>(null);
 
-	function handleLoad() {
+	useEffect(() => {
 		if (galleryContainerImg.current) {
+			console.log(images[0]);
 			galleryContainerImg.current.style.backgroundImage = `url(${images[0]})`;
 		}
-	}
+	}, [images]);
+
+	const handleClickSliderImage = (
+		e: React.MouseEvent<HTMLImageElement, MouseEvent>
+	): void => {
+		const target: ImageProps = e.target as ImageProps;
+		if (galleryContainerImg.current && target.id) {
+			console.log(images[0]);
+			galleryContainerImg.current.style.backgroundImage = `url(${
+				images[target.id]
+			})`;
+		}
+	};
 
 	return (
 		<article className="gallery">
 			<div
 				className="gallery__container_img"
-				onLoad={handleLoad}
 				ref={galleryContainerImg}
 			></div>
 			<div className="gallery__thumnails">
@@ -25,11 +41,11 @@ export const ProductGallery = ({ imagenes: productImages }: SingleProduct) => {
 						src={imageString}
 						id={index.toString()}
 						alt="Imagen del producto"
+						key={index}
+						onClick={handleClickSliderImage}
 					/>
 				))}
 			</div>
 		</article>
 	);
 };
-
-//nos quedamos haciendo el slider, hay que buscar como cambiar la imagen dinamicamente, ya sea con useRef u otros

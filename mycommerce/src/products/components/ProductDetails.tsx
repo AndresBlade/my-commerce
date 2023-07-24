@@ -1,7 +1,6 @@
 import { useId } from 'react';
 import { SingleProduct } from '../interfaces/SingleProduct';
 import { Link } from 'react-router-dom';
-// import '../../css/productView.css';
 export const ProductDetails = ({
 	tienda,
 	nombre,
