@@ -72,6 +72,10 @@ const router = createBrowserRouter([
 					return await getSingleProduct(id);
 				},
 			},
+			{ path: 'explorar', element: <div>Estas en el explorar</div> },
+			{ path: 'ayuda', element: <div>Estas en ayuda</div> },
+			{ path: 'contactanos', element: <div>Estas en contactanos</div> },
+			{ path: 'register', element: <div>Estas en el register</div> },
 		],
 
 		errorElement: <PaginaError />,
