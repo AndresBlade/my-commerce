@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 /* eslint-disable @typescript-eslint/no-namespace */
 declare global {
 	namespace JSX {
@@ -10,28 +12,28 @@ declare global {
 export const Header = () => {
 	return (
 		<header className="header">
-			<a href="index.html" className="logo">
+			<Link to="/" className="logo">
 				LOGO
-			</a>
+			</Link>
 
 			<div className="group">
 				<ul className="navigation">
 					<li>
-						<a href="vistas/explorar.html">Explorar</a>
+						<Link to="explorar">Explorar</Link>
 					</li>
 					<li>
-						<a href="vistas/ayuda.html">Ayuda</a>
+						<Link to="ayuda">Ayuda</Link>
 					</li>
 					<li className="btn_perfil">
-						<a href="vistas/perfil.html">Mi Perfil</a>
+						<Link to="perfil">Mi Perfil</Link>
 					</li>
 					<li>
-						<a href="vistas/contactanos.html">Contactanos</a>
+						<Link to="contactanos">Contactanos</Link>
 					</li>
 					<li>
-						<a className="btn_sesion" href="vistas/login.html">
+						<Link className="btn_sesion" to="login">
 							Iniciar Sesión
-						</a>
+						</Link>
 					</li>
 				</ul>
 
