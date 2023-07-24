@@ -3,6 +3,7 @@ import { SesionModal } from '../../ui/components/SesionModal';
 import { ShopProfile } from '../components/ShopProfile';
 import { ShopLoader } from '../interfaces/ShopLoader';
 import { ShopProductCard } from '../components/ShopProductCard';
+import '../../css/tiendaView.css';
 
 export const ShopPage = () => {
 	const { shopProducts } = useLoaderData() as ShopLoader;

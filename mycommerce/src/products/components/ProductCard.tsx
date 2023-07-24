@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Product } from '../interfaces/Product';
 
 export const ProductCard = ({
@@ -6,14 +7,14 @@ export const ProductCard = ({
 	precio,
 	id,
 }: Product) => {
-	const url = new URL(
-		'http://127.0.0.1/e-commerce-tarea/frontend/vistas/producto.html'
-	);
-	url.searchParams.set('id', id.toString());
+	// const url = new URL(
+	// 	'http://127.0.0.1/e-commerce-tarea/frontend/vistas/producto.html'
+	// );
+	// url.searchParams.set('id', id.toString());
 
 	const imagenes: string[] = imagenesString.split(' ');
 	return (
-		<a className="producto" href={url.toString()}>
+		<Link to={`producto/${id}`} className="producto">
 			<img
 				src={imagenes[Math.floor(Math.random() * imagenes.length)]}
 				className="producto__imagen"
@@ -25,6 +26,6 @@ export const ProductCard = ({
 				<span className="precio-envio">Envío gratis</span>
 				<span className="descripcion">${nombre}</span>
 			</div>
-		</a>
+		</Link>
 	);
 };

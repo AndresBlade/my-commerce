@@ -1,6 +1,5 @@
 import { useLoaderData } from 'react-router';
 import { ShopLoader } from '../interfaces/ShopLoader';
-import '../../css/tiendaView.css';
 
 export const ShopProfile = () => {
 	const { shopData } = useLoaderData() as ShopLoader;

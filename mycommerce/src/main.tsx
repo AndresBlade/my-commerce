@@ -15,6 +15,8 @@ import { getSingleShop } from './shops/helpers/getSingleShop';
 import { getSingleShopProducts } from './products/helpers/getSingleShopProducts';
 import { ShopLoader } from './shops/interfaces/ShopLoader';
 import { ShopPage } from './shops/pages/ShopPage';
+import { getSingleProduct } from './products/helpers/getSingleProduct';
+import { ProductPage } from './products/pages/ProductPage';
 
 const router = createBrowserRouter([
 	{
@@ -61,7 +63,15 @@ const router = createBrowserRouter([
 					return data;
 				},
 			},
-			{ path: 'producto/:RIF', element: <div>Estas en un elemento</div> },
+			{
+				path: 'producto/:id',
+				element: <ProductPage />,
+				loader: async ({ params }) => {
+					const id = params.id as string;
+
+					return await getSingleProduct(id);
+				},
+			},
 		],
 
 		errorElement: <PaginaError />,

@@ -6,7 +6,7 @@ export const ShopProductCard = ({
 	nombre,
 	precio,
 }: Product) => {
-	const imagenes = imagenesString.split(' ');
+	const imagenes: string[] = imagenesString.split(' ');
 	console.log(imagenes);
 	return (
 		<section className="producto_tienda">
