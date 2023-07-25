@@ -1,14 +1,13 @@
 import { Request, Response} from "express";
 import express from 'express';
-import { pingHere, defaultRoute } from "../controllers/Usuarios";
+import { createOneUser } from "../controllers/Usuarios";
 
 const router = express.Router();
 
-router.get("/",
-            defaultRoute);
+router.get("/createOneUser",
+createOneUser);
 
-router.get('/ping', 
-            pingHere);
+router.get('/ping', );
 
 module.exports = router;
 

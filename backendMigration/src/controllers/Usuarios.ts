@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
+import UserModel  from "../models/Usuarios";
 
-export const pingHere = async (req:Request, res:Response) =>{
-    console.log('Ey')
-    res.send('you ping here')
+export const createOneUser = async (req:Request, res:Response) =>{    
+    
+    res.send(`You have created a new user`)
 }
 
 export const defaultRoute = async (req:Request, res:Response) =>{
