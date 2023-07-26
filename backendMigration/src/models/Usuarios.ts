@@ -1,13 +1,8 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes} from 'sequelize'
 import { sequelize } from '../config/db';
 import { UUIDV4 } from 'sequelize';
+import UserModelAttributes from './interfaces/UserInterface';
 
-interface UserModelAttributes {
-    id: number;
-    correo: string;
-    contrasenna: string;
-    tipo_id: number;
-}
 
     
 class UserModel extends Model<UserModelAttributes> implements UserModelAttributes {
@@ -27,8 +22,12 @@ UserModel.init(
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
+            allowNull: false,
         },
-        correo: { type: DataTypes.STRING},
+        correo: { 
+            type: DataTypes.STRING,
+            unique: true,
+        },
         contrasenna: { type: DataTypes.STRING },
         tipo_id: { type: DataTypes.INTEGER },
     },
@@ -38,5 +37,6 @@ UserModel.init(
         timestamps: true,
     }
 );
+
 
 export default UserModel;

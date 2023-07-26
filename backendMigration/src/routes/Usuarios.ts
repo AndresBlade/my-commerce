@@ -1,11 +1,11 @@
 import { Request, Response} from "express";
 import express from 'express';
-import { createOneUser } from "../controllers/Usuarios";
+import { registerUser } from "../controllers/Usuarios";
 
 const router = express.Router();
 
-router.get("/createOneUser",
-createOneUser);
+router.post("/registerUser",
+            registerUser);
 
 router.get('/ping', );
 
