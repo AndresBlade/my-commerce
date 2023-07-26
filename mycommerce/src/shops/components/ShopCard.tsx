@@ -5,7 +5,7 @@ export const ShopCard = ({ RIF, imagen, nombre, descripcion }: Shop) => {
 	// const url = new URL('localhost:5173/tienda.html');
 	// url.searchParams.set('RIF', RIF.toString());
 	return (
-		<Link to={`tienda/${RIF.toString()}`} className="producto">
+		<Link to={`/tienda/${RIF.toString()}`} className="producto">
 			<img src={imagen} alt="" />
 			<div className="informacion">
 				<span className="tienda_nombre">{nombre}</span>

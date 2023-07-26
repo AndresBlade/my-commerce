@@ -14,7 +14,7 @@ export const ProductCard = ({
 
 	const imagenes: string[] = imagenesString.split(' ');
 	return (
-		<Link to={`producto/${id}`} className="producto">
+		<Link to={`/producto/${id}`} className="producto">
 			<img
 				src={imagenes[Math.floor(Math.random() * imagenes.length)]}
 				className="producto__imagen"
