@@ -17,6 +17,8 @@ import { ShopLoader } from './shops/interfaces/ShopLoader';
 import { ShopPage } from './shops/pages/ShopPage';
 import { getSingleProduct } from './products/helpers/getSingleProduct';
 import { ProductPage } from './products/pages/ProductPage';
+import { ExplorePage } from './explore/pages/ExplorePage';
+import { ExplorarParams } from './explore/interfaces/ExplorarParams';
 
 const router = createBrowserRouter([
 	{
@@ -72,7 +74,39 @@ const router = createBrowserRouter([
 					return await getSingleProduct(id);
 				},
 			},
-			{ path: 'explorar', element: <div>Estas en el explorar</div> },
+			{
+				path: 'explorar/:productPage?/:shopPage?',
+				element: <ExplorePage />,
+				loader: async ({ params }) => {
+					const explorarParams: ExplorarParams =
+						params as ExplorarParams;
+
+					let productPage = 0;
+					let shopPage = 0;
+
+					console.log({ productPage, shopPage, params });
+
+					if (
+						explorarParams.productPage !== undefined &&
+						explorarParams.shopPage !== undefined
+					) {
+						productPage = parseInt(explorarParams.productPage);
+						shopPage = parseInt(explorarParams.shopPage);
+					}
+
+					console.log({ productPage, shopPage });
+
+					const data: LandingLoader = {
+						ShopsData: await getShops(shopPage),
+						ProductsData: await getProducts(productPage),
+					};
+
+					return data;
+				},
+				// action: async ({ request }) => {
+
+				// },
+			},
 			{ path: 'ayuda', element: <div>Estas en ayuda</div> },
 			{ path: 'contactanos', element: <div>Estas en contactanos</div> },
 			{ path: 'register', element: <div>Estas en el register</div> },
