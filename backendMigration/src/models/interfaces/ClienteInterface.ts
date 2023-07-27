@@ -3,4 +3,5 @@ export default interface ClienteModelAttributes {
     usuario_id: number;
     nombre: string;
     imagen:string;
+    token?: string;   
 }
