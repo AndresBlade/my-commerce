@@ -1,14 +1,5 @@
 import { Link } from 'react-router-dom';
 
-/* eslint-disable @typescript-eslint/no-namespace */
-declare global {
-	namespace JSX {
-		interface IntrinsicElements {
-			[elemName: string]: unknown;
-		}
-	}
-}
-
 export const Header = () => {
 	return (
 		<header className="header">
