@@ -21,6 +21,15 @@ import { ExplorePage } from './explore/pages/ExplorePage';
 import { ExplorarParams } from './explore/interfaces/ExplorarParams';
 import { ProductWrapper } from './products/interfaces/ProductWrapper';
 import { ShopWrapper } from './shops/interfaces/ShopWrapper';
+import { HelpPage } from './help/pages/HelpPage';
+declare global {
+	// eslint-disable-next-line @typescript-eslint/no-namespace
+	namespace JSX {
+		interface IntrinsicElements {
+			[elemName: string]: unknown;
+		}
+	}
+}
 
 const exploreContext: {
 	products: ProductWrapper;
@@ -132,7 +141,7 @@ const router = createBrowserRouter([
 
 				// },
 			},
-			{ path: 'ayuda', element: <div>Estas en ayuda</div> },
+			{ path: 'ayuda', element: <HelpPage /> },
 			{ path: 'contactanos', element: <div>Estas en contactanos</div> },
 			{ path: 'register', element: <div>Estas en el register</div> },
 		],
