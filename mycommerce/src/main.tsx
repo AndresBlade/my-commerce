@@ -19,6 +19,20 @@ import { getSingleProduct } from './products/helpers/getSingleProduct';
 import { ProductPage } from './products/pages/ProductPage';
 import { ExplorePage } from './explore/pages/ExplorePage';
 import { ExplorarParams } from './explore/interfaces/ExplorarParams';
+import { ProductWrapper } from './products/interfaces/ProductWrapper';
+import { ShopWrapper } from './shops/interfaces/ShopWrapper';
+
+const exploreContext: {
+	products: ProductWrapper;
+	shops: ShopWrapper;
+	productPage: number;
+	shopPage: number;
+} = {
+	productPage: 0,
+	shopPage: 0,
+	products: await getProducts(),
+	shops: await getShops(),
+};
 
 const router = createBrowserRouter([
 	{
@@ -97,9 +111,20 @@ const router = createBrowserRouter([
 					console.log({ productPage, shopPage });
 
 					const data: LandingLoader = {
-						ShopsData: await getShops(shopPage),
-						ProductsData: await getProducts(productPage),
+						ShopsData:
+							exploreContext.shopPage !== shopPage
+								? await getShops(shopPage)
+								: exploreContext.shops,
+						ProductsData:
+							exploreContext.productPage !== productPage
+								? await getProducts(productPage)
+								: exploreContext.products,
 					};
+
+					exploreContext.productPage = productPage;
+					exploreContext.products = data.ProductsData;
+					exploreContext.shopPage = shopPage;
+					exploreContext.shops = data.ShopsData;
 
 					return data;
 				},
