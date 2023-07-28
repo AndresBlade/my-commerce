@@ -1,9 +1,9 @@
 import { SesionModal } from '../../ui/components/SesionModal';
-import contactanosImg from '../../assets/contactanos.png';
 import asdf from '../../assets/asdf.png';
 import { Link } from 'react-router-dom';
 import { HelpList } from '../components/HelpList';
 import { HelpListInformation } from '../interfaces/helpListInformation';
+import { OurContactInfo } from '../../contactUs/component/OurContactInfo';
 
 const helpLists: HelpListInformation[] = [
 	{
@@ -51,37 +51,7 @@ export const HelpPage = () => {
 						</div>
 					</div>
 
-					<div className="info">
-						<div className="imgBox">
-							<img src={contactanosImg} alt="" />
-						</div>
-						<div className="info-textBox">
-							<div className="info-contact">
-								<ion-icon name="location-outline"></ion-icon>
-								<p>Burundí, Cankuzo</p>
-							</div>
-
-							<div className="info-contact">
-								<ion-icon name="mail-outline"></ion-icon>
-								<p>cmmh2004iujo@gmail.com</p>
-							</div>
-
-							<div className="info-rrss">
-								<Link to="#">
-									<ion-icon name="logo-facebook"></ion-icon>
-								</Link>
-								<Link to="#">
-									<ion-icon name="logo-twitter"></ion-icon>
-								</Link>
-								<Link to="#">
-									<ion-icon name="logo-instagram"></ion-icon>
-								</Link>
-								<Link to="#">
-									<ion-icon name="logo-whatsapp"></ion-icon>
-								</Link>
-							</div>
-						</div>
-					</div>
+					<OurContactInfo />
 				</div>
 			</section>
 			<section className="modalSesion">
