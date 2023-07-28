@@ -22,6 +22,9 @@ import { ExplorarParams } from './explore/interfaces/ExplorarParams';
 import { ProductWrapper } from './products/interfaces/ProductWrapper';
 import { ShopWrapper } from './shops/interfaces/ShopWrapper';
 import { HelpPage } from './help/pages/HelpPage';
+import { helpLists } from './help/data/helpListsInfo';
+import { SideContactInfoPage } from './ui/pages/SideContactInfoPage';
+import { ContactUsPage } from './contactUs/pages/ContactUsPage';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -141,8 +144,19 @@ const router = createBrowserRouter([
 
 				// },
 			},
-			{ path: 'ayuda', element: <HelpPage /> },
-			{ path: 'contactanos', element: <div>Estas en contactanos</div> },
+			{
+				element: <SideContactInfoPage />,
+				children: [
+					{
+						path: 'ayuda',
+						element: <HelpPage helpLists={helpLists} />,
+					},
+					{
+						path: 'contactanos',
+						element: <ContactUsPage />,
+					},
+				],
+			},
 			{ path: 'register', element: <div>Estas en el register</div> },
 		],
 
