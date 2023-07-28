@@ -33,15 +33,15 @@ export const Header = () => {
 						<ion-icon
 							name="search-outline"
 							id="blanco"
-							className="searchBtn"
+							class="searchBtn"
 						></ion-icon>
 						<ion-icon
 							name="close-outline"
-							className="closeBtn"
+							class="closeBtn"
 						></ion-icon>
 					</span>
 				</div>
-				<ion-icon name="menu-outline" className="menuToggle"></ion-icon>
+				<ion-icon name="menu-outline" class="menuToggle"></ion-icon>
 			</div>
 		</header>
 	);
