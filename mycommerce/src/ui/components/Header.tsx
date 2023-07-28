@@ -7,7 +7,12 @@ interface Props {
 
 export const Header = ({ authPage }: Props) => {
 	return (
-		<header className={authPage ? 'header' : 'header-2'}>
+		<header
+			className={authPage ? 'header' : 'header-2'}
+			style={
+				authPage ? undefined : { paddingLeft: `${3}rem`, marginLeft: 0 }
+			}
+		>
 			<Link to="/" className="logo">
 				LOGO
 			</Link>
