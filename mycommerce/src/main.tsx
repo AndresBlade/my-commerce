@@ -4,7 +4,7 @@ import './css/style.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { PaginaError } from './PaginaError';
 import { ProtectedRoutes } from './router/ProtectedRoutes';
-import { LoginPage } from './auth/pages/LoginPage';
+import { AuthPage } from './auth/pages/AuthPage';
 import { AuthProvider } from './auth/context/AuthProvider';
 import { Layout } from './ui/pages/Layout';
 import LandingPage from './landing/pages/LandingPage';
@@ -50,7 +50,10 @@ const exploreContext: {
 const router = createBrowserRouter([
 	{
 		element: <AuthLayout />,
-		children: [{ path: '/login', element: <LoginPage /> }],
+		children: [
+			{ path: 'login', element: <AuthPage /> },
+			{ path: 'register', element: <AuthPage register /> },
+		],
 	},
 	{
 		path: '/',
@@ -158,7 +161,6 @@ const router = createBrowserRouter([
 					},
 				],
 			},
-			{ path: 'register', element: <div>Estas en el register</div> },
 		],
 
 		errorElement: <PaginaError />,
