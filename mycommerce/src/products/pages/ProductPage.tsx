@@ -3,7 +3,7 @@ import { SesionModal } from '../../ui/components/SesionModal';
 import { SingleProductWrapper } from '../interfaces/SingleProductWrapper';
 import { ProductGallery } from '../components/ProductGallery';
 import { ProductDetails } from '../components/ProductDetails';
-import '../../css/productView.css';
+// import '../../css/productView.css';
 
 export const ProductPage = () => {
 	const { productByID } = useLoaderData() as SingleProductWrapper;

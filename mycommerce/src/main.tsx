@@ -25,6 +25,7 @@ import { HelpPage } from './help/pages/HelpPage';
 import { helpLists } from './help/data/helpListsInfo';
 import { SideContactInfoPage } from './ui/pages/SideContactInfoPage';
 import { ContactUsPage } from './contactUs/pages/ContactUsPage';
+import { AuthLayout } from './ui/pages/AuthLayout';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -48,8 +49,8 @@ const exploreContext: {
 
 const router = createBrowserRouter([
 	{
-		path: '/login',
-		element: <LoginPage />,
+		element: <AuthLayout />,
+		children: [{ path: '/login', element: <LoginPage /> }],
 	},
 	{
 		path: '/',
