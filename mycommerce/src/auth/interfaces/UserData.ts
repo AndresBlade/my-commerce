@@ -11,7 +11,7 @@ interface User {
 	id: number;
 	nombre: string;
 	correo: string;
-	imagen: null;
+	imagen?: null | string;
 	tipo_id: number;
 	createdAt: Date;
 	updatedAt: Date;

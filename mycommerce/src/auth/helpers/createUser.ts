@@ -1,10 +1,12 @@
 import { UserDataWrapper } from '../interfaces/UserData';
 
-export const getUser = (user: {
+export const createUser = (user: {
+	nombre: string;
 	correo: string;
 	contrasenna: string;
+	tipo_id: 1;
 }): Promise<UserDataWrapper> =>
-	fetch('http://127.0.0.1:3000/api/user/login', {
+	fetch('http://127.0.0.1:3000/api/user/register', {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'same-origin',

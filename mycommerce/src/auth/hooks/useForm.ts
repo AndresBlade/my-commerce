@@ -6,15 +6,11 @@ export const useForm = <T>(initialForm: T) => {
 	function onInputChange({ target }: ChangeEvent<HTMLInputElement>) {
 		const { name, value } = target;
 
-		console.log({ [name]: value });
-
 		setFormState({ ...formState, [name]: value });
 	}
 
 	function onCheckboxChange({ target }: ChangeEvent<HTMLInputElement>) {
 		const { name, checked } = target;
-
-		console.log({ [name]: checked });
 
 		setFormState({ ...formState, [name]: checked });
 	}

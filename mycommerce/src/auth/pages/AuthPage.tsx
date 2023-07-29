@@ -1,20 +1,21 @@
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm';
 import { ElementRef, useContext, useRef, useState } from 'react';
-import { getUserData } from '../helpers/getUser';
+import { getUser } from '../helpers/getUser';
 import { AuthContext } from '../context/AuthContext';
 import { UserData } from '../interfaces/UserData';
+import { createUser } from '../helpers/createUser';
 
 interface Props {
 	register?: boolean;
 }
 
 interface Form {
-	username?: string;
+	username: string;
 	email: string;
 	password: string;
-	confirmPassword?: string;
-	termsAccepted?: boolean;
+	confirmPassword: string;
+	termsAccepted: boolean;
 }
 
 interface ErrorMessageProps {
@@ -46,20 +47,63 @@ const onSubmit = (
 	setUserData: React.Dispatch<React.SetStateAction<UserData | null>>,
 	navigate: NavigateFunction
 ): void => {
+	let inputsFilled: boolean;
 	if (register) {
+		const emailRegex = /^\S+@\S+\.\S+$/;
+		const { username, email, password } = form;
+		inputsFilled = Object.values(form)
+			.filter(inputValue => typeof inputValue === 'string')
+			.every(inputValue => {
+				return inputValue !== '';
+			});
+
+		if (!inputsFilled) return setError('Faltan campos por rellenar');
+
+		if (!emailRegex.test(form.email))
+			return setError('Ingrese un correo electrónico válido');
+
+		if (form.password !== form.confirmPassword)
+			return setError('Las contraseñas deben de coincidir');
+
+		if (username.length < 8 || email.length < 8 || password.length < 8)
+			return setError('Los campos deben de tener mínimo 8 caracteres');
+		if (!form.termsAccepted)
+			return setError(
+				'Debe aceptar los términos y condiciones para poder registrarse'
+			);
+
+		createUser({
+			nombre: username,
+			correo: email,
+			contrasenna: password,
+			tipo_id: 1,
+		})
+			.then(dataReceived => {
+				console.log('registrado');
+				console.log(dataReceived);
+				setUserData(dataReceived.data);
+				navigate('/perfil');
+				localStorage.setItem(
+					'userData',
+					JSON.stringify(dataReceived.data)
+				);
+			})
+			.catch(err => console.log(err));
+
 		return;
 	}
 
-	const inputsFilled = form.email !== '' && form.password !== '';
+	inputsFilled = form.email !== '' && form.password !== '';
 
 	if (!inputsFilled) return setError('Faltan campos por rellenar');
 
-	getUserData({ correo: form.email, contrasenna: form.password })
+	getUser({ correo: form.email, contrasenna: form.password })
 		.then(dataReceived => {
 			console.log('recibido');
 			console.log(dataReceived);
 			setUserData(dataReceived.data);
 			navigate('/perfil');
+			localStorage.setItem('userData', JSON.stringify(dataReceived.data));
 		})
 		.catch(err => {
 			console.log(err);
