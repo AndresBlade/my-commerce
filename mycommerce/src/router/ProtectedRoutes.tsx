@@ -3,11 +3,9 @@ import { useContext } from 'react';
 import { AuthContext } from '../auth/context/AuthContext';
 
 export const ProtectedRoutes = () => {
-	const { nombre } = useContext(AuthContext);
+	const { userData } = useContext(AuthContext);
 
-	console.log(nombre);
-
-	if (nombre !== 'madrid') {
+	if (!userData) {
 		return <Navigate to={'/login'} />;
 	}
 

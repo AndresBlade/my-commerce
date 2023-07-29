@@ -1,7 +1,9 @@
 import { createContext } from 'react';
+import { UserData } from '../interfaces/UserData';
 
 export type AuthContextProps = {
-	nombre: string;
+	userData: UserData | null;
+	setUserData: React.Dispatch<React.SetStateAction<UserData | null>>;
 };
 
 export const AuthContext = createContext<AuthContextProps>(
