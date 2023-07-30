@@ -28,7 +28,6 @@ const tokenSign = async (user:UserModelAttributes) =>{
  */
 const tokenVerify = async (tokenJWT:string) => {
     try{
-        console.log(tokenJWT, SECRET_KEY)
         const userData = jsonwebtoken.verify(tokenJWT, SECRET_KEY);
         return userData;
     }catch(error:any){

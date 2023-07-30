@@ -15,7 +15,6 @@ interface dataToken extends JwtPayload{
 
 const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
     try{
-        console.log('Entra al middleware')
         if(!req.headers.authorization){
             handleHttpErrors(res, 'NEED_SESSION', 401);
         }
@@ -34,9 +33,11 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
         const user = await UserModel.findOne({
             where: {id: idUser}
         });
-        res.locals ={
-            user
+        const userData = {
+            ...user?.dataValues
         }
+        
+        res.locals.user = userData;
         
         next();
     }catch(error:any){

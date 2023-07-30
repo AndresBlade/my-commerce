@@ -40,6 +40,7 @@ export const registerUser = async (req:Request, res:Response) =>{
     res.send({data})
 }
 
+
 export const loginUser = async (req:Request, res:Response) =>{
     const {correo, contrasenna} = req.body;
 
@@ -49,25 +50,22 @@ export const loginUser = async (req:Request, res:Response) =>{
         }
     });
 
-    if(!userLogued) return res.json('IVALID USER DATA')
+    if(!userLogued) return res.send('IVALID USER DATA')
 
 
     const hashPassword = userLogued.get('contrasenna');
-        const passwordMatch = await comparePassword(contrasenna, hashPassword);
+    const passwordMatch = await comparePassword(contrasenna, hashPassword);
 
 
-        if(!passwordMatch){
-            handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
-            return
-        }
-
-        
+    if(!passwordMatch){
+        handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
+        return
+    }
 
     const data = {
         token: await tokenSign(userLogued),
         Usuario: userLogued
     }
-
 
     res.send({data})
 };
