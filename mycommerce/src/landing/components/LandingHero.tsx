@@ -7,7 +7,7 @@ export const LandingHero = () => {
 	return (
 		<>
 			{/* <!-- primera parte --> */}
-			<div className="box-container-inicio">
+			<div className='bg-bg-degradado'>
 				{/* <!-- primera parte --> */}
 				<section className="box-container">
 					<div className="box box-1">
