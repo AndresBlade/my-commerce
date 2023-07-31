@@ -1,4 +1,4 @@
-import { UserData } from '../interfaces/UserData';
+import { UserData } from '../../user/interfaces/UserData';
 import { AuthContext } from './AuthContext';
 import { ReactNode, useState } from 'react';
 
@@ -7,10 +7,25 @@ type Props = {
 };
 
 export const AuthProvider = ({ children }: Props) => {
-	const [userData, setUserData] = useState<UserData | null>(null);
-	const previousData: string | null = localStorage.getItem('userData');
-	if (userData === null && previousData !== null)
-		setUserData(JSON.parse(previousData) as UserData);
+	const [userData, setUserData] = useState<UserData>({
+		token: '',
+		user: {
+			correo: '',
+			createdAt: new Date(),
+			id: -1,
+			nombre: '',
+			tipo_id: -1,
+			updatedAt: new Date(),
+			imagen: '',
+		},
+	});
+	const previousDataString: string | null = localStorage.getItem('userData');
+	let previousData: UserData;
+	if (previousDataString !== null && userData.token === '') {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		previousData = JSON.parse(previousDataString);
+		setUserData(previousData);
+	}
 	return (
 		<AuthContext.Provider value={{ ...userData, userData, setUserData }}>
 			{children}

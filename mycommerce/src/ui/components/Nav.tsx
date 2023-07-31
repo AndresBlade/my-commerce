@@ -1,6 +1,18 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../auth/context/AuthContext';
+import { LogoutButton } from './LogoutButton';
+import { LoginButton } from './LoginButton';
+import { UserData } from '../../user/interfaces/UserData';
 
 export const Nav = () => {
+	const {
+		userData: {
+			token,
+			user: { nombre },
+		},
+	} = useContext(AuthContext);
+
 	return (
 		<div className="group">
 			<ul className="navigation">
@@ -10,17 +22,13 @@ export const Nav = () => {
 				<li>
 					<Link to="ayuda">Ayuda</Link>
 				</li>
-				<li className="btn_perfil">
-					<Link to="perfil">Mi Perfil</Link>
+				<li className={`btn_perfil ${token ? 'btn_perfil--show' : ''}`}>
+					<Link to={nombre}>Mi Perfil</Link>
 				</li>
 				<li>
 					<Link to="contactanos">Contactanos</Link>
 				</li>
-				<li>
-					<Link className="btn_sesion" to="login">
-						Iniciar Sesión
-					</Link>
-				</li>
+				{token ? <LogoutButton /> : <LoginButton />}
 			</ul>
 
 			<div className="search">

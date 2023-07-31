@@ -1,10 +1,10 @@
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm';
 import { ElementRef, useContext, useRef, useState } from 'react';
-import { getUser } from '../helpers/getUser';
+import { getUser } from '../../user/helpers/getUser';
 import { AuthContext } from '../context/AuthContext';
-import { UserData } from '../interfaces/UserData';
-import { createUser } from '../helpers/createUser';
+import { UserData } from '../../user/interfaces/UserData';
+import { createUser } from '../../user/helpers/createUser';
 
 interface Props {
 	register?: boolean;
@@ -44,7 +44,7 @@ const onSubmit = (
 	form: Form,
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
 	register: boolean | undefined,
-	setUserData: React.Dispatch<React.SetStateAction<UserData | null>>,
+	setUserData: React.Dispatch<React.SetStateAction<UserData>>,
 	navigate: NavigateFunction
 ): void => {
 	let inputsFilled: boolean;
@@ -82,7 +82,7 @@ const onSubmit = (
 				console.log('registrado');
 				console.log(dataReceived);
 				setUserData(dataReceived.data);
-				navigate('/perfil');
+				navigate(`/${dataReceived.data.user.nombre}`);
 				localStorage.setItem(
 					'userData',
 					JSON.stringify(dataReceived.data)
@@ -102,7 +102,7 @@ const onSubmit = (
 			console.log('recibido');
 			console.log(dataReceived);
 			setUserData(dataReceived.data);
-			navigate('/perfil');
+			navigate(`/${dataReceived.data.user.nombre}`);
 			localStorage.setItem('userData', JSON.stringify(dataReceived.data));
 		})
 		.catch(err => {

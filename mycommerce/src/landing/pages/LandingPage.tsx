@@ -29,7 +29,6 @@ export default function LandingPage() {
 
 					<ProductList />
 				</section>
-				<SesionModal />
 			</main>
 		</>
 	);
