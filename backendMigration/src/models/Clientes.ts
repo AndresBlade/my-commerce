@@ -14,17 +14,7 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    // Metodos personalizados
-    // public async findUserAndClient(cliente_id: number){
-    //     return ClienteModel.findOne({
-    //         where: {id: cliente_id},
-    //         include:{
-    //             model: UserModel,
-    //             as: 'usuario'
-
-    //         }
-    //     })
-    // }
+    //metodos personalizados
 }
 
 ClienteModel.init(
@@ -50,10 +40,5 @@ ClienteModel.init(
         timestamps: true,
     }
 );
-
-
-
-
-
 
 export default ClienteModel;

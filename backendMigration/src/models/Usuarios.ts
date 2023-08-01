@@ -13,15 +13,15 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    //metodos
+    //metodos personalizados
     public async findUserAndClient(user_id: number){
         return UserModel.findOne({
             where: {id: user_id},
-            attributes: ['id', 'correo', 'tipo_id'],
+            attributes: ['correo', 'tipo_id'],
             include:{
                 model: ClienteModel,
                 as: 'cliente',
-                attributes: ['id'] 
+                attributes: ['id', 'nombre', 'imagen', 'createdAt']
             }
         })
     }
@@ -53,9 +53,5 @@ UserModel.hasOne(ClienteModel, {
     foreignKey: 'usuario_id',
     as: 'cliente'
 })
-
-// UserModel.prototype.findUserAndClient = async function(user_id: number){
-
-// }
 
 export default UserModel;

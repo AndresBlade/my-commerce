@@ -30,11 +30,15 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
         
         const {id: idUser} = dataToken as dataToken;
 
-        const user = await UserModel.findOne({
-            where: {id: idUser}
-        });
+        //consigue el usuario 
+        const user = await UserModel.findOne({ where: {id: idUser} });
+        //consigue el cliente que pertenece al usuario
+        const clientBelongToUser = await user?.findUserAndClient(user.id);
+
+
         const userData = {
-            ...user?.dataValues
+            ...user?.dataValues,
+            ...clientBelongToUser?.dataValues.cliente.dataValues
         }
         
         req.body.user = userData;

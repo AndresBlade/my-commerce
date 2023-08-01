@@ -15,10 +15,8 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     public descripcion!: string;
     public saldo!: number;
 
-  
-
-
     // Metodos personalizados
+    
 }
 
 TiendaModel.init(
