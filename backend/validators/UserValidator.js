@@ -21,7 +21,6 @@ const validatorRegisterUser = [
     .notEmpty()
     .isInt(),
     (req, res, next) => {
-        console.log(req.body);
         return validationResults(req, res, next)
     }
     

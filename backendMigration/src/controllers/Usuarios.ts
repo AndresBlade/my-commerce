@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { tokenSign } from "../utils/handleJwt";
-import UserModel  from "../models/Usuarios";
 import handleHttpErrors from '../utils/handleErrors';
 import {encryptPassword, comparePassword}  from '../utils/handlePassword';
+import UserModel  from "../models/Usuarios";
 import ClientModel  from "../models/Clientes";
 
 export const registerUser = async (req:Request, res:Response) =>{ 
@@ -49,22 +49,21 @@ export const loginUser = async (req:Request, res:Response) =>{
             correo:correo
         }
     });
-
     if(!userLogued) return res.send('IVALID USER DATA')
-
 
     const hashPassword = userLogued.get('contrasenna');
     const passwordMatch = await comparePassword(contrasenna, hashPassword);
-
 
     if(!passwordMatch){
         handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
         return
     }
 
+    const userAndClient = await userLogued.findUserAndClient(userLogued.id);
+
     const data = {
         token: await tokenSign(userLogued),
-        Usuario: userLogued
+        Usuario: userAndClient
     }
 
     res.send({data})

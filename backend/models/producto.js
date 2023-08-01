@@ -70,7 +70,8 @@ Producto.FindProductAndTienda = function(id){
         include: { model: tiendas, 
             where: { id: sequelize.col('productos.tienda_id') },
             as: 'tienda',
-            attributes: ['RIF'] }
+            attributes: ['RIF']
+         }
         });
 };
 

@@ -3,4 +3,5 @@ export default interface UserModelAttributes {
     correo: string;
     contrasenna: string;
     tipo_id: number;
+    cliente?: any;
 }

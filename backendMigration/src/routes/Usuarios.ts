@@ -11,7 +11,7 @@ router.post("/registerUser",
 
 router.get('/getUsuarios',
             authMiddleware,
-            checkRole(['CLIENTE']),
+            checkRole(['ADMINISTRADOR']),
             getUsuario
 );
 

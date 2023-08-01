@@ -3,8 +3,8 @@ import handleHttpErrors from "../utils/handleErrors";
 
 const checkRole = (roles:Array<string>) => async (req:Request, res:Response, next:NextFunction) =>{
     try{
-        const user = res.locals.user;
-        let roleByUser = user.tipo_id;
+        const User = req.body.user
+        let roleByUser = User.tipo_id;
 
         switch(roleByUser){
             case 1:
@@ -23,7 +23,7 @@ const checkRole = (roles:Array<string>) => async (req:Request, res:Response, nex
         if(!checkValueRole){
             handleHttpErrors(res, 'USER_DONT_HAVE_PERMISSIONS', 403);
         }
-
+ 
         next();
     }catch(e:any){
         console.log(e);

@@ -1,7 +1,8 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo, BelongsToGetAssociationMixin} from 'sequelize'
+import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo, HasMany, BelongsToGetAssociationMixin} from 'sequelize'
 import { sequelize } from '../config/db';
 import ClienteModelAttributes from './interfaces/ClienteInterface';
 import UserModel from './Usuarios';
+
 
 class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModelAttributes {
     public id!: number;
@@ -14,7 +15,16 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
     public readonly updatedAt!: Date;
 
     // Metodos personalizados
-    public FindClienteAndUser!: BelongsToGetAssociationMixin<UserModel>;
+    // public async findUserAndClient(cliente_id: number){
+    //     return ClienteModel.findOne({
+    //         where: {id: cliente_id},
+    //         include:{
+    //             model: UserModel,
+    //             as: 'usuario'
+
+    //         }
+    //     })
+    // }
 }
 
 ClienteModel.init(
@@ -41,10 +51,9 @@ ClienteModel.init(
     }
 );
 
-ClienteModel.belongsTo(UserModel, {
-    foreignKey: 'usuario_id',
-    as: 'usuario'
 
-});
+
+
+
 
 export default ClienteModel;

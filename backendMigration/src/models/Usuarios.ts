@@ -1,10 +1,8 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes} from 'sequelize'
 import { sequelize } from '../config/db';
-import { UUIDV4 } from 'sequelize';
 import UserModelAttributes from './interfaces/UserInterface';
+import ClienteModel from './Clientes';
 
-
-    
 class UserModel extends Model<UserModelAttributes> implements UserModelAttributes {
     public id!: number;
     public correo!: string;
@@ -14,6 +12,19 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
     // Timestamps
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
+
+    //metodos
+    public async findUserAndClient(user_id: number){
+        return UserModel.findOne({
+            where: {id: user_id},
+            attributes: ['id', 'correo', 'tipo_id'],
+            include:{
+                model: ClienteModel,
+                as: 'cliente',
+                attributes: ['id'] 
+            }
+        })
+    }
 }
 
 UserModel.init(
@@ -38,5 +49,13 @@ UserModel.init(
     }
 );
 
+UserModel.hasOne(ClienteModel, {
+    foreignKey: 'usuario_id',
+    as: 'cliente'
+})
+
+// UserModel.prototype.findUserAndClient = async function(user_id: number){
+
+// }
 
 export default UserModel;
