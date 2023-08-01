@@ -30,6 +30,7 @@ import { ProfilePage } from './user/pages/ProfilePage';
 import { Dashboard } from './ui/components/Dashboard';
 import { SesionModal } from './ui/components/SesionModal';
 import { SesionModalProvider } from './ui/context/SesionModalProvider';
+import { MyShopsPage } from './user/pages/MyShopPage';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -77,8 +78,13 @@ const router = createBrowserRouter([
 								children: [
 									{ index: true, element: <ProfilePage /> },
 									{ path: 'compras' },
-									{ path: 'tiendas' },
-									{ path: 'ventas' },
+									{
+										path: 'tiendas',
+										element: <MyShopsPage />,
+									},
+									{
+										path: 'ventas',
+									},
 								],
 							},
 						],

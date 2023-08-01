@@ -1,10 +1,11 @@
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm';
-import { ElementRef, useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import { getUser } from '../../user/helpers/getUser';
 import { AuthContext } from '../context/AuthContext';
 import { UserData } from '../../user/interfaces/UserData';
 import { createUser } from '../../user/helpers/createUser';
+import { ErrorMessage } from '../../ui/components/ErrorMessage';
 
 interface Props {
 	register?: boolean;
@@ -17,28 +18,6 @@ interface Form {
 	confirmPassword: string;
 	termsAccepted: boolean;
 }
-
-interface ErrorMessageProps {
-	message: string;
-	setError: React.Dispatch<React.SetStateAction<string | null>>;
-}
-
-const ErrorMessage = ({ message, setError }: ErrorMessageProps) => {
-	const errorRef = useRef<ElementRef<'p'>>(null); //Another way to work with useRef; Useful if you want to work with custom components
-
-	setTimeout(() => {
-		errorRef.current?.classList.add('mensajeError--fade');
-	}, 4400);
-
-	setTimeout(() => {
-		setError(null);
-	}, 5000);
-	return (
-		<p className="mensajeError" ref={errorRef}>
-			{message}
-		</p>
-	);
-};
 
 const onSubmit = (
 	form: Form,
