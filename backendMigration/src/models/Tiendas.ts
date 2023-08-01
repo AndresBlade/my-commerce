@@ -16,7 +16,9 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     public saldo!: number;
 
     // Metodos personalizados
-    
+    public findTiendaByName = function(tiendaName:string){};
+    public findTiendaByRIF = function(tiendaRIF:number){};
+    public findTiendaByClient = function(clientID:number){};
 }
 
 TiendaModel.init(
@@ -54,8 +56,37 @@ TiendaModel.init(
 
 TiendaModel.belongsTo(ClienteModel, {
     foreignKey: 'cliente_id',
-    as: 'tiendas_cliente'
+    as: 'tienda_cliente'
 });
 
+TiendaModel.prototype.findTiendaByName = async function(tiendaName:string){
+    return TiendaModel.findAll({
+        where: { nombre: tiendaName },
+        include: { model: ClienteModel, 
+            as: 'tienda_cliente',
+            attributes: ['id', 'nombre', 'imagen', 'createdAt']
+        }
+    });
+}
+
+TiendaModel.prototype.findTiendaByRIF = async function(tiendaRIF:number){
+    return TiendaModel.findAll({
+        where: { RIF: tiendaRIF },
+        include: { model: ClienteModel, 
+            as: 'tienda_cliente',
+            attributes: ['id', 'nombre', 'imagen', 'createdAt']
+        }
+    });
+}
+
+TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
+    return TiendaModel.findAll({
+        where: { cliente_id: clientID },
+        include: { model: ClienteModel, 
+            as: 'tienda_cliente',
+            attributes: ['id', 'nombre', 'imagen', 'createdAt']
+        }
+    });
+}
 
 export default TiendaModel;

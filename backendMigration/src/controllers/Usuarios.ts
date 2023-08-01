@@ -4,6 +4,8 @@ import handleHttpErrors from '../utils/handleErrors';
 import {encryptPassword, comparePassword}  from '../utils/handlePassword';
 import UserModel  from "../models/Usuarios";
 import ClientModel  from "../models/Clientes";
+const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3000';
+
 
 export const registerUser = async (req:Request, res:Response) =>{ 
     try{
@@ -13,7 +15,9 @@ export const registerUser = async (req:Request, res:Response) =>{
     
         //Encripta la contraseña
         const contrasenna = await encryptPassword(rawPassword);
-        const defaultImage = '../../storage/DefaultProfilePicture.png';
+
+        //define la imagen por defecto del usuario
+        const defaultImage = `${PUBLIC_URL}/DefaultProfilePicture.jpeg`;
     
     
         //Inserta los datos en la tabla usuarios
@@ -22,7 +26,6 @@ export const registerUser = async (req:Request, res:Response) =>{
             contrasenna,
             tipo_id
         });
-    
     
         if(!newUser) return res.json('Something went wrong with User')
         
@@ -34,7 +37,6 @@ export const registerUser = async (req:Request, res:Response) =>{
         })
     
         if(!newClient) return res.json('Something went wrong with Client')
-        
     
         const data = {
             token: await tokenSign(newUser),
