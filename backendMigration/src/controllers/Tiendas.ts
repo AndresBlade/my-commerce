@@ -40,6 +40,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
     }
 }
 
+
 export const getTiendas = async (req:Request, res:Response) =>{ 
     try{
         const { page = 0, size = 10 } = req.query;
@@ -57,10 +58,13 @@ export const getTiendas = async (req:Request, res:Response) =>{
     }
 }
 
+
 export const getTiendaByRIF = async (req:Request, res:Response) =>{ 
     try{
         const { tiendaRIF } = req.params;
-        if(!parseInt(tiendaRIF)) return res.send('RIF_CAN_NOT_BE_A_STRING') 
+        //validar que el tiendaRIF no sea un string
+        if(!parseInt(tiendaRIF)) return res.send('RIF_CAN_NOT_BE_A_STRING')
+
         const tienda_rif = parseInt(tiendaRIF);
 		const data = await TiendaModel.prototype.findTiendaByRIF(tienda_rif);
 		res.send({ data });
@@ -69,6 +73,7 @@ export const getTiendaByRIF = async (req:Request, res:Response) =>{
         handleHttpErrors(error);
     }
 }
+
 
 export const getTiendaByName = async (req:Request, res:Response) =>{ 
     try{
@@ -80,6 +85,7 @@ export const getTiendaByName = async (req:Request, res:Response) =>{
         handleHttpErrors(error);
     }
 }
+
 
 export const getTiendaByClient = async (req:Request, res:Response) =>{ 
     try{

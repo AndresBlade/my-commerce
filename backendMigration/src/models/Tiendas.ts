@@ -3,6 +3,7 @@ import { sequelize } from '../config/db';
 import TiendaModelAttributes from './interfaces/TiendaInterface';
 import ClienteModel from './Clientes';
 
+
 class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAttributes{
     public RIF!: number;
     public nombre!: string;
@@ -20,6 +21,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     public findTiendaByRIF = function(tiendaRIF:number){};
     public findTiendaByClient = function(clientID:number){};
 }
+
 
 TiendaModel.init(
     {
@@ -59,6 +61,7 @@ TiendaModel.belongsTo(ClienteModel, {
     as: 'tienda_cliente'
 });
 
+
 TiendaModel.prototype.findTiendaByName = async function(tiendaName:string){
     return TiendaModel.findAll({
         where: { nombre: tiendaName },
@@ -68,6 +71,7 @@ TiendaModel.prototype.findTiendaByName = async function(tiendaName:string){
         }
     });
 }
+
 
 TiendaModel.prototype.findTiendaByRIF = async function(tiendaRIF:number){
     return TiendaModel.findAll({
@@ -79,6 +83,7 @@ TiendaModel.prototype.findTiendaByRIF = async function(tiendaRIF:number){
     });
 }
 
+
 TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
     return TiendaModel.findAll({
         where: { cliente_id: clientID },
@@ -88,5 +93,6 @@ TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
         }
     });
 }
+
 
 export default TiendaModel;

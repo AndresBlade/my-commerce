@@ -62,17 +62,17 @@ export const loginUser = async (req:Request, res:Response) =>{
                 correo:correo
             }
         });
+
         if(!userLogued) return res.send('IVALID USER DATA')
     
         const hashPassword = userLogued.get('contrasenna');
         const passwordMatch = await comparePassword(contrasenna, hashPassword);
     
         if(!passwordMatch){
-            handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
-            return
+            return handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
         }
     
-        const userAndClient = await userLogued.findUserAndClient(userLogued.id);
+        const userAndClient = await ClientModel.prototype.findClientAndUser(userLogued.id);
     
         const data = {
             token: await tokenSign(userLogued),
@@ -87,6 +87,6 @@ export const loginUser = async (req:Request, res:Response) =>{
 };
 
 export const getUsuario = async (req:Request, res:Response) =>{
-    console.log(req.body.user);
+    console.log('Entraste compa')
     res.send('oki')
 }

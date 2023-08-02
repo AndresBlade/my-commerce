@@ -14,17 +14,7 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
     public readonly updatedAt!: Date;
 
     //metodos personalizados
-    public async findUserAndClient(user_id: number){
-        return UserModel.findOne({
-            where: {id: user_id},
-            attributes: ['correo', 'tipo_id'],
-            include:{
-                model: ClienteModel,
-                as: 'cliente',
-                attributes: ['id', 'nombre', 'imagen', 'createdAt']
-            }
-        })
-    }
+    
 }
 
 UserModel.init(

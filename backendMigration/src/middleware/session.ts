@@ -4,6 +4,7 @@ import handleHttpErrors from '../utils/handleErrors';
 import UserModel from '../models/Usuarios'; 
 import {tokenVerify} from '../utils/handleJwt';
 import { Jwt, JwtPayload } from 'jsonwebtoken';
+import ClienteModel from '../models/Clientes';
 
 
 interface dataToken extends JwtPayload{
@@ -28,19 +29,19 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
             handleHttpErrors(res, 'NOT_PAYLOAD_DATA', 401);
         }
         
-        const {id: idUser} = dataToken as dataToken;
+        const {id: userID} = dataToken as dataToken;
 
-        //consigue el usuario 
-        const user = await UserModel.findOne({ where: {id: idUser} });
+        //consigue el usuario con el id perteneciente
+        const user = await UserModel.findOne({ where: {id: userID} });
         //consigue el cliente que pertenece al usuario
-        const clientBelongToUser = await user?.findUserAndClient(user.id);
+        const clientBelongToUser = await ClienteModel.prototype.findClientAndUser(userID);
 
 
         const userData = {
             ...user?.dataValues,
-            ...clientBelongToUser?.dataValues.cliente.dataValues
+            clientBelongToUser
         }
-        
+
         req.body.user = userData;
         next();
     }catch(error:any){

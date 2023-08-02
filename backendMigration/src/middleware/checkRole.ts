@@ -21,7 +21,7 @@ const checkRole = (roles:Array<string>) => async (req:Request, res:Response, nex
 
 
         if(!checkValueRole){
-            handleHttpErrors(res, 'USER_DONT_HAVE_PERMISSIONS', 403);
+            return handleHttpErrors(res, 'USER_DONT_HAVE_PERMISSIONS', 403);
         }
  
         next();
