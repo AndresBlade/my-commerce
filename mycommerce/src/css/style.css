@@ -10,7 +10,7 @@
 	}
 
 	.bg-modal {
-		@apply fixed top-0 left-0 w-full h-screen bg-[rgba(0,0,0,0.5)];
+		@apply fixed top-0 left-0 w-full h-screen bg-[rgba(0,0,0,0.3)];
 	}
   }
   
@@ -38,6 +38,13 @@ body::-webkit-scrollbar-thumb {
 
 /* utilidades */
 
+.grid-img{
+    grid-area: 3 / 2 / 1 / 2;  
+}
+.grid-btn{
+    grid-area: 2 / 1 / 2 / 1;  
+}
+
 .bold {
 	font-weight: 700;
 }
@@ -55,7 +62,7 @@ body::-webkit-scrollbar-thumb {
 	align-items: center;
 	backdrop-filter: blur(6px);
 	-webkit-backdrop-filter: blur(6px);
-}*/
+}
 
 .header-2 {
 	background: var(--degradadoFondo-color);
@@ -90,36 +97,6 @@ header ul {
 	display: list-item;
 }
 
-header ul li {
-	list-style: none;
-	padding: 0.5rem;
-}
-
-header ul li a {
-	position: sticky;
-	text-decoration: none;
-	font-size: 1.1em;
-	font-weight: 500;
-	color: #fff;
-	text-transform: uppercase;
-}
-
-header ul li a::before {
-	content: '';
-	position: absolute;
-	bottom: -2px;
-	width: 100%;
-	height: 2px;
-	background-color: #fff;
-	transform: scaleX(0);
-	transition: transform 0.5s ease-in-out;
-	transform-origin: right;
-}
-
-header ul li a:hover::before {
-	transform: scaleY(1);
-	transform-origin: left;
-}
 
 header .search {
 	position: relative;
@@ -130,6 +107,8 @@ header .search {
 	z-index: 10;
 	cursor: pointer;
 }
+
+*/
 
 .heading {
 	color: var(--letrasBlancas-color);
@@ -142,7 +121,7 @@ header .search {
 	color: #000;
 }
 
-.rectangulo {
+/*.rectangulo {
 	width: 150px;
 	height: 5px;
 	background-color: var(--rectangulo-color);
@@ -153,7 +132,7 @@ header .search {
 	width: 500px;
 	height: 5px;
 	background-color: var(--rectangulo-color);
-}
+}*/
 
 .box-container {
 	position: relative;
@@ -1707,7 +1686,6 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	display: flex;
 	width: 100%;
 	flex-direction: column;
-	justify-content: start;
 	align-items: center;
 	border-radius: 30px;
 	padding: 10px;

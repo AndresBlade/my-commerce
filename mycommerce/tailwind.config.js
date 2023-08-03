@@ -10,7 +10,8 @@ export default {
       },
 
       colors:  {
-        "bg-gris": "#dde6f5",
+        "gris": "#dde6f5",
+        "shadow-gris": "#DCE1EA",
         "azul": "#7c92ffcc",
         "amarillo": "#f4f0a4",
         "blanco": "#f1f4fe",
