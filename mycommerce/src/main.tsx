@@ -30,7 +30,7 @@ import { ProfilePage } from './user/pages/ProfilePage';
 import { Dashboard } from './ui/components/Dashboard';
 import { SesionModal } from './ui/components/SesionModal';
 import { SesionModalProvider } from './ui/context/SesionModalProvider';
-import { MyShopsPage } from './user/pages/MyShopPage';
+import { MyShopsPage } from './user/pages/MyShopsPage';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
