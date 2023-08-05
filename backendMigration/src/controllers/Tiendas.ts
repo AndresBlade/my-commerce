@@ -16,9 +16,13 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         const client = await ClienteModel.findOne({ where: { id: cliente_id } });
         if (!client) throw new Error('El cliente con el cliente_id proporcionado no existe');
         
+        //validar si el RIf de tienda Existe
+        const tienda = await TiendaModel.findOne({ where: { RIF } });
+        if (tienda) return res.status(400).send('Tienda ya registrada, ingrese otro RIF');
 
         const status = '0'; //En espera de aprobacion
         const saldo = 0;
+
         //imagen enviada por el midleware anterior (uploadMiddleware)
         imagen = imagen.trim(); 
 
