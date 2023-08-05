@@ -1,76 +1,15 @@
-import { ChangeEvent, ElementRef, useRef } from 'react';
-
-type OptionProps = {
-	description: string;
-	value: string;
-};
-
-type SelectProps = {
-	element: 'select';
-	handleChange: ({ target }: React.ChangeEvent<HTMLSelectElement>) => void;
-
-	value: string;
-	options: OptionProps[];
-};
-
-type TextareaProps = {
-	handleChange: ({ target }: React.ChangeEvent<HTMLTextAreaElement>) => void;
-
-	element: 'textarea';
-	value: string;
-	cols?: number;
-	rows?: number;
-};
-
-type InputFileDocumentProps = {
-	imagePreview: false;
-};
-
-type InputFileMultipleImagesProps = {
-	multiple: true;
-	handleImagesChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-type InputFileSingleImageProps = {
-	handleImageChange: (
-		e: ChangeEvent<HTMLInputElement>,
-		imageRef: React.RefObject<ElementRef<'img'>>
-	) => void;
-};
-
-type InputFileImageProps = {
-	imagePreview: true;
-} & (InputFileSingleImageProps | InputFileMultipleImagesProps);
-
-type InputFileProps = {
-	type: 'file';
-	accept: string[];
-	value: FileList | null;
-	multiple?: boolean;
-} & (InputFileImageProps | InputFileDocumentProps);
-
-type InputNumberProps = {
-	type: 'number';
-	value: number;
-	min?: number;
-	max?: number;
-};
-
-type InputTextProps = {
-	type: 'text';
-	value: string;
-};
-
-type InputProps = {
-	element: 'input';
-	handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
-} & (InputNumberProps | InputTextProps | InputFileProps);
-
-export type EntryProps = {
-	title: string;
-	name: string;
-	htmlFor: string;
-} & (InputProps | TextareaProps | SelectProps);
+import { ElementRef, useRef } from 'react';
+import {
+	EntryProps,
+	InputFileMultipleImagesProps,
+	InputFileProps,
+	InputFileSingleImageProps,
+	InputNumberProps,
+	InputProps,
+	InputTextProps,
+	SelectProps,
+	TextareaProps,
+} from './EntryProps';
 
 export const ModalFormDivider = ({
 	title,
@@ -108,7 +47,17 @@ export const ModalFormDivider = ({
 								type={type}
 								id={htmlFor}
 								name={name}
-								value={value}
+								value={
+									max !== undefined
+										? value > max
+											? max
+											: value
+										: min !== undefined
+										? value < min
+											? min
+											: value
+										: value
+								}
 								max={max}
 								min={min}
 								className="formModal__number"
@@ -132,12 +81,12 @@ export const ModalFormDivider = ({
 									onChange={e => {
 										handleChange(e);
 									}}
-								></input>
+								/>
 							);
 						}
 
-						return (
-							<>
+						if (multiple) {
+							return (
 								<input
 									id={htmlFor}
 									name={name}
@@ -153,15 +102,35 @@ export const ModalFormDivider = ({
 											handleImagesChange(e);
 										}
 									}}
-								></input>
-
-								<img
-									className="formModal__imagePreview"
-									ref={imageRef}
-									alt="Imagen de tienda"
 								/>
+							);
+						}
+
+						return (
+							<>
+								<input
+									id={htmlFor}
+									name={name}
+									type={type}
+									accept={accept.join()}
+									className="formModal__image"
+									onChange={e => {
+										handleChange(e);
+										const { handleImageChange } =
+											rest as unknown as InputFileSingleImageProps;
+										handleImageChange(e, imageRef);
+									}}
+								/>
+								{imagePreview && (
+									<img
+										className="formModal__imagePreview"
+										ref={imageRef}
+										alt="Imagen de tienda"
+									/>
+								)}
 							</>
 						);
+						break;
 					}
 				}
 				break;

@@ -4,14 +4,14 @@ import { useState, useContext, useEffect } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import { Shop } from '../../shops/interfaces/Shop';
 import { getShopsByUser } from '../../shops/helpers/getShopsByUser';
-import { Modal, SubmitType } from '../../shops/components/Modal';
-import { useForm } from '../../auth/hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 import { ElementRef } from 'react';
-import { EntryProps } from '../../shops/components/ModalFormDivider';
 import { UserData } from '../interfaces/UserData';
 import { createShop } from '../../shops/helpers/createShop';
 import { getRegions } from '../../shops/helpers/getRegions';
 import { Region } from '../../shops/interfaces/ShopRegion';
+import { Modal, SubmitType } from '../../ui/components/Modal';
+import { EntryProps } from '../../ui/components/EntryProps';
 
 const onSubmit: SubmitType<Form, Shop[], UserData> = (
 	form: Form,
@@ -128,6 +128,7 @@ export const MyShopsPage = () => {
 			element: 'input',
 			type: 'number',
 			value: RIF,
+			min: 0,
 		},
 		{
 			element: 'input',
@@ -192,7 +193,7 @@ export const MyShopsPage = () => {
 					formState,
 					setError,
 					setData: setShops,
-					onSubmit,
+					onSubmit: onSubmit,
 					error,
 					userData,
 				}}

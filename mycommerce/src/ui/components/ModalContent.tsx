@@ -27,6 +27,7 @@ export const ModalContent = <FormType, DataType, UserDataType>({
 						formEntries={form.entries}
 						error={form.error}
 						setError={form.setError}
+						formRef={form.formRef}
 					/>
 					<button
 						type="button"

@@ -14,6 +14,7 @@ type Props<FormType = null, DataType = null, UserDataType = null> = {
 		setError: React.Dispatch<React.SetStateAction<string | null>>;
 		error: string | null;
 		userData: UserDataType;
+		formRef?: React.RefObject<ElementRef<'form'>>;
 	};
 	title: string;
 };

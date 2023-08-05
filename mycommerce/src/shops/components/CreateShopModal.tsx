@@ -1,5 +1,5 @@
 import React, { useRef, ElementRef, ChangeEvent, useContext } from 'react';
-import { useForm } from '../../auth/hooks/useForm';
+import { useForm } from '../../hooks/useForm';
 import { useState } from 'react';
 import { ErrorMessage } from '../../ui/components/ErrorMessage';
 import { Shop } from '../interfaces/Shop';
