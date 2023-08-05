@@ -14,8 +14,8 @@ router.post("/createProduct",
             checkRole(['CLIENTE']),
             CheckTiendasPerClient,
             imageRoute('tiendaProducts'),
-            uploadMiddleware.array('imagen'),
-            validatorRegisterProduct,
+            uploadMiddleware.array('Imagenes'),
+            // validatorRegisterProduct,
             CreateProduct);
 
 

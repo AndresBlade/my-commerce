@@ -63,6 +63,7 @@ export const loginUser = async (req:Request, res:Response) =>{
             }
         });
 
+
         if(!userLogued) return res.send('IVALID USER DATA')
     
         const hashPassword = userLogued.get('contrasenna');

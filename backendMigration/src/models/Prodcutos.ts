@@ -56,7 +56,6 @@ ProductoModel.init(
     }
 );
 
-
 ProductoModel.belongsTo(TiendaModel, {
     foreignKey: 'tienda_id',
     as: 'tienda'

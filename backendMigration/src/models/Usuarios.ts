@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes} from 'sequelize'
 import { sequelize } from '../config/db';
-import UserModelAttributes from './interfaces/UserInterface';
 import ClienteModel from './Clientes';
+import UserModelAttributes from './interfaces/UserInterface';
 
 class UserModel extends Model<UserModelAttributes> implements UserModelAttributes {
     public id!: number;
@@ -39,9 +39,10 @@ UserModel.init(
     }
 );
 
-UserModel.hasOne(ClienteModel, {
-    foreignKey: 'usuario_id',
-    as: 'cliente'
-})
+
+// UserModel.hasOne(ClienteModel,{
+//     foreignKey: 'usuario_id',
+//     as: 'clientData'
+// })
 
 export default UserModel;

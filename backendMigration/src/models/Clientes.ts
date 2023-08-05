@@ -15,7 +15,7 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
     public readonly updatedAt!: Date;
 
     //metodos personalizados
-    public findClientAndUser = function(client_id: number){}
+    public findClientAndUser = function(user_id: number){}
 
 }
 
@@ -26,7 +26,8 @@ ClienteModel.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        usuario_id: { 
+        usuario_id: {
+            
             type: DataTypes.INTEGER,
         },
         nombre: {
@@ -44,13 +45,19 @@ ClienteModel.init(
 );
 
 
+UserModel.hasOne(ClienteModel,{
+    foreignKey: 'usuario_id',
+    as: 'clientData'
+})
+
+
 ClienteModel.prototype.findClientAndUser = async function(user_id: number){
     return UserModel.findOne({
         where: {id: user_id},
         attributes: ['correo', 'tipo_id'],
         include:{
             model: ClienteModel,
-            as: 'cliente',
+            as: 'clientData',
             attributes: ['id', 'nombre', 'imagen', 'createdAt']
         }
     })
