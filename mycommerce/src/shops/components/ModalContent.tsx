@@ -1,24 +1,24 @@
 import { SubmitType } from './Modal';
 import { ModalForm } from './ModalForm';
 import { EntryProps } from './ModalFormDivider';
-import { useContext } from 'react';
-import { AuthContext } from '../../auth/context/AuthContext';
+import { ElementRef } from 'react';
 
-type Props<FormType, DataType> = {
+type Props<FormType, DataType, UserDataType> = {
 	form?: {
 		entries: EntryProps[];
 		formState: FormType;
-		onSubmit: SubmitType<FormType, DataType>;
+		onSubmit: SubmitType<FormType, DataType, UserDataType>;
 		setError: React.Dispatch<React.SetStateAction<string | null>>;
 		setData: React.Dispatch<React.SetStateAction<DataType | null>>;
 		error: string | null;
+		formRef?: React.RefObject<ElementRef<'form'>>;
+		userData: UserDataType;
 	};
 };
 
-export const ModalContent = <FormType, DataType>({
+export const ModalContent = <FormType, DataType, UserDataType>({
 	form,
-}: Props<FormType, DataType>) => {
-	const { userData } = useContext(AuthContext);
+}: Props<FormType, DataType, UserDataType>) => {
 	return (
 		<section className="modal__content">
 			{form && (
@@ -32,9 +32,21 @@ export const ModalContent = <FormType, DataType>({
 						type="button"
 						className="formModal__submit"
 						onClick={() => {
-							const { formState, onSubmit, setError, setData } =
-								form;
-							onSubmit(formState, setError, userData, setData);
+							const {
+								formState,
+								onSubmit,
+								setError,
+								setData,
+								formRef,
+								userData,
+							} = form;
+							onSubmit(
+								formState,
+								setError,
+								userData,
+								setData,
+								formRef
+							);
 						}}
 					>
 						Crear Tienda

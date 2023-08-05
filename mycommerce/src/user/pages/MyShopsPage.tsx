@@ -13,7 +13,7 @@ import { createShop } from '../../shops/helpers/createShop';
 import { getRegions } from '../../shops/helpers/getRegions';
 import { Region } from '../../shops/interfaces/ShopRegion';
 
-const onSubmit: SubmitType<Form, Shop[]> = (
+const onSubmit: SubmitType<Form, Shop[], UserData> = (
 	form: Form,
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
 	{ user: { id }, token }: UserData,
@@ -83,12 +83,11 @@ const handleFileChange = (
 export const MyShopsPage = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [regions, setRegions] = useState<Region[] | []>([]);
+	const { userData } = useContext(AuthContext);
 	const {
-		userData: {
-			token,
-			user: { id },
-		},
-	} = useContext(AuthContext);
+		user: { id },
+		token,
+	} = userData;
 	const [shops, setShops] = useState<Shop[] | null>(null);
 	useEffect(() => {
 		getShopsByUser(id, token)
@@ -185,6 +184,7 @@ export const MyShopsPage = () => {
 			/>
 			<MyShopList shops={shops} />
 			<Modal
+				title="Agregar Tienda"
 				setShowModal={setShowModal}
 				showModal={showModal}
 				form={{
@@ -194,6 +194,7 @@ export const MyShopsPage = () => {
 					setData: setShops,
 					onSubmit,
 					error,
+					userData,
 				}}
 			/>
 		</>

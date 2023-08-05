@@ -31,6 +31,8 @@ import { Dashboard } from './ui/components/Dashboard';
 import { SesionModal } from './ui/components/SesionModal';
 import { SesionModalProvider } from './ui/context/SesionModalProvider';
 import { MyShopsPage } from './user/pages/MyShopsPage';
+import { MyShopDashboard } from './shops/components/MyShopDashboard';
+import { MySingleShopPage } from './user/pages/MySingleShopPage';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -84,6 +86,15 @@ const router = createBrowserRouter([
 									},
 									{
 										path: 'ventas',
+									},
+								],
+							},
+							{
+								element: <MyShopDashboard />,
+								children: [
+									{
+										path: 'tiendas/:RIF',
+										element: <MySingleShopPage />,
 									},
 								],
 							},

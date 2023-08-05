@@ -26,18 +26,27 @@ type InputFileDocumentProps = {
 	imagePreview: false;
 };
 
-type InputFileImageProps = {
-	imagePreview: true;
+type InputFileMultipleImagesProps = {
+	multiple: true;
+	handleImagesChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+type InputFileSingleImageProps = {
 	handleImageChange: (
 		e: ChangeEvent<HTMLInputElement>,
 		imageRef: React.RefObject<ElementRef<'img'>>
 	) => void;
 };
 
+type InputFileImageProps = {
+	imagePreview: true;
+} & (InputFileSingleImageProps | InputFileMultipleImagesProps);
+
 type InputFileProps = {
 	type: 'file';
 	accept: string[];
 	value: FileList | null;
+	multiple?: boolean;
 } & (InputFileImageProps | InputFileDocumentProps);
 
 type InputNumberProps = {
@@ -108,8 +117,25 @@ export const ModalFormDivider = ({
 						);
 					}
 					case 'file': {
-						const { accept, imagePreview } =
+						const { accept, imagePreview, multiple } =
 							rest as unknown as InputFileProps;
+
+						if (!imagePreview) {
+							return (
+								<input
+									id={htmlFor}
+									name={name}
+									type={type}
+									accept={accept.join()}
+									className="formModal__image"
+									multiple={multiple}
+									onChange={e => {
+										handleChange(e);
+									}}
+								></input>
+							);
+						}
+
 						return (
 							<>
 								<input
@@ -118,22 +144,22 @@ export const ModalFormDivider = ({
 									type={type}
 									accept={accept.join()}
 									className="formModal__image"
+									multiple={multiple}
 									onChange={e => {
 										handleChange(e);
-										if (imagePreview) {
-											const { handleImageChange } =
-												rest as unknown as InputFileImageProps;
-											handleImageChange(e, imageRef);
+										if (multiple) {
+											const { handleImagesChange } =
+												rest as unknown as InputFileMultipleImagesProps;
+											handleImagesChange(e);
 										}
 									}}
 								></input>
-								{imagePreview && (
-									<img
-										className="formModal__imagePreview"
-										ref={imageRef}
-										alt="Imagen de tienda"
-									/>
-								)}
+
+								<img
+									className="formModal__imagePreview"
+									ref={imageRef}
+									alt="Imagen de tienda"
+								/>
 							</>
 						);
 					}

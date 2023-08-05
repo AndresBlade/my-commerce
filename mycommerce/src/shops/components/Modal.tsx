@@ -1,20 +1,21 @@
 import { ElementRef, useRef } from 'react';
 import { ModalTitle } from './ModalTitle';
 import { ModalContent } from './ModalContent';
-import { UserData } from '../../user/interfaces/UserData';
 import { EntryProps } from './ModalFormDivider';
 
-type Props<FormType = null, DataType = null> = {
+type Props<FormType = null, DataType = null, UserDataType = null> = {
 	showModal: boolean;
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 	form?: {
 		entries: EntryProps[];
 		formState: FormType;
-		onSubmit: SubmitType<FormType, DataType>;
+		onSubmit: SubmitType<FormType, DataType, UserDataType>;
 		setData: React.Dispatch<React.SetStateAction<DataType | null>>;
 		setError: React.Dispatch<React.SetStateAction<string | null>>;
 		error: string | null;
+		userData: UserDataType;
 	};
+	title: string;
 };
 
 function closeModal(
@@ -23,23 +24,22 @@ function closeModal(
 	return setShowModal(false);
 }
 
-export type SubmitType<FormType, DataType> = {
+export type SubmitType<FormType, DataType, UserDataType> = {
 	(
 		form: FormType,
 		setError: React.Dispatch<React.SetStateAction<string | null>>,
-		{
-			user: { id },
-			token,
-		}: UserData,
-		setData: React.Dispatch<React.SetStateAction<DataType | null>>
+		userData: UserDataType,
+		setData: React.Dispatch<React.SetStateAction<DataType | null>>,
+		formRef?: React.RefObject<ElementRef<'form'>>
 	): void;
 };
 
-export const Modal = <FormType, DataType>({
+export const Modal = <FormType, DataType, UserDataType>({
 	showModal,
 	setShowModal,
 	form,
-}: Props<FormType, DataType>) => {
+	title,
+}: Props<FormType, DataType, UserDataType>) => {
 	const modalRef = useRef<ElementRef<'div'>>(null);
 
 	return (
@@ -61,7 +61,7 @@ export const Modal = <FormType, DataType>({
 					)
 				}
 			>
-				<ModalTitle title="Agregar Tienda" />
+				<ModalTitle title={title} />
 				<ModalContent form={form} />
 			</div>
 		</div>
