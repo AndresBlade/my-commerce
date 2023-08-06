@@ -34,6 +34,7 @@ import { MyShopsPage } from './user/pages/MyShopsPage';
 import { MyShopDashboard } from './shops/components/MyShopDashboard';
 import { MySingleShopPage } from './user/pages/MySingleShopPage';
 import { PurchasesPage } from './user/pages/PurchasesPage';
+import { SalesPage } from './user/pages/SalesPage';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -90,6 +91,7 @@ const router = createBrowserRouter([
 									},
 									{
 										path: 'ventas',
+										element: <SalesPage />,
 									},
 								],
 							},
