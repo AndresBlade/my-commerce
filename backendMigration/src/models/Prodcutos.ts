@@ -8,7 +8,6 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
     public id!: number;
     public nombre!: string;
     public precio!: number;
-    public status!: string;
     public categoria_id!: number;
     public tienda_id!: number;
     public descripcion!: string;
@@ -29,6 +28,8 @@ ProductoModel.init(
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
+            allowNull: false,
         },
         nombre: {
             type: DataTypes.STRING

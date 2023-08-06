@@ -1,19 +1,36 @@
 import { Request, Response } from "express"
 import ProductoModel from "../models/Prodcutos";
+import PorductImagenModel from "../models/Productos_imagenes";
+import { matchedData } from "express-validator";
 
-type productImage = {
-    product_id: number,
-    ruta: string
-}
+export async function CreateProduct(req:Request, res:Response) {
 
-export function CreateProduct(req:Request, res:Response) {
+    const {nombre, precio, tienda_id, categoria_id, descripcion, cantidad} = matchedData(req);
+    const productCreated = await ProductoModel.create({
+        nombre,
+        precio,
+        categoria_id,
+        tienda_id,
+        descripcion,
+        cantidad
+    }
+    )
+    
+    if(!productCreated) return res.status(400).send('No se pudo crear el producto')
 
-    let imagenes = req.body.imagen.trim();
+    // crear objeto de imagenes que se van a guardar en la tabla productoImagenes
+    let imagenesReq = req.body.imagen.trim();
+    const imagenObject: Array<string> = imagenesReq.split(' ');
+    const imagenes = imagenObject.map((imagen: string) => {
+        return {
+            producto_id: productCreated.id,
+            ruta: imagen
+        }
+    });
+    PorductImagenModel.bulkCreate(imagenes)
 
-    const imagenObject: Array<String> = imagenes.split(' ');
-    const productCreated = ProductoModel.create()
-
-    console.log(imagenObject);
-
-    res.send('Holiwis')
+    res.status(200).send({
+        productCreated: productCreated,
+        productImagenes: imagenObject
+    })
 }

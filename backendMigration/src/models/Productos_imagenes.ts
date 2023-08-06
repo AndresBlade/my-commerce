@@ -6,7 +6,7 @@ import ProductoModel from './Prodcutos';
 
 class PorductImagenModel extends Model<ProductImagenInterface> implements ProductImagenInterface{
     public id!: number;
-    public producto_id!: string;
+    public producto_id!: number;
     public ruta!: string;
 
     // Timestamps
@@ -35,7 +35,7 @@ PorductImagenModel.init(
     {
         sequelize,
         tableName: "productos_imagenes",
-        timestamps: true,
+        timestamps: false,
     }
 );
 

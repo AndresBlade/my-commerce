@@ -3,13 +3,10 @@ import {check} from 'express-validator';
 import validationResults from '../utils/handleValidations';
 
 const ValidatorRegisterProduct = [
-    check('id')
-    .exists()
-    .notEmpty(),
     check('nombre')
     .exists()
     .notEmpty()
-    .isLength({ min: 3, max: 50 }),
+    .isLength({ min: 3, max: 45 }),
     check('precio')
     .exists()
     .notEmpty(),

@@ -17,7 +17,7 @@ interface dataToken extends JwtPayload{
 const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
     try{
         if(!req.headers.authorization){
-            handleHttpErrors(res, 'NEED_SESSION', 401);
+            return handleHttpErrors(res, 'NEED_SESSION', 401);
         }
 
         let tokenAuth = req.headers.authorization;

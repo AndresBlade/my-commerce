@@ -15,7 +15,7 @@ router.post("/createProduct",
             CheckTiendasPerClient,
             imageRoute('tiendaProducts'),
             uploadMiddleware.array('Imagenes'),
-            // validatorRegisterProduct,
+            validatorRegisterProduct,
             CreateProduct);
 
 
