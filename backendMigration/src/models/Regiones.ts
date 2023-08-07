@@ -1,7 +1,8 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
 import { sequelize } from '../config/db';
 import RegionesInterface from './interfaces/RegionesInterface';
-
+import TiendaModel from './Tiendas'
+import TiendasRegionesModel from './Tiendas_regiones';
 
 class RegionesModel extends Model<RegionesInterface> implements RegionesInterface{
     public id!: number;

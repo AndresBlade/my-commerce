@@ -2,7 +2,9 @@ import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes
 import { sequelize } from '../config/db';
 import TiendaModelAttributes from './interfaces/TiendaInterface';
 import ClienteModel from './Clientes';
-
+import RegionesModel from './Regiones'
+import TiendaRegionesModel from './Tiendas_regiones'
+import TiendasRegionesModel from './Tiendas_regiones';
 
 class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAttributes{
     public RIF!: number;
@@ -54,6 +56,8 @@ TiendaModel.init(
         timestamps: true,
     }
 );
+
+
 
 
 TiendaModel.belongsTo(ClienteModel, {

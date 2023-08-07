@@ -3,6 +3,7 @@ import { matchedData } from "express-validator";
 import handleHttpErrors from '../utils/handleErrors';
 import TiendaModel  from "../models/Tiendas";
 import ClienteModel from "../models/Clientes";
+import TiendasRegionesModel from "../models/Tiendas_regiones";
 
 
 export const tiendaRegister = async (req:Request, res:Response) =>{ 
@@ -10,7 +11,6 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         //retorna solo los valores validados por el middleware (validatorRegisterTienda)
         const dataTienda = matchedData(req);
         let { RIF,  cliente_id, nombre, descripcion, imagen} = dataTienda;
-        
 
         //validar que el cliente exista
         const client = await ClienteModel.findOne({ where: { id: cliente_id } });
@@ -24,9 +24,9 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         const saldo = 0;
 
         //imagen enviada por el midleware anterior (uploadMiddleware)
-        imagen = imagen.trim(); 
+        imagen = req.body.imagen.trim(); 
 
-        //crea la tienda
+        // crea la tienda
         const newTienda = await TiendaModel.create({
             RIF,
             nombre, 
@@ -38,7 +38,22 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         })
         if(!newTienda) return res.status(400).send('ERROR_CREATING_TIENDA');
 
-        res.send({newTienda})
+
+        //crea objeto de regiones y tiendas que se van a guardar en la tabla tiendas_regiones
+        const regiones_id:Array<number> = dataTienda.region_id;
+        const regionesPerTienda = regiones_id.map((region_id:number)=>{
+            return{
+                tienda_id: newTienda.RIF,
+                region_id
+            }
+        })
+        TiendasRegionesModel.bulkCreate(regionesPerTienda)
+        
+
+        res.status(200).send({
+            tienda: newTienda,
+            id_regiones: regiones_id  
+        })
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
