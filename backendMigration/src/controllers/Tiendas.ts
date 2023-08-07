@@ -58,6 +58,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
             tienda: newTienda,
             id_regiones: regiones_id  
         })
+        
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
@@ -69,13 +70,14 @@ export const getTiendas = async (req:Request, res:Response) =>{
     try{
         const { page = 0, size = 10 } = req.query;
 
-        let options = {
-            limit: +size,
-            offset: +page * +size,
-        };
+        const pageNumber = parseInt(page.toString());
+        const pageSize = parseInt(size.toString());
 
-        const { count, rows } = await TiendaModel.findAndCountAll(options);
-        res.send({ total: count, tiendas: rows });
+        
+
+        const result = await TiendaModel.prototype.findAllTiendasWhitRegion(pageNumber, pageSize);
+        console.log(result)
+        res.send({result});
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);

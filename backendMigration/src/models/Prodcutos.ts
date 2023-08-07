@@ -148,11 +148,12 @@ ProductoModel.prototype.findProductsByID = async function(productID:number){
 }   
 
 
-ProductoModel.prototype.findAllProducts = async function(page:number, size:number):Promise<{ count: number; rows: ProductoModel[]; }>  {
+ProductoModel.prototype.findAllProducts = async function(page:number, size:number){
     const result = await ProductoModel.findAndCountAll({
         limit: +size,
         offset: +page * +size,
         attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
+        distinct:true,
         include:[
             {
                 model: PorductImagenModel,
@@ -166,11 +167,15 @@ ProductoModel.prototype.findAllProducts = async function(page:number, size:numbe
             }
         ],
     });
-    
+    const totalRecords = result.count;
+    const totalPages = Math.ceil(totalRecords / +size);
     return {
-        count: result.count,
+        count: totalRecords,
+        totalPages: totalPages,
+        currentPage: ++page,
         rows: result.rows
     };
+
 }
 
 

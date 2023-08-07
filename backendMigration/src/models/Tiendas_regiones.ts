@@ -38,12 +38,13 @@ TiendasRegionesModel.init(
 TiendaModel.belongsToMany(RegionesModel,{
     as:'regiones_tienda',
     through: TiendasRegionesModel,
-    foreignKey: 'tienda_id'
+    foreignKey: 'tienda_id',
+    
 })
 
 RegionesModel.belongsToMany(TiendaModel,{
     through: TiendasRegionesModel,
-    foreignKey: 'region_id'
+    foreignKey: 'region_id',
 })
 
 export default TiendasRegionesModel;
