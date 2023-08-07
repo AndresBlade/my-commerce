@@ -98,7 +98,7 @@ ProductoModel.prototype.getProductsByTiendaRIF = async function(tiendaRIF:number
             {
                 model: CategoriaModel,
                 as: 'categoria',
-                attributes: ['descripcion']
+                attributes: ['id', 'descripcion']
             }
         ],
         
@@ -119,7 +119,7 @@ ProductoModel.prototype.findProductsByName = async function(productName:string){
             {
                 model: CategoriaModel,
                 as: 'categoria',
-                attributes: ['descripcion']
+                attributes: ['id', 'descripcion']
             }
         ],
         
@@ -140,7 +140,7 @@ ProductoModel.prototype.findProductsByID = async function(productID:number){
             {
                 model: CategoriaModel,
                 as: 'categoria',
-                attributes: ['descripcion']
+                attributes: ['id', 'descripcion']
             }
         ],
         
@@ -162,7 +162,7 @@ ProductoModel.prototype.findAllProducts = async function(page:number, size:numbe
             {
                 model: CategoriaModel,
                 as: 'categoria',
-                attributes: ['descripcion']
+                attributes: ['id', 'descripcion']
             }
         ],
     });
@@ -172,5 +172,6 @@ ProductoModel.prototype.findAllProducts = async function(page:number, size:numbe
         rows: result.rows
     };
 }
+
 
 export default ProductoModel;
