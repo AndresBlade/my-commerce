@@ -14,7 +14,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
 
         //validar que el cliente exista
         const client = await ClienteModel.findOne({ where: { id: cliente_id } });
-        if (!client) throw new Error('El cliente con el cliente_id proporcionado no existe');
+        if (!client) return res.status(400).send('El cliente con el cliente_id proporcionado no existe');
         
         //validar si el RIf de tienda Existe
         const tienda = await TiendaModel.findOne({ where: { RIF } });
@@ -36,6 +36,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
             descripcion,
             saldo
         })
+        if(!newTienda) return res.status(400).send('ERROR_CREATING_TIENDA');
 
         res.send({newTienda})
     }catch(error:any){
@@ -67,7 +68,7 @@ export const getTiendaByRIF = async (req:Request, res:Response) =>{
     try{
         const { tiendaRIF } = req.params;
         //validar que el tiendaRIF no sea un string
-        if(!parseInt(tiendaRIF)) return res.send('RIF_CAN_NOT_BE_A_STRING')
+        if(!parseInt(tiendaRIF)) return res.status(505).send('RIF_CAN_NOT_BE_A_STRING')
 
         const tienda_rif = parseInt(tiendaRIF);
 		const data = await TiendaModel.prototype.findTiendaByRIF(tienda_rif);

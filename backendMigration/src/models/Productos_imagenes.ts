@@ -39,9 +39,5 @@ PorductImagenModel.init(
     }
 );
 
-PorductImagenModel.belongsTo(ProductoModel, {
-    foreignKey: 'producto_id',
-    as: 'product'
-})
 
 export default PorductImagenModel;

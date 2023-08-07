@@ -32,9 +32,6 @@ CategoriaModel.init(
     }
 );
 
-CategoriaModel.belongsTo(ProductoModel, {
-    foreignKey: 'categoria_id',
-    as: 'categoria'
-})
+
 
 export default CategoriaModel;

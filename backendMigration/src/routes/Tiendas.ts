@@ -15,7 +15,7 @@ import { tiendaRegister,
 const router = express.Router();
 
 
-router.get('/getTiendas:page?/:size?', 
+router.get('/getTiendas/:page?/:size?', 
             getTiendas);
 
 router.get('/getTiendaByName/:tiendaName', 
