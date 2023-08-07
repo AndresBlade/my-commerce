@@ -14,7 +14,7 @@ class TiendasRegionesModel extends Model<TiendasRegionesInterface> implements Ti
 
 
     // Metodos personalizados
-
+    public getAllRegionsOfATienda = async function(RIF:number){}
 }
 
 TiendasRegionesModel.init(
@@ -36,11 +36,14 @@ TiendasRegionesModel.init(
 );
 
 TiendaModel.belongsToMany(RegionesModel,{
-    through: TiendasRegionesModel
+    as:'regiones_tienda',
+    through: TiendasRegionesModel,
+    foreignKey: 'tienda_id'
 })
 
 RegionesModel.belongsToMany(TiendaModel,{
-    through: TiendasRegionesModel
+    through: TiendasRegionesModel,
+    foreignKey: 'region_id'
 })
 
 export default TiendasRegionesModel;

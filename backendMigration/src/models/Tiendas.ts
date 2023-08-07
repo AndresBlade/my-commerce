@@ -5,8 +5,12 @@ import ClienteModel from './Clientes';
 import RegionesModel from './Regiones'
 import TiendaRegionesModel from './Tiendas_regiones'
 import TiendasRegionesModel from './Tiendas_regiones';
+import { tiendaRegister } from '../controllers/Tiendas';
 
 class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAttributes{
+    static findTiendaByName(tiendaName: string): TiendaModel | PromiseLike<TiendaModel> {
+        throw new Error("Method not implemented.");
+    }
     public RIF!: number;
     public nombre!: string;
     public imagen!: string;
@@ -58,8 +62,6 @@ TiendaModel.init(
 );
 
 
-
-
 TiendaModel.belongsTo(ClienteModel, {
     foreignKey: 'cliente_id',
     as: 'tienda_cliente'
@@ -67,23 +69,45 @@ TiendaModel.belongsTo(ClienteModel, {
 
 
 TiendaModel.prototype.findTiendaByName = async function(tiendaName:string){
-    return TiendaModel.findAll({
+    const tienda = await TiendaModel.findOne({
         where: { nombre: tiendaName },
-        include: { model: ClienteModel, 
+        include: [
+        { 
+            model: ClienteModel, 
             as: 'tienda_cliente',
             attributes: ['id', 'nombre', 'imagen', 'createdAt']
+        },
+        {
+            model: RegionesModel,
+            as:'regiones_tienda',
+            through:{
+                attributes:[]
+            }
         }
+    ]
     });
+    
+    return tienda
 }
 
 
 TiendaModel.prototype.findTiendaByRIF = async function(tiendaRIF:number){
     return TiendaModel.findAll({
         where: { RIF: tiendaRIF },
-        include: { model: ClienteModel, 
+        include:[ 
+        { 
+            model: ClienteModel, 
             as: 'tienda_cliente',
             attributes: ['id', 'nombre', 'imagen', 'createdAt']
+        },
+        {
+            model: RegionesModel,
+            as:'regiones_tienda',
+            through:{
+                attributes:[]
+            }
         }
+    ]
     });
 }
 
@@ -91,10 +115,20 @@ TiendaModel.prototype.findTiendaByRIF = async function(tiendaRIF:number){
 TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
     return TiendaModel.findAll({
         where: { cliente_id: clientID },
-        include: { model: ClienteModel, 
+        include:[
+        { 
+            model: ClienteModel, 
             as: 'tienda_cliente',
             attributes: ['id', 'nombre', 'imagen', 'createdAt']
+        },
+        {
+            model: RegionesModel,
+            as:'regiones_tienda',
+            through:{
+                attributes:[]
+            }
         }
+    ]
     });
 }
 

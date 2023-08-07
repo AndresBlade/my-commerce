@@ -4,6 +4,9 @@ import handleHttpErrors from '../utils/handleErrors';
 import TiendaModel  from "../models/Tiendas";
 import ClienteModel from "../models/Clientes";
 import TiendasRegionesModel from "../models/Tiendas_regiones";
+import { isJsxAttribute } from "typescript";
+import { Model } from "sequelize";
+import RegionesModel from "../models/Regiones";
 
 
 export const tiendaRegister = async (req:Request, res:Response) =>{ 
@@ -39,7 +42,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         if(!newTienda) return res.status(400).send('ERROR_CREATING_TIENDA');
 
 
-        //crea objeto de regiones y tiendas que se van a guardar en la tabla tiendas_regiones
+        //crea objeto de los ids de las regiones y los ids de las tiendas que se van a guardar en la tabla tiendas_regiones
         const regiones_id:Array<number> = dataTienda.region_id;
         const regionesPerTienda = regiones_id.map((region_id:number)=>{
             return{
@@ -47,7 +50,8 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
                 region_id
             }
         })
-        TiendasRegionesModel.bulkCreate(regionesPerTienda)
+        const newTiendaRegiones = TiendasRegionesModel.bulkCreate(regionesPerTienda)
+        if(!newTiendaRegiones) return res.status(500).send('ERROR_CREATING_TIENDAS_REGIONES')
         
 
         res.status(200).send({
@@ -98,8 +102,11 @@ export const getTiendaByRIF = async (req:Request, res:Response) =>{
 export const getTiendaByName = async (req:Request, res:Response) =>{ 
     try{
         const { tiendaName } = req.params;
+        const tienda_id = await TiendaModel.findOne({where:{nombre:tiendaName}})
 		const data = await TiendaModel.prototype.findTiendaByName(tiendaName);
-		res.send({ data });
+
+
+		res.send({ datosTienda: data, });
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
