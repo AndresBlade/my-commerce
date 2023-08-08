@@ -4,8 +4,7 @@ import handleHttpErrors from '../utils/handleErrors';
 import TiendaModel  from "../models/Tiendas";
 import ClienteModel from "../models/Clientes";
 import TiendasRegionesModel from "../models/Tiendas_regiones";
-import { isJsxAttribute } from "typescript";
-import { Model } from "sequelize";
+import  {sequelize}  from "../config/db";
 import RegionesModel from "../models/Regiones";
 
 
@@ -58,6 +57,8 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
             tienda: newTienda,
             id_regiones: regiones_id  
         })
+
+        
         
     }catch(error:any){
         console.log(error);
