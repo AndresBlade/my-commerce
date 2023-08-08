@@ -1,4 +1,4 @@
 export default interface VentasCabeceraInterface {
-    id: number;
+    id?: number
     cliente_id: number;
 }

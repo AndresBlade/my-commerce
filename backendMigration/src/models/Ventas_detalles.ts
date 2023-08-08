@@ -40,7 +40,7 @@ VentasDetallesModel.init(
     },
     {
         sequelize,
-        tableName: "ventas_cabecera",
+        tableName: "ventas_detalles",
         timestamps: false,
     }
 );

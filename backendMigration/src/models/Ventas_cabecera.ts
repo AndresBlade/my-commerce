@@ -21,6 +21,7 @@ VentasCabeceraModel.init(
     {
         id: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
         },
         cliente_id: {
@@ -30,7 +31,7 @@ VentasCabeceraModel.init(
     },
     {
         sequelize,
-        tableName: "ventas_cabecera",
+        tableName: "ventas_cabeceras",
         timestamps: false,
     }
 );
