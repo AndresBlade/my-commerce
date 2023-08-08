@@ -9,7 +9,7 @@ class RegionesModel extends Model<RegionesInterface> implements RegionesInterfac
     public descripcion!: string;
 
     // Metodos personalizados
-
+    public getAllTiendasOfARegion = function(regionID:number){}
 }
 
 
@@ -29,6 +29,22 @@ RegionesModel.init(
         timestamps: false,
     }
 );
+
+
+RegionesModel.prototype.getAllTiendasOfARegion = async function(regionID:number){
+    return await RegionesModel.findAll({
+        where: {id: regionID},
+        attributes: [],
+        include:[{
+            model: TiendaModel,
+            as: 'tiendas_region',
+            through: {
+                attributes: []
+            }
+        }
+    ]
+    })
+}
 
 
 export default RegionesModel;
