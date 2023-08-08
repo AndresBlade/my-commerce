@@ -10,10 +10,13 @@
 	}
 
 	.bg-modal {
-		@apply fixed top-0 left-0 w-full h-screen bg-[rgba(0,0,0,0.3)];
+		@apply fixed top-0 left-0 w-full h-screen bg-[rgba(0,0,0,0.2)];
 	}
   }
   
+  ion-icon {
+	color: white;
+  }
 
 * {
 	font-family: 'Poppins', sans-serif;
@@ -34,15 +37,6 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
 	background: #999;
 	border-radius: 50px;
-}
-
-/* utilidades */
-
-.grid-img{
-    grid-area: 3 / 2 / 1 / 2;  
-}
-.grid-btn{
-    grid-area: 2 / 1 / 2 / 1;  
 }
 
 .bold {
@@ -108,7 +102,7 @@ header .search {
 	cursor: pointer;
 }
 
-*/
+
 
 .heading {
 	color: var(--letrasBlancas-color);
@@ -121,7 +115,7 @@ header .search {
 	color: #000;
 }
 
-/*.rectangulo {
+.rectangulo {
 	width: 150px;
 	height: 5px;
 	background-color: var(--rectangulo-color);
@@ -1132,16 +1126,16 @@ input:focus {
 	font-size: 30px;
 }
 
-.grid {
+/*.grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, 280px);
 	grid-template-rows: 1fr;
 	grid-gap: 1em;
 	padding: 3rem;
 	justify-content: space-around;
-}
+}*/
 .producto {
-	max-width: 280px;
+	width: 280px;
 	display: flex;
 	flex-flow: column;
 	border-radius: 6px;

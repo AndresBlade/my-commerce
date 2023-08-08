@@ -58,7 +58,7 @@ export const HelpPage = () => {
 						<div className="info-textBox">
 							<div className="info-contact">
 								<ion-icon name="location-outline"></ion-icon>
-								<p>Burundí, Cankuzo</p>
+								<p>Lara, Venezuela</p>
 							</div>
 
 							<div className="info-contact">
