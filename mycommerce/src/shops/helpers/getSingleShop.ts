@@ -1,4 +1,3 @@
-import { ShopWrapper } from '../interfaces/ShopWrapper';
 import { SingleShopWrapper } from '../interfaces/SingleShopWrapper';
 
 export function getSingleShop(RIF: string): Promise<SingleShopWrapper> {
@@ -9,6 +8,6 @@ export function getSingleShop(RIF: string): Promise<SingleShopWrapper> {
 			throw new Error(response.statusText);
 		}
 
-		return response.json() as Promise<ShopWrapper>;
+		return response.json() as Promise<SingleShopWrapper>;
 	});
 }

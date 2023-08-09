@@ -5,7 +5,7 @@ export const Layout = () => {
 	console.log('layout');
 	return (
 		<>
-			<Header />
+			<Header authPage={true} />
 			<Outlet />
 			<Footer />
 		</>

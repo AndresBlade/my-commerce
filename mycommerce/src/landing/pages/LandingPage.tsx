@@ -29,7 +29,6 @@ export default function LandingPage() {
 				<section className="w-[95%] mx-auto">
 					<ProductList />
 				</section>
-				<SesionModal />
 			</main>
 		</>
 	);
