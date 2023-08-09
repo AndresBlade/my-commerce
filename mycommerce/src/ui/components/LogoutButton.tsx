@@ -8,8 +8,7 @@ const HeaderButton = styled.button`
 	background-color: transparent;
 	font-family: 'Poppins', sans-serif;
 	cursor: pointer;
-	font-size: 1.1em;
-	text-transform: uppercase;
+	font-size: 1rem;
 	color: #fff;
 
 	&::before {

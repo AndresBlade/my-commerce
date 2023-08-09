@@ -113,7 +113,7 @@ interface Props {
 export const Header = ({ authPage }: Props) => {
 	return (
 		<header
-			className={authPage ? 'header' : 'header-2'}
+			className={authPage ? 'bg-bg-degradado flex sticky z-50 text-[.8rem] w-full h-20 justify-around items-center' : 'bg-bg-degradado flex sticky rounded-b-lg z-50 text-[.8rem] top-0 w-full h-20 justify-items-start items-center'}
 			style={
 				authPage ? undefined : { paddingLeft: `${3}rem`, marginLeft: 0 }
 			}

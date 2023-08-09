@@ -74,12 +74,19 @@ body::-webkit-scrollbar-thumb {
 	backdrop-filter: blur(6px);
 	-webkit-backdrop-filter: blur(6px);
 }
+*/
+
+.group {
+	top: auto;
+	display: flex;
+	align-items: center;
+}
 
 header ul {
 	position: relative;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.5rem;
+	gap: 2rem;
 	padding: 0.5rem 0;
 }
 
@@ -89,6 +96,15 @@ header ul {
 
 .btn_perfil--show {
 	display: list-item;
+}
+
+.navigation {
+	font-size: 1rem;
+
+	& li 
+	{
+		color: #fff;
+	}
 }
 
 
@@ -126,7 +142,7 @@ header .search {
 	width: 500px;
 	height: 5px;
 	background-color: var(--rectangulo-color);
-}*/
+}
 
 .box-container {
 	position: relative;
@@ -208,13 +224,13 @@ header .search {
 	text-decoration: none;
 }
 
-/*.logo {
+.logo {
 	color: #fff;
 	font-size: 1.5rem;
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.2rem;
-}*/
+}
 
 .icon {
 	color: #fff;
@@ -434,8 +450,8 @@ header .search {
 		visibility: visible;
 	}
 
-	header ul li a {
-		color: #333;
+	.header ul li a {
+		color: white;
 	}
 
 	.menuToggle {
