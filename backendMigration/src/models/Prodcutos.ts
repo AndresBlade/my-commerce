@@ -1,9 +1,10 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
 import { sequelize } from '../config/db';
 import ProductoModelAttributes from './interfaces/ProductoInterface';
-import TiendaModel from './Tiendas';
 import CategoriaModel from './Categorias';
 import PorductImagenModel from './Productos_imagenes';
+import VentasCabeceraModel from './Ventas_cabecera';
+import VentasDetallesModel from './Ventas_detalles';
 
 
 class ProductoModel extends Model<ProductoModelAttributes> implements ProductoModelAttributes{
@@ -23,6 +24,19 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
 
 
     // Metodos personalizados
+
+    static initializeAssociations(){
+        //Relacion entre producto y categoria, un producto puede tener una categoria y una categoria puede tener muchos productos
+        ProductoModel.belongsTo(CategoriaModel, {foreignKey: 'categoria_id', as: 'categoria',});
+        CategoriaModel.hasMany(ProductoModel, {foreignKey: 'categoria_id', as: 'categoria'});
+
+        //relacion ente producto y imagenes, un producto puede tener muchas imagenes y una imagen pertenece a un solo producto
+        ProductoModel.hasMany(PorductImagenModel, {foreignKey: 'producto_id', as: 'imagenes',});
+        PorductImagenModel.belongsTo(ProductoModel, {foreignKey: 'producto_id', as: 'imagenes',});
+
+        
+    }
+
     public findAllProducts = function(page:number, size:number){};
     public findProductsByID = function(productID:number){};
     public getProductsByTiendaRIF = function(tiendaRIF:number){};
@@ -66,23 +80,7 @@ ProductoModel.init(
     }
 );
 
-
-ProductoModel.belongsTo(TiendaModel, {
-    foreignKey: 'tienda_id',
-    as: 'tienda'
-})
-
-
-ProductoModel.belongsTo(CategoriaModel,{
-    foreignKey: 'categoria_id',
-    as: 'categoria'
-})
-
-
-ProductoModel.hasMany(PorductImagenModel,{
-    foreignKey: 'producto_id',
-    as: 'imagenes'
-})
+ProductoModel.initializeAssociations();
 
 
 ProductoModel.prototype.getProductsByTiendaRIF = async function(tiendaRIF:number){

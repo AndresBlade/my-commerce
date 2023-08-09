@@ -1,7 +1,7 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
 import { sequelize } from '../config/db';
 import ProductImagenInterface from './interfaces/ProductImagenInterface';
-import ProductoModel from './Prodcutos';
+
 
 
 class PorductImagenModel extends Model<ProductImagenInterface> implements ProductImagenInterface{

@@ -1,7 +1,6 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
 import { sequelize } from '../config/db';
 import CategoriaInterface from './interfaces/CotegoriaInterfae';
-import ProductoModel from './Prodcutos';
 
 
 class CategoriaModel extends Model<CategoriaInterface > implements CategoriaInterface {

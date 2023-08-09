@@ -1,7 +1,8 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes} from 'sequelize'
 import { sequelize } from '../config/db';
-import ClienteModel from './Clientes';
 import UserModelAttributes from './interfaces/UserInterface';
+import ClienteModel from './Clientes';
+
 
 class UserModel extends Model<UserModelAttributes> implements UserModelAttributes {
     public id!: number;
@@ -14,7 +15,13 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
     public readonly updatedAt!: Date;
 
     //metodos personalizados
-    
+    static initializeAssociations() {
+        //Relacion entre cliente y tiendas, un cliente puede tener muchas tiendas y una tienda pertenece a un solo cliente
+        UserModel.hasOne(ClienteModel, {foreignKey: 'usuario_id', as: 'clientData'});
+        ClienteModel.belongsTo(UserModel, {foreignKey: 'usuario_id', as: 'clientData'});
+
+        
+    }
 }
 
 UserModel.init(
@@ -39,10 +46,8 @@ UserModel.init(
     }
 );
 
+UserModel.initializeAssociations();
 
-// UserModel.hasOne(ClienteModel,{
-//     foreignKey: 'usuario_id',
-//     as: 'clientData'
-// })
+
 
 export default UserModel;

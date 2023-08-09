@@ -1,8 +1,7 @@
 import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
 import { sequelize } from '../config/db';
 import TiendasRegionesInterface from './interfaces/TiendasRegionesInterface';
-import TiendaModel from './Tiendas';
-import RegionesModel from './Regiones';
+
 
 class TiendasRegionesModel extends Model<TiendasRegionesInterface> implements TiendasRegionesInterface{
     public tienda_id!: number;
@@ -34,17 +33,5 @@ TiendasRegionesModel.init(
     }
 );
 
-TiendaModel.belongsToMany(RegionesModel,{
-    as:'regiones_tienda',
-    through: TiendasRegionesModel,
-    foreignKey: 'tienda_id',
-    
-})
-
-RegionesModel.belongsToMany(TiendaModel,{
-    as:'tiendas_region',
-    through: TiendasRegionesModel,
-    foreignKey: 'region_id',
-})
 
 export default TiendasRegionesModel;

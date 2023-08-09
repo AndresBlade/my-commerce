@@ -18,7 +18,11 @@ class VentasDetallesModel extends Model<VentasDetallesInterface> implements Vent
 
 
     // Metodos personalizados
-
+    static initializeAssociations(){
+        //Relacion entre producto y ventas cabeceras, un producto puede tener muchas ventas cabeceras y una venta cabecera puede tener muchos productos, se usa una tabla intermedia llamada ventas_detalles
+        ProductoModel.belongsToMany(VentasCabeceraModel, {through: VentasDetallesModel, foreignKey: 'producto_id',  as: 'detalles_de_venta'});
+        VentasCabeceraModel.belongsToMany(ProductoModel, {through: VentasDetallesModel, foreignKey: 'ventas_cabecera_id', as:'detalles_producto'});
+    }
 }
 
 VentasDetallesModel.init(
@@ -45,15 +49,18 @@ VentasDetallesModel.init(
     }
 );
 
-ProductoModel.belongsToMany(VentasCabeceraModel,{
-    through: VentasDetallesModel,
-    foreignKey: 'producto_id',
-})
+VentasDetallesModel.initializeAssociations();
 
-VentasCabeceraModel.belongsToMany(ProductoModel,{
-    through: VentasDetallesModel,
-    foreignKey: 'ventas_cabecera_id',
-})
+// VentasCabeceraModel.prototype.getPurchsesByClient = async function(client_id:number){
+//     return await VentasDetallesModel.findAll({
+//         include: [
+//             {
+//                 model: VentasCabeceraModel,
+//                 where: { cliente_id: client_id }
+//             }
+//         ]
+//     });
+// }
 
 
 export default VentasDetallesModel;

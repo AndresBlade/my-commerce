@@ -1,24 +1,32 @@
 import { Request, Response } from "express";
+import {sequelize} from "../config/db";
+import TiendaModel from "../models/Tiendas";
 import VentasCabeceraModel from "../models/Ventas_cabecera";
 import VentasDetallesModel from "../models/Ventas_detalles";
 import ProductoModel from "../models/Prodcutos";
-import {sequelize} from "../config/db";
-
 
 export const createPurchase = async (req:Request, res:Response) =>{ 
     try{
         const {producto_id, cantidad} = req.body;
+
+        //recupera el id del CLIENTE mediante el middleware de autenticacion 
         const User = req.body.user;
         const clientData = User.clientBelongToUser.dataValues.clientData.dataValues;
         let client_id = clientData.id;
 
+        //valida que el producto exista
         const validProduct = await ProductoModel.findOne({where:{id: producto_id}});
         if(!validProduct) return res.status(400).send('PRODUCT_NOT_FOUND');
+
+        //valida que el producto tenga stock suficiente
         if(validProduct.cantidad < cantidad) return res.status(500).send('THERE_IS_NOT_ENOUGH_PRODUCT')
+
+        //recupera el precio del producto
         const productPrice = validProduct.precio  
 
 
-
+        //crea la compra mediante una transaccion para asegurar que se cree la cabecera y el detalle,
+        //si alguna de esa consultas falla se hace un rollback de la transaccion (Es decir que no se crea nada)
         const resultTransaction = await sequelize.transaction(async (t:any) => {
             const newPurchase = await VentasCabeceraModel.create({
                 cliente_id: client_id,
@@ -38,5 +46,21 @@ export const createPurchase = async (req:Request, res:Response) =>{
     }catch(error:any){
         console.log(error);
         res.status(400).send('ERROR_CREATING_PURCHASE');
+    }
+}
+
+export const getPurchaseByUser = async (req:Request, res:Response) =>{ 
+    try{
+        //recupera el id del CLIENTE mediante el middleware de autenticacion 
+        const User = req.body.user;
+        const clientData = User.clientBelongToUser.dataValues.clientData.dataValues;
+        let client_id = clientData.id;
+
+        const purchases = await VentasCabeceraModel.prototype.getPurchsesByClient(client_id);
+
+        res.status(200).send(purchases);
+    }catch(error:any){
+        console.log(error);
+        res.status(400).send('ERROR_GETTING_PURCHASES');
     }
 }

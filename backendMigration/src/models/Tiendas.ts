@@ -3,9 +3,9 @@ import { sequelize } from '../config/db';
 import TiendaModelAttributes from './interfaces/TiendaInterface';
 import ClienteModel from './Clientes';
 import RegionesModel from './Regiones'
-import TiendaRegionesModel from './Tiendas_regiones'
 import TiendasRegionesModel from './Tiendas_regiones';
-import { tiendaRegister } from '../controllers/Tiendas';
+import ProductoModel from './Prodcutos';
+
 
 class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAttributes{
     static findTiendaByName(tiendaName: string): TiendaModel | PromiseLike<TiendaModel> {
@@ -23,6 +23,15 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     public saldo!: number;
 
     // Metodos personalizados
+    static initializeAssociations(){
+        //Relacion entre tienda y producto, una tienda puede tener muchos productos y un porducto pertenece a una sola tienda
+        TiendaModel.hasMany(ProductoModel, {foreignKey: 'tienda_id', });
+        ProductoModel.belongsTo(TiendaModel, {foreignKey: 'tienda_id', as:'tienda_producto'});
+
+        //Relacion entre tienda y regiones, una tienda puede tener muchas regiones y muchas regiones pueden pertenecer a muchas tiendas, esta relacion se hace mediante una tabla intermedia llamada tiendas_regiones
+        TiendaModel.belongsToMany(RegionesModel, {through: TiendasRegionesModel, as:'regiones_tienda',foreignKey: 'tienda_id'});
+        RegionesModel.belongsToMany(TiendaModel, {through: TiendasRegionesModel, as: 'tiendas_region',foreignKey: 'region_id'});
+    }
     public findTiendaByName = function(tiendaName:string){};
     public findTiendaByRIF = function(tiendaRIF:number){};
     public findTiendaByClient = function(clientID:number){};
@@ -62,11 +71,7 @@ TiendaModel.init(
     }
 );
 
-
-TiendaModel.belongsTo(ClienteModel, {
-    foreignKey: 'cliente_id',
-    as: 'tienda_cliente'
-});
+TiendaModel.initializeAssociations();
 
 
 TiendaModel.prototype.findAllTiendasWhitRegion = async function(page:number, size:number){
