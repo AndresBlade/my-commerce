@@ -113,16 +113,20 @@ interface Props {
 export const Header = ({ authPage }: Props) => {
 	return (
 		<header
-			className={authPage ? 'bg-bg-degradado flex sticky z-50 text-[.8rem] w-full h-20 justify-around items-center' : 'bg-bg-degradado flex sticky rounded-b-lg z-50 text-[.8rem] top-0 w-full h-20 justify-items-start items-center'}
+			className={authPage ? 'bg-bg-degradado top-0 sticky' : 'bg-bg-degradado flex sticky rounded-b-lg z-50 text-[.8rem] top-0 w-full h-20 justify-items-start items-center'}
 			style={
 				authPage ? undefined : { paddingLeft: `${3}rem`, marginLeft: 0 }
 			}
 		>
-			<Link to="/" className="logo">
-				LOGO
-			</Link>
+			<div className='w-[95%] mx-auto'>
+				<nav className='flex justify-between items-center'>
+				 	<Link to="/" className='flex text-[2rem] ml-4 my-8 md:text-[1.5rem] md:mr-8 lg:text-[2.1rem]'>
+ 						<span className='hidden text-white tracking-[0.2rem] font-medium md:block'>MY</span> <span className='hidden text-amarillo font-semibold md:block'>COMMERCE</span> <span className='text-blanco font-bold md:hidden'>M</span> <span className='text-amarillo font-bold md:hidden'>C</span>
+ 					</Link>
 
-			{authPage && <Nav />}
+					{authPage && <Nav />}
+				</nav>
+			</div>
 			{/* >>>>>>> main */}
 		</header>
 	);

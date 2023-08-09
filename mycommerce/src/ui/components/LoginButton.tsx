@@ -2,10 +2,8 @@ import { Link } from 'react-router-dom';
 
 export const LoginButton = () => {
 	return (
-		<li>
-			<Link className="btn_sesion" to="login">
-				Iniciar Sesión
-			</Link>
-		</li>
+		<Link className='hidden lg:flex text-blanco text-[1rem] font-medium link-hover-effect' to="login">
+			Iniciar Sesión
+		</Link>
 	);
 };

@@ -34,11 +34,9 @@ export const LogoutButton = () => {
 	const { setShowModal } = useContext(SesionModalContext);
 	return (
 		<>
-			<li>
-				<HeaderButton onClick={() => setShowModal(true)}>
-					Cerrar Sesión
-				</HeaderButton>
-			</li>
+			<HeaderButton onClick={() => setShowModal(true)}>
+				Cerrar Sesión
+			</HeaderButton>
 		</>
 	);
 };
