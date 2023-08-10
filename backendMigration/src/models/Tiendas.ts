@@ -5,6 +5,8 @@ import ClienteModel from './Clientes';
 import RegionesModel from './Regiones'
 import TiendasRegionesModel from './Tiendas_regiones';
 import ProductoModel from './Prodcutos';
+import VentasCabeceraModel from './Ventas_cabecera';
+import VentasDetallesModel from './Ventas_detalles';
 
 
 class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAttributes{
@@ -36,7 +38,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     public findTiendaByRIF = function(tiendaRIF:number){};
     public findTiendaByClient = function(clientID:number){};
     public findAllTiendasWhitRegion = function(page:number, size:number){};
-    public getAllSells = function(page:number, size:number){};
+    public getAllSells = function(tiendaId:number){};
     public updateSaldo = function(tiendaRIF:number, cantidad:number, price:number){};
 }
 
@@ -167,29 +169,25 @@ TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
     });
 }
 
-TiendaModel.prototype.getAllSells = async function(page:number, size:number){
-    const result = await TiendaModel.findAndCountAll({
-        limit: +size,
-        offset: +page * +size,
-        distinct:true,
+TiendaModel.prototype.getAllSells = async function(tiendaId:number){
+    const salesDetails =await ProductoModel.findAll({
         include: [
             {
-                model: ProductoModel,
-                attributes:['id','nombre','imagen','precio','descripcion','cantidad','createdAt','updatedAt'],
-                include:[{
-
-                }],
-            }
-        ]
+                model: VentasCabeceraModel,
+                as: 'ProductosVendidos',
+                attributes: ['createdAt'],  
+                through: {
+                    as: 'detallesCompra',
+                },
+            },
+        ],
+        where: {
+            tienda_id: tiendaId,
+        },
+        attributes: ['id', 'nombre', 'precio', 'descripcion', 'categoria_id']
     });
-    const totalRecords = result.count;
-    const totalPages = Math.ceil(totalRecords / +size);
-    return {
-        count: totalRecords,
-        totalPages: totalPages,
-        currentPage: ++page,
-        rows: result.rows
-    };
+    
+    return salesDetails;
 }
 
 TiendaModel.prototype.updateSaldo = async function(tiendaRIF:number, cantidad:number, price:number){

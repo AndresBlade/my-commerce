@@ -20,8 +20,8 @@ class VentasDetallesModel extends Model<VentasDetallesInterface> implements Vent
     // Metodos personalizados
     static initializeAssociations(){
         //Relacion entre producto y ventas cabeceras, un producto puede tener muchas ventas cabeceras y una venta cabecera puede tener muchos productos, se usa una tabla intermedia llamada ventas_detalles
-        ProductoModel.belongsToMany(VentasCabeceraModel, {through: VentasDetallesModel, foreignKey: 'producto_id',  as: 'detallesDeVenta'});
-        VentasCabeceraModel.belongsToMany(ProductoModel, {through: VentasDetallesModel, foreignKey: 'ventas_cabecera_id', as:'detallesProducto'});
+        ProductoModel.belongsToMany(VentasCabeceraModel, {through: VentasDetallesModel, foreignKey: 'producto_id',  as: 'ProductosVendidos'});
+        VentasCabeceraModel.belongsToMany(ProductoModel, {through: VentasDetallesModel, foreignKey: 'ventas_cabecera_id', as:'detallesCompra'});
     }
 }
 
