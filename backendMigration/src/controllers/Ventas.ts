@@ -24,12 +24,19 @@ export const createPurchase = async (req:Request, res:Response) =>{
         const productPrice = validProduct.precio  
 
 
-        //crea la compra mediante una transaccion para asegurar que se cree la cabecera y el detalle,
-        //si alguna de esa consultas falla se hace un rollback de la transaccion (Es decir que no se crea nada)
+        //crea la compra mediante una transaccion para asegurar que se cree la cabecera y el detalle, si alguna de esa consultas falla se hace un rollback de la transaccion (Es decir que no se crea nada)
         const resultTransaction = await sequelize.transaction(async (t:any) => {
             const newPurchase = await VentasCabeceraModel.create({
                 cliente_id: client_id,
             }, {transaction: t});
+
+
+            //actualiza el stock del producto
+            await validProduct.decrement('cantidad', {by: cantidad});
+
+            //Actualiza el saldo de la tienda en base a la cantidad de productos vendidos
+            await TiendaModel.prototype.updateSaldo(validProduct.tienda_id, cantidad, productPrice);
+
 
             const newPurchaseDetails = await VentasDetallesModel.create({
                 ventas_cabecera_id: newPurchase.id,
@@ -40,6 +47,7 @@ export const createPurchase = async (req:Request, res:Response) =>{
 
             return newPurchaseDetails;
         }); 
+
         
         return res.status(200).send(resultTransaction);
     }catch(error:any){

@@ -15,7 +15,6 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         const dataTienda = matchedData(req);
         let { RIF, nombre,descripcion, imagen} = dataTienda;
         const cliente_id = getClientID(res);
-        console.log(cliente_id)
 
 
         //validar si el RIf de tienda Existe
@@ -31,41 +30,41 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         imagen = req.body.imagen.trim(); 
 
 
-        //crea la tienda mediante una transaccion para asegurar que se cree la tiendas con sus respectivas regiones
-        // const resultTransaction = await sequelize.transaction(async (t:any) => {
-        //     //Crea una nueva tienda
-        //     const newTienda = await TiendaModel.create({
-        //         RIF,
-        //         nombre, 
-        //         imagen,
-        //         status,
-        //         cliente_id, 
-        //         descripcion,
-        //         saldo
-        //     }, {transaction: t})
+        // crea la tienda mediante una transaccion para asegurar que se cree la tiendas con sus respectivas regiones
+        const resultTransaction = await sequelize.transaction(async (t:any) => {
+            //Crea una nueva tienda
+            const newTienda = await TiendaModel.create({
+                RIF,
+                nombre, 
+                imagen,
+                status,
+                cliente_id, 
+                descripcion,
+                saldo
+            }, {transaction: t})
 
 
-        //     //crea objeto de los ids de las regiones y los ids de las tiendas que se van a guardar en la tabla tiendas_regiones
-        //     const regiones_id:Array<number> = dataTienda.region_id;
-        //     const regionesPerTienda = regiones_id.map((region_id:number)=>{
-        //         return{
-        //             tienda_id: newTienda.RIF,
-        //             region_id
-        //         }
-        //     },  {transaction: t})
-        //     const newTiendaRegiones = TiendasRegionesModel.bulkCreate(regionesPerTienda)
+            //crea objeto de los ids de las regiones y los ids de las tiendas que se van a guardar en la tabla tiendas_regiones
+            const regiones_id:Array<number> = dataTienda.region_id;
+            const regionesPerTienda = regiones_id.map((region_id:number)=>{
+                return{
+                    tienda_id: newTienda.RIF,
+                    region_id
+                }
+            },  {transaction: t})
+            const newTiendaRegiones = TiendasRegionesModel.bulkCreate(regionesPerTienda, {transaction:t})
 
-        //     return {
-        //         newTienda,
-        //         regiones_id
-        //     };
-        // })
+            return {
+                newTienda,
+                regiones_id
+            };
+        })
 
 
-        // res.status(200).send({
-        //     tienda: resultTransaction.newTienda,
-        //     id_regiones: resultTransaction.regiones_id  
-        // }) 
+        res.status(200).send({
+            tienda: resultTransaction.newTienda,
+            id_regiones: resultTransaction.regiones_id  
+        }) 
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);

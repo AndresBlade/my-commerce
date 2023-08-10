@@ -37,6 +37,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     public findTiendaByClient = function(clientID:number){};
     public findAllTiendasWhitRegion = function(page:number, size:number){};
     public getAllSells = function(page:number, size:number){};
+    public updateSaldo = function(tiendaRIF:number, cantidad:number, price:number){};
 }
 
 
@@ -190,5 +191,11 @@ TiendaModel.prototype.getAllSells = async function(page:number, size:number){
     };
 }
 
+TiendaModel.prototype.updateSaldo = async function(tiendaRIF:number, cantidad:number, price:number){
+    const tienda = await TiendaModel.findOne({
+        where: { RIF: tiendaRIF },
+    });
+    tienda?.increment('saldo', {by: cantidad * price})
+}
 
 export default TiendaModel;
