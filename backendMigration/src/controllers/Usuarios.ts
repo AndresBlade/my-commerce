@@ -4,6 +4,8 @@ import handleHttpErrors from '../utils/handleErrors';
 import {encryptPassword, comparePassword}  from '../utils/handlePassword';
 import UserModel  from "../models/Usuarios";
 import ClientModel  from "../models/Clientes";
+import getClientID from "../utils/getClientID";
+import { sequelize } from "../config/db";
 const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3000';
 
 
@@ -86,6 +88,21 @@ export const loginUser = async (req:Request, res:Response) =>{
         handleHttpErrors(error);
     }
 };
+
+export const updateUserImage = async (req:Request, res:Response) =>{
+    try{
+        const client_id = getClientID(res);
+        const imagen = req.body.imagen.trim(); 
+
+        const clientUpdate = await ClientModel.update({imagen:imagen},{where:{id:client_id}});
+        if(!clientUpdate) return res.send('CANNOT_UPDATE_CLIENT_IMAGE')
+    
+        res.send({nuevaImagen:imagen});
+    }catch(error:any){
+        console.log(error);
+        handleHttpErrors(error);
+    }
+}
 
 export const getUsuario = async (req:Request, res:Response) =>{
     console.log('Entraste compa')

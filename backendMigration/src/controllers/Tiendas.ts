@@ -79,7 +79,6 @@ export const getTiendas = async (req:Request, res:Response) =>{
         const pageNumber = parseInt(page.toString());
         const pageSize = parseInt(size.toString());
 
-        
 
         const result = await TiendaModel.prototype.findAllTiendasWhitRegion(pageNumber, pageSize);
         console.log(result)
