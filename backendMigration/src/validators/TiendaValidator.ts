@@ -7,9 +7,9 @@ const validatorRegisterTienda = [
     .exists()
     .notEmpty()
     .isLength({ min: 9, max: 10 }),
-    check('cliente_id')
-    .exists()
-    .notEmpty(),
+    // check('cliente_id')
+    // .exists()
+    // .notEmpty(),
     check('nombre')
     .exists()
     .notEmpty()
