@@ -1,6 +1,8 @@
 import express from 'express';
 import {authMiddleware} from '../middleware/session';
 import checkRole from '../middleware/checkRole';
+import getClientID from "../utils/getClientID";
+
 import {createPurchase,
         getPurchaseByUser
 } from '../controllers/Ventas'

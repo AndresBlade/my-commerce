@@ -51,16 +51,5 @@ VentasDetallesModel.init(
 
 VentasDetallesModel.initializeAssociations();
 
-// VentasCabeceraModel.prototype.getPurchsesByClient = async function(client_id:number){
-//     return await VentasDetallesModel.findAll({
-//         include: [
-//             {
-//                 model: VentasCabeceraModel,
-//                 where: { cliente_id: client_id }
-//             }
-//         ]
-//     });
-// }
-
 
 export default VentasDetallesModel;

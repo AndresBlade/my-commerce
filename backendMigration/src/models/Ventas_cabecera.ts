@@ -46,7 +46,6 @@ VentasCabeceraModel.prototype.getPurchsesByClient = async function (client_id:nu
                 model: ProductoModel,
                 attributes:['nombre', 'descripcion', 'precio'],
                 as:'detalles_producto',
-
                 include:[{
                     as: 'tienda_producto',
                     model: TiendaModel,

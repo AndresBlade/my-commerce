@@ -6,60 +6,66 @@ import ClienteModel from "../models/Clientes";
 import TiendasRegionesModel from "../models/Tiendas_regiones";
 import  {sequelize}  from "../config/db";
 import RegionesModel from "../models/Regiones";
+import getClientID from "../utils/getClientID";
 
 
 export const tiendaRegister = async (req:Request, res:Response) =>{ 
     try{
         //retorna solo los valores validados por el middleware (validatorRegisterTienda)
         const dataTienda = matchedData(req);
-        let { RIF,  cliente_id, nombre, descripcion, imagen} = dataTienda;
+        let { RIF, nombre,descripcion, imagen} = dataTienda;
+        const cliente_id = getClientID(res);
+        console.log(cliente_id)
 
-        //validar que el cliente exista
-        const client = await ClienteModel.findOne({ where: { id: cliente_id } });
-        if (!client) return res.status(400).send('El cliente con el cliente_id proporcionado no existe');
-        
+
         //validar si el RIf de tienda Existe
         const tienda = await TiendaModel.findOne({ where: { RIF } });
         if (tienda) return res.status(400).send('Tienda ya registrada, ingrese otro RIF');
 
+
         const status = '0'; //En espera de aprobacion
         const saldo = 0;
+
 
         //imagen enviada por el midleware anterior (uploadMiddleware)
         imagen = req.body.imagen.trim(); 
 
-        // crea la tienda
-        const newTienda = await TiendaModel.create({
-            RIF,
-            nombre, 
-            imagen,
-            status,
-            cliente_id, 
-            descripcion,
-            saldo
-        })
-        if(!newTienda) return res.status(400).send('ERROR_CREATING_TIENDA');
+
+        //crea la tienda mediante una transaccion para asegurar que se cree la tiendas con sus respectivas regiones
+        // const resultTransaction = await sequelize.transaction(async (t:any) => {
+        //     //Crea una nueva tienda
+        //     const newTienda = await TiendaModel.create({
+        //         RIF,
+        //         nombre, 
+        //         imagen,
+        //         status,
+        //         cliente_id, 
+        //         descripcion,
+        //         saldo
+        //     }, {transaction: t})
 
 
-        //crea objeto de los ids de las regiones y los ids de las tiendas que se van a guardar en la tabla tiendas_regiones
-        const regiones_id:Array<number> = dataTienda.region_id;
-        const regionesPerTienda = regiones_id.map((region_id:number)=>{
-            return{
-                tienda_id: newTienda.RIF,
-                region_id
-            }
-        })
-        const newTiendaRegiones = TiendasRegionesModel.bulkCreate(regionesPerTienda)
-        if(!newTiendaRegiones) return res.status(500).send('ERROR_CREATING_TIENDAS_REGIONES')
-        
+        //     //crea objeto de los ids de las regiones y los ids de las tiendas que se van a guardar en la tabla tiendas_regiones
+        //     const regiones_id:Array<number> = dataTienda.region_id;
+        //     const regionesPerTienda = regiones_id.map((region_id:number)=>{
+        //         return{
+        //             tienda_id: newTienda.RIF,
+        //             region_id
+        //         }
+        //     },  {transaction: t})
+        //     const newTiendaRegiones = TiendasRegionesModel.bulkCreate(regionesPerTienda)
 
-        res.status(200).send({
-            tienda: newTienda,
-            id_regiones: regiones_id  
-        })
+        //     return {
+        //         newTienda,
+        //         regiones_id
+        //     };
+        // })
 
-        
-        
+
+        // res.status(200).send({
+        //     tienda: resultTransaction.newTienda,
+        //     id_regiones: resultTransaction.regiones_id  
+        // }) 
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);

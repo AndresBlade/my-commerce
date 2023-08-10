@@ -42,7 +42,7 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
             clientBelongToUser
         }
 
-        req.body.user = userData;
+        res.locals.user = userData;
         next();
     }catch(error:any){
         if (error.name === 'TokenExpiredError') {

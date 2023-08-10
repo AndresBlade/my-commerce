@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {sequelize} from "../config/db";
+import getClientID from '../utils/getClientID';
 import TiendaModel from "../models/Tiendas";
 import VentasCabeceraModel from "../models/Ventas_cabecera";
 import VentasDetallesModel from "../models/Ventas_detalles";
@@ -10,9 +11,7 @@ export const createPurchase = async (req:Request, res:Response) =>{
         const {producto_id, cantidad} = req.body;
 
         //recupera el id del CLIENTE mediante el middleware de autenticacion 
-        const User = req.body.user;
-        const clientData = User.clientBelongToUser.dataValues.clientData.dataValues;
-        let client_id = clientData.id;
+        const client_id = getClientID(res);
 
         //valida que el producto exista
         const validProduct = await ProductoModel.findOne({where:{id: producto_id}});
@@ -52,9 +51,7 @@ export const createPurchase = async (req:Request, res:Response) =>{
 export const getPurchaseByUser = async (req:Request, res:Response) =>{ 
     try{
         //recupera el id del CLIENTE mediante el middleware de autenticacion 
-        const User = req.body.user;
-        const clientData = User.clientBelongToUser.dataValues.clientData.dataValues;
-        let client_id = clientData.id;
+        const client_id = getClientID(res);
 
         const purchases = await VentasCabeceraModel.prototype.getPurchsesByClient(client_id);
 

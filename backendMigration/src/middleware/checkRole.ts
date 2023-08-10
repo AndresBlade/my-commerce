@@ -3,7 +3,7 @@ import handleHttpErrors from "../utils/handleErrors";
 
 const checkRole = (roles:Array<string>) => async (req:Request, res:Response, next:NextFunction) =>{
     try{
-        const User = req.body.user
+        const User = res.locals.user
         let roleByUser = User.tipo_id;
 
         switch(roleByUser){

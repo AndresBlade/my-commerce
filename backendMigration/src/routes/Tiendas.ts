@@ -5,7 +5,7 @@ import checkRole from '../middleware/checkRole';
 import validatorRegisterTienda from '../validators/TiendaValidator';
 import uploadMiddleware from '../utils/handleStorage';
 import imageRoute from "../middleware/imagenRoute";
-
+import getClientID from "../utils/getClientID";
 import { tiendaRegister,
          getTiendaByRIF,
          getTiendaByClient,
@@ -33,7 +33,8 @@ router.post("/tiendaRegister",
             imageRoute('tiendaProfile'),
             uploadMiddleware.single('imagen'),
             validatorRegisterTienda,
-            tiendaRegister);
+            tiendaRegister,
+            );
 
 module.exports = router;
 

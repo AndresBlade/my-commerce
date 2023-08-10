@@ -36,6 +36,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     public findTiendaByRIF = function(tiendaRIF:number){};
     public findTiendaByClient = function(clientID:number){};
     public findAllTiendasWhitRegion = function(page:number, size:number){};
+    public getAllSells = function(page:number, size:number){};
 }
 
 
@@ -162,6 +163,31 @@ TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
         }
     ]
     });
+}
+
+TiendaModel.prototype.getAllSells = async function(page:number, size:number){
+    const result = await TiendaModel.findAndCountAll({
+        limit: +size,
+        offset: +page * +size,
+        distinct:true,
+        include: [
+            {
+                model: ProductoModel,
+                attributes:['id','nombre','imagen','precio','descripcion','cantidad','createdAt','updatedAt'],
+                include:[{
+
+                }],
+            }
+        ]
+    });
+    const totalRecords = result.count;
+    const totalPages = Math.ceil(totalRecords / +size);
+    return {
+        count: totalRecords,
+        totalPages: totalPages,
+        currentPage: ++page,
+        rows: result.rows
+    };
 }
 
 
