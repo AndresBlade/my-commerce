@@ -37,7 +37,8 @@ RegionesModel.prototype.getAllTiendasOfARegion = async function(regionID:number)
         attributes: [],
         include:[{
             model: TiendaModel,
-            as: 'tiendas_region',
+            as: 'tiendasRegion',
+            attributes:['RIF', 'nombre', 'imagen', 'descripcion', 'createdAt'],
             through: {
                 attributes: []
             }

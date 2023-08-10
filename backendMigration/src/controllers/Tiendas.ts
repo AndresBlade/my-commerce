@@ -53,7 +53,8 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
                     region_id
                 }
             },  {transaction: t})
-            const newTiendaRegiones = TiendasRegionesModel.bulkCreate(regionesPerTienda, {transaction:t})
+            await TiendasRegionesModel.bulkCreate(regionesPerTienda, {transaction:t})
+
 
             return {
                 newTienda,
@@ -64,7 +65,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
 
         res.status(200).send({
             tienda: resultTransaction.newTienda,
-            id_regiones: resultTransaction.regiones_id  
+            regionesID: resultTransaction.regiones_id  
         }) 
     }catch(error:any){
         console.log(error);
@@ -81,9 +82,8 @@ export const getTiendas = async (req:Request, res:Response) =>{
         const pageSize = parseInt(size.toString());
 
 
-        const result = await TiendaModel.prototype.findAllTiendasWhitRegion(pageNumber, pageSize);
-        console.log(result)
-        res.send({result});
+        const tiendas = await TiendaModel.prototype.findAllTiendasWhitRegion(pageNumber, pageSize);
+        res.send({tiendas});
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
@@ -98,8 +98,8 @@ export const getTiendaByRIF = async (req:Request, res:Response) =>{
         if(!parseInt(tiendaRIF)) return res.status(505).send('RIF_CAN_NOT_BE_A_STRING')
 
         const tienda_rif = parseInt(tiendaRIF);
-		const data = await TiendaModel.prototype.findTiendaByRIF(tienda_rif);
-		res.send({ data });
+		const datosTienda = await TiendaModel.prototype.findTiendaByRIF(tienda_rif);
+		res.send({datosTienda});
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
@@ -110,9 +110,7 @@ export const getTiendaByRIF = async (req:Request, res:Response) =>{
 export const getTiendaByName = async (req:Request, res:Response) =>{ 
     try{
         const { tiendaName } = req.params;
-        const tienda_id = await TiendaModel.findOne({where:{nombre:tiendaName}})
 		const data = await TiendaModel.prototype.findTiendaByName(tiendaName);
-
 
 		res.send({ datosTienda: data, });
     }catch(error:any){
@@ -131,7 +129,7 @@ export const getTiendaByClient = async (req:Request, res:Response) =>{
         
         const client_id = parseInt(clientID);
 		const data = await TiendaModel.prototype.findTiendaByClient(client_id);
-		res.send({ data });
+		res.send({ datosTienda: data });
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);

@@ -22,8 +22,8 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
 
     static initializeAssociations() {
         //Relacion entre cliente y tiendas, un cliente puede tener muchas tiendas y una tienda pertenece a un solo cliente
-        ClienteModel.hasMany(TiendaModel, {foreignKey: 'cliente_id', as: 'tienda_cliente',});
-        TiendaModel.belongsTo(ClienteModel, {foreignKey: 'cliente_id', as: 'tienda_cliente',});
+        ClienteModel.hasMany(TiendaModel, {foreignKey: 'cliente_id', as: 'tiendaCliente',});
+        TiendaModel.belongsTo(ClienteModel, {foreignKey: 'cliente_id', as: 'tiendaCliente',});
 
         //Relacion entre Cliente y ventas cabecera, un cliente puede tener muchas ventas cabecera y una venta cabecera pertenece a un solo cliente
         ClienteModel.hasMany(VentasCabeceraModel, {foreignKey: 'cliente_id'});

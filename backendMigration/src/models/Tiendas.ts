@@ -26,11 +26,11 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     static initializeAssociations(){
         //Relacion entre tienda y producto, una tienda puede tener muchos productos y un porducto pertenece a una sola tienda
         TiendaModel.hasMany(ProductoModel, {foreignKey: 'tienda_id', });
-        ProductoModel.belongsTo(TiendaModel, {foreignKey: 'tienda_id', as:'tienda_producto'});
+        ProductoModel.belongsTo(TiendaModel, {foreignKey: 'tienda_id', as:'tiendaProducto'});
 
         //Relacion entre tienda y regiones, una tienda puede tener muchas regiones y muchas regiones pueden pertenecer a muchas tiendas, esta relacion se hace mediante una tabla intermedia llamada tiendas_regiones
-        TiendaModel.belongsToMany(RegionesModel, {through: TiendasRegionesModel, as:'regiones_tienda',foreignKey: 'tienda_id'});
-        RegionesModel.belongsToMany(TiendaModel, {through: TiendasRegionesModel, as: 'tiendas_region',foreignKey: 'region_id'});
+        TiendaModel.belongsToMany(RegionesModel, {through: TiendasRegionesModel, as:'regionesTienda',foreignKey: 'tienda_id'});
+        RegionesModel.belongsToMany(TiendaModel, {through: TiendasRegionesModel, as: 'tiendasRegion',foreignKey: 'region_id'});
     }
     public findTiendaByName = function(tiendaName:string){};
     public findTiendaByRIF = function(tiendaRIF:number){};
@@ -84,7 +84,7 @@ TiendaModel.prototype.findAllTiendasWhitRegion = async function(page:number, siz
         include: [
             {
                 model: RegionesModel,
-                as:'regiones_tienda',
+                as:'regionesTienda',
                 through:{
                     attributes:[]
                 }
@@ -105,15 +105,16 @@ TiendaModel.prototype.findAllTiendasWhitRegion = async function(page:number, siz
 TiendaModel.prototype.findTiendaByName = async function(tiendaName:string){
     const tienda = await TiendaModel.findOne({
         where: { nombre: tiendaName },
+        attributes: ['nombre','imagen','descripcion'],
         include: [
         { 
             model: ClienteModel, 
-            as: 'tienda_cliente',
-            attributes: ['id', 'nombre', 'imagen', 'createdAt']
+            as: 'tiendaCliente',
+            attributes: ['id', 'nombre', 'imagen']
         },
         {
             model: RegionesModel,
-            as:'regiones_tienda',
+            as:'regionesTienda',
             through:{
                 attributes:[]
             }
@@ -131,12 +132,12 @@ TiendaModel.prototype.findTiendaByRIF = async function(tiendaRIF:number){
         include:[ 
         { 
             model: ClienteModel, 
-            as: 'tienda_cliente',
+            as: 'tiendaCliente',
             attributes: ['id', 'nombre', 'imagen', 'createdAt']
         },
         {
             model: RegionesModel,
-            as:'regiones_tienda',
+            as:'regionesTienda',
             through:{
                 attributes:[]
             }
@@ -152,12 +153,12 @@ TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
         include:[
         { 
             model: ClienteModel, 
-            as: 'tienda_cliente',
+            as: 'tiendaCliente',
             attributes: ['id', 'nombre', 'imagen', 'createdAt']
         },
         {
             model: RegionesModel,
-            as:'regiones_tienda',
+            as:'regionesTienda',
             through:{
                 attributes:[]
             }

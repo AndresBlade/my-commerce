@@ -8,8 +8,6 @@ import {getRegions,
 
 const router = express.Router();
 
-
-
 router.get('/getRegions', 
             authMiddleware,
             checkRole(['CLIENTE']),

@@ -45,7 +45,13 @@ export const createPurchase = async (req:Request, res:Response) =>{
                 precio: productPrice,
             }, {transaction: t});
 
-            return newPurchaseDetails;
+            return {
+                ventaCabeceraID: newPurchaseDetails.ventas_cabecera_id,
+                productoId: newPurchaseDetails.producto_id,
+                cantidad: newPurchaseDetails.cantidad,
+                precioPorProducto: newPurchaseDetails.precio,
+                totalCompra: newPurchaseDetails.precio * newPurchaseDetails.cantidad,
+            };
         }); 
 
         
@@ -62,7 +68,7 @@ export const getPurchaseByUser = async (req:Request, res:Response) =>{
         const client_id = getClientID(res);
 
         const purchases = await VentasCabeceraModel.prototype.getPurchsesByClient(client_id);
-
+        
         res.status(200).send(purchases);
     }catch(error:any){
         console.log(error);

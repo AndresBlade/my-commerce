@@ -19,8 +19,6 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
         //Relacion entre cliente y tiendas, un cliente puede tener muchas tiendas y una tienda pertenece a un solo cliente
         UserModel.hasOne(ClienteModel, {foreignKey: 'usuario_id', as: 'clientData'});
         ClienteModel.belongsTo(UserModel, {foreignKey: 'usuario_id', as: 'clientData'});
-
-        
     }
 }
 

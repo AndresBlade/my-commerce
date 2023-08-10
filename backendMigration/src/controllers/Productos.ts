@@ -3,36 +3,45 @@ import ProductoModel from "../models/Prodcutos";
 import PorductImagenModel from "../models/Productos_imagenes";
 import { matchedData } from "express-validator";
 import TiendaModel from "../models/Tiendas";
+import { sequelize } from "../config/db";
 
 export async function CreateProduct(req:Request, res:Response) {
     try{
-        const {nombre, precio, tienda_id, categoria_id, descripcion, cantidad} = matchedData(req);
-        const productCreated = await ProductoModel.create({
-            nombre,
-            precio,
-            categoria_id,
-            tienda_id,
-            descripcion,
-            cantidad
-        })
-    
-        if(!productCreated) return res.status(400).send('ERROR_REGISTER_PRODUCT')
-    
-        // crear objeto de imagenes que se van a guardar en la tabla productoImagenes
         if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGES');
-        let imagenesReq = req.body.imagen.trim();
-        const imagenObject: Array<string> = imagenesReq.split(' ');
-        const imagenes = imagenObject.map((imagen: string) => {
-            return {
-                producto_id: productCreated.id,
-                ruta: imagen
+        const {nombre, precio, tienda_id, categoria_id, descripcion, cantidad} = matchedData(req);
+
+        // crear producto mediante una transaccion para asegurar que se cree el producto con sus respectivas imagenes
+        const resultTransaction = await sequelize.transaction(async (t:any) => {  
+            const productCreated = await ProductoModel.create({
+                nombre,
+                precio,
+                categoria_id,
+                tienda_id,
+                descripcion,
+                cantidad
+            }, {transaction:t})
+            
+            // crear objeto de imagenes que se van a guardar en la tabla productoImagenes
+            let imagenesReq = req.body.imagen.trim();
+            const imagenObject: Array<string> = imagenesReq.split(' ');
+            const imagenes = await imagenObject.map((imagen: string) => {
+                return {
+                    producto_id: productCreated.id,
+                    ruta: imagen
+                }
+            });
+
+            await PorductImagenModel.bulkCreate(imagenes, {transaction:t})
+            return{
+                productCreated,
+                imagenObject
             }
-        });
-        PorductImagenModel.bulkCreate(imagenes)
-    
+        })
+
+
         res.status(200).send({
-            productCreated: productCreated,
-            productImagenes: imagenObject
+            productCreated: resultTransaction.productCreated,
+            productImagenes: resultTransaction.imagenObject
         })
     }catch(err:any){
         console.log(err)
@@ -84,7 +93,7 @@ export async function getProductByTiendaRIF(req:Request, res:Response) {
 
 
         const data = await ProductoModel.prototype.getProductsByTiendaRIF(tienda_rif);
-        res.status(200).send({ ProductosTienda: data });
+        res.status(200).send({ productosTienda: data });
     }catch(err:any){
         console.log(err)
         res.status(500).send('ERROR_FINDING_PRODUCTOS_BY_TIENDA_RIF')
@@ -99,11 +108,11 @@ export async function getProductByID(req:Request, res:Response) {
         if(!parseInt(productID)) return res.status(505).send('ID_CAN_NOT_BE_A_STRING')
 
         const product_id = parseInt(productID);
-        const data = await ProductoModel.prototype.findProductsByID(product_id);
+        const products = await ProductoModel.prototype.findProductsByID(product_id);
 
-        if(data === null) return res.status(200).send({products: []})
+        if(products === null) return res.status(200).send({products: []})
 
-        res.status(200).send({ product: data });
+        res.status(200).send({ products});
     }catch(err:any){
         console.log(err)
         res.status(500).send('ERROR_FINDING_PRODUCTS_BY_ID')

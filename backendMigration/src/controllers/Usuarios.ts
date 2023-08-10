@@ -12,41 +12,59 @@ const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3000';
 export const registerUser = async (req:Request, res:Response) =>{ 
     try{
         const {nombre, correo} = req.body;
-        const tipo_id = 1;
         const rawPassword = req.body.contrasenna;
+
+        const tipo_id = 1;
     
         //Encripta la contraseña
         const contrasenna = await encryptPassword(rawPassword);
 
         //define la imagen por defecto del usuario
         const defaultImage = `${PUBLIC_URL}/DefaultProfilePicture.jpeg`;
-    
+        
+
+        //validar que el correo ingresado no sea repetido
+        const user = await UserModel.findOne({ where: { correo } });
+        if (user) return res.status(400).send('CORREO_ALREADY_REGISTERED');
+
     
         //Inserta los datos en la tabla usuarios
-        const newUser = await UserModel.create({        
-            correo,
-            contrasenna,
-            tipo_id
-        });
-    
-        if(!newUser) return res.json('Something went wrong with User')
-        
-        //Inserta los datos en la tabla clientes
-        const newClient = await ClientModel.create({
-            usuario_id: newUser.id,
-            nombre,
-            imagen : defaultImage
-        })
-    
-        if(!newClient) return res.json('Something went wrong with Client')
-    
-        const data = {
-            token: await tokenSign(newUser),
-            Usuario: newUser,
-            Cliente: newClient
-        }
+        const resultTransaction = await sequelize.transaction(async (t:any) => { 
+            const newUser = await UserModel.create({        
+                correo,
+                contrasenna,
+                tipo_id
+            });
 
-        res.send({data})
+            //Inserta los datos en la tabla clientes
+            const newClient = await ClientModel.create({
+                usuario_id: newUser.id,
+                nombre,
+                imagen : defaultImage
+            })
+
+            return{
+                userData:{
+                    correo: newUser.correo,
+                    tipo_id: newUser.tipo_id
+                },
+                clientData:{
+                    id: newClient.id,
+                    nombre: newClient.nombre,
+                    imagen: newClient.imagen
+                },
+                token: await tokenSign(newUser)
+            }
+        })
+
+
+        res.status(200).send({
+            userRegistered : {
+                token: resultTransaction.token,
+                usuario: resultTransaction.userData,
+                cliente: resultTransaction.clientData
+            }
+        });
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
@@ -56,17 +74,15 @@ export const registerUser = async (req:Request, res:Response) =>{
 
 export const loginUser = async (req:Request, res:Response) =>{
     try{
-
         const {correo, contrasenna} = req.body;
     
+        //Busca el usuario por el correo
         const userLogued = await UserModel.findOne({
             where:{
                 correo:correo
             }
         });
-
-
-        if(!userLogued) return res.send('IVALID USER DATA')
+        if(!userLogued) return res.status(500).send('EMAIL_NOT_FOUND')
     
         const hashPassword = userLogued.get('contrasenna');
         const passwordMatch = await comparePassword(contrasenna, hashPassword);
@@ -75,14 +91,14 @@ export const loginUser = async (req:Request, res:Response) =>{
             return handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
         }
     
+        //Busca el cliente asociado al usuario
         const userAndClient = await ClientModel.prototype.findClientAndUser(userLogued.id);
     
-        const data = {
+
+        res.status(200).send({data:{
             token: await tokenSign(userLogued),
-            Usuario: userAndClient
-        }
-    
-        res.send({data})
+            usuario: userAndClient
+        }})
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
