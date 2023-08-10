@@ -19,6 +19,7 @@ export async function CreateProduct(req:Request, res:Response) {
         if(!productCreated) return res.status(400).send('ERROR_REGISTER_PRODUCT')
     
         // crear objeto de imagenes que se van a guardar en la tabla productoImagenes
+        if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGES');
         let imagenesReq = req.body.imagen.trim();
         const imagenObject: Array<string> = imagenesReq.split(' ');
         const imagenes = imagenObject.map((imagen: string) => {

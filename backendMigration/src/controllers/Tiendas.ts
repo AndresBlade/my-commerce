@@ -27,6 +27,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
 
 
         //imagen enviada por el midleware anterior (uploadMiddleware)
+        if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGE');
         imagen = req.body.imagen.trim(); 
 
 

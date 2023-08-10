@@ -92,6 +92,7 @@ export const loginUser = async (req:Request, res:Response) =>{
 export const updateUserImage = async (req:Request, res:Response) =>{
     try{
         const client_id = getClientID(res);
+        if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGE');
         const imagen = req.body.imagen.trim(); 
 
         const clientUpdate = await ClientModel.update({imagen:imagen},{where:{id:client_id}});
