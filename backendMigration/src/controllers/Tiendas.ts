@@ -6,7 +6,7 @@ import ClienteModel from "../models/Clientes";
 import TiendasRegionesModel from "../models/Tiendas_regiones";
 import  {sequelize}  from "../config/db";
 import RegionesModel from "../models/Regiones";
-import getClientID from "../utils/getClientID";
+import {getClientID} from "../utils/getClientID";
 
 
 export const tiendaRegister = async (req:Request, res:Response) =>{ 

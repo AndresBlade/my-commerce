@@ -17,9 +17,10 @@ const checkRole = (roles:Array<string>) => async (req:Request, res:Response, nex
                 roleByUser = 'UNKNOWN';
                 break;
         }
+
         const checkValueRole = roles.some((rolSingle) => roleByUser.includes(rolSingle));
 
-
+        
         if(!checkValueRole){
             return handleHttpErrors(res, 'USER_DONT_HAVE_PERMISSIONS', 403);
         }

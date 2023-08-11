@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import {sequelize} from "../config/db";
-import getClientID from '../utils/getClientID';
+import {getClientID} from '../utils/getClientID';
 import TiendaModel from "../models/Tiendas";
 import VentasCabeceraModel from "../models/Ventas_cabecera";
 import VentasDetallesModel from "../models/Ventas_detalles";

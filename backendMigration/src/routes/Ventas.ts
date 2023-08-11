@@ -25,6 +25,8 @@ router.get('/getPurchaseByUser',
 
 
 router.get('/productsSoldByStore/:id',
+            authMiddleware,
+            checkRole(['CLIENTE']),
             getProductsSoldByStore
 );
 

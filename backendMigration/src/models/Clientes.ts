@@ -7,6 +7,17 @@ import VentasCabeceraModel from './Ventas_cabecera';
 
 
 class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModelAttributes {
+    static findClientByUserID = async function(user_id: number): Promise<ClienteModelAttributes | null>{
+        const client = await ClienteModel.findOne({
+            where: {usuario_id: user_id},
+        })
+        return{
+            id: client?.id,
+            usuario_id: client!.usuario_id,
+            nombre: client!.nombre,
+            imagen: client!.imagen,
+        }
+    }
     public id!: number;
     public usuario_id!: number;
     public nombre!: string;
@@ -17,7 +28,7 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
     public readonly updatedAt!: Date;
 
     //metodos personalizados
-    public findClientAndUser = function(user_id: number){}
+    
     public getPurchsesByClient = async function (client_id:number){};
 
     static initializeAssociations() {
@@ -60,17 +71,25 @@ ClienteModel.init(
 ClienteModel.initializeAssociations();
 
 
-ClienteModel.prototype.findClientAndUser = async function(user_id: number){
-    return UserModel.findOne({
-        where: {id: user_id},
-        attributes: ['correo', 'tipo_id'],
-        include:{
-            model: ClienteModel,
-            as: 'clientData',
-            attributes: ['id', 'nombre', 'imagen', 'createdAt']
-        }
-    })
-}
+// ClienteModel.prototype.findClientByUserID = async function(user_id: number): Promise<ClienteModelAttributes | null> {
+//     const client = await ClienteModel.findOne({
+//         where: {usuario_id: user_id},
+//         attributes: ['correo', 'tipo_id'],
+//         include:{
+//             model: ClienteModel,
+//             as: 'clientData',
+//             attributes: ['id', 'nombre', 'imagen', 'createdAt']
+//         }
+//     })
+//     return{
+//         id: client?.id,
+//         usuario_id: client!.usuario_id,
+//         nombre: client!.nombre,
+//         imagen: client!.imagen,
+//     }
+// }
+
+
 
     
 export default ClienteModel;

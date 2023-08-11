@@ -4,8 +4,9 @@ import handleHttpErrors from '../utils/handleErrors';
 import {encryptPassword, comparePassword}  from '../utils/handlePassword';
 import UserModel  from "../models/Usuarios";
 import ClientModel  from "../models/Clientes";
-import getClientID from "../utils/getClientID";
+import {getClientID} from "../utils/getClientID";
 import { sequelize } from "../config/db";
+import AdministradorModel from "../models/Administradores";
 const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3000';
 
 
@@ -44,6 +45,7 @@ export const registerUser = async (req:Request, res:Response) =>{
             })
 
             return{
+                token: await tokenSign(newUser),
                 userData:{
                     correo: newUser.correo,
                     tipo_id: newUser.tipo_id
@@ -52,11 +54,9 @@ export const registerUser = async (req:Request, res:Response) =>{
                     id: newClient.id,
                     nombre: newClient.nombre,
                     imagen: newClient.imagen
-                },
-                token: await tokenSign(newUser)
+                }
             }
         })
-
 
         res.status(200).send({
             userRegistered : {
@@ -83,6 +83,12 @@ export const loginUser = async (req:Request, res:Response) =>{
             }
         });
         if(!userLogued) return res.status(500).send('EMAIL_NOT_FOUND')
+
+        const UserData = {
+            correo: userLogued.correo,
+            tipoId: userLogued.tipo_id,
+            createdAt: userLogued.createdAt,
+        }
     
         const hashPassword = userLogued.get('contrasenna');
         const passwordMatch = await comparePassword(contrasenna, hashPassword);
@@ -90,15 +96,34 @@ export const loginUser = async (req:Request, res:Response) =>{
         if(!passwordMatch){
             return handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
         }
-    
-        //Busca el cliente asociado al usuario
-        const userAndClient = await ClientModel.prototype.findClientAndUser(userLogued.id);
-    
 
-        res.status(200).send({data:{
-            token: await tokenSign(userLogued),
-            usuario: userAndClient
-        }})
+
+        //Respuesta condicional de acuerdo si el usuario es un cliente o un administrador
+        if(userLogued.tipo_id == 1){
+            //Busca el cliente asociado al usuario
+            const userAndClient = await ClientModel.findClientByUserID(userLogued.id);
+            res.status(200).send({
+                token: await tokenSign(userLogued),
+                UserData,
+                clientData:{
+                    id: userAndClient?.id,
+                    nombre: userAndClient?.nombre,
+                    imagen: userAndClient?.imagen,
+                }
+            })
+        }else{
+            //Busca el administrador asociado al usuario
+            const admin = await AdministradorModel.getAdminByUserId(userLogued.id);
+            res.status(200).send({
+                token: await tokenSign(userLogued),
+                UserData,
+                adminData:{
+                    id: admin?.id,
+                    nombre: admin?.nombre,
+                    imagen: admin?.imagen,
+                } 
+            })
+        }
     }catch(error:any){
         console.log(error);
         handleHttpErrors(error);
@@ -124,4 +149,57 @@ export const updateUserImage = async (req:Request, res:Response) =>{
 export const getUsuario = async (req:Request, res:Response) =>{
     console.log('Entraste compa')
     res.send('oki')
+}
+
+export const registerAdmin = async (req:Request, res:Response) =>{
+    try{
+
+        const {nombre, correo, nivelPrivilegio} = req.body;
+        const rawPassword = req.body.contrasenna;
+        const tipo_id = 2;
+    
+        //Encripta la contraseña
+        const contrasenna = await encryptPassword(rawPassword);
+
+        //define la imagen por defecto del usuario
+        const defaultImage = `${PUBLIC_URL}/DefaultProfilePicture.jpeg`;
+        
+
+        //validar que el correo ingresado no sea repetido
+        const user = await UserModel.findOne({ where: { correo } });
+        if (user) return res.status(400).send('CORREO_ALREADY_REGISTERED');
+
+        const resultTransaction = await sequelize.transaction(async (t:any) => { 
+            const newUser = await UserModel.create({        
+                correo,
+                contrasenna,
+                tipo_id
+            });
+
+            const newAdmin = await AdministradorModel.create({
+                usuario_id: newUser.id,
+                nombre,
+                imagen : defaultImage,
+                nivel_privilegio: nivelPrivilegio
+            });
+
+            return{
+                token: await tokenSign(newUser),
+                userData:{
+                    correo: newUser.correo,
+                    tipoId: newUser.tipo_id
+                },
+                adminData:{
+                    id: newAdmin.id,
+                    nombre: newAdmin.nombre,
+                    imagen: newAdmin.imagen,
+                    nivelPrivilegio: newAdmin.nivel_privilegio
+                },
+            }
+        })
+
+        res.status(200).send(resultTransaction)
+    }catch(error:any){
+
+    }
 }

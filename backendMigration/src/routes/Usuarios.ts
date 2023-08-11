@@ -4,16 +4,19 @@ import { registerUser,
         getUsuario, 
         loginUser,
         updateUserImage, 
+        registerAdmin,
     } from "../controllers/Usuarios";
 import {authMiddleware} from '../middleware/session';
 import checkRole from '../middleware/checkRole';
+import { adminPrivilige } from "../middleware/adminPrivilige";
 import imagenRoute from '../middleware/imagenRoute';
 import uploadMiddleware from "../utils/handleStorage";
 
 const router = express.Router();
 
 router.post("/registerUser",
-            registerUser);
+            registerUser
+);
 
 router.get('/getUsuarios',
             authMiddleware,
@@ -22,8 +25,8 @@ router.get('/getUsuarios',
 );
 
 router.get('/loginUser',
-            loginUser)
-
+            loginUser
+);
 
 router.put('/updateUserImage',
             authMiddleware,
@@ -31,6 +34,14 @@ router.put('/updateUserImage',
             imagenRoute('userProfile'),
             uploadMiddleware.single('imagen'),
             updateUserImage
-            );
+);
+
+router.post('/registerAdmin',
+            authMiddleware,
+            checkRole(['ADMINISTRADOR']),
+            adminPrivilige(['ALTO']),
+            registerAdmin,
+);
+
 module.exports = router;
 

@@ -2,6 +2,7 @@ import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes
 import { sequelize } from '../config/db';
 import UserModelAttributes from './interfaces/UserInterface';
 import ClienteModel from './Clientes';
+import AdministradorModel from './Administradores';
 
 
 class UserModel extends Model<UserModelAttributes> implements UserModelAttributes {
@@ -16,9 +17,13 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
 
     //metodos personalizados
     static initializeAssociations() {
-        //Relacion entre cliente y tiendas, un cliente puede tener muchas tiendas y una tienda pertenece a un solo cliente
+        //Relacion entre usuarios y cliente, un usuario puede tener un cliente y un cliente solo puede pertenecer a una tienda
         UserModel.hasOne(ClienteModel, {foreignKey: 'usuario_id', as: 'clientData'});
         ClienteModel.belongsTo(UserModel, {foreignKey: 'usuario_id', as: 'clientData'});
+
+        //Relacion entre usuarios y administradores, un usuario puede tener un administrador y un administrador solo puede pertenecer a un usuario
+        UserModel.hasOne(AdministradorModel, {foreignKey: 'usuario_id', as: 'userData'});
+        AdministradorModel.belongsTo(UserModel, {foreignKey: 'usuario_id', as: 'userData'});        
     }
 }
 
@@ -44,8 +49,8 @@ UserModel.init(
     }
 );
 
-UserModel.initializeAssociations();
 
+UserModel.initializeAssociations();
 
 
 export default UserModel;

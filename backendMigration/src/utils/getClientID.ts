@@ -1,7 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 
-export default function getClientID(res:Response){
+export function getClientID(res:Response){
     const User = res.locals.user;
-    const clientData = User.clientBelongToUser.dataValues.clientData.dataValues;
-    return clientData.id;
+    const clientID = User.clientBelongToUser.id;
+    return clientID;
+}
+
+export function getAdminID(res:Response){
+    const User = res.locals.user;
+    const adminID = User.adminBelongToUser.id;
+    return adminID;
 }
