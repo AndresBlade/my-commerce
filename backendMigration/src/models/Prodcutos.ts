@@ -1,16 +1,11 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
+import {Model, DataTypes,} from 'sequelize'
 import { sequelize } from '../config/db';
 import ProductoModelAttributes from './interfaces/ProductoInterface';
 import CategoriaModel from './Categorias';
 import PorductImagenModel from './Productos_imagenes';
-import VentasCabeceraModel from './Ventas_cabecera';
-import VentasDetallesModel from './Ventas_detalles';
 
 
 class ProductoModel extends Model<ProductoModelAttributes> implements ProductoModelAttributes{
-    static findAllProducts(pageNumber: number, pageSize: number): { count: any; rows: any; } | PromiseLike<{ count: any; rows: any; }> {
-        throw new Error("Method not implemented.");
-    }
     public id!: number;
     public nombre!: string;
     public precio!: number;
@@ -36,12 +31,41 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
 
         
     }
+    static async findAllProducts(page: number, size: number): Promise<{ count: number,totalPages:number, currentPage:number ,rows: number } | { count: any; rows: any; }> {
+        const result = await ProductoModel.findAndCountAll({
+            limit: +size,
+            offset: +page * +size,
+            attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
+            distinct:true,
+            include:[
+                {
+                    model: PorductImagenModel,
+                    as: 'imagenes',
+                    attributes: ['ruta'],
+                },
+                {
+                    model: CategoriaModel,
+                    as: 'categoria',
+                    attributes: ['id', 'descripcion']
+                }
+            ],
+        });
+        const totalRecords = result.count;
+        const totalPages = Math.ceil(totalRecords / +size);
+        return {
+            count: totalRecords,
+            totalPages: totalPages,
+            currentPage: ++page,
+            rows: result.rows
+        };
+    ;
+    }
 
-    public findAllProducts = function(page:number, size:number){};
-    public findProductsByID = function(productID:number){};
-    public getProductsByTiendaRIF = function(tiendaRIF:number){};
-    public findProductsByName = function(productName:string){};
-    public getProductsByCategory = function(categoria_id:number){};
+    public findAllProducts = function(_page:number, _size:number){};
+    public findProductsByID = function(_productID:number){};
+    public getProductsByTiendaRIF = function(_tiendaRIF:number){};
+    public findProductsByName = function(_productName:string){};
+    public getProductsByCategory = function(_categoria_id:number){};
 
 }
 
@@ -144,37 +168,6 @@ ProductoModel.prototype.findProductsByID = async function(productID:number){
         
     });
 }   
-
-
-ProductoModel.prototype.findAllProducts = async function(page:number, size:number){
-    const result = await ProductoModel.findAndCountAll({
-        limit: +size,
-        offset: +page * +size,
-        attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
-        distinct:true,
-        include:[
-            {
-                model: PorductImagenModel,
-                as: 'imagenes',
-                attributes: ['ruta'],
-            },
-            {
-                model: CategoriaModel,
-                as: 'categoria',
-                attributes: ['id', 'descripcion']
-            }
-        ],
-    });
-    const totalRecords = result.count;
-    const totalPages = Math.ceil(totalRecords / +size);
-    return {
-        count: totalRecords,
-        totalPages: totalPages,
-        currentPage: ++page,
-        rows: result.rows
-    };
-
-}
 
 
 export default ProductoModel;

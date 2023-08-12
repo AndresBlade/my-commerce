@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
+import { Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import TiendaModelAttributes from './interfaces/TiendaInterface';
 import ClienteModel from './Clientes';
@@ -6,11 +6,11 @@ import RegionesModel from './Regiones'
 import TiendasRegionesModel from './Tiendas_regiones';
 import ProductoModel from './Prodcutos';
 import VentasCabeceraModel from './Ventas_cabecera';
-import VentasDetallesModel from './Ventas_detalles';
+
 
 
 class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAttributes{
-    static findTiendaByName(tiendaName: string): TiendaModel | PromiseLike<TiendaModel> {
+    static findTiendaByName(_tiendaName: string): TiendaModel | PromiseLike<TiendaModel> {
         throw new Error("Method not implemented.");
     }
     public RIF!: number;
@@ -34,12 +34,12 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
         TiendaModel.belongsToMany(RegionesModel, {through: TiendasRegionesModel, as:'regionesTienda',foreignKey: 'tienda_id'});
         RegionesModel.belongsToMany(TiendaModel, {through: TiendasRegionesModel, as: 'tiendasRegion',foreignKey: 'region_id'});
     }
-    public findTiendaByName = function(tiendaName:string){};
-    public findTiendaByRIF = function(tiendaRIF:number){};
-    public findTiendaByClient = function(clientID:number){};
-    public findAllTiendasWhitRegion = function(page:number, size:number){};
-    public getAllSells = function(tiendaId:number){};
-    public updateSaldo = function(tiendaRIF:number, cantidad:number, price:number){};
+    public findTiendaByName = function(_tiendaName:string){};
+    public findTiendaByRIF = function(_tiendaRIF:number){};
+    public findTiendaByClient = function(_clientID:number){};
+    public findAllTiendasWhitRegion = function(_page:number, _size:number){};
+    public getAllSells = function(_tiendaId:number){};
+    public updateSaldo = function(_tiendaRIF:number, _cantidad:number, _price:number){};
 }
 
 

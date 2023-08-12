@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
+import { Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import ProductImagenInterface from './interfaces/ProductImagenInterface';
 

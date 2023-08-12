@@ -1,7 +1,6 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo, HasMany, BelongsToGetAssociationMixin} from 'sequelize'
+import { Model, DataTypes } from 'sequelize'
 import { sequelize } from '../config/db';
 import ClienteModelAttributes from './interfaces/ClienteInterface';
-import UserModel from './Usuarios';
 import TiendaModel from './Tiendas';
 import VentasCabeceraModel from './Ventas_cabecera';
 
@@ -11,11 +10,12 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
         const client = await ClienteModel.findOne({
             where: {usuario_id: user_id},
         })
+        if(!client) throw new Error('No se encontro el cliente');
         return{
-            id: client?.id,
-            usuario_id: client!.usuario_id,
-            nombre: client!.nombre,
-            imagen: client!.imagen,
+            id: client.id!,
+            usuario_id: client.usuario_id!,
+            nombre: client.nombre!,
+            imagen: client.imagen!,
         }
     }
     public id!: number;
@@ -29,8 +29,6 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
 
     //metodos personalizados
     
-    public getPurchsesByClient = async function (client_id:number){};
-
     static initializeAssociations() {
         //Relacion entre cliente y tiendas, un cliente puede tener muchas tiendas y una tienda pertenece a un solo cliente
         ClienteModel.hasMany(TiendaModel, {foreignKey: 'cliente_id', as: 'tiendaCliente',});

@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
+import { Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import VentasCabeceraInterface from './interfaces/VentasCabeceraInterface';
 import ProductoModel from './Prodcutos';
@@ -16,7 +16,7 @@ class VentasCabeceraModel extends Model<VentasCabeceraInterface> implements Vent
 
 
     // Metodos personalizados
-    public getPurchsesByClient = function (client_id:number){};
+    public getPurchsesByClient = function (_client_id:number){};
 }
 
 VentasCabeceraModel.init(

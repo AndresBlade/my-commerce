@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
+import {Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import RegionesInterface from './interfaces/RegionesInterface';
 import TiendaModel from './Tiendas'
@@ -9,7 +9,7 @@ class RegionesModel extends Model<RegionesInterface> implements RegionesInterfac
     public descripcion!: string;
 
     // Metodos personalizados
-    public getAllTiendasOfARegion = function(regionID:number){}
+    public getAllTiendasOfARegion = function(_regionID:number){}
 }
 
 

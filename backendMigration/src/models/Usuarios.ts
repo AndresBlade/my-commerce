@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes} from 'sequelize'
+import { Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import UserModelAttributes from './interfaces/UserInterface';
 import ClienteModel from './Clientes';

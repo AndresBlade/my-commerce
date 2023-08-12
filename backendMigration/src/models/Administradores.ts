@@ -1,4 +1,4 @@
-import { Sequelize, Model, DataTypes, CreationOptional,Optional, InferAttributes, InferCreationAttributes, BelongsTo} from 'sequelize'
+import { Model, DataTypes} from 'sequelize'
 import { sequelize } from '../config/db';
 import administradorAtributtes from './interfaces/admnistradoresInterface';
 import UserModel from './Usuarios';
@@ -11,17 +11,19 @@ class AdministradorModel extends Model<administradorAtributtes> implements admin
             include: [{
                 model: UserModel,
                 as: 'userData',
-                attributes:['id','correo', 'tipo_id', 'tipo_id'],
+                attributes:['id','correo', 'tipo_id'],
             }]
         });
+        if(!admin) throw new Error('ADMIN_NOT_FOUND');
         return {
-            id: admin?.id,
-            usuario_id: admin!.usuario_id,
-            nombre: admin!.nombre,
-            imagen: admin!.imagen,
-            nivel_privilegio: admin!.nivel_privilegio,
+            id: admin.id!,
+            usuario_id: admin.usuario_id!,
+            nombre: admin.nombre!,
+            imagen: admin.imagen!,
+            nivel_privilegio: admin.nivel_privilegio!,
         };
     }
+
     public id!: number;
     public usuario_id!: number;
     public nombre!: string;
