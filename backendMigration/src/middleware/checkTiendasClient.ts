@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 
-export default function CheckTiendasPerClient(req:Request, res:Response, next:NextFunction){
+export default function CheckTiendasPerClient(_req:Request, _res:Response, next:NextFunction){
     next();
 }

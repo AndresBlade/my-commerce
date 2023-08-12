@@ -1,9 +1,8 @@
-import {Express, Request, Response, NextFunction} from 'express';
-import { ImplementationLocation } from 'typescript';
+import {Request, Response, NextFunction} from 'express';
 import handleHttpErrors from '../utils/handleErrors';
 import UserModel from '../models/Usuarios'; 
 import {tokenVerify} from '../utils/handleJwt';
-import { Jwt, JwtPayload } from 'jsonwebtoken';
+import { JwtPayload } from 'jsonwebtoken';
 import ClienteModel from '../models/Clientes';
 import AdministradorModel from '../models/Administradores';
 
@@ -29,7 +28,7 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
         if(!dataToken){
             handleHttpErrors(res, 'NOT_PAYLOAD_DATA', 401);
         }
-        const {id: userID, tipo_id: tipoID} = dataToken as dataToken;
+        const {id: userID} = dataToken as dataToken;
 
 
         //consigue el usuario con el id perteneciente
@@ -45,27 +44,27 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
                 clientBelongToUser
             }
 
-            res.locals.user = userData;
-            next();
+            res.locals['user'] = userData;
+            return next();
         }else if(user?.tipo_id === 2){
             const adminBelongToUser = await AdministradorModel.getAdminByUserId(userID);
             const userData = {
                 ...user?.dataValues,
                 adminBelongToUser
             }
-            res.locals.user = user;
-            next();
+            res.locals['user'] = userData;
+            return next();
         }
         
         
     }catch(error:any){
         if (error.name === 'TokenExpiredError') {
-            handleHttpErrors(res, 'SESSION_EXPIRED', 401);
+            return handleHttpErrors(res, 'SESSION_EXPIRED', 401);
         } else if (error.name === 'JsonWebTokenError'){
-            handleHttpErrors(res, 'NOT_PAYLOAD_DATA', 403);
+            return handleHttpErrors(res, 'NOT_PAYLOAD_DATA', 403);
         }else{
             console.log(error);
-            handleHttpErrors(res, 'ERROR_AUTH', 403);
+            return handleHttpErrors(res, 'ERROR_AUTH', 403);
         }
     }
 }

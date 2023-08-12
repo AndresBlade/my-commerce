@@ -4,9 +4,10 @@ import { Request, Response, NextFunction } from 'express';
 import handleHttpErrors from '../utils/handleErrors';
 import AdministradorModel from '../models/Administradores';
 
-export const adminPrivilige = (privilegios:Array<string>) => async (req:Request, res:Response, next:NextFunction) => {
+export const adminPrivilige = (privilegios:Array<string>) => async (_req:Request, res:Response, next:NextFunction) => {
     try{
-        const userID = res.locals.user.id;
+        const {user = ''} = res.locals
+        const userID = user.id;
 
         const admin = await AdministradorModel.getAdminByUserId(userID);
         if(!admin) return handleHttpErrors(res, 'ERROR_GETTIG_ADMIN', 403);
@@ -33,9 +34,9 @@ export const adminPrivilige = (privilegios:Array<string>) => async (req:Request,
 
         if(!checkValueRole) return handleHttpErrors(res, 'ADMIN_DO_NOT_ENOUGTH_PRIVILIGIE', 403);
 
-        next();
+        return next();
     }catch(e:any){
         console.log(e);
-        handleHttpErrors(res, 'ERROR_CHECKING_PRIVILIGIES', 403);
+        return handleHttpErrors(res, 'ERROR_CHECKING_PRIVILIGIES', 403);
     }
 }
