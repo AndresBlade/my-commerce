@@ -1,4 +1,3 @@
-import { Request, Response} from "express";
 import express from 'express';
 import {authMiddleware} from '../middleware/session';
 import checkRole from '../middleware/checkRole';

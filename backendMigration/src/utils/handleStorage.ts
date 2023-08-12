@@ -1,10 +1,9 @@
 import path  from 'path';
 import multer, {diskStorage} from 'multer';
-import FileFilterCallback  from 'multer';
 import DestinationCallback from 'multer';
-import { Response, Request } from 'express';
+import {Request } from 'express';
 
-const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3000';
+const PUBLIC_URL = process.env['PUBLIC_URL'] || 'http://localhost:3000';
 type DestinationCallback = (error: Error | null, destination: string) => void
 type FileNameCallback = (error: Error | null, filename: string) => void
 
@@ -23,9 +22,9 @@ const getStoragePath = (entity:string) => {
 };
 
 const storage = diskStorage({
-    destination: function(req:Request, file:Express.Multer.File, cb:DestinationCallback){
-        const entity = req.params.direction;
-        const pathStorage = getStoragePath(entity);
+    destination: function(req:Request, _file:Express.Multer.File, cb:DestinationCallback){
+        const {direction = '' }= req.params;
+        const pathStorage = getStoragePath(direction);
         console.log(pathStorage);
         cb(null, pathStorage);
     },

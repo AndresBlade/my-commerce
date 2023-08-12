@@ -1,6 +1,6 @@
-import jsonwebtoken, { JwtPayload } from 'jsonwebtoken';
+import jsonwebtoken, { JsonWebTokenError } from 'jsonwebtoken';
 import UserModelAttributes from '../models/interfaces/UserInterface';
-const SECRET_KEY = process.env.JWT_SECRET || 'LlaveUltrasecretaDeMyCommerce';
+const SECRET_KEY = process.env['JWT_SECRET'] || 'LlaveUltrasecretaDeMyCommerce';
 
 
 /**
@@ -30,7 +30,8 @@ const tokenVerify = async (tokenJWT:string) => {
     try{
         const userData = jsonwebtoken.verify(tokenJWT, SECRET_KEY);
         return userData;
-    }catch(error:any){
+    }catch(error: any){
+        error = error as JsonWebTokenError;
         if (error.name === 'TokenExpiredError') {
             throw{
                 name: 'TokenExpiredError',
@@ -42,6 +43,7 @@ const tokenVerify = async (tokenJWT:string) => {
                 message: 'Invalid token'
             }
         }        
+        return
     }
 }
 
