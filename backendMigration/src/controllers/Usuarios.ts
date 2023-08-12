@@ -7,7 +7,7 @@ import ClientModel  from "../models/Clientes";
 import {getClientID} from "../utils/getClientID";
 import { sequelize } from "../config/db";
 import AdministradorModel from "../models/Administradores";
-const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3000';
+const PUBLIC_URL = process.env['PUBLIC_URL'] || 'http://localhost:3000';
 
 
 export const registerUser = async (req:Request, res:Response) =>{ 
@@ -35,14 +35,14 @@ export const registerUser = async (req:Request, res:Response) =>{
                 correo,
                 contrasenna,
                 tipo_id
-            });
+            }, {transaction: t});
 
             //Inserta los datos en la tabla clientes
             const newClient = await ClientModel.create({
                 usuario_id: newUser.id,
                 nombre,
                 imagen : defaultImage
-            })
+            }, {transaction: t})
 
             return{
                 token: await tokenSign(newUser),
@@ -58,7 +58,7 @@ export const registerUser = async (req:Request, res:Response) =>{
             }
         })
 
-        res.status(200).send({
+        return res.status(200).send({
             userRegistered : {
                 token: resultTransaction.token,
                 usuario: resultTransaction.userData,
@@ -67,7 +67,7 @@ export const registerUser = async (req:Request, res:Response) =>{
         });
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 }
 
@@ -102,7 +102,7 @@ export const loginUser = async (req:Request, res:Response) =>{
         if(userLogued.tipo_id == 1){
             //Busca el cliente asociado al usuario
             const userAndClient = await ClientModel.findClientByUserID(userLogued.id);
-            res.status(200).send({
+            return res.status(200).send({
                 token: await tokenSign(userLogued),
                 UserData,
                 clientData:{
@@ -114,7 +114,7 @@ export const loginUser = async (req:Request, res:Response) =>{
         }else{
             //Busca el administrador asociado al usuario
             const admin = await AdministradorModel.getAdminByUserId(userLogued.id);
-            res.status(200).send({
+            return res.status(200).send({
                 token: await tokenSign(userLogued),
                 UserData,
                 adminData:{
@@ -126,7 +126,7 @@ export const loginUser = async (req:Request, res:Response) =>{
         }
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 };
 
@@ -139,14 +139,14 @@ export const updateUserImage = async (req:Request, res:Response) =>{
         const clientUpdate = await ClientModel.update({imagen:imagen},{where:{id:client_id}});
         if(!clientUpdate) return res.send('CANNOT_UPDATE_CLIENT_IMAGE')
     
-        res.send({nuevaImagen:imagen});
+        return res.send({nuevaImagen:imagen});
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 }
 
-export const getUsuario = async (req:Request, res:Response) =>{
+export const getUsuario = async (_req:Request, res:Response) =>{
     console.log('Entraste compa')
     res.send('oki')
 }
@@ -174,14 +174,14 @@ export const registerAdmin = async (req:Request, res:Response) =>{
                 correo,
                 contrasenna,
                 tipo_id
-            });
+            }, {transaction:t});
 
             const newAdmin = await AdministradorModel.create({
                 usuario_id: newUser.id,
                 nombre,
                 imagen : defaultImage,
                 nivel_privilegio: nivelPrivilegio
-            });
+            },{transaction:t});
 
             return{
                 token: await tokenSign(newUser),
@@ -198,8 +198,9 @@ export const registerAdmin = async (req:Request, res:Response) =>{
             }
         })
 
-        res.status(200).send(resultTransaction)
+        return res.status(200).send(resultTransaction)
     }catch(error:any){
-
+        console.log(error);
+        return handleHttpErrors(error);
     }
 }

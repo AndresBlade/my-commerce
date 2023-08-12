@@ -39,20 +39,20 @@ export async function CreateProduct(req:Request, res:Response) {
         })
 
 
-        res.status(200).send({
+        return res.status(200).send({
             productCreated: resultTransaction.productCreated,
             productImagenes: resultTransaction.imagenObject
         })
     }catch(err:any){
         console.log(err)
-        res.status(500).send('Error al crear el producto')
+        return res.status(500).send('Error al crear el producto')
     }
 }
 
 
 export async function getProductByName(req:Request, res:Response) {
     try{
-        const productName = req.params.productName;
+        const {productName=''} = req.params;
         const product = await ProductoModel.prototype.findProductsByName(productName);
         res.status(200).send({products: product})
     }catch(err:any){
@@ -81,49 +81,40 @@ export async function getAllProducts(req:Request, res:Response) {
 
 export async function getProductByTiendaRIF(req:Request, res:Response) {
     try{
-        const tiendaRIF = req.params.tiendaRif;
+        const {tiendaRif = ''} = req.params;
         //validar que el tiendaRIF no sea un string
-        if(!parseInt(tiendaRIF)) return res.status(505).send('RIF_CAN_NOT_BE_A_STRING')
-        const tienda_rif = parseInt(tiendaRIF);
+        if(!parseInt(tiendaRif)) return res.status(505).send('RIF_CAN_NOT_BE_A_STRING')
+        const tienda_rif = parseInt(tiendaRif);
 
 
-        //validar que la tienda con l rif exista
+        //validar que la tienda con el rif exista
         const tiendaVerificada = await TiendaModel.findOne({where: {RIF: tienda_rif}});  
         if(!tiendaVerificada) return res.status(500).send('RIF_NOT_FOUND')
 
 
         const data = await ProductoModel.prototype.getProductsByTiendaRIF(tienda_rif);
-        res.status(200).send({ productosTienda: data });
+        return res.status(200).send({ productosTienda: data });
     }catch(err:any){
         console.log(err)
-        res.status(500).send('ERROR_FINDING_PRODUCTOS_BY_TIENDA_RIF')
+        return res.status(500).send('ERROR_FINDING_PRODUCTOS_BY_TIENDA_RIF')
     }
 }
 
 
 export async function getProductByID(req:Request, res:Response) {
     try{
-        const productID = req.params.productId;
+        const {productId = ''} = req.params;
         //validar que el ProductoID no sea un string
-        if(!parseInt(productID)) return res.status(505).send('ID_CAN_NOT_BE_A_STRING')
+        if(!parseInt(productId)) return res.status(505).send('ID_CAN_NOT_BE_A_STRING')
 
-        const product_id = parseInt(productID);
+        const product_id = parseInt(productId);
         const products = await ProductoModel.prototype.findProductsByID(product_id);
 
         if(products === null) return res.status(200).send({products: []})
 
-        res.status(200).send({ products});
+        return res.status(200).send({ products});
     }catch(err:any){
         console.log(err)
-        res.status(500).send('ERROR_FINDING_PRODUCTS_BY_ID')
-    }
-}
-
-export async function getProductsByCategory(req:Request, res:Response) {
-    try{
-
-    }catch(err:any){
-        console.log(err)
-        res.status(500).send('Error al crear el producto')
+        return res.status(500).send('ERROR_FINDING_PRODUCTS_BY_ID')
     }
 }

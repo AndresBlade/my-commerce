@@ -58,11 +58,11 @@ export const createPurchase = async (req:Request, res:Response) =>{
         return res.status(200).send(resultTransaction);
     }catch(error:any){
         console.log(error);
-        res.status(400).send('ERROR_CREATING_PURCHASE');
+        return res.status(400).send('ERROR_CREATING_PURCHASE');
     }
 }
 
-export const getPurchaseByUser = async (req:Request, res:Response) =>{ 
+export const getPurchaseByUser = async (_req:Request, res:Response) =>{ 
     try{
         //recupera el id del CLIENTE mediante el middleware de autenticacion 
         const client_id = getClientID(res);
@@ -78,15 +78,15 @@ export const getPurchaseByUser = async (req:Request, res:Response) =>{
 
 export const getProductsSoldByStore = async (req:Request, res:Response) =>{
     try{
-        const rawTiendaId = req.params.id;
-        const tienda_id = parseInt(rawTiendaId);
+        const {id = ''} = req.params;
+        const tienda_id = parseInt(id);
 
 
         const productsSold = await TiendaModel.prototype.getAllSells(tienda_id);
         
-        res.status(200).send(productsSold);
+        return res.status(200).send(productsSold);
     }catch(error:any){
         console.log(error);
-        res.status(400).send('ERROR_GETTING_PRODUCTS_SOLD');
+        return res.status(400).send('ERROR_GETTING_PRODUCTS_SOLD');
     }
 }

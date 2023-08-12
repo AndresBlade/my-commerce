@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
 
-const Connect = process.env.MYSQL_NAME || 'mycommercepruebas';
-const username = process.env.MYSQL_USER || 'root';
-const password  = process.env.MYSQL_PASSWORD || undefined;
-const host = process.env.MYSQL_HOST || 'localhost';
+const Connect = process.env['MYSQL_NAME'] || 'mycommerceprueba' ;
+const username = process.env['MYSQL_USER'] || 'root';
+const password  = process.env['MYSQL_PASSWORD'] || undefined;
+const host = process.env['MYSQL_HOST'] || 'localhost';
 
 const sequelize = new Sequelize(Connect, username, password, {host: host, dialect:'mysql'});
 

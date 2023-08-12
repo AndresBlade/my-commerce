@@ -2,10 +2,8 @@ import { Request, Response } from "express";
 import { matchedData } from "express-validator";
 import handleHttpErrors from '../utils/handleErrors';
 import TiendaModel  from "../models/Tiendas";
-import ClienteModel from "../models/Clientes";
 import TiendasRegionesModel from "../models/Tiendas_regiones";
 import  {sequelize}  from "../config/db";
-import RegionesModel from "../models/Regiones";
 import {getClientID} from "../utils/getClientID";
 
 
@@ -46,7 +44,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
 
 
             //crea objeto de los ids de las regiones y los ids de las tiendas que se van a guardar en la tabla tiendas_regiones
-            const regiones_id:Array<number> = dataTienda.region_id;
+            const regiones_id:Array<number> = dataTienda['region_id'];
             const regionesPerTienda = regiones_id.map((region_id:number)=>{
                 return{
                     tienda_id: newTienda.RIF,
@@ -63,13 +61,13 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         })
 
 
-        res.status(200).send({
+        return res.status(200).send({
             tienda: resultTransaction.newTienda,
             regionesID: resultTransaction.regiones_id  
         }) 
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 }
 
@@ -83,55 +81,55 @@ export const getTiendas = async (req:Request, res:Response) =>{
 
 
         const tiendas = await TiendaModel.prototype.findAllTiendasWhitRegion(pageNumber, pageSize);
-        res.send({tiendas});
+        return res.send({tiendas});
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 }
 
 
 export const getTiendaByRIF = async (req:Request, res:Response) =>{ 
     try{
-        const { tiendaRIF } = req.params;
+        const { tiendaRIF = '' } = req.params;
         //validar que el tiendaRIF no sea un string
         if(!parseInt(tiendaRIF)) return res.status(505).send('RIF_CAN_NOT_BE_A_STRING')
 
         const tienda_rif = parseInt(tiendaRIF);
 		const datosTienda = await TiendaModel.prototype.findTiendaByRIF(tienda_rif);
-		res.send({datosTienda});
+		return res.send({datosTienda});
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 }
 
 
 export const getTiendaByName = async (req:Request, res:Response) =>{ 
     try{
-        const { tiendaName } = req.params;
+        const { tiendaName = ''} = req.params;
 		const data = await TiendaModel.prototype.findTiendaByName(tiendaName);
 
-		res.send({ datosTienda: data, });
+		return res.send({ datosTienda: data, });
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 }
 
 
 export const getTiendaByClient = async (req:Request, res:Response) =>{ 
     try{
-        let { clientID } = req.params;
+        let { clientID = '' } = req.params;
 
         //validar que el clientID no sea un string
         if(!parseInt(clientID)) return res.send('CLIENT_ID_CAN_NOT_BE_A_STRING');
         
         const client_id = parseInt(clientID);
 		const data = await TiendaModel.prototype.findTiendaByClient(client_id);
-		res.send({ datosTienda: data });
+		return res.send({ datosTienda: data });
     }catch(error:any){
         console.log(error);
-        handleHttpErrors(error);
+        return handleHttpErrors(error);
     }
 }
