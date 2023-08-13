@@ -169,5 +169,34 @@ ProductoModel.prototype.findProductsByID = async function(productID:number){
     });
 }   
 
+ProductoModel.prototype.findAllProducts = async function(page:number, size:number){
+    const result = await ProductoModel.findAndCountAll({
+        limit: +size,
+        offset: +page * +size,
+        attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
+        distinct:true,
+        include:[
+            {
+                model: PorductImagenModel,
+                as: 'imagenes',
+                attributes: ['ruta'],
+            },
+            {
+                model: CategoriaModel,
+                as: 'categoria',
+                attributes: ['id', 'descripcion']
+            }
+        ],
+    });
+    const totalRecords = result.count;
+    const totalPages = Math.ceil(totalRecords / +size);
+    return {        
+        count: totalRecords,
+        totalPages: totalPages,
+        currentPage: ++page,
+        rows: result.rows
+    };
+
+}
 
 export default ProductoModel;
