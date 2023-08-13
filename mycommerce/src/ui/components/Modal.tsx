@@ -1,4 +1,4 @@
-import { ElementRef, ReactNode, useRef } from 'react';
+import { ElementRef, ReactNode, useCallback, useRef } from 'react';
 
 type Props = {
 	showModal: boolean;
@@ -6,24 +6,25 @@ type Props = {
 	children: ReactNode;
 };
 
-function closeModal(
-	setShowModal: React.Dispatch<React.SetStateAction<boolean>>
-): void {
-	return setShowModal(false);
-}
-
 export type SubmitType<FormType, DataType, UserDataType> = {
 	(
 		form: FormType,
 		setError: React.Dispatch<React.SetStateAction<string | null>>,
 		userData: UserDataType,
 		setData: React.Dispatch<React.SetStateAction<DataType | null>>,
+		setShowModal?: React.Dispatch<React.SetStateAction<boolean>>,
 		formRef?: React.RefObject<ElementRef<'form'>>
 	): void;
 };
 
 export const Modal = ({ showModal, setShowModal, children }: Props) => {
 	const modalRef = useRef<ElementRef<'div'>>(null);
+	console.log('rerender');
+
+	const closeModal = useCallback(() => {
+		console.log('cerrar');
+		setShowModal(false);
+	}, [setShowModal]);
 
 	return (
 		<div
@@ -34,14 +35,10 @@ export const Modal = ({ showModal, setShowModal, children }: Props) => {
 			<div
 				className="modal__dialog"
 				onMouseEnter={() =>
-					modalRef.current?.removeEventListener('click', () =>
-						closeModal(setShowModal)
-					)
+					modalRef.current?.removeEventListener('click', closeModal)
 				}
 				onMouseLeave={() =>
-					modalRef.current?.addEventListener('click', () =>
-						closeModal(setShowModal)
-					)
+					modalRef.current?.addEventListener('click', closeModal)
 				}
 			>
 				{children}

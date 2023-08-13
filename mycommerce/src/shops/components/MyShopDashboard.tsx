@@ -18,6 +18,7 @@ import { ModalTitle } from '../../ui/components/ModalTitle';
 import { ModalContent } from '../../ui/components/ModalContent';
 import { ModalForm } from '../../ui/components/ModalForm';
 import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
+import { ModalFormSubmitButton } from '../../ui/components/ModalFormSubmitButton';
 
 interface Form {
 	nombre: string;
@@ -36,6 +37,7 @@ const onSubmit: SubmitType<
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
 	{ token, RIF }: UserData & { RIF: string | undefined },
 	setProducts: React.Dispatch<React.SetStateAction<Product[] | null>>,
+	setShowModal?: React.Dispatch<React.SetStateAction<boolean>>,
 	formRef?: React.RefObject<ElementRef<'form'>>
 ) => {
 	const { imagen: image, nombre: name } = form;
@@ -61,9 +63,11 @@ const onSubmit: SubmitType<
 
 		createProduct(formData, token)
 			.then(() =>
-				getSingleShopProducts(RIF).then(response =>
-					setProducts(response.tiendaProducts)
-				)
+				getSingleShopProducts(RIF).then(response => {
+					setProducts(response.tiendaProducts);
+					if (typeof setShowModal !== 'undefined')
+						setShowModal(false);
+				})
 			)
 			.catch(err => console.log(err));
 	}
@@ -214,21 +218,19 @@ export const MyShopDashboard = () => {
 								handleImagesChange={handleImagesChange}
 							/>
 						</ModalForm>
-						<button
-							type="button"
-							className="formModal__submit"
-							onClick={() => {
+						<ModalFormSubmitButton
+							handleClick={() => {
 								onSubmit(
 									formState,
 									setError,
 									{ ...userData, RIF },
 									setProducts,
+									setShowModal,
 									formRef
 								);
 							}}
-						>
-							Crear Producto
-						</button>
+							title="Crear Producto"
+						/>
 					</ModalContent>
 				</Modal>
 			</main>

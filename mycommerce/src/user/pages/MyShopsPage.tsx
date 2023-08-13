@@ -15,6 +15,7 @@ import { ModalForm } from '../../ui/components/ModalForm';
 import { ModalTitle } from '../../ui/components/ModalTitle';
 import { ModalContent } from '../../ui/components/ModalContent';
 import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
+import { ModalFormSubmitButton } from '../../ui/components/ModalFormSubmitButton';
 
 const onSubmit: SubmitType<Form, Shop[], UserData> = (
 	form: Form,
@@ -190,15 +191,18 @@ export const MyShopsPage = () => {
 							})}
 						/>
 					</ModalForm>
-					<button
-						type="button"
-						className="formModal__submit"
-						onClick={() => {
-							onSubmit(formState, setError, userData, setShops);
+					<ModalFormSubmitButton
+						title="Crear Tienda"
+						handleClick={() => {
+							onSubmit(
+								formState,
+								setError,
+								userData,
+								setShops,
+								setShowModal
+							);
 						}}
-					>
-						Crear Tienda
-					</button>
+					/>
 				</ModalContent>
 			</Modal>
 		</>
