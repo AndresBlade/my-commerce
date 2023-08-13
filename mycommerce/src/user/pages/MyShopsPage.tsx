@@ -189,21 +189,16 @@ export const MyShopsPage = () => {
 								};
 							})}
 						/>
-						<button
-							type="button"
-							className="formModal__submit"
-							onClick={() => {
-								onSubmit(
-									formState,
-									setError,
-									userData,
-									setShops
-								);
-							}}
-						>
-							Crear Tienda
-						</button>
 					</ModalForm>
+					<button
+						type="button"
+						className="formModal__submit"
+						onClick={() => {
+							onSubmit(formState, setError, userData, setShops);
+						}}
+					>
+						Crear Tienda
+					</button>
 				</ModalContent>
 			</Modal>
 		</>
