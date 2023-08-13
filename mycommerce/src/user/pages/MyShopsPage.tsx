@@ -11,7 +11,10 @@ import { createShop } from '../../shops/helpers/createShop';
 import { getRegions } from '../../shops/helpers/getRegions';
 import { Region } from '../../shops/interfaces/ShopRegion';
 import { Modal, SubmitType } from '../../ui/components/Modal';
-import { EntryProps } from '../../ui/components/EntryProps';
+import { ModalForm } from '../../ui/components/ModalForm';
+import { ModalTitle } from '../../ui/components/ModalTitle';
+import { ModalContent } from '../../ui/components/ModalContent';
+import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 
 const onSubmit: SubmitType<Form, Shop[], UserData> = (
 	form: Form,
@@ -119,63 +122,6 @@ export const MyShopsPage = () => {
 		region: '-1',
 	});
 
-	const entries: EntryProps[] = [
-		{
-			title: 'RIF',
-			name: 'RIF',
-			htmlFor: 'RIF',
-			handleChange: onInputChange,
-			element: 'input',
-			type: 'number',
-			value: RIF,
-			min: 0,
-		},
-		{
-			element: 'input',
-			type: 'text',
-			name: 'name',
-			htmlFor: 'name',
-			title: 'Nombre',
-			handleChange: onInputChange,
-			value: name,
-		},
-		{
-			element: 'textarea',
-			handleChange: onTextareaChange,
-			htmlFor: 'description',
-			name: 'descripcion',
-			title: 'Descripción',
-			value: descripcion,
-			cols: 30,
-			rows: 10,
-		},
-		{
-			element: 'input',
-			type: 'file',
-			imagePreview: true,
-			accept: ['image/png', 'image/jpeg'],
-			handleChange: onFileInputChange,
-			handleImageChange: handleFileChange,
-			htmlFor: 'Image',
-			name: 'Image',
-			title: 'Imagen',
-			value: formState.Image,
-		},
-		{
-			element: 'select',
-			handleChange: onSelectChange,
-			htmlFor: 'region',
-			name: 'region',
-			title: 'Región',
-			value: region,
-			options: regions.map(region => {
-				return {
-					description: region.descripcion,
-					value: region.id.toString(),
-				};
-			}),
-		},
-	];
 	const [error, setError] = useState<string | null>(null);
 	return (
 		<>
@@ -184,20 +130,82 @@ export const MyShopsPage = () => {
 				buttonTitle="Agregar Tienda"
 			/>
 			<MyShopList shops={shops} />
-			<Modal
-				title="Agregar Tienda"
-				setShowModal={setShowModal}
-				showModal={showModal}
-				form={{
-					entries,
-					formState,
-					setError,
-					setData: setShops,
-					onSubmit: onSubmit,
-					error,
-					userData,
-				}}
-			/>
+			<Modal setShowModal={setShowModal} showModal={showModal}>
+				<ModalContent>
+					<ModalTitle title="Agregar Tienda" />
+					<ModalForm setError={setError} error={error}>
+						<ModalFormDivider
+							title={'RIF'}
+							name={'RIF'}
+							htmlFor={'RIF'}
+							handleChange={onInputChange}
+							element={'input'}
+							type={'number'}
+							value={RIF}
+							min={0}
+						/>
+						<ModalFormDivider
+							element={'input'}
+							type={'text'}
+							name={'name'}
+							htmlFor={'name'}
+							title={'Nombre'}
+							handleChange={onInputChange}
+							value={name}
+						/>
+						<ModalFormDivider
+							element={'textarea'}
+							handleChange={onTextareaChange}
+							htmlFor={'description'}
+							name={'descripcion'}
+							title={'Descripción'}
+							value={descripcion}
+							cols={30}
+							rows={10}
+						/>
+						<ModalFormDivider
+							element={'input'}
+							type={'file'}
+							imagePreview={true}
+							accept={['image/png', 'image/jpeg']}
+							handleChange={onFileInputChange}
+							handleImageChange={handleFileChange}
+							htmlFor={'Image'}
+							name={'Image'}
+							title={'Imagen'}
+							value={formState.Image}
+						/>
+						<ModalFormDivider
+							element={'select'}
+							handleChange={onSelectChange}
+							htmlFor={'region'}
+							name={'region'}
+							title={'Región'}
+							value={region}
+							options={regions.map(region => {
+								return {
+									description: region.descripcion,
+									value: region.id.toString(),
+								};
+							})}
+						/>
+						<button
+							type="button"
+							className="formModal__submit"
+							onClick={() => {
+								onSubmit(
+									formState,
+									setError,
+									userData,
+									setShops
+								);
+							}}
+						>
+							Crear Tienda
+						</button>
+					</ModalForm>
+				</ModalContent>
+			</Modal>
 		</>
 	);
 };

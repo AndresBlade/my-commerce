@@ -1,15 +1,14 @@
-import { ElementRef } from 'react';
+import { ElementRef, ReactNode } from 'react';
 import { ErrorMessage } from '../../ui/components/ErrorMessage';
-import { EntryProps, ModalFormDivider } from './ModalFormDivider';
 
 type Props = {
-	formEntries: EntryProps[];
 	setError: React.Dispatch<React.SetStateAction<string | null>>;
 	error: string | null;
 	formRef?: React.RefObject<ElementRef<'form'>>;
+	children: ReactNode;
 };
 
-export const ModalForm = ({ formEntries, error, setError, formRef }: Props) => {
+export const ModalForm = ({ error, setError, formRef, children }: Props) => {
 	return (
 		<form
 			action=""
@@ -17,9 +16,7 @@ export const ModalForm = ({ formEntries, error, setError, formRef }: Props) => {
 			encType="multipart/form-data"
 			ref={formRef}
 		>
-			{formEntries.map((entry, index) => (
-				<ModalFormDivider {...entry} key={index} />
-			))}
+			{children}
 			<div className="formModal__errorBox">
 				{error && <ErrorMessage setError={setError} message={error} />}
 			</div>

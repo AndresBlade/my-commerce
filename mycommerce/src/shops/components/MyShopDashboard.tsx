@@ -14,8 +14,10 @@ import { createProduct } from '../../products/helpers/createProduct';
 import { AuthContext } from '../../auth/context/AuthContext';
 import { Shop } from '../interfaces/Shop';
 import { getSingleShop } from '../helpers/getSingleShop';
-import { MyShopProductCard } from './MyShopProductCard';
-import { EntryProps } from '../../ui/components/EntryProps';
+import { ModalTitle } from '../../ui/components/ModalTitle';
+import { ModalContent } from '../../ui/components/ModalContent';
+import { ModalForm } from '../../ui/components/ModalForm';
+import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 
 interface Form {
 	nombre: string;
@@ -132,66 +134,6 @@ export const MyShopDashboard = () => {
 	});
 
 	console.log(formState);
-
-	const entries: EntryProps[] = [
-		{
-			title: 'Nombre',
-			name: 'nombre',
-			htmlFor: 'name',
-			handleChange: onInputChange,
-			element: 'input',
-			type: 'text',
-			value: name,
-		},
-		{
-			element: 'input',
-			type: 'number',
-			name: 'precio',
-			htmlFor: 'price',
-			title: 'Precio',
-			value: price,
-			handleChange: onInputChange,
-			min: 0,
-			max: 1_000_000_000,
-		},
-		{
-			element: 'select',
-			name: 'categoria_id',
-			htmlFor: 'category',
-			title: 'Categoría',
-			value: category,
-			options: categories.map(category => {
-				return {
-					description: category.descripcion,
-					value: category.id.toString(),
-				};
-			}),
-			handleChange: onSelectChange,
-		},
-		{
-			element: 'textarea',
-			name: 'descripcion',
-			htmlFor: 'description',
-			title: 'Descripción',
-			value: description,
-			handleChange: onTextareaChange,
-			cols: 30,
-			rows: 10,
-		},
-		{
-			element: 'input',
-			type: 'file',
-			imagePreview: true,
-			accept: ['image/png', 'image/jpeg'],
-			htmlFor: 'Image',
-			name: 'imagen',
-			title: 'Imagen',
-			handleChange: onFileInputChange,
-			value: image,
-			multiple: true,
-			handleImagesChange,
-		},
-	];
 	return (
 		<>
 			<main className="misTiendas">
@@ -206,21 +148,89 @@ export const MyShopDashboard = () => {
 
 					<Outlet context={{ products, categories }} />
 				</div>
-				<Modal
-					title="Agregar Producto"
-					setShowModal={setShowModal}
-					showModal={showModal}
-					form={{
-						entries: entries,
-						setError,
-						error,
-						formState,
-						onSubmit,
-						setData: setProducts,
-						userData: { ...userData, RIF },
-						formRef: formRef,
-					}}
-				/>
+				<Modal setShowModal={setShowModal} showModal={showModal}>
+					<ModalTitle title="Agregar Producto" />
+					<ModalContent>
+						<ModalForm
+							setError={setError}
+							error={error}
+							formRef={formRef}
+						>
+							<ModalFormDivider
+								title={'Nombre'}
+								name={'nombre'}
+								htmlFor={'name'}
+								handleChange={onInputChange}
+								element={'input'}
+								type={'text'}
+								value={name}
+							/>
+							<ModalFormDivider
+								element={'input'}
+								type={'number'}
+								name={'precio'}
+								htmlFor={'price'}
+								title={'Precio'}
+								value={price}
+								handleChange={onInputChange}
+								min={0}
+								max={1_000_000_000}
+							/>
+							<ModalFormDivider
+								element={'select'}
+								name={'categoria_id'}
+								htmlFor={'category'}
+								title={'Categoría'}
+								value={category}
+								handleChange={onSelectChange}
+								options={categories.map(category => {
+									return {
+										description: category.descripcion,
+										value: category.id.toString(),
+									};
+								})}
+							/>
+							<ModalFormDivider
+								element={'textarea'}
+								name={'descripcion'}
+								htmlFor={'description'}
+								title={'Descripción'}
+								value={description}
+								handleChange={onTextareaChange}
+								cols={30}
+								rows={10}
+							/>
+							<ModalFormDivider
+								element={'input'}
+								type={'file'}
+								imagePreview={true}
+								accept={['image/png', 'image/jpeg']}
+								htmlFor={'Image'}
+								name={'imagen'}
+								title={'Imagen'}
+								handleChange={onFileInputChange}
+								value={image}
+								multiple={true}
+								handleImagesChange={handleImagesChange}
+							/>
+						</ModalForm>
+						<button
+							type="button"
+							className="formModal__submit"
+							onClick={() => {
+								onSubmit(
+									formState,
+									setError,
+									{ ...userData, RIF },
+									setProducts,
+									formRef
+								);
+							}}
+						>
+							Crear Producto
+						</button>
+					</ModalContent>
+				</Modal>
 			</main>
 		</>
 	);

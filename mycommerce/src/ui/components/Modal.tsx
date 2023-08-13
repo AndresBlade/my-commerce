@@ -1,22 +1,9 @@
-import { ElementRef, useRef } from 'react';
-import { ModalTitle } from './ModalTitle';
-import { ModalContent } from './ModalContent';
-import { EntryProps } from './ModalFormDivider';
+import { ElementRef, ReactNode, useRef } from 'react';
 
-type Props<FormType = null, DataType = null, UserDataType = null> = {
+type Props = {
 	showModal: boolean;
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-	form?: {
-		entries: EntryProps[];
-		formState: FormType;
-		onSubmit: SubmitType<FormType, DataType, UserDataType>;
-		setData: React.Dispatch<React.SetStateAction<DataType | null>>;
-		setError: React.Dispatch<React.SetStateAction<string | null>>;
-		error: string | null;
-		userData: UserDataType;
-		formRef?: React.RefObject<ElementRef<'form'>>;
-	};
-	title: string;
+	children: ReactNode;
 };
 
 function closeModal(
@@ -35,12 +22,7 @@ export type SubmitType<FormType, DataType, UserDataType> = {
 	): void;
 };
 
-export const Modal = <FormType, DataType, UserDataType>({
-	showModal,
-	setShowModal,
-	form,
-	title,
-}: Props<FormType, DataType, UserDataType>) => {
+export const Modal = ({ showModal, setShowModal, children }: Props) => {
 	const modalRef = useRef<ElementRef<'div'>>(null);
 
 	return (
@@ -62,8 +44,7 @@ export const Modal = <FormType, DataType, UserDataType>({
 					)
 				}
 			>
-				<ModalTitle title={title} />
-				<ModalContent form={form} />
+				{children}
 			</div>
 		</div>
 	);
