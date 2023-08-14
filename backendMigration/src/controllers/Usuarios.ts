@@ -34,7 +34,7 @@ export const registerUser = async (req:Request, res:Response) =>{
             const newUser = await UserModel.create({        
                 correo,
                 contrasenna,
-                tipo_id
+                tipo_id,
             }, {transaction: t});
 
             //Inserta los datos en la tabla clientes
@@ -48,7 +48,8 @@ export const registerUser = async (req:Request, res:Response) =>{
                 token: await tokenSign(newUser),
                 userData:{
                     correo: newUser.correo,
-                    tipo_id: newUser.tipo_id
+                    tipoId: newUser.tipo_id,
+                    createdAt: newUser.createdAt
                 },
                 clientData:{
                     id: newClient.id,
@@ -82,7 +83,7 @@ export const loginUser = async (req:Request, res:Response) =>{
         });
         if(!userLogued) return res.status(500).send('EMAIL_NOT_FOUND')
 
-        const UserData = {
+        const userData = {
             correo: userLogued.correo,
             tipoId: userLogued.tipo_id,
             createdAt: userLogued.createdAt,
@@ -102,7 +103,7 @@ export const loginUser = async (req:Request, res:Response) =>{
             const userAndClient = await ClientModel.findClientByUserID(userLogued.id);
             return res.status(200).send({
                 token: await tokenSign(userLogued),
-                UserData,
+                userData,
                 clientData:{
                     id: userAndClient?.id,
                     nombre: userAndClient?.nombre,
@@ -114,7 +115,7 @@ export const loginUser = async (req:Request, res:Response) =>{
             const admin = await AdministradorModel.getAdminByUserId(userLogued.id);
             return res.status(200).send({
                 token: await tokenSign(userLogued),
-                UserData,
+                userData,
                 adminData:{
                     id: admin?.id,
                     nombre: admin?.nombre,

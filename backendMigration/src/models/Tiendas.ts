@@ -171,6 +171,10 @@ TiendaModel.prototype.findTiendaByClient = async function(clientID:number){
 
 TiendaModel.prototype.getAllSells = async function(tiendaId:number){
     const salesDetails =await ProductoModel.findAll({
+        where: {
+            tienda_id: tiendaId,
+        },
+        attributes: ['id', 'nombre', 'precio', 'descripcion', 'categoria_id'],
         include: [
             {
                 model: VentasCabeceraModel,
@@ -181,10 +185,7 @@ TiendaModel.prototype.getAllSells = async function(tiendaId:number){
                 },
             },
         ],
-        where: {
-            tienda_id: tiendaId,
-        },
-        attributes: ['id', 'nombre', 'precio', 'descripcion', 'categoria_id']
+        
     });
     
     return salesDetails;
