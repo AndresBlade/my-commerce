@@ -38,6 +38,8 @@ class VentasCabeceraModel extends Model<VentasCabeceraInterface> implements Vent
                 }       
             ],
         });
+        if(!purchases) throw new Error ('No se encontraron compras para el cliente');
+
         
         const transformedPurchases: returnGetPurchsesByClient[] = await purchases.map((purchase:any) => {
             return {
@@ -64,7 +66,6 @@ class VentasCabeceraModel extends Model<VentasCabeceraInterface> implements Vent
             };
         });
 
-        if(!purchases) throw new Error ('No se encontraron compras para el cliente');
     
         return transformedPurchases
     };
