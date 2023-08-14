@@ -59,12 +59,10 @@ export const registerUser = async (req:Request, res:Response) =>{
         })
 
         return res.status(200).send({
-            userRegistered : {
                 token: resultTransaction.token,
-                usuario: resultTransaction.userData,
-                cliente: resultTransaction.clientData
-            }
-        });
+                userData: resultTransaction.userData,
+                clientData: resultTransaction.clientData
+            })
     }catch(error:any){
         console.log(error);
         return handleHttpErrors(error);
