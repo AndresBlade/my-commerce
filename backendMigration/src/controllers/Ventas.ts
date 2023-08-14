@@ -5,6 +5,7 @@ import TiendaModel from "../models/Tiendas";
 import VentasCabeceraModel from "../models/Ventas_cabecera";
 import VentasDetallesModel from "../models/Ventas_detalles";
 import ProductoModel from "../models/Prodcutos";
+// import {returnGetPurchsesByClient} from '../models/interfaces/VentasCabeceraInterface';
 
 export const createPurchase = async (req:Request, res:Response) =>{ 
     try{
@@ -67,12 +68,12 @@ export const getPurchaseByUser = async (_req:Request, res:Response) =>{
         //recupera el id del CLIENTE mediante el middleware de autenticacion 
         const client_id = getClientID(res);
 
-        const purchases = await VentasCabeceraModel.prototype.getPurchsesByClient(client_id);
-        
-        res.status(200).send(purchases);
+        const purchases = await VentasCabeceraModel.getPurchasesByClient(client_id);
+
+        return res.status(200).send(purchases);
     }catch(error:any){
         console.log(error);
-        res.status(400).send('ERROR_GETTING_PURCHASES');
+        return res.status(400).send('ERROR_GETTING_PURCHASES');
     }
 }
 
