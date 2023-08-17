@@ -1,29 +1,27 @@
 import { useEffect, useRef } from 'react';
-import { SingleProduct } from '../interfaces/SingleProduct';
+import { Product } from '../interfaces/Product';
 
 interface ImageProps {
 	id?: number;
 }
 
-export const ProductGallery = ({ imagenes: productImages }: SingleProduct) => {
-	const images: string[] = productImages.split(' ');
+export const ProductGallery = ({ imagenes }: Product) => {
 	const galleryContainerImg = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (galleryContainerImg.current) {
-			console.log(images[0]);
-			galleryContainerImg.current.style.backgroundImage = `url(${images[0]})`;
+			console.log(imagenes);
+			galleryContainerImg.current.style.backgroundImage = `url(${imagenes[0].ruta})`;
 		}
-	}, [images]);
+	}, [imagenes]);
 
 	const handleClickSliderImage = (
 		e: React.MouseEvent<HTMLImageElement, MouseEvent>
 	): void => {
 		const target: ImageProps = e.target as ImageProps;
 		if (galleryContainerImg.current && target.id) {
-			console.log(images[0]);
 			galleryContainerImg.current.style.backgroundImage = `url(${
-				images[target.id]
+				imagenes[target.id].ruta
 			})`;
 		}
 	};
@@ -35,10 +33,10 @@ export const ProductGallery = ({ imagenes: productImages }: SingleProduct) => {
 				ref={galleryContainerImg}
 			></div>
 			<div className="gallery__thumnails">
-				{images.map((imageString, index) => (
+				{imagenes.map((image, index) => (
 					<img
 						className="gallery__thumnail"
-						src={imageString}
+						src={image.ruta}
 						id={index.toString()}
 						alt="Imagen del producto"
 						key={index}

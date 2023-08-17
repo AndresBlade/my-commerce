@@ -8,20 +8,20 @@ import { PurchaseCard } from './PurchaseCard';
 export const PurchaseList = () => {
 	const [purchases, setPurchases] = useState<Purchase[] | null>(null);
 	const {
-		userData: {
-			token,
-			user: { id },
-		},
+		user: { token },
 	} = useContext(AuthContext);
 	useEffect(() => {
-		getPurchasesByUser(id, token)
-			.then(response => setPurchases(response))
+		getPurchasesByUser(token)
+			.then(response => {
+				console.log(response);
+				setPurchases(response);
+			})
 			.catch(err => console.log(err));
-	});
+	}, [token]);
 	return (
 		<div className="compras__flex">
 			{purchases?.map(purchase => (
-				<PurchaseCard {...purchase} />
+				<PurchaseCard key={purchase.ventasCabecera.id} {...purchase} />
 			))}
 		</div>
 	);

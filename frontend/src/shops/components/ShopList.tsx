@@ -8,7 +8,7 @@ export const ShopList = () => {
 	console.log(useLoaderData());
 	return (
 		<div className="grid" id="gridTienda">
-			{ShopsData.tiendas?.map(shop => (
+			{ShopsData.tiendas.rows.map(shop => (
 				<ShopCard key={shop.RIF} {...shop} />
 			))}
 		</div>

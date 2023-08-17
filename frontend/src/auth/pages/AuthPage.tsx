@@ -55,17 +55,13 @@ const onSubmit = (
 			nombre: username,
 			correo: email,
 			contrasenna: password,
-			tipo_id: 1,
 		})
-			.then(dataReceived => {
+			.then(user => {
 				console.log('registrado');
-				console.log(dataReceived);
-				setUserData(dataReceived.data);
-				navigate(`/${dataReceived.data.user.nombre}`);
-				localStorage.setItem(
-					'userData',
-					JSON.stringify(dataReceived.data)
-				);
+				console.log(user);
+				setUserData(user);
+				navigate(`/${user.clientData.nombre}`);
+				localStorage.setItem('userData', JSON.stringify(user));
 			})
 			.catch(err => console.log(err));
 
@@ -77,12 +73,11 @@ const onSubmit = (
 	if (!inputsFilled) return setError('Faltan campos por rellenar');
 
 	getUser({ correo: form.email, contrasenna: form.password })
-		.then(dataReceived => {
+		.then(user => {
 			console.log('recibido');
-			console.log(dataReceived);
-			setUserData(dataReceived.data);
-			navigate(`/${dataReceived.data.user.nombre}`);
-			localStorage.setItem('userData', JSON.stringify(dataReceived.data));
+			setUserData(user);
+			navigate(`/${user.clientData.nombre}`);
+			localStorage.setItem('userData', JSON.stringify(user));
 		})
 		.catch(err => {
 			console.log(err);
@@ -124,7 +119,7 @@ export const AuthPage = ({ register }: Props) => {
 		confirmPassword: '',
 		termsAccepted: false,
 	});
-	const { setUserData } = useContext(AuthContext);
+	const { setUser } = useContext(AuthContext);
 	const navigate = useNavigate();
 	return (
 		<div
@@ -188,7 +183,7 @@ export const AuthPage = ({ register }: Props) => {
 								formState,
 								setError,
 								register,
-								setUserData,
+								setUser,
 								navigate
 							)
 						}

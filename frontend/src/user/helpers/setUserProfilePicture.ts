@@ -1,7 +1,14 @@
-export function setUserProfilePicture(image: File, id: number, token: string) {
+interface UserImageUpdate {
+	nuevaImagen: string;
+}
+
+export function setUserProfilePicture(
+	image: File,
+	token: string
+): Promise<UserImageUpdate> {
 	const formData: FormData = new FormData();
 	formData.append('imagen', image);
-	return fetch(`http://127.0.0.1:3000/api/user/editarImagen/${id}`, {
+	return fetch(`http://127.0.0.1:3000/api/Usuarios/updateUserImage`, {
 		mode: 'cors',
 		credentials: 'same-origin',
 		method: 'PUT',
@@ -14,6 +21,6 @@ export function setUserProfilePicture(image: File, id: number, token: string) {
 			console.log(respuesta);
 			return respuesta.text().then(texto => Promise.reject(texto)); //si no es ok, rechaza la promesa y pasa al catch
 		}
-		return respuesta.json();
+		return respuesta.json() as Promise<UserImageUpdate>;
 	});
 }

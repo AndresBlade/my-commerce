@@ -7,27 +7,20 @@ type Props = {
 };
 
 export const AuthProvider = ({ children }: Props) => {
-	const [userData, setUserData] = useState<UserData>({
+	const [user, setUser] = useState<UserData>({
+		clientData: { id: -1, imagen: '', nombre: '' },
 		token: '',
-		user: {
-			correo: '',
-			createdAt: new Date(),
-			id: -1,
-			nombre: '',
-			tipo_id: -1,
-			updatedAt: new Date(),
-			imagen: '',
-		},
+		userData: { correo: '', createdAt: '', tipoId: -1 },
 	});
 	const previousDataString: string | null = localStorage.getItem('userData');
 	let previousData: UserData;
-	if (previousDataString !== null && userData.token === '') {
+	if (previousDataString !== null && user.token === '') {
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		previousData = JSON.parse(previousDataString);
-		setUserData(previousData);
+		setUser(previousData);
 	}
 	return (
-		<AuthContext.Provider value={{ ...userData, userData, setUserData }}>
+		<AuthContext.Provider value={{ ...user, user, setUser }}>
 			{children}
 		</AuthContext.Provider>
 	);

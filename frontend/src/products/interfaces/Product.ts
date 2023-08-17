@@ -1,11 +1,16 @@
+import { ProductCategory } from './ProductCategory';
+
 export interface Product {
 	id: number;
 	nombre: string;
 	precio: string;
-	categoria_id: number;
-	tienda_id: number;
 	descripcion: string;
-	imagenes: string;
+	cantidad: number;
 	createdAt: Date;
-	updatedAt: Date;
+	imagenes: Images[];
+	categoria: ProductCategory;
+}
+
+interface Images {
+	ruta: string;
 }

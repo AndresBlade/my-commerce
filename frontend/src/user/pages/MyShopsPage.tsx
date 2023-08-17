@@ -20,8 +20,9 @@ import { ModalFormSubmitButton } from '../../ui/components/ModalFormSubmitButton
 const onSubmit: SubmitType<Form, Shop[], UserData> = (
 	form: Form,
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
-	{ user: { id }, token }: UserData,
-	setShops: React.Dispatch<React.SetStateAction<Shop[] | null>>
+	{ clientData: { id }, token }: UserData,
+	setShops: React.Dispatch<React.SetStateAction<Shop[] | null>>,
+	setShowModal?: React.Dispatch<React.SetStateAction<boolean>>
 ): void => {
 	const { Image, RIF, descripcion, name, region } = form;
 	const inputsFilled = Object.values(form)
@@ -42,16 +43,23 @@ const onSubmit: SubmitType<Form, Shop[], UserData> = (
 
 	const formData = new FormData();
 
+	console.log(region);
+
+	console.log(RIF, name, descripcion, Image[0], [region]);
+
 	formData.append('RIF', RIF.toString());
 	formData.append('nombre', name);
 	formData.append('descripcion', descripcion);
-	formData.append('regionId', region);
-	formData.append('cliente_id', id.toString());
 	formData.append('imagen', Image[0]);
+	formData.append('region_id[]', region);
+	formData.append('region_id[]', '15');
 
 	createShop(formData, token)
 		.then(() =>
-			getShopsByUser(id, token).then(response => setShops(response.data))
+			getShopsByUser(id).then(response => {
+				setShops(response.datosTienda);
+				if (setShowModal) setShowModal(false);
+			})
 		)
 		.catch(err => console.log(err));
 };
@@ -87,23 +95,28 @@ const handleFileChange = (
 export const MyShopsPage = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [regions, setRegions] = useState<Region[] | []>([]);
-	const { userData } = useContext(AuthContext);
 	const {
-		user: { id },
-		token,
-	} = userData;
+		user,
+		user: {
+			clientData: { id },
+			token,
+		},
+	} = useContext(AuthContext);
 	const [shops, setShops] = useState<Shop[] | null>(null);
 	useEffect(() => {
-		getShopsByUser(id, token)
-			.then(response => setShops(response.data))
-			.catch(err => console.log(err));
-		getRegions()
+		getShopsByUser(id)
 			.then(response => {
-				console.log(response.regiones);
-				setRegions(response.regiones);
+				console.log(response);
+				setShops(response.datosTienda);
 			})
 			.catch(err => console.log(err));
-	}, [id, token]);
+		getRegions(token)
+			.then(response => {
+				console.log(response.regions);
+				setRegions(response.regions);
+			})
+			.catch(err => console.log(err));
+	}, [token, id]);
 
 	const {
 		RIF,
@@ -197,7 +210,7 @@ export const MyShopsPage = () => {
 							onSubmit(
 								formState,
 								setError,
-								userData,
+								user,
 								setShops,
 								setShowModal
 							);

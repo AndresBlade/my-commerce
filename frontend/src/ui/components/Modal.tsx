@@ -19,7 +19,6 @@ export type SubmitType<FormType, DataType, UserDataType> = {
 
 export const Modal = ({ showModal, setShowModal, children }: Props) => {
 	const modalRef = useRef<ElementRef<'div'>>(null);
-	console.log('rerender');
 
 	const closeModal = useCallback(() => {
 		console.log('cerrar');

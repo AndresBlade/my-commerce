@@ -3,7 +3,7 @@ import { ShopLoader } from '../interfaces/ShopLoader';
 
 export const ShopProfile = () => {
 	const { shopData } = useLoaderData() as ShopLoader;
-	const { RIF, descripcion, imagen, nombre, createdAt } = shopData.data;
+	const { datosTienda } = shopData;
 	return (
 		<aside className="menu-dashboard">
 			<div className="sidebar-content">
@@ -11,16 +11,18 @@ export const ShopProfile = () => {
 					<img
 						className="tienda_logo"
 						alt="Tienda-logo"
-						src={imagen}
+						src={datosTienda[0].imagen}
 					/>
-					<h1 className="tienda_nombre">{nombre}</h1>
+					<h1 className="tienda_nombre">{datosTienda[0].nombre}</h1>
 				</div>
-				<p className="tienda_descripcion">{descripcion}</p>
+				<p className="tienda_descripcion">
+					{datosTienda[0].descripcion}
+				</p>
 				<ul>
-					<h2 className="about">Acerca de {nombre}</h2>
-					<li className="RIF">{RIF}</li>
+					<h2 className="about">Acerca de {datosTienda[0].nombre}</h2>
+					<li className="RIF">{datosTienda[0].RIF}</li>
 					<li className="createdAt">
-						Creada: {createdAt.split('T')[0]}
+						Creada: {datosTienda[0].createdAt.split('T')[0]}
 					</li>
 					<li>Ubicación: Lara</li>
 				</ul>

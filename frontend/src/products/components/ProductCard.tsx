@@ -1,22 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Product } from '../interfaces/Product';
 
-export const ProductCard = ({
-	imagenes: imagenesString,
-	nombre,
-	precio,
-	id,
-}: Product) => {
-	// const url = new URL(
-	// 	'http://127.0.0.1/e-commerce-tarea/frontend/vistas/producto.html'
-	// );
-	// url.searchParams.set('id', id.toString());
-
-	const imagenes: string[] = imagenesString.split(' ');
+export const ProductCard = ({ imagenes, nombre, precio, id }: Product) => {
 	return (
 		<Link to={`/producto/${id}`} className="producto">
 			<img
-				src={imagenes[Math.floor(Math.random() * imagenes.length)]}
+				src={imagenes[Math.floor(Math.random() * imagenes.length)].ruta}
 				className="producto__imagen"
 				alt={nombre}
 			/>

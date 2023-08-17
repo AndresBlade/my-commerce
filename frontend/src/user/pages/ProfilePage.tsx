@@ -6,32 +6,41 @@ import { getUserById } from '../helpers/getUserById';
 
 export const ProfilePage = () => {
 	const {
-		userData: {
-			user: { correo, nombre, imagen, id },
+		user: {
+			clientData: { id, imagen, nombre },
+			userData: { correo },
 			token,
 		},
-		userData,
-		setUserData,
+		user,
+		setUser,
 	} = useContext(AuthContext);
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files?.[0] !== undefined)
-			setUserProfilePicture(e.target.files?.[0], id, token)
-				.then(() =>
-					setTimeout(() => {
-						getUserById(id, token)
-							.then(response => {
-								const { imagen } = response.data;
-								setUserData({
-									token,
-									user: {
-										...userData.user,
-										imagen,
-									},
-								});
-							})
-							.catch(err => console.log(err));
-					}, 200)
+			setUserProfilePicture(e.target.files?.[0], token)
+				.then(
+					response =>
+						setUser({
+							...user,
+							clientData: {
+								...user.clientData,
+								imagen: response.nuevaImagen,
+							},
+						})
+					// setTimeout(() => {
+					// 	getUserById(id, token)
+					// 		.then(response => {
+					// 			const { imagen } = response.data;
+					// 			setUser({
+					// 				token,
+					// 				user: {
+					// 					...userData.user,
+					// 					imagen,
+					// 				},
+					// 			});
+					// 		})
+					// 		.catch(err => console.log(err));
+					// }, 200)
 				)
 				.catch(err => console.log(err));
 	};

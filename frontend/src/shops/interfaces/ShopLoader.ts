@@ -1,4 +1,3 @@
-import { ShopWrapper } from './ShopWrapper';
 import { SingleShopWrapper } from './SingleShopWrapper';
 import { SingleShopProductsWrapper } from '../../products/interfaces/SingleShopProductsWrapper';
 

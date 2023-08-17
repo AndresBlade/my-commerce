@@ -2,7 +2,7 @@ import { Sale } from '../interfaces/Sale';
 
 export function getSalesByRIF(RIF: string, token: string): Promise<Sale[]> {
 	return fetch(
-		`http://127.0.0.1:3000/api/ventas_detalle/getSellsByTienda/${RIF}`,
+		`http://127.0.0.1:3000/api/ventas/productsSoldByStore/${RIF}`,
 		{
 			method: 'GET',
 			headers: {

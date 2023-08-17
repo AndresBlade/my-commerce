@@ -9,15 +9,15 @@ export const ShopList = () => {
 	const [shops, setShops] = useState<Shop[] | null>(null);
 
 	const {
-		userData: {
-			user: { id },
+		user: {
+			clientData: { id },
 			token,
 		},
 	} = useContext(AuthContext);
 
 	useEffect(() => {
-		getShopsByUser(id, token)
-			.then(response => setShops(response.data))
+		getShopsByUser(id)
+			.then(response => setShops(response.datosTienda))
 			.catch(err => console.log(err));
 	}, [id, token]);
 

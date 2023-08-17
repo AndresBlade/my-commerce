@@ -1,7 +1,21 @@
-import { SaleDetails } from '../../sales/interfaces/Sale';
-
 export interface Purchase {
-	cliente_id: number;
-	createdAt: string;
-	venta_detalle: SaleDetails;
+	detallesProducto: {
+		descripcion: string;
+		nombre: string;
+		precio: number;
+		tiendaProducto: {
+			descripcion: string;
+			nombre: string;
+			imagen: string;
+		};
+	};
+	detallesVenta: {
+		cantidad: number;
+		precio: number;
+		total: number;
+	};
+	ventasCabecera: {
+		cliente_id: number;
+		id: number;
+	};
 }

@@ -1,13 +1,14 @@
 import { useLoaderData } from 'react-router';
-import { SesionModal } from '../../ui/components/SesionModal';
 import { ShopProfile } from '../components/ShopProfile';
 import { ShopLoader } from '../interfaces/ShopLoader';
 import { ShopProductCard } from '../components/ShopProductCard';
 import '../../css/tiendaView.css';
 
 export const ShopPage = () => {
-	const { shopProducts } = useLoaderData() as ShopLoader;
-	const { tiendaProducts: products } = shopProducts;
+	const {
+		shopProducts: { productosTienda: products },
+	} = useLoaderData() as ShopLoader;
+	console.log(products);
 	return (
 		<>
 			{/* bienvenido, emprendedor          en el header */}
@@ -22,8 +23,6 @@ export const ShopPage = () => {
 			</div>
 
 			<footer></footer>
-
-			<SesionModal />
 		</>
 	);
 };

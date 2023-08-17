@@ -1,5 +1,7 @@
-import { SingleProduct } from './SingleProduct';
+import { Product } from './Product';
 
 export interface SingleProductWrapper {
-	productByID: SingleProduct;
+	product: Product & {
+		tiendaProducto: { RIF: number; nombre: string; imagen: string };
+	};
 }

@@ -1,41 +1,50 @@
 import { useState } from 'react';
-import { SingleProduct } from '../interfaces/SingleProduct';
 import { Link } from 'react-router-dom';
 import { createPurchase } from '../../purchases/helpers/createPurchase';
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
+import { Product } from '../interfaces/Product';
 
 const handleSubmit = (
-	purchase: { producto_id: number; cantidad: number; precio: number },
+	purchase: { producto_id: number; cantidad: number },
 	token: string,
 	setPurchaseState: React.Dispatch<React.SetStateAction<boolean | undefined>>
 ) => {
-	createPurchase(purchase, token)
-		.then(() => setPurchaseState(true))
+	createPurchase(token, purchase)
+		.then(response => {
+			console.log(response);
+			setPurchaseState(true);
+		})
 		.catch(() => setPurchaseState(false));
 };
 
 export const ProductDetails = ({
-	tienda,
 	nombre,
 	descripcion,
 	precio,
 	id,
-}: SingleProduct) => {
+	tiendaProducto,
+}: Product & {
+	tiendaProducto: { RIF: number; nombre: string; imagen: string };
+}) => {
 	const [purchaseCompleted, setPurchaseCompleted] = useState<boolean>();
 	const {
-		userData: { token },
+		user: { token },
 	} = useContext(AuthContext);
+	console.log(tiendaProducto);
 	return (
 		<article className="details">
 			<div className="container_tienda">
 				<img
-					src={tienda.imagen}
+					src={tiendaProducto.imagen}
 					className="img_tienda"
-					alt={tienda.nombre}
+					alt={tiendaProducto.nombre}
 				/>
-				<Link to={`/tienda/${tienda.RIF}`} className="tiendaName">
-					{tienda.nombre}
+				<Link
+					to={`/tienda/${tiendaProducto.RIF}`}
+					className="tiendaName"
+				>
+					{tiendaProducto.nombre}
 				</Link>
 			</div>
 			<h2 className="productName">{nombre}</h2>
@@ -54,7 +63,6 @@ export const ProductDetails = ({
 						{
 							producto_id: id,
 							cantidad: 1,
-							precio: parseFloat(precio),
 						},
 						token,
 						setPurchaseCompleted

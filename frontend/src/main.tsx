@@ -130,6 +130,8 @@ const router = createBrowserRouter([
 								shopProducts: await getSingleShopProducts(RIF),
 							};
 
+							console.log(data);
+
 							return data;
 						},
 					},
@@ -138,6 +140,9 @@ const router = createBrowserRouter([
 						element: <ProductPage />,
 						loader: async ({ params }) => {
 							const id = params.id as string;
+							getSingleProduct(id)
+								.then(response => console.log(response))
+								.catch(err => console.log(err));
 
 							return await getSingleProduct(id);
 						},

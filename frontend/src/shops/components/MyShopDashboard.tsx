@@ -58,17 +58,21 @@ const onSubmit: SubmitType<
 	if (formRef?.current && RIF) {
 		const formData = new FormData(formRef.current);
 		formData.append('tienda_id', RIF);
+		formData.append('cantidad', '12');
 
 		for (const entry of formData) console.log(entry);
 
 		createProduct(formData, token)
-			.then(() =>
-				getSingleShopProducts(RIF).then(response => {
-					setProducts(response.tiendaProducts);
-					if (typeof setShowModal !== 'undefined')
-						setShowModal(false);
-				})
-			)
+			.then(response => {
+				console.log(response);
+				getSingleShopProducts(RIF)
+					.then(response => {
+						setProducts(response.productosTienda);
+						if (typeof setShowModal !== 'undefined')
+							setShowModal(false);
+					})
+					.catch(err => console.log(err));
+			})
 			.catch(err => console.log(err));
 	}
 };
@@ -102,21 +106,20 @@ export const MyShopDashboard = () => {
 	const [shop, setShop] = useState<Shop | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const formRef = useRef<ElementRef<'form'>>(null);
-	const { userData } = useContext(AuthContext);
-	const { RIF } = useParams();
+	const { user } = useContext(AuthContext);
+	const { RIF } = useParams() as { RIF: string };
 
 	useEffect(() => {
 		getCategories()
 			.then(response => setCategories(response.categories))
 			.catch(err => console.log(err));
-		if (RIF) {
-			getSingleShopProducts(RIF)
-				.then(response => setProducts(response.tiendaProducts))
-				.catch(err => console.log(err));
-			getSingleShop(RIF)
-				.then(response => setShop(response.data))
-				.catch(err => console.log(err));
-		}
+
+		getSingleShopProducts(RIF)
+			.then(response => setProducts(response.productosTienda))
+			.catch(err => console.log(err));
+		getSingleShop(RIF)
+			.then(response => setShop(response.datosTienda[0]))
+			.catch(err => console.log(err));
 	}, [RIF]);
 	const {
 		categoria_id: category,
@@ -136,8 +139,6 @@ export const MyShopDashboard = () => {
 		nombre: '',
 		precio: 0,
 	});
-
-	console.log(formState);
 	return (
 		<>
 			<main className="misTiendas">
@@ -150,7 +151,7 @@ export const MyShopDashboard = () => {
 						{shop && <MyShopProfile shop={shop} />}
 					</aside>
 
-					<Outlet context={{ products, categories }} />
+					<Outlet context={{ products }} />
 				</div>
 				<Modal setShowModal={setShowModal} showModal={showModal}>
 					<ModalTitle title="Agregar Producto" />
@@ -210,7 +211,7 @@ export const MyShopDashboard = () => {
 								imagePreview={true}
 								accept={['image/png', 'image/jpeg']}
 								htmlFor={'Image'}
-								name={'imagen'}
+								name={'Imagenes'}
 								title={'Imagen'}
 								handleChange={onFileInputChange}
 								value={image}
@@ -223,7 +224,7 @@ export const MyShopDashboard = () => {
 								onSubmit(
 									formState,
 									setError,
-									{ ...userData, RIF },
+									{ ...user, RIF },
 									setProducts,
 									setShowModal,
 									formRef

@@ -1,6 +1,10 @@
 import { Product } from './Product';
 
 export interface ProductWrapper {
-	total: number;
-	products: Product[];
+	products: {
+		count: number;
+		totalPages: number;
+		currentPage: number;
+		rows: Product[];
+	};
 }

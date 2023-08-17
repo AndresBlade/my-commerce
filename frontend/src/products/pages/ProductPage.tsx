@@ -6,14 +6,15 @@ import { ProductDetails } from '../components/ProductDetails';
 import '../../css/productView.css';
 
 export const ProductPage = () => {
-	const { productByID } = useLoaderData() as SingleProductWrapper;
+	const { product } = useLoaderData() as SingleProductWrapper;
+	console.log(product);
 
 	return (
 		<>
 			<main>
 				<section className="content">
-					<ProductGallery {...productByID} />
-					<ProductDetails {...productByID} />
+					<ProductGallery {...product} />
+					<ProductDetails {...product} />
 				</section>
 			</main>
 

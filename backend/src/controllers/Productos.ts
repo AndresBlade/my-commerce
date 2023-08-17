@@ -108,11 +108,11 @@ export async function getProductByID(req:Request, res:Response) {
         if(!parseInt(productId)) return res.status(505).send('ID_CAN_NOT_BE_A_STRING')
 
         const product_id = parseInt(productId);
-        const products = await ProductoModel.prototype.findProductsByID(product_id);
+        const product = await ProductoModel.prototype.findProductByID(product_id);
 
-        if(products === null) return res.status(200).send({products: []})
+        if(product === null) return res.status(200).send({products: []})
 
-        return res.status(200).send({ products});
+        return res.status(200).send({ product });
     }catch(err:any){
         console.log(err)
         return res.status(500).send('ERROR_FINDING_PRODUCTS_BY_ID')

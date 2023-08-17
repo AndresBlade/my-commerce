@@ -3,6 +3,7 @@ import { sequelize } from '../config/db';
 import ProductoModelAttributes from './interfaces/ProductoInterface';
 import CategoriaModel from './Categorias';
 import PorductImagenModel from './Productos_imagenes';
+import TiendaModel from './Tiendas';
 
 
 class ProductoModel extends Model<ProductoModelAttributes> implements ProductoModelAttributes{
@@ -62,7 +63,7 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
     }
 
     public findAllProducts = function(_page:number, _size:number){};
-    public findProductsByID = function(_productID:number){};
+    public findProductByID = function(_productID:number){};
     public getProductsByTiendaRIF = function(_tiendaRIF:number){};
     public findProductsByName = function(_productName:string){};
     public getProductsByCategory = function(_categoria_id:number){};
@@ -149,7 +150,7 @@ ProductoModel.prototype.findProductsByName = async function(productName:string){
 }
 
 
-ProductoModel.prototype.findProductsByID = async function(productID:number){
+ProductoModel.prototype.findProductByID = async function(productID:number){
     return ProductoModel.findOne({
         where: { id: productID },
         attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
@@ -163,6 +164,11 @@ ProductoModel.prototype.findProductsByID = async function(productID:number){
                 model: CategoriaModel,
                 as: 'categoria',
                 attributes: ['id', 'descripcion']
+            },
+            {
+                model:TiendaModel,
+                as:'tiendaProducto',
+                attributes: ['RIF','nombre', 'imagen']
             }
         ],
         

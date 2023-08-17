@@ -1,12 +1,8 @@
 export const createPurchase = (
-	purchase: {
-		producto_id: number;
-		cantidad: number;
-		precio: number;
-	},
-	token: string
+	token: string,
+	purchase: { producto_id: number; cantidad: number }
 ): Promise<unknown> =>
-	fetch('http://127.0.0.1:3000/api/ventas_detalle/individualPurchase', {
+	fetch('http://127.0.0.1:3000/api/ventas/createPurchese', {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'same-origin',

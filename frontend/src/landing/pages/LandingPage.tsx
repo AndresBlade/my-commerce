@@ -1,9 +1,6 @@
 import { ProductList } from '../../products/components/ProductList';
-import { Header } from '../../ui/components';
 import { LandingHero } from '../components/LandingHero';
-import { getShops } from '../../shops/helpers/getShops';
 import { ShopList } from '../../shops/components/ShopList';
-import { SesionModal } from '../../ui/components/SesionModal';
 
 export default function LandingPage() {
 	document.title = 'Bienvenido a MyCommerce';

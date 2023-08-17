@@ -1,5 +1,5 @@
 export function createShop(formData: FormData, token: string) {
-	return fetch(`http://127.0.0.1:3000/api/tienda/register`, {
+	return fetch(`http://127.0.0.1:3000/api/tiendas/tiendaRegister`, {
 		method: 'POST',
 		headers: {
 			Authorization: 'Bearer ' + token,

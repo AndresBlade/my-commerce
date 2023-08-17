@@ -1,18 +1,17 @@
-export interface UserDataWrapper {
-	data: UserData;
-}
-
 export interface UserData {
 	token: string;
-	user: User;
+	userData: User;
+	clientData: Costumer;
 }
 
 interface User {
+	correo: string;
+	tipoId: number;
+	createdAt: string;
+}
+
+interface Costumer {
 	id: number;
 	nombre: string;
-	correo: string;
-	imagen?: null | string;
-	tipo_id: number;
-	createdAt: Date;
-	updatedAt: Date;
+	imagen: string;
 }

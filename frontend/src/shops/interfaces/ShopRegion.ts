@@ -1,5 +1,5 @@
 export interface RegionsWrapper {
-	regiones: Region[];
+	regions: Region[];
 }
 
 export interface Region {

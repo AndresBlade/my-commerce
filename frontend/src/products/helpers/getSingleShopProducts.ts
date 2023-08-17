@@ -1,4 +1,3 @@
-import { ProductWrapper } from '../interfaces/ProductWrapper';
 import { SingleShopProductsWrapper } from '../interfaces/SingleShopProductsWrapper';
 // import { ShopWrapper } from '../interfaces/ShopWrapper';
 
@@ -6,7 +5,7 @@ export function getSingleShopProducts(
 	RIF: string
 ): Promise<SingleShopProductsWrapper> {
 	return fetch(
-		`http://127.0.0.1:3000/api/productos/getProductsByTienda/${RIF}`,
+		`http://127.0.0.1:3000/api/Productos/getProductsByTienda/${RIF}`,
 		{
 			method: 'GET',
 		}

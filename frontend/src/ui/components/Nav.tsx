@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../auth/context/AuthContext';
 import { LogoutButton } from './LogoutButton';
 import { LoginButton } from './LoginButton';
-import { UserData } from '../../user/interfaces/UserData';
 
 export const Nav = () => {
+	console.log(useContext(AuthContext));
 	const {
-		userData: {
+		user: {
 			token,
-			user: { nombre },
+			clientData: { nombre },
 		},
 	} = useContext(AuthContext);
 

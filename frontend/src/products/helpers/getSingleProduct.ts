@@ -1,7 +1,7 @@
 import { SingleProductWrapper } from '../interfaces/SingleProductWrapper';
 
 export function getSingleProduct(id: string): Promise<SingleProductWrapper> {
-	return fetch(`http://127.0.0.1:3000/api/productos/getProductByID/${id}`, {
+	return fetch(`http://127.0.0.1:3000/api/Productos/getProductById/${id}`, {
 		method: 'GET',
 	}).then(response => {
 		if (!response.ok) {

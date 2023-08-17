@@ -1,10 +1,10 @@
-import { UserDataWrapper } from '../interfaces/UserData';
+import { UserData } from '../interfaces/UserData';
 
 export const getUser = (user: {
 	correo: string;
 	contrasenna: string;
-}): Promise<UserDataWrapper> =>
-	fetch('http://127.0.0.1:3000/api/user/login', {
+}): Promise<UserData> =>
+	fetch('http://127.0.0.1:3000/api/Usuarios/loginUser', {
 		method: 'POST',
 		mode: 'cors',
 		credentials: 'same-origin',
@@ -16,7 +16,7 @@ export const getUser = (user: {
 		if (!response.ok) {
 			throw new Error(response.statusText);
 		}
-		return response.json() as Promise<UserDataWrapper>;
+		return response.json() as Promise<UserData>;
 	});
 // .then(
 // 	respuesta => localStorage.setItem('user', JSON.stringify(respuesta)) //guarda el usuario en el localstorage

@@ -1,10 +1,20 @@
+import { Region } from './ShopRegion';
+
 export interface Shop {
-	RIF: number;
-	nombre: string;
-	imagen: string;
-	descripcion: string;
-	status: string;
 	cliente_id: number;
 	createdAt: string;
+	descripcion: string;
+	imagen: string;
+	nombre: string;
+	regionesTienda: Region[];
+	RIF: number;
+	saldo: string;
+	status: string;
+	tiendaCliente: {
+		createdAt: string;
+		id: number;
+		imagen: string;
+		nombre: string;
+	};
 	updatedAt: Date;
 }

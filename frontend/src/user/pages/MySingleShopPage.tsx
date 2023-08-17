@@ -9,21 +9,15 @@ type Props = {
 };
 
 export const MySingleShopPage = () => {
-	const { categories, products }: Props = useOutletContext();
+	const { products }: Props = useOutletContext();
 	return (
 		<div className="misTiendas__perfilTienda perfilTienda">
 			<div className="misTiendas__grid">
 				{products &&
-					categories &&
 					products.map(singleProduct => {
-						const productCategory = categories.find(
-							category =>
-								category.id === singleProduct.categoria_id
-						)?.descripcion as string;
 						return (
 							<MyShopProductCard
-								category={productCategory}
-								product={singleProduct}
+								{...singleProduct}
 								key={singleProduct.id}
 							/>
 						);

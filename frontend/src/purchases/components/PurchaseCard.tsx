@@ -1,24 +1,20 @@
 import { Purchase } from '../interfaces/Purchase';
 
 export const PurchaseCard = ({
-	createdAt,
-	venta_detalle: {
-		cantidad,
-		precio,
-		producto: { nombre },
-	},
+	detallesProducto: { nombre, precio },
+	detallesVenta: { cantidad },
 }: Purchase) => {
-	const [fecha, hora] = createdAt.split('T');
 	return (
 		<div className="compras__compra">
 			<p>
 				<span className="bold">Nombre: </span>
 				{nombre}
 			</p>
-			<p>
+			{/* <p>
 				<span className="bold">Fecha: </span>
 				{fecha} {hora}
-			</p>
+			</p> */}
+			{/*torpas no envía el createdAt, eso infringe mis derechos y los de este p */}
 			<p>
 				<span className="bold">Cantidad: </span>
 				{cantidad}
@@ -29,7 +25,7 @@ export const PurchaseCard = ({
 			</p>
 			<p>
 				<span className="bold">Total: </span>
-				{parseInt(precio) * cantidad}
+				{precio * cantidad}
 			</p>
 		</div>
 	);

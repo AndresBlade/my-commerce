@@ -15,7 +15,7 @@ const ModalButton = styled.button`
 
 export const SesionModal = () => {
 	const { showModal, setShowModal } = useContext(SesionModalContext);
-	const { setUserData } = useContext(AuthContext);
+	const { setUser } = useContext(AuthContext);
 	console.log(showModal);
 	const navigate = useNavigate();
 	return (
@@ -36,16 +36,17 @@ export const SesionModal = () => {
 							onClick={() => {
 								navigate('/');
 								setTimeout(() => {
-									setUserData({
-										token: '',
-										user: {
-											correo: '',
-											createdAt: new Date(),
+									setUser({
+										clientData: {
 											id: -1,
-											nombre: '',
-											tipo_id: -1,
-											updatedAt: new Date(),
 											imagen: '',
+											nombre: '',
+										},
+										token: '',
+										userData: {
+											correo: '',
+											createdAt: '',
+											tipoId: -1,
 										},
 									});
 

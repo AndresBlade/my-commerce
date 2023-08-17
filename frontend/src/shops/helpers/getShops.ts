@@ -2,7 +2,7 @@ import { ShopWrapper } from '../interfaces/ShopWrapper';
 
 export function getShops(pageShop = 0, size = 6): Promise<ShopWrapper> {
 	return fetch(
-		`http://127.0.0.1:3000/api/tienda/tiendas?page=${pageShop}&size=${size}`,
+		`http://127.0.0.1:3000/api/tiendas/getTiendas/?page=${pageShop}&size=${size}`,
 		{
 			method: 'GET',
 			// url: 'http://127.0.0.1:3000',

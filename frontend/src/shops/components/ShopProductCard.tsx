@@ -2,16 +2,15 @@ import { Product } from '../../products/interfaces/Product';
 
 export const ShopProductCard = ({
 	descripcion,
-	imagenes: imagenesString,
+	imagenes,
 	nombre,
 	precio,
 }: Product) => {
-	const imagenes: string[] = imagenesString.split(' ');
 	console.log(imagenes);
 	return (
 		<section className="producto_tienda">
 			<img
-				src={imagenes[Math.floor(Math.random() * imagenes.length)]}
+				src={imagenes[Math.floor(Math.random() * imagenes.length)].ruta}
 				alt={nombre}
 			/>
 			<div className="informacion">
