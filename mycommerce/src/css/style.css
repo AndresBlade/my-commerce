@@ -6,11 +6,11 @@
 
 @layer components {
 	.link-hover-effect {
-	  @apply relative before:content-[''] before:absolute before:bottom-[-2px] before:w-full before:h-[2px] before:bg-white before:scale-x-0 before:transition-transform before:duration-500 before:ease-in-out before:origin-right hover:before:scale-x-100 hover:before:origin-left;
+	  @apply relative before:content-[''] before:absolute before:bottom-[-2px] before:w-full before:h-[1.5px] before:bg-white before:scale-x-0 before:transition-transform before:duration-500 before:ease-in-out before:origin-right hover:before:scale-x-100 hover:before:origin-left;
 	}
 
 	.bg-modal {
-		@apply fixed top-0 left-0 w-full h-screen bg-[rgba(0,0,0,0.2)];
+		@apply fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.2)];
 	}
   }
   

@@ -7,6 +7,7 @@ import { UserData } from '../../user/interfaces/UserData';
 import { createUser } from '../../user/helpers/createUser';
 import { ErrorMessage } from '../../ui/components/ErrorMessage';
 
+
 interface Props {
 	register?: boolean;
 }
@@ -217,13 +218,13 @@ export const AuthPage = ({ register }: Props) => {
 					<div className="member">
 						{register ? (
 							<>
-								Ya esta Registrado?
-								<Link to="/login"> Inicia Sesión aqui</Link>
+								¿Ya está registrado?
+								<Link to="/login">Inicia sesión aquí</Link>
 							</>
 						) : (
 							<>
-								¿Aun no te has registrado?
-								<Link to="/register"> Regístrate aqui</Link>
+								¿Aún no te has registrado?
+								<Link to="/register">Regístrate aquí</Link>
 							</>
 						)}
 					</div>
