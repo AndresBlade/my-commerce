@@ -80,7 +80,7 @@ export const getTiendas = async (req:Request, res:Response) =>{
         const pageSize = parseInt(size.toString());
 
 
-        const tiendas = await TiendaModel.prototype.findAllTiendasWhitRegion(pageNumber, pageSize);
+        const tiendas = await TiendaModel.findAllTiendasWhitRegion(pageNumber, pageSize);
         return res.send({tiendas});
     }catch(error:any){
         console.log(error);
@@ -96,7 +96,7 @@ export const getTiendaByRIF = async (req:Request, res:Response) =>{
         if(!parseInt(tiendaRIF)) return res.status(505).send('RIF_CAN_NOT_BE_A_STRING')
 
         const tienda_rif = parseInt(tiendaRIF);
-		const datosTienda = await TiendaModel.prototype.findTiendaByRIF(tienda_rif);
+		const datosTienda = await TiendaModel.findTiendaByRIF(tienda_rif);
 		return res.send({datosTienda});
     }catch(error:any){
         console.log(error);
@@ -108,7 +108,7 @@ export const getTiendaByRIF = async (req:Request, res:Response) =>{
 export const getTiendaByName = async (req:Request, res:Response) =>{ 
     try{
         const { tiendaName = ''} = req.params;
-		const data = await TiendaModel.prototype.findTiendaByName(tiendaName);
+		const data = await TiendaModel.findTiendaByName(tiendaName);
 
 		return res.send({ datosTienda: data, });
     }catch(error:any){
@@ -126,7 +126,7 @@ export const getTiendaByClient = async (req:Request, res:Response) =>{
         if(!parseInt(clientID)) return res.send('CLIENT_ID_CAN_NOT_BE_A_STRING');
         
         const client_id = parseInt(clientID);
-		const data = await TiendaModel.prototype.findTiendaByClient(client_id);
+		const data = await TiendaModel.findTiendaByClient(client_id);
 		return res.send({ datosTienda: data });
     }catch(error:any){
         console.log(error);

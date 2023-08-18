@@ -53,7 +53,7 @@ export async function CreateProduct(req:Request, res:Response) {
 export async function getProductByName(req:Request, res:Response) {
     try{
         const {productName=''} = req.params;
-        const product = await ProductoModel.prototype.findProductsByName(productName);
+        const product = await ProductoModel.findProductsByName(productName);
         res.status(200).send({products: product})
     }catch(err:any){
         console.log(err)
@@ -69,7 +69,7 @@ export async function getAllProducts(req:Request, res:Response) {
         const pageNumber = parseInt(page.toString());
         const pageSize = parseInt(size.toString());
 
-        const products = await ProductoModel.prototype.findAllProducts(pageNumber, pageSize);
+        const products = await ProductoModel.findAllProducts(pageNumber, pageSize);
         res.status(200).send({products})
 
     }catch(err:any){
@@ -92,7 +92,7 @@ export async function getProductByTiendaRIF(req:Request, res:Response) {
         if(!tiendaVerificada) return res.status(500).send('RIF_NOT_FOUND')
 
 
-        const data = await ProductoModel.prototype.getProductsByTiendaRIF(tienda_rif);
+        const data = await ProductoModel.getProductsByTiendaRIF(tienda_rif);
         return res.status(200).send({ productosTienda: data });
     }catch(err:any){
         console.log(err)
@@ -108,7 +108,7 @@ export async function getProductByID(req:Request, res:Response) {
         if(!parseInt(productId)) return res.status(505).send('ID_CAN_NOT_BE_A_STRING')
 
         const product_id = parseInt(productId);
-        const product = await ProductoModel.prototype.findProductByID(product_id);
+        const product = await ProductoModel.findProductByID(product_id);
 
         if(product === null) return res.status(200).send({products: []})
 

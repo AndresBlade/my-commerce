@@ -9,7 +9,26 @@ class RegionesModel extends Model<RegionesInterface> implements RegionesInterfac
     public descripcion!: string;
 
     // Metodos personalizados
-    public getAllTiendasOfARegion = function(_regionID:number){}
+    static getAllTiendasOfARegion = async function(regionID:number):Promise<RegionesModel[]>{
+        const regions = await RegionesModel.findAll({
+        where: {id: regionID},
+        attributes: [],
+        include:[
+            {
+                model: TiendaModel,
+                as: 'tiendasRegion',
+                attributes:['RIF', 'nombre', 'imagen', 'descripcion', 'createdAt'],
+                through: {
+                    attributes: []
+                }
+            }
+        ]
+    });
+    
+    if(!regions) throw new Error('REGIONS_NOT_FOUND');
+
+    return regions;
+    }
 }
 
 
@@ -29,23 +48,6 @@ RegionesModel.init(
         timestamps: false,
     }
 );
-
-
-RegionesModel.prototype.getAllTiendasOfARegion = async function(regionID:number){
-    return await RegionesModel.findAll({
-        where: {id: regionID},
-        attributes: [],
-        include:[{
-            model: TiendaModel,
-            as: 'tiendasRegion',
-            attributes:['RIF', 'nombre', 'imagen', 'descripcion', 'createdAt'],
-            through: {
-                attributes: []
-            }
-        }
-    ]
-    })
-}
 
 
 export default RegionesModel;
