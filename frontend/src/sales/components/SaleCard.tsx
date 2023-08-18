@@ -1,17 +1,22 @@
-import { Sale } from '../interfaces/Sale';
+import { ProductSold, SaleDetails } from '../interfaces/ProductSold';
+
+type Props = {
+	productSold: ProductSold;
+	saleDetails: SaleDetails;
+};
 
 export const SaleCard = ({
-	venta_cabecera: {
-		venta_detalle: { producto, precio, cantidad },
-		ventas_detalles_id,
+	productSold: { nombre, precio },
+	saleDetails: {
+		createdAt: fechaCreacion,
+		detallesCompra: { cantidad, ventas_cabecera_id },
 	},
-	createdAt: fechaCreacion,
-}: Sale) => {
+}: Props) => {
 	return (
 		<div className="ventas__venta">
 			<p className="ventas__nombreProducto">
 				<span className="ventas__title">Nombre del producto: </span>
-				{producto.nombre}
+				{nombre}
 			</p>
 			<p className="ventas__fechaCompraProducto">
 				<span className="ventas__title">Fecha de compra: </span>
@@ -33,7 +38,7 @@ export const SaleCard = ({
 			</p>
 			<p className="ventas__nroFactura">
 				<span className="ventas__title">Número de Factura: </span>
-				{ventas_detalles_id}
+				{ventas_cabecera_id}
 			</p>
 		</div>
 	);

@@ -1,6 +1,9 @@
-import { Sale } from '../interfaces/Sale';
+import { ProductSold } from '../interfaces/ProductSold';
 
-export function getSalesByRIF(RIF: string, token: string): Promise<Sale[]> {
+export function getProductsSoldByRIF(
+	RIF: string,
+	token: string
+): Promise<ProductSold[]> {
 	return fetch(
 		`http://127.0.0.1:3000/api/ventas/productsSoldByStore/${RIF}`,
 		{
@@ -14,6 +17,6 @@ export function getSalesByRIF(RIF: string, token: string): Promise<Sale[]> {
 			throw new Error(response.statusText);
 		}
 
-		return response.json() as Promise<Sale[]>;
+		return response.json() as Promise<ProductSold[]>;
 	});
 }
