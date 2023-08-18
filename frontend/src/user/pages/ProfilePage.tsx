@@ -2,12 +2,11 @@ import { useContext, ChangeEvent } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import defaultUserImage from '../../assets/default_user_image.png';
 import { setUserProfilePicture } from '../helpers/setUserProfilePicture';
-import { getUserById } from '../helpers/getUserById';
 
 export const ProfilePage = () => {
 	const {
 		user: {
-			clientData: { id, imagen, nombre },
+			clientData: { imagen, nombre },
 			userData: { correo },
 			token,
 		},
@@ -19,14 +18,26 @@ export const ProfilePage = () => {
 		if (e.target.files?.[0] !== undefined)
 			setUserProfilePicture(e.target.files?.[0], token)
 				.then(
-					response =>
+					response => {
 						setUser({
 							...user,
 							clientData: {
 								...user.clientData,
 								imagen: response.nuevaImagen,
 							},
-						})
+						});
+						localStorage.setItem(
+							'userData',
+							JSON.stringify({
+								...user,
+								clientData: {
+									...user.clientData,
+									imagen: response.nuevaImagen,
+								},
+							})
+						);
+					}
+
 					// setTimeout(() => {
 					// 	getUserById(id, token)
 					// 		.then(response => {

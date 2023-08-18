@@ -52,7 +52,7 @@ export const SesionModal = () => {
 
 									localStorage.removeItem('userData');
 									setShowModal(false);
-								}, 50);
+								}, 200);
 							}}
 						>
 							Sí
