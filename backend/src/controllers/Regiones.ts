@@ -17,7 +17,7 @@ export async function getAllTiendasOfARegion(req:Request, res:Response) {
         const {regionID = ''} = req.params
         const region = parseInt(regionID.toString());
 
-        const TiendasOfARegion = await RegionesModel.prototype.getAllTiendasOfARegion(region);
+        const TiendasOfARegion = await RegionesModel.getAllTiendasOfARegion(region);
 
         return res.status(200).send({tiendas: TiendasOfARegion})
     }catch(error:any){

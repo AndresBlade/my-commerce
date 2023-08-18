@@ -5,6 +5,18 @@ import UserModel from './Usuarios';
 
 
 class AdministradorModel extends Model<administradorAtributtes> implements administradorAtributtes{
+    public id!: number;
+    public usuario_id!: number;
+    public nombre!: string;
+    public imagen!: string;
+    public nivel_privilegio!: string;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
+
+
+    // Metodos personalizados
     static async getAdminByUserId (userId:number): Promise<administradorAtributtes | null>{
         const admin = await AdministradorModel.findOne({
             where: {usuario_id: userId},
@@ -23,21 +35,6 @@ class AdministradorModel extends Model<administradorAtributtes> implements admin
             nivel_privilegio: admin.nivel_privilegio!,
         };
     }
-
-    public id!: number;
-    public usuario_id!: number;
-    public nombre!: string;
-    public imagen!: string;
-    public nivel_privilegio!: string;
-
-    // Timestamps
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-
-
-    // Metodos personalizados
-
-
 }
 
 AdministradorModel.init(
@@ -67,25 +64,6 @@ AdministradorModel.init(
         timestamps: false,
     }
 );
-
-
-// AdministradorModel.getAdminByUserId = async function (userId:number): Promise<administradorAtributtes | null> {
-//     const admin = await AdministradorModel.findOne({
-//         where: {usuario_id: userId},
-//         include: [{
-//             model: UserModel,
-//             as: 'userData',
-//             attributes:['id','correo', 'tipo_id', 'tipo_id'],
-//         }]
-//     });
-//     return {
-//         id: admin?.id,
-//         usuario_id: admin!.usuario_id,
-//         nombre: admin!.nombre,
-//         imagen: admin!.imagen,
-//         nivel_privilegio: admin!.nivel_privilegio,
-//     };
-// }
 
 
 export default AdministradorModel;

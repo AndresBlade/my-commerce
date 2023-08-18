@@ -36,7 +36,7 @@ export const createPurchase = async (req:Request, res:Response) =>{
             await validProduct.decrement('cantidad', {by: cantidad});
 
             //Actualiza el saldo de la tienda en base a la cantidad de productos vendidos
-            await TiendaModel.prototype.updateSaldo(validProduct.tienda_id, cantidad, productPrice);
+            await TiendaModel.updateSaldo(validProduct.tienda_id, cantidad, productPrice);
 
             
             const newPurchaseDetails = await VentasDetallesModel.create({
