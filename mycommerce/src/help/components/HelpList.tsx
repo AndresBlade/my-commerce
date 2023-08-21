@@ -6,8 +6,8 @@ export const HelpList = ({
 	helpCardInformation,
 }: HelpListInformation) => {
 	return (
-		<div className="searchBox-container">
-			<h3 className="heading">{heading}</h3>
+		<div className="flex flex-col gap-4">
+			<h3 className="text-blanco text-[2rem] pt-5 pb-1">{heading}</h3>
 			{helpCardInformation.map((info, index) => (
 				<HelpCard {...info} key={index} />
 			))}

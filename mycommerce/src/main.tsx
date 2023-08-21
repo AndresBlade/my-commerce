@@ -23,7 +23,7 @@ import { ProductWrapper } from './products/interfaces/ProductWrapper';
 import { ShopWrapper } from './shops/interfaces/ShopWrapper';
 import { HelpPage } from './help/pages/HelpPage';
 import { helpLists } from './help/data/helpListsInfo';
-import { SideContactInfoPage } from './ui/pages/SideContactInfoPage';
+import { SideContactInfoPage } from './help/pages/SideContactInfoPage';
 import { ContactUsPage } from './contactUs/pages/ContactUsPage';
 import { AuthLayout } from './ui/pages/AuthLayout';
 import { ProfilePage } from './user/pages/ProfilePage';

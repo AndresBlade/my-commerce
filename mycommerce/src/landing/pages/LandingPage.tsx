@@ -26,7 +26,7 @@ export default function LandingPage() {
 					<div className="h-[5px] bg-azul w-[35%] mt-3"></div>
 				</div>
 				
-				<section className="w-[95%] mx-auto">
+				<section className="w-[95%] mx-auto mb-10">
 					<ProductList />
 				</section>
 			</main>

@@ -22,7 +22,7 @@ export const Nav = () => {
 	: 'bg-modal hidden';
 
 	const menu =  showMenu 
-	? "absolute top-0 -right-[312px] w-[312px] duration-300 transition-all rounded-s-lg"
+	? "w-full absolute top-0 -right-[312px] smm:w-[312px] duration-300 transition-all rounded-s-lg"
 	: "absolute top-0 hidden duration-300 transition-all";
 	
 	const MenuClick = () => 
