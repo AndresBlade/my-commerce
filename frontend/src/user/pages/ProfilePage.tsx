@@ -77,10 +77,19 @@ const fadeout = keyframes`
 	}
 `;
 
-interface PersonalDataForm {
-	email: string;
+interface Form {
 	username: string;
+	email: string;
+	oldPassword: string;
+	newPassword: string;
 }
+
+enum FormType {
+	email,
+	username,
+	password,
+}
+
 export const ProfilePage = () => {
 	const {
 		user: {
@@ -123,7 +132,14 @@ export const ProfilePage = () => {
 		element: HTMLElement;
 		mouseleave: boolean;
 	} | null>(null);
-	const {} = useForm<Form>({ username: nombre, email: correo });
+	const [formType, setFormType] = useState<FormType | null>(null);
+	const { email, username, newPassword, oldPassword, onInputChange } =
+		useForm<Form>({
+			email: correo,
+			username: nombre,
+			newPassword: '',
+			oldPassword: '',
+		});
 	const timeoutId = useRef<number | null>(null);
 
 	return (
@@ -177,6 +193,10 @@ export const ProfilePage = () => {
 							<h1 className="heading heading--nombreTienda">
 								<TriggerParagraph
 									className="userProfile__name"
+									onClick={() => {
+										setFormType(FormType.username);
+										setShowModal(true);
+									}}
 									onMouseEnter={e => {
 										if (
 											typeof timeoutId.current ===
@@ -210,6 +230,10 @@ export const ProfilePage = () => {
 
 						<div className="miPerfil__info">
 							<TriggerParagraph
+								onClick={() => {
+									setFormType(FormType.email);
+									setShowModal(true);
+								}}
 								className="userProfile__email"
 								onMouseEnter={e => {
 									if (typeof timeoutId.current === 'number')
@@ -244,7 +268,10 @@ export const ProfilePage = () => {
 									Editar Datos Personales
 								</ProfileButtonStyled> */}
 								<ProfileButtonStyled
-									onClick={() => setShowModal(true)}
+									onClick={() => {
+										setShowModal(true);
+										setFormType(FormType.password);
+									}}
 								>
 									Cambiar contraseña
 								</ProfileButtonStyled>
@@ -256,9 +283,48 @@ export const ProfilePage = () => {
 			<Modal setShowModal={setShowModal} showModal={showModal}>
 				<ModalContent>
 					<ModalForm error={error} setError={setError}>
-						<ModalFormDivider />
-						<ModalFormDivider />
-						<ModalFormDivider />
+						{formType === FormType.email ? (
+							<ModalFormDivider
+								element="input"
+								type="email"
+								htmlFor="email"
+								handleChange={onInputChange}
+								name="email"
+								title="Nuevo correo electrónico"
+								value={email}
+							/>
+						) : formType === FormType.username ? (
+							<ModalFormDivider
+								element="input"
+								type="text"
+								htmlFor="username"
+								handleChange={onInputChange}
+								name="username"
+								title="Nuevo nombre de usuario"
+								value={username}
+							/>
+						) : (
+							<>
+								<ModalFormDivider
+									element="input"
+									type="password"
+									handleChange={onInputChange}
+									htmlFor="oldPassword"
+									value=""
+									name="oldPassword"
+									title="Contraseña anterior"
+								/>
+								<ModalFormDivider
+									element="input"
+									type="password"
+									handleChange={onInputChange}
+									htmlFor="newPassword"
+									value=""
+									name="newPassword"
+									title="Nueva contraseña"
+								/>
+							</>
+						)}
 					</ModalForm>
 				</ModalContent>
 				<ModalFormSubmitButton
