@@ -10,7 +10,7 @@ export const Header = ({ authPage }: Props) => {
 	return (
 		<MenuProvider>
 			<header
-				className={authPage ? 'bg-bg-degradado top-0 sticky' : 'bg-bg-degradado top-0 sticky'}
+				className={authPage ? 'bg-bg-degradado top-0 sticky z-10' : 'bg-bg-degradado top-0 sticky'}
 				style={
 					authPage ? undefined : { paddingLeft: `${3}rem`, marginLeft: 0 }
 				}

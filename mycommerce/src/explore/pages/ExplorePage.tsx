@@ -22,13 +22,15 @@ export const ExplorePage = () => {
 		typeof shopPageParam === 'undefined' ? 0 : parseInt(shopPageParam);
 	return (
 		<main>
-			<section className="section_products">
-				<div className="tiendas-destacadas">
-					<h1 className="heading mover">Productos Destacados</h1>
+			<section>
+				<div className="w-[90%] mx-auto my-10">
+					<h2 className="text-[1.3rem] font-normal md:text-3xl">Productos Destacados</h2>
+					<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
 				</div>
-				<div className="flex-buttons">
+
+				<div className="flex">
 					<button
-						className="btnChange"
+						className="bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
 						id="btn-pagina-productos-anterior"
 						onClick={() => {
 							// console.log(searchParams.get('productPage'));
@@ -58,7 +60,7 @@ export const ExplorePage = () => {
 						Anterior
 					</button>
 					<button
-						className="btnChange"
+						className="bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
 						id="btn-pagina-productos-siguiente"
 						onClick={() => {
 							navigate(`/explorar/${++productPage}/${shopPage}`);
@@ -72,12 +74,13 @@ export const ExplorePage = () => {
 			</section>
 
 			<section>
-				<div className="tiendas-destacadas">
-					<h1 className="heading mover">Tiendas Destacadas</h1>
+				<div className="w-[90%] mx-auto my-10">
+					<h2 className="text-[1.3rem] font-normal md:text-3xl">Tiendas Destacadas</h2>
+					<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
 				</div>
-				<div className="flex-buttons">
+				<div className="flex">
 					<button
-						className="btnChange"
+						className= "bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
 						id="btn-pagina-tiendas-anterior"
 						onClick={() => {
 							navigate(
@@ -90,7 +93,7 @@ export const ExplorePage = () => {
 						Anterior
 					</button>
 					<button
-						className="btnChange"
+						className= "bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
 						id="btn-pagina-tiendas-siguiente"
 						onClick={() => {
 							navigate(`/explorar/${productPage}/${++shopPage}`);
