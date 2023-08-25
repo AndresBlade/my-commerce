@@ -10,6 +10,7 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
     public correo!: string;
     public contrasenna!: string;
     public tipo_id!: number;
+    public status!: string;
   
     // Timestamps
     public readonly createdAt!: Date;
@@ -39,8 +40,15 @@ UserModel.init(
             type: DataTypes.STRING,
             unique: true,
         },
-        contrasenna: { type: DataTypes.STRING },
-        tipo_id: { type: DataTypes.INTEGER },
+        contrasenna: { 
+            type: DataTypes.STRING 
+        },
+        tipo_id: { 
+            type: DataTypes.INTEGER 
+        },
+        status: { 
+            type: DataTypes.INTEGER 
+        },
     },
     {
         sequelize,

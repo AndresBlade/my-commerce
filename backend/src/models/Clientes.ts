@@ -60,7 +60,8 @@ ClienteModel.init(
         },
         imagen: {
              type: DataTypes.STRING 
-        },
+        }, 
+ 
     },
     {
         sequelize,

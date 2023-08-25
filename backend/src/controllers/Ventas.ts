@@ -83,7 +83,7 @@ export const getProductsSoldByStore = async (req:Request, res:Response) =>{
         const tienda_id = parseInt(id);
 
 
-        const productsSold = await TiendaModel.prototype.getAllSells(tienda_id);
+        const productsSold = await TiendaModel.getAllSells(tienda_id);
         
         return res.status(200).send(productsSold);
     }catch(error:any){

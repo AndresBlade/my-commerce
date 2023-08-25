@@ -10,6 +10,8 @@ export async function CreateProduct(req:Request, res:Response) {
         if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGES');
         const {nombre, precio, tienda_id, categoria_id, descripcion, cantidad} = matchedData(req);
 
+        const status = '0'; //Producto inactivo
+
         // crear producto mediante una transaccion para asegurar que se cree el producto con sus respectivas imagenes
         const resultTransaction = await sequelize.transaction(async (t:any) => {  
             const productCreated = await ProductoModel.create({
@@ -18,7 +20,8 @@ export async function CreateProduct(req:Request, res:Response) {
                 categoria_id,
                 tienda_id,
                 descripcion,
-                cantidad
+                cantidad,
+                status
             }, {transaction:t})
             
             // crear objeto de imagenes que se van a guardar en la tabla productoImagenes

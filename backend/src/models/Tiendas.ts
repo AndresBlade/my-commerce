@@ -1,4 +1,4 @@
-import { Model, DataTypes} from 'sequelize'
+import { Model, DataTypes, Op} from 'sequelize'
 import { sequelize } from '../config/db';
 import TiendaModelAttributes from './interfaces/TiendaInterface';
 import ClienteModel from './Clientes';
@@ -33,9 +33,13 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     }
 
 
-    static findTiendaByName = async function(tiendaName:string):Promise<TiendaModel | null>{
-        const tiendas = await TiendaModel.findOne({
-            where: { nombre: tiendaName },
+    static findTiendaByName = async function(tiendaName:string):Promise<TiendaModel[] | null>{
+        const tiendas = await TiendaModel.findAll({
+            //devuelve solo las tiendas que esten activas/aceptadas y que el nombre coincida con el parametro
+            where: { 
+                nombre: {[Op.like]: `%${tiendaName}%`}, 
+                status: '1' 
+            },
             attributes: ['nombre','imagen','descripcion'],
             include: [
             { 
@@ -61,12 +65,12 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
 
     static findTiendaByRIF = async function(tiendaRIF:number):Promise<TiendaModel | null>{
         const tienda = TiendaModel.findOne({
-            where: { RIF: tiendaRIF },
+            where: {  RIF: tiendaRIF },
             include:[ 
                 { 
                     model: ClienteModel, 
                     as: 'tiendaCliente',
-                    attributes: ['id', 'nombre', 'imagen', 'createdAt']
+                    attributes: ['id', 'nombre', 'imagen','createdAt']
                 },
                 {
                     model: RegionesModel,
@@ -91,7 +95,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
             { 
                 model: ClienteModel, 
                 as: 'tiendaCliente',
-                attributes: ['id', 'nombre', 'imagen', 'createdAt']
+                attributes: ['id', 'nombre','imagen', 'createdAt']
             },
             {
                 model: RegionesModel,
@@ -111,6 +115,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
 
     static findAllTiendasWhitRegion = async function(page:number, size:number):Promise<{ count: number,totalPages:number, currentPage:number,rows: TiendaModel[] }>{
         const result = await TiendaModel.findAndCountAll({
+            where:{status:'1'}, //Devuelve solo las tiendas que esten activas/aceptadas
             limit: +size,
             offset: +page * +size,
             distinct:true,
@@ -135,7 +140,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     };
 
 
-    public getAllSells = async function(tiendaId:number){
+    static getAllSells = async function(tiendaId:number){
         const salesDetails = await ProductoModel.findAll({
             where: {
                 tienda_id: tiendaId,

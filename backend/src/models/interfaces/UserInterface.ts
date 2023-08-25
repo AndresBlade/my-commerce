@@ -4,6 +4,7 @@ export default interface UserModelAttributes {
     correo: string;
     contrasenna: string;
     tipo_id: number;
+    status: string;
 
     //atributos de auditoria
     cliente?: any;

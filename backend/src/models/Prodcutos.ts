@@ -4,6 +4,7 @@ import ProductoModelAttributes from './interfaces/ProductoInterface';
 import CategoriaModel from './Categorias';
 import PorductImagenModel from './Productos_imagenes';
 import TiendaModel from './Tiendas';
+import { Op } from 'sequelize';
 
 
 class ProductoModel extends Model<ProductoModelAttributes> implements ProductoModelAttributes{
@@ -14,6 +15,7 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
     public tienda_id!: number;
     public descripcion!: string;
     public cantidad!: number;
+    public status!: string;
     // Timestamps
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -33,6 +35,9 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
     
     static async findAllProducts(page: number, size: number): Promise<{ count: number,totalPages:number, currentPage:number,rows: ProductoModel[] }>{
         const result = await ProductoModel.findAndCountAll({
+            where:{
+                status:'0' //devulve solo los productos que esten activos
+            },
             limit: +size,
             offset: +page * +size,
             attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
@@ -64,7 +69,7 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
     static findProductByID = async function(productID:number):Promise<ProductoModel | null>{
         const products = ProductoModel.findOne({
             where: { id: productID },
-            attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
+            attributes: ['id', 'nombre', 'precio', 'descripcion','status','cantidad', 'createdAt'],
             include:[
                 {
                     model: PorductImagenModel,
@@ -92,7 +97,10 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
 
     static getProductsByTiendaRIF = async function(tiendaRIF:number):Promise<ProductoModel[]>{
         const products = ProductoModel.findAll({
-            where: { tienda_id: tiendaRIF },
+            where: { 
+                    tienda_id: tiendaRIF,
+                    status:'0' //devulve solo los productos que esten activos de esa Tienda
+                },
             attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
             include:[
                 {
@@ -116,7 +124,11 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
 
     static findProductsByName = async function(productName:string):Promise<ProductoModel[]>{
         const products = ProductoModel.findAll({
-            where: { nombre: productName },
+            where: { 
+                nombre: {[Op.like]: `%${productName}%`},
+                status:'0' //devulve solo los productos que esten activos con ese nombre
+            },
+            
             attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
             include:[
                 {
@@ -167,6 +179,9 @@ ProductoModel.init(
             type: DataTypes.STRING
         },
         cantidad:{
+            type: DataTypes.INTEGER
+        },
+        status:{
             type: DataTypes.INTEGER
         }
     },

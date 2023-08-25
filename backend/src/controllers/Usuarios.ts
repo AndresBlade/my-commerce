@@ -16,6 +16,7 @@ export const registerUser = async (req:Request, res:Response) =>{
         const rawPassword = req.body.contrasenna;
 
         const tipo_id = 1;
+        const status = '0'; //Cliente activo
     
         //Encripta la contraseña
         const contrasenna = await encryptPassword(rawPassword);
@@ -35,6 +36,7 @@ export const registerUser = async (req:Request, res:Response) =>{
                 correo,
                 contrasenna,
                 tipo_id,
+                status
             }, {transaction: t});
 
             //Inserta los datos en la tabla clientes
@@ -156,6 +158,7 @@ export const registerAdmin = async (req:Request, res:Response) =>{
         const {nombre, correo, nivelPrivilegio} = req.body;
         const rawPassword = req.body.contrasenna;
         const tipo_id = 2;
+        const status = '0'; //Cliente activo
     
         //Encripta la contraseña
         const contrasenna = await encryptPassword(rawPassword);
@@ -172,7 +175,8 @@ export const registerAdmin = async (req:Request, res:Response) =>{
             const newUser = await UserModel.create({        
                 correo,
                 contrasenna,
-                tipo_id
+                tipo_id,
+                status
             }, {transaction:t});
 
             const newAdmin = await AdministradorModel.create({
