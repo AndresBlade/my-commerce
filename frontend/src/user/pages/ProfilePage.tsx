@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useContext, ChangeEvent, useState, useRef, useEffect } from 'react';
+import { useContext, ChangeEvent, useState, useRef } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import defaultUserImage from '../../assets/default_user_image.png';
 import { setUserProfilePicture } from '../helpers/setUserProfilePicture';
@@ -10,7 +10,6 @@ import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 import { ModalForm } from '../../ui/components/ModalForm';
 import { keyframes, styled } from 'styled-components';
 import { useForm } from '../../hooks/useForm';
-import Keyframes from 'styled-components/dist/models/Keyframes';
 
 const ProfileButtonStyled = styled.button`
 	display: flex;
@@ -310,7 +309,7 @@ export const ProfilePage = () => {
 									type="password"
 									handleChange={onInputChange}
 									htmlFor="oldPassword"
-									value=""
+									value={oldPassword}
 									name="oldPassword"
 									title="Contraseña anterior"
 								/>
@@ -319,7 +318,7 @@ export const ProfilePage = () => {
 									type="password"
 									handleChange={onInputChange}
 									htmlFor="newPassword"
-									value=""
+									value={newPassword}
 									name="newPassword"
 									title="Nueva contraseña"
 								/>
