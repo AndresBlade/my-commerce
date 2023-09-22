@@ -210,14 +210,14 @@ export const registerAdmin = async (req:Request, res:Response) =>{
 
 export const updateUserPassword= async (req:Request, res:Response) =>{
     try{
-        const user_id = getUserId(res);
+        const userId = getUserId(res);
         const {oldPassword, newPassword} = req.body;
 
 
         //Busca el usuario por el id
         const userLogued = await UserModel.findOne({
             where:{
-                id:user_id
+                id:userId
             }
         });
 
@@ -237,10 +237,42 @@ export const updateUserPassword= async (req:Request, res:Response) =>{
         const newContrasennaEncrypted = await encryptPassword(newPassword);
         const userUpdated = await UserModel.update(
             {contrasenna:newContrasennaEncrypted},
-            {where:{id:user_id}});
+            {where:{id:userId}});
         if(!userUpdated) return res.send('CANNOT_UPDATE_USER_PASSWORD')
 
         return res.status(200).send('PASSWORD_UPDATED_SUCCESSFULLY')
+    }catch(error:any){
+        console.log(error)
+        return handleHttpErrors(error);
+    }
+}
+
+export const updateUserName= async (req:Request, res:Response) =>{
+    try{
+        const ClientID = getClientID(res);
+        const {newUserName} = req.body;
+
+        const checkClientName = await ClientModel.findOne({where:{nombre:newUserName},});
+        if(checkClientName) return res.status(400).send('NAME_ALREADY_USED');
+
+        
+        const clientUpdated = await ClientModel.update(
+            {nombre:newUserName},
+            {where:{id:ClientID}});
+        if(!clientUpdated) return res.status(500).send('CANNOT_UPDATE_CLIENT_NAME')
+    
+
+         //busca el cliente actualizado
+         const clientData = await ClientModel.findOne({where:{id:ClientID}});
+         if(!clientData) return res.status(500).send('CANNOT_GET_CLIENT_DATA');
+        
+        const userUpdated =  {
+            id: clientData.id,
+            nombre: clientData.nombre,
+            imagen: clientData.imagen
+        }
+
+        return res.status(200).send({clientUpdated:userUpdated})
     }catch(error:any){
         console.log(error)
         return handleHttpErrors(error);
