@@ -255,10 +255,11 @@ export const updateUserName= async (req:Request, res:Response) =>{
         const checkClientName = await ClientModel.findOne({where:{nombre:newUserName},});
         if(checkClientName) return res.status(400).send('NAME_ALREADY_USED');
 
-        
+
         const clientUpdated = await ClientModel.update(
             {nombre:newUserName},
-            {where:{id:ClientID}});
+            {where:{id:ClientID}}
+        );
         if(!clientUpdated) return res.status(500).send('CANNOT_UPDATE_CLIENT_NAME')
     
 
@@ -273,6 +274,37 @@ export const updateUserName= async (req:Request, res:Response) =>{
         }
 
         return res.status(200).send({clientUpdated:userUpdated})
+    }catch(error:any){
+        console.log(error)
+        return handleHttpErrors(error);
+    }
+}
+
+export const updateUserEmail= async (req:Request, res:Response) =>{
+    try{
+        const UserID = getUserId(res);
+        const {newUserEmail} = req.body;
+
+        const checkClientEmail = await UserModel.findOne({where:{correo:newUserEmail},});
+        if(checkClientEmail) return res.status(400).send('EMAIL_ALREADY_USED');
+
+
+        const clientUpdated = await UserModel.update(
+            {correo:newUserEmail},
+            {where:{id:UserID}}
+        );
+        if(!clientUpdated) return res.status(500).send('CANNOT_UPDATE_CLIENT_NAME')
+    
+
+         //busca el usuario actualizado
+         const userData = await UserModel.findOne({where:{id:UserID}});
+         if(!userData) return res.status(500).send('CANNOT_GET_USER_DATA');
+        
+        const userUpdated =  {
+            newEmail: userData.correo,
+        }
+
+        return res.status(200).send({userUpdated})
     }catch(error:any){
         console.log(error)
         return handleHttpErrors(error);

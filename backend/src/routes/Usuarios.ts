@@ -7,6 +7,7 @@ import {
 	updateUserImage,
 	registerAdmin,
 	updateUserName,
+	updateUserEmail,
 } from '../controllers/Usuarios';
 import { authMiddleware } from '../middleware/session';
 import checkRole from '../middleware/checkRole';
@@ -60,6 +61,21 @@ router.put(
 	authMiddleware,
 	checkRole(['CLIENTE']),
 	updateUserName
+);
+
+
+router.put(
+	'/updateUserEmail',
+	authMiddleware,
+	checkRole(['CLIENTE']),
+	updateUserEmail	
+);
+
+router.put(
+	'/updateUserEmail',
+	authMiddleware,
+	checkRole(['CLIENTE']),
+	updateUserEmail	
 );
 
 module.exports = router;
