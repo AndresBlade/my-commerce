@@ -1,6 +1,7 @@
 import express from 'express';
 import {
 	registerUser,
+	updateUserPassword,
 	getUsuario,
 	loginUser,
 	updateUserImage,
@@ -23,8 +24,20 @@ router.get(
 	getUsuario
 );
 
+
 router.post('/loginUser', loginUser);
 
+
+router.post(
+	'/registerAdmin',
+	authMiddleware,
+	checkRole(['ADMINISTRADOR']),
+	adminPrivilige(['ALTO']),
+	registerAdmin
+);
+
+
+//Edicion
 router.put(
 	'/updateUserImage',
 	authMiddleware,
@@ -34,12 +47,11 @@ router.put(
 	updateUserImage
 );
 
-router.post(
-	'/registerAdmin',
+router.put(
+	'/updateUserPassword',
 	authMiddleware,
-	checkRole(['ADMINISTRADOR']),
-	adminPrivilige(['ALTO']),
-	registerAdmin
+	checkRole(['CLIENTE']),
+	updateUserPassword
 );
 
 module.exports = router;

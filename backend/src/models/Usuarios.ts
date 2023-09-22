@@ -26,6 +26,8 @@ class UserModel extends Model<UserModelAttributes> implements UserModelAttribute
         UserModel.hasOne(AdministradorModel, {foreignKey: 'usuario_id', as: 'userData'});
         AdministradorModel.belongsTo(UserModel, {foreignKey: 'usuario_id', as: 'userData'});        
     }
+
+    
 }
 
 UserModel.init(

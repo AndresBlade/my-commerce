@@ -35,7 +35,6 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
         const user = await UserModel.findOne({ where: {id: userID} });
 
         if(user?.tipo_id === 1){
-            console.log('entras en el if')
             //consigue el cliente que pertenece al usuario
             const clientBelongToUser = await ClienteModel.findClientByUserID(userID);
 

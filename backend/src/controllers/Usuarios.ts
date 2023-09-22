@@ -4,7 +4,7 @@ import handleHttpErrors from '../utils/handleErrors';
 import {encryptPassword, comparePassword}  from '../utils/handlePassword';
 import UserModel  from "../models/Usuarios";
 import ClientModel  from "../models/Clientes";
-import {getClientID} from "../utils/getClientID";
+import {getClientID, getUserId} from "../utils/getClientID";
 import { sequelize } from "../config/db";
 import AdministradorModel from "../models/Administradores";
 const PUBLIC_URL = process.env['PUBLIC_URL'] || 'http://localhost:3000';
@@ -137,8 +137,8 @@ export const updateUserImage = async (req:Request, res:Response) =>{
         if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGE');
         const imagen = req.body.imagen.trim(); 
 
-        const clientUpdate = await ClientModel.update({imagen:imagen},{where:{id:client_id}});
-        if(!clientUpdate) return res.send('CANNOT_UPDATE_CLIENT_IMAGE')
+        const clientUpdated = await ClientModel.update({imagen:imagen},{where:{id:client_id}});
+        if(!clientUpdated) return res.send('CANNOT_UPDATE_CLIENT_IMAGE')
     
         return res.send({nuevaImagen:imagen});
     }catch(error:any){
@@ -204,6 +204,45 @@ export const registerAdmin = async (req:Request, res:Response) =>{
         return res.status(200).send(resultTransaction)
     }catch(error:any){
         console.log(error);
+        return handleHttpErrors(error);
+    }
+}
+
+export const updateUserPassword= async (req:Request, res:Response) =>{
+    try{
+        const user_id = getUserId(res);
+        const {oldPassword, newPassword} = req.body;
+
+
+        //Busca el usuario por el id
+        const userLogued = await UserModel.findOne({
+            where:{
+                id:user_id
+            }
+        });
+
+
+        //verificar si el usuario existe
+        if(!userLogued) return res.status(500).send('USER_NOT_FOUND')
+
+
+        //validar contraseña vieja
+        const hashPassword = userLogued.get('contrasenna');
+        const passwordMatch = await comparePassword(oldPassword, hashPassword);
+        if(!passwordMatch){
+            return handleHttpErrors(res, 'PASSWORD_NOT_MATCH', 401);
+        }
+
+        //actualiza la contraseña vieja por la nueva
+        const newContrasennaEncrypted = await encryptPassword(newPassword);
+        const userUpdated = await UserModel.update(
+            {contrasenna:newContrasennaEncrypted},
+            {where:{id:user_id}});
+        if(!userUpdated) return res.send('CANNOT_UPDATE_USER_PASSWORD')
+
+        return res.status(200).send('PASSWORD_UPDATED_SUCCESSFULLY')
+    }catch(error:any){
+        console.log(error)
         return handleHttpErrors(error);
     }
 }
