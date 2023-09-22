@@ -36,7 +36,7 @@ const TriggerParagraph = styled.p`
 	cursor: pointer;
 `;
 
-const EditButtonStyled = styled.i.attrs<{
+const PopUpEditIcon = styled.i.attrs<{
 	$left: number;
 	$top: number;
 	$mouseleave: boolean;
@@ -144,7 +144,7 @@ export const ProfilePage = () => {
 	return (
 		<>
 			{editButton?.element && (
-				<EditButtonStyled
+				<PopUpEditIcon
 					$left={
 						editButton.element.getBoundingClientRect().right -
 						editButton.element.getBoundingClientRect().width / 3
@@ -168,7 +168,7 @@ export const ProfilePage = () => {
 						}, 200);
 					}}
 					$mouseleave={editButton.mouseleave}
-				></EditButtonStyled>
+				></PopUpEditIcon>
 			)}
 			<section className="tiendas-miPerfil">
 				<div className="box-container-miPerfil">
