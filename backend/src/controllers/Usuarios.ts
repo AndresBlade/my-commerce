@@ -310,3 +310,20 @@ export const updateUserEmail= async (req:Request, res:Response) =>{
         return handleHttpErrors(error);
     }
 }
+
+export const desactivateUser= async (_req:Request, res:Response) =>{
+    try{
+        const userID = getUserId(res);
+
+        const userUpdated = await UserModel.update(
+            {status:'1'},
+            {where:{id:userID}}
+        );
+        if(!userUpdated) return res.status(500).send('CANNOT_DESACTIVATE_USER')
+
+        return res.status(200).send('USER_DESACTIVATED_SUCCESSFULLY')
+    }catch(error:any){
+        console.log(error)
+        return handleHttpErrors(error);
+    }
+}

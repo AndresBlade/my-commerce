@@ -8,6 +8,7 @@ import {
 	registerAdmin,
 	updateUserName,
 	updateUserEmail,
+	desactivateUser,
 } from '../controllers/Usuarios';
 import { authMiddleware } from '../middleware/session';
 import checkRole from '../middleware/checkRole';
@@ -72,10 +73,10 @@ router.put(
 );
 
 router.put(
-	'/updateUserEmail',
+	'/desactivateUser',
 	authMiddleware,
 	checkRole(['CLIENTE']),
-	updateUserEmail	
+	desactivateUser	
 );
 
 module.exports = router;
