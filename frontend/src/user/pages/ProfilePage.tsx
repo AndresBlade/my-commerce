@@ -11,6 +11,13 @@ import { ModalForm } from '../../ui/components/ModalForm';
 import { keyframes, styled } from 'styled-components';
 import { useForm } from '../../hooks/useForm';
 
+const ModalInfoParagraph = styled.p`
+	width: 400px;
+	padding: 0 40px;
+	background-color: #f4d0a0;
+	line-height: 2;
+`;
+
 const ProfileButtonStyled = styled.button`
 	display: flex;
 	justify-content: center;
@@ -25,11 +32,41 @@ const ProfileButtonStyled = styled.button`
 	border-color: var(--letrasBlancas-color);
 	text-decoration: none;
 `;
+
+const DeleteButtonStyled = styled(ProfileButtonStyled)`
+	background-color: #c04040;
+`;
+
 const ProfileButtonContainerStyled = styled.div`
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 2rem;
 	gap: 1rem;
+`;
+
+const DecisionButtonsContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 1rem;
+	padding-bottom: 10px;
+`;
+
+const DecisionButton = styled.button`
+	width: 100px;
+	text-align: center;
+	padding: 15px 20px;
+	border-radius: 3px;
+	color: #fff;
+	cursor: pointer;
+`;
+
+const YesButton = styled(DecisionButton)`
+	background-color: #c04040;
+`;
+
+const NoButton = styled(DecisionButton)`
+	background-color: var(--letrasAzules-color);
 `;
 
 const TriggerParagraph = styled.p`
@@ -87,6 +124,7 @@ enum FormType {
 	email,
 	username,
 	password,
+	deactivate,
 }
 
 export const ProfilePage = () => {
@@ -274,6 +312,14 @@ export const ProfilePage = () => {
 								>
 									Cambiar contraseña
 								</ProfileButtonStyled>
+								<DeleteButtonStyled
+									onClick={() => {
+										setShowModal(true);
+										setFormType(FormType.deactivate);
+									}}
+								>
+									Desactivar Cuenta
+								</DeleteButtonStyled>
 							</ProfileButtonContainerStyled>
 						</div>
 					</div>
@@ -302,6 +348,15 @@ export const ProfilePage = () => {
 								title="Nuevo nombre de usuario"
 								value={username}
 							/>
+						) : formType === FormType.deactivate ? (
+							<>
+								<ModalInfoParagraph>
+									Estás seguro de querer desactivar tu cuenta?
+									ya no podrás acceder a ella con tu correo ni
+									contraseña, ni podrás registrar una nueva
+									cuenta en la página con dichos datos
+								</ModalInfoParagraph>
+							</>
 						) : (
 							<>
 								<ModalFormDivider
@@ -326,10 +381,19 @@ export const ProfilePage = () => {
 						)}
 					</ModalForm>
 				</ModalContent>
-				<ModalFormSubmitButton
-					title="Subir cambios"
-					handleClick={() => false}
-				/>
+				{formType === FormType.deactivate ? (
+					<DecisionButtonsContainer>
+						<YesButton>Aceptar</YesButton>
+						<NoButton onClick={() => setShowModal(false)}>
+							Cancelar
+						</NoButton>
+					</DecisionButtonsContainer>
+				) : (
+					<ModalFormSubmitButton
+						title="Subir cambios"
+						handleClick={() => false}
+					/>
+				)}
 			</Modal>
 		</>
 	);
