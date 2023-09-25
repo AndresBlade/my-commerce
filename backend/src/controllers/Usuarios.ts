@@ -314,12 +314,25 @@ export const updateUserEmail= async (req:Request, res:Response) =>{
 export const desactivateUser= async (_req:Request, res:Response) =>{
     try{
         const userID = getUserId(res);
+        const clientID = getClientID(res);
 
-        const userUpdated = await UserModel.update(
-            {status:'1'},
-            {where:{id:userID}}
-        );
-        if(!userUpdated) return res.status(500).send('CANNOT_DESACTIVATE_USER')
+
+        //inicia una transacción para desactivar el usuario, sus tiendas asoadas y los productos que pertenecen a esas tiendas
+        const resultTransaction = await sequelize.transaction(async (t:any) => { 
+            console.log('EMPIEZA TRANSACCION')
+            //desactiva el usuario
+            await UserModel.update(
+                {status:'1'}, //status 1 = desactivado
+                {where:{id:userID}, transaction:t}
+            );
+            
+            //llama al método deactivateTiendasPerClient
+            const desativedTiendas = await ClientModel.desactivateTiendasPerClient(clientID);
+            //verificación
+            if(!desativedTiendas) throw new Error('ERROR_DESACTIVATING_TIENDAS_PER_CLIENT');
+            return true;
+        });
+        if(!resultTransaction) throw new Error('ERROR_DESACTIVATING_USER');
 
         return res.status(200).send('USER_DESACTIVATED_SUCCESSFULLY')
     }catch(error:any){

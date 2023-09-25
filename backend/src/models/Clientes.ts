@@ -3,9 +3,11 @@ import { sequelize } from '../config/db';
 import ClienteModelAttributes from './interfaces/ClienteInterface';
 import TiendaModel from './Tiendas';
 import VentasCabeceraModel from './Ventas_cabecera';
+import ProductoModel from './Prodcutos';
 
 
 class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModelAttributes {
+    
     public id!: number;
     public usuario_id!: number;
     public nombre!: string;
@@ -42,6 +44,35 @@ class ClienteModel extends Model<ClienteModelAttributes> implements ClienteModel
         }
     }
 
+    static desactivateTiendasPerClient= async function (clientID: number) {
+        //este método lo que hace es desactivar todas las tiendas de un cliente y desactivar todos los productos de esas tiendas
+        const resultTransaction = await sequelize.transaction(async (t:any) => {
+            //busca todas las tiendas que le pertenezcan al cliente
+            const tiendasPerClient = await TiendaModel.findTiendaByClient(clientID);
+
+            //de esas tiendas hace un .map para recorrer el array y ir actulizando cada tienda y desactivando sus productos
+            const tiendasUpdated = tiendasPerClient.map(async (tienda) => {
+                const updateTiendasPerClient = await TiendaModel.update(
+                        {status: '2'}, //status 2 es desactivado/baneada
+                        {where: {RIF: tienda.RIF}, transaction: t}
+                    )
+                    if(!updateTiendasPerClient) throw new Error('No se pudo desactivar las tiendas del cliente');
+
+                    //esta llama a su vez la función desactivateProductsPerTienda que desactiva todos los productos de una tienda
+                    const productsDesactivate = await ProductoModel.desactivateProductsPerTienda(tienda.RIF);
+                    if(!productsDesactivate) throw new Error('No se pudo desactivar los productos de las tiendas del cliente');
+
+                    //si todo sale bien retorna true
+                    return true;
+            })
+
+            const result = await Promise.all(tiendasUpdated);
+            if(!result) throw new Error('No se pudo desactivar las tiendas del cliente');
+            else return true;
+        })
+        if(!resultTransaction) throw new Error('No se pudo desactivar las tiendas del cliente');
+        else return true;
+    }
 }
 
 ClienteModel.init(

@@ -150,8 +150,34 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
         return products
     };
 
+    static desactivateProductsPerTienda = async function (RIF: number) {
+         //este método lo que hace es desactivar todos los productos de una tienda
+        try {
+            //busca todos los productos que le pertenezcan a una tienda
+            const productosPerTienda = await ProductoModel.getProductsByTiendaRIF(RIF);
+            
+            //de esos productos hace un .map para recorrer el array y ir actulizando el status de cada producto
+            const productsDesactivate = await productosPerTienda.map(async (producto) => {
+                const updateProductsPerTienda = await ProductoModel.update(
+                    {status: '1'},
+                    {where: {id: producto.id},})
+                    if(!updateProductsPerTienda) throw new Error('No se pudo desactivar los productos de la tienda');
 
-    // public getProductsByCategory = function(_categoria_id:number){};
+                    //si todo sale bien retorna el productoModel.update, que se va a guardar en la const productsDesactivate como un array de boleanos
+                    return updateProductsPerTienda;
+            })
+
+            //hacemos uso del método .every para verificar que todos los elementos dentro del array sean true, es decir que se hayan desactivado correctamente
+            if(productsDesactivate.every((product) => product)) {
+                return true;
+            } else {
+                throw new Error('ERROR_DESACTIVATING_PRODUCTS_PER_TIENDA');
+            }
+        } catch(error:any){
+            console.log(error)
+            throw new Error('ERROR_DESACTIVATING_PRODUCTS_PER_TIENDA');   
+        }
+    }
 }
 
 
