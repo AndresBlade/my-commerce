@@ -140,7 +140,7 @@ export const updateUserImage = async (req:Request, res:Response) =>{
         const clientUpdated = await ClientModel.update({imagen:imagen},{where:{id:client_id}});
         if(!clientUpdated) return res.send('CANNOT_UPDATE_CLIENT_IMAGE')
     
-        return res.send({nuevaImagen:imagen});
+        return res.status(200).send({nuevaImagen:imagen});
     }catch(error:any){
         console.log(error);
         return handleHttpErrors(error);

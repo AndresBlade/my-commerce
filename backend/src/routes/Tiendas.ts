@@ -9,7 +9,9 @@ import { tiendaRegister,
          getTiendaByClient,
          getTiendaByName, 
          getTiendas,
-         deleteTienda} from "../controllers/Tiendas";
+         deleteTienda,
+         updateTiendaImagen,
+         updateTiendaData} from "../controllers/Tiendas";
 
 const router = express.Router();
 
@@ -35,10 +37,24 @@ router.post("/tiendaRegister",
             tiendaRegister,
             );
 
-router.delete("/deleteTienda/:tiendaRIF",
+router.put("/deleteTienda/:tiendaRIF",
             authMiddleware,
             checkRole(['CLIENTE']),
             deleteTienda,
+            );
+
+router.put("/updateTiendaImagen/:tiendaRIF",
+            authMiddleware,
+            checkRole(['CLIENTE']),
+            imageRoute('tiendaProfile'),
+            uploadMiddleware.single('imagen'),
+            updateTiendaImagen,
+            );
+
+router.put("/updateTiendaData/:tiendaRIF",
+            authMiddleware,
+            checkRole(['CLIENTE']),
+            updateTiendaData,
             );
 
 module.exports = router;
