@@ -156,14 +156,15 @@ export const deleteTienda = async (req:Request, res:Response) =>{
 export const updateTiendaData = async (req:Request, res:Response) =>{ 
     try{
         let { tiendaRIF = '' } = req.params;
-         console.log(tiendaRIF)
+        
+        const {nombre, descripcion} = req.body;
 
         //validar que el clientID no sea un string
-        if(!parseInt(tiendaRIF)) return res.send('CLIENT_ID_CAN_NOT_BE_A_STRING');
-        const rifDeleteTienda = parseInt(tiendaRIF);
-		const tiendaDelete = await TiendaModel.deleteTienda(rifDeleteTienda);
-        if(!tiendaDelete) return res.status(400).send('ERROR_DELETING_TIENDA');
-        else return res.status(200).send('TIENDA_DELETED_SUCCESSFULLY');
+        if(!parseInt(tiendaRIF)) return res.send('TIENDA_RIF_CAN_NOT_BE_A_STRING');
+        const rifUpdateTienda = parseInt(tiendaRIF);
+		const tiendaUpdate = await TiendaModel.update({nombre, descripcion}, {where:{RIF:rifUpdateTienda}});
+        if(!tiendaUpdate) return res.status(400).send('ERROR_UPDATING_TIENDA');
+        else return res.status(200).send('TIENDA_DATA_UPDATED_SUCCESSFULLY');
     }catch(error:any){
         console.log(error);
         return handleHttpErrors(error);
