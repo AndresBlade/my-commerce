@@ -8,7 +8,8 @@ import { tiendaRegister,
          getTiendaByRIF,
          getTiendaByClient,
          getTiendaByName, 
-         getTiendas} from "../controllers/Tiendas";
+         getTiendas,
+         deleteTienda} from "../controllers/Tiendas";
 
 const router = express.Router();
 
@@ -32,6 +33,12 @@ router.post("/tiendaRegister",
             uploadMiddleware.single('imagen'),
             validatorRegisterTienda,
             tiendaRegister,
+            );
+
+router.delete("/deleteTienda/:tiendaRIF",
+            authMiddleware,
+            checkRole(['CLIENTE']),
+            deleteTienda,
             );
 
 module.exports = router;

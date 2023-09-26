@@ -174,6 +174,26 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
 
         tienda.increment('saldo', {by: cantidad * price})
     };
+
+    static deleteTienda = async function(tiendaRIF:number){
+        
+        const resultTransaction = await sequelize.transaction(async (t:any) => {
+            const tienda = await TiendaModel.findOne({
+                where: { RIF: tiendaRIF },
+            });
+    
+            if(!tienda) throw new Error('ERROR_GETTING_TIENDA_BY_RIF');
+            tienda.update({status: '2'}, {transaction: t});
+
+            const productsDesactivate = await ProductoModel.desactivateProductsPerTienda(tienda.RIF);
+            if(!productsDesactivate) throw new Error('No se pudo desactivar los productos de las tiendas del cliente');
+
+            return true;
+        })
+
+        if(!resultTransaction) throw new Error('ERROR_DELETING_TIENDA_BY_RIF');
+        else return true;
+    }
 }
 
 

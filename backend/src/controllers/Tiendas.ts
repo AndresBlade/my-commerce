@@ -133,3 +133,21 @@ export const getTiendaByClient = async (req:Request, res:Response) =>{
         return handleHttpErrors(error);
     }
 }
+
+
+export const deleteTienda = async (req:Request, res:Response) =>{ 
+    try{
+        let { tiendaRIF = '' } = req.params;
+         console.log(tiendaRIF)
+
+        //validar que el clientID no sea un string
+        if(!parseInt(tiendaRIF)) return res.send('CLIENT_ID_CAN_NOT_BE_A_STRING');
+        const rifDeleteTienda = parseInt(tiendaRIF);
+		const tiendaDelete = await TiendaModel.deleteTienda(rifDeleteTienda);
+        if(!tiendaDelete) return res.status(400).send('ERROR_DELETING_TIENDA');
+        else return res.status(200).send('TIENDA_DELETED_SUCCESSFULLY');
+    }catch(error:any){
+        console.log(error);
+        return handleHttpErrors(error);
+    }
+}
