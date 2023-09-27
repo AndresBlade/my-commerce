@@ -56,15 +56,23 @@ export type InputNumberProps = {
 	max?: number;
 };
 
-export type InputTextProps = {
-	type: 'text';
+export type InputStringProps = {
+	type: 'text' | 'password' | 'email';
 	value: string;
 };
+
+// export type InputTextProps = {
+// 	type: 'text';
+// };
+
+// export type InputPasswordProps = {
+// 	type: 'password';
+// };
 
 export type InputProps = {
 	element: 'input';
 	handleChange: ({ target }: React.ChangeEvent<HTMLInputElement>) => void;
-} & (InputNumberProps | InputTextProps | InputFileProps);
+} & (InputNumberProps | InputStringProps | InputFileProps);
 
 export type EntryProps = {
 	title: string;
