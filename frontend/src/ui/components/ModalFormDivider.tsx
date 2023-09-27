@@ -153,6 +153,7 @@ export const ModalFormDivider = ({
 						onChange={handleChange}
 						id={htmlFor}
 						className="formModal__select"
+						disabled={disabled}
 					>
 						{options.map(option => (
 							<option
