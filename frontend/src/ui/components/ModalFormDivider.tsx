@@ -6,7 +6,7 @@ import {
 	InputFileSingleImageProps,
 	InputNumberProps,
 	InputProps,
-	InputTextProps,
+	InputStringProps,
 	SelectProps,
 	TextareaProps,
 } from './EntryProps';
@@ -26,8 +26,10 @@ export const ModalFormDivider = ({
 			case 'input': {
 				const { type } = rest as unknown as InputProps;
 				switch (type) {
-					case 'text': {
-						const { value } = rest as unknown as InputTextProps;
+					case 'text':
+					case 'password':
+					case 'email': {
+						const { value } = rest as unknown as InputStringProps;
 						return (
 							<input
 								type={type}
@@ -38,6 +40,7 @@ export const ModalFormDivider = ({
 								className="formModal__text"
 							></input>
 						);
+						break;
 					}
 					case 'number': {
 						const { value, max, min } =
