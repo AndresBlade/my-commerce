@@ -6,6 +6,7 @@ type Props = {
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 	children: ReactNode;
 	setInitialState?: React.Dispatch<React.SetStateAction<ShopForm>>;
+	setEdit?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type SubmitType<FormType, DataType, UserDataType> = {
@@ -24,19 +25,22 @@ export const Modal = ({
 	setShowModal,
 	children,
 	setInitialState,
+	setEdit,
 }: Props) => {
 	const modalRef = useRef<ElementRef<'div'>>(null);
 
 	const closeModal = useCallback(() => {
 		console.log('cerrar');
 		setShowModal(false);
-		setInitialState({
-			RIF: 0,
-			name: '',
-			descripcion: '',
-			Image: null,
-			region: '-1',
-		});
+		if (setInitialState)
+			setInitialState({
+				RIF: 0,
+				name: '',
+				descripcion: '',
+				Image: null,
+				region: '-1',
+			});
+		if (setEdit) setEdit(false);
 	}, [setShowModal]);
 
 	return (

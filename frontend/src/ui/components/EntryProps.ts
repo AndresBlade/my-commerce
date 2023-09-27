@@ -78,4 +78,5 @@ export type EntryProps = {
 	title: string;
 	name: string;
 	htmlFor: string;
+	disabled?: boolean;
 } & (InputProps | TextareaProps | SelectProps);

@@ -17,6 +17,7 @@ export const ModalFormDivider = ({
 	htmlFor,
 	name,
 	element,
+	disabled,
 	...rest
 }: EntryProps) => {
 	const imageRef = useRef<ElementRef<'img'>>(null);
@@ -38,6 +39,7 @@ export const ModalFormDivider = ({
 								onChange={handleChange}
 								value={value}
 								className="formModal__text"
+								disabled={disabled}
 							></input>
 						);
 						break;
@@ -50,6 +52,7 @@ export const ModalFormDivider = ({
 								type={type}
 								id={htmlFor}
 								name={name}
+								disabled={disabled}
 								value={
 									max !== undefined
 										? value > max
@@ -76,6 +79,7 @@ export const ModalFormDivider = ({
 							return (
 								<input
 									id={htmlFor}
+									disabled={disabled}
 									name={name}
 									type={type}
 									accept={accept.join()}
@@ -93,6 +97,7 @@ export const ModalFormDivider = ({
 								<input
 									id={htmlFor}
 									name={name}
+									disabled={disabled}
 									type={type}
 									accept={accept.join()}
 									className="formModal__image"
@@ -117,6 +122,7 @@ export const ModalFormDivider = ({
 									type={type}
 									accept={accept.join()}
 									className="formModal__image"
+									disabled={disabled}
 									onChange={e => {
 										handleChange(e);
 										const { handleImageChange } =

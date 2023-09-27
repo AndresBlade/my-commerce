@@ -1,6 +1,6 @@
 import { MyShopList } from '../../shops/components/MyShopList';
 import { CreateButton } from '../../shops/components/CreateButton';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useRef } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import { Shop } from '../../shops/interfaces/Shop';
 import { getShopsByUser } from '../../shops/helpers/getShopsByUser';
@@ -16,6 +16,38 @@ import { ModalTitle } from '../../ui/components/ModalTitle';
 import { ModalContent } from '../../ui/components/ModalContent';
 import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 import { ModalFormSubmitButton } from '../../ui/components/ModalFormSubmitButton';
+import { editShop } from '../../shops/helpers/editShop';
+
+const onEditSubmit = (
+	form: ShopForm,
+	setError: React.Dispatch<React.SetStateAction<string | null>>,
+	{ clientData: { id }, token }: UserData,
+	setShops: React.Dispatch<React.SetStateAction<Shop[] | null>>,
+	setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+): void => {
+	const { Image, RIF, descripcion, name, region } = form;
+	const inputsFilled = Object.values(form)
+		.filter(value => typeof value === 'string' || typeof value === 'number')
+		.every(value => value !== '' && value !== 0);
+
+	if (region === '-1') return setError('Ingrese una región válida');
+
+	if (!inputsFilled) return setError('Faltan campos por rellenar');
+
+	if (!Image?.[0]) return setError('Debe subir una imagen');
+	if (name.length < 4)
+		return setError('El nombre debe de tener mínimo 4 caracteres');
+	if (form.RIF > 2000000000)
+		return setError('El RIF debe ser un número menor a 1.000.000.000');
+	if (form.descripcion.trim().length < 30)
+		return setError('La descripción debe tener mínimo 30 caracteres');
+
+	const formData = new FormData();
+
+	console.log(region);
+
+	console.log(RIF, name, descripcion, Image[0], [region]);
+};
 
 const onSubmit: SubmitType<ShopForm, Shop[], UserData> = (
 	form: ShopForm,
@@ -93,6 +125,7 @@ const handleFileChange = (
 };
 
 export const MyShopsPage = () => {
+	const formRef = useRef<ElementRef<'form'>>(null);
 	const [showModal, setShowModal] = useState(false);
 	const [regions, setRegions] = useState<Region[] | []>([]);
 	const {
@@ -119,8 +152,6 @@ export const MyShopsPage = () => {
 	}, [token, id]);
 
 	const [editShop, setEditShop] = useState<boolean>(false);
-
-	const [initialState, setInitialState] = useState<ShopForm>();
 
 	const {
 		RIF,
@@ -158,6 +189,7 @@ export const MyShopsPage = () => {
 				setShowModal={setShowModal}
 				showModal={showModal}
 				setInitialState={setFormState}
+				setEdit={setEditShop}
 			>
 				<ModalContent>
 					<ModalTitle title="Agregar Tienda" />
@@ -171,6 +203,7 @@ export const MyShopsPage = () => {
 							type={'number'}
 							value={RIF}
 							min={0}
+							disabled={editShop}
 						/>
 						<ModalFormDivider
 							element={'input'}
@@ -221,13 +254,21 @@ export const MyShopsPage = () => {
 					<ModalFormSubmitButton
 						title="Crear Tienda"
 						handleClick={() => {
-							onSubmit(
-								formState,
-								setError,
-								user,
-								setShops,
-								setShowModal
-							);
+							editShop
+								? onEditSubmit(
+										formState,
+										setError,
+										user,
+										setShops,
+										setShowModal
+								  )
+								: onSubmit(
+										formState,
+										setError,
+										user,
+										setShops,
+										setShowModal
+								  );
 						}}
 					/>
 				</ModalContent>
