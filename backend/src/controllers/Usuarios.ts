@@ -84,6 +84,7 @@ export const loginUser = async (req:Request, res:Response) =>{
             }
         });
         if(!userLogued) return res.status(500).send('EMAIL_NOT_FOUND')
+        if(userLogued.status == '1') return res.status(500).send('USER_NOT_FOUND')
 
         const userData = {
             correo: userLogued.correo,
