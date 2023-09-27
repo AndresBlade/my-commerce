@@ -62,7 +62,7 @@ const UpdateUserDataInfoStyled = styled.p.attrs<{
 	animation-duration: 3s;
 `;
 
-const ProfileButtonStyled = styled.button`
+export const ProfileButtonStyled = styled.button`
 	display: flex;
 	justify-content: center;
 	padding: 1rem 3rem;
@@ -77,7 +77,7 @@ const ProfileButtonStyled = styled.button`
 	text-decoration: none;
 `;
 
-const DeleteButtonStyled = styled(ProfileButtonStyled)`
+export const DeleteButtonStyled = styled(ProfileButtonStyled)`
 	background-color: #c04040;
 `;
 
