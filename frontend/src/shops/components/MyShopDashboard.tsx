@@ -118,7 +118,10 @@ export const MyShopDashboard = () => {
 			.then(response => setProducts(response.productosTienda))
 			.catch(err => console.log(err));
 		getSingleShop(RIF)
-			.then(response => setShop(response.datosTienda[0]))
+			.then(response => {
+				console.log(response.datosTienda);
+				setShop(response.datosTienda);
+			})
 			.catch(err => console.log(err));
 	}, [RIF]);
 	const {
@@ -139,6 +142,11 @@ export const MyShopDashboard = () => {
 		nombre: '',
 		precio: 0,
 	});
+
+	setTimeout(() => {
+		console.log(shop);
+	}, 3000);
+
 	return (
 		<>
 			<main className="misTiendas">
