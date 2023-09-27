@@ -1,5 +1,5 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import { useContext, ChangeEvent, useState, useRef } from 'react';
+import { useContext, ChangeEvent, useState, useRef, useEffect } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import defaultUserImage from '../../assets/default_user_image.png';
 import { setUserProfilePicture } from '../helpers/setUserProfilePicture';
@@ -10,12 +10,56 @@ import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 import { ModalForm } from '../../ui/components/ModalForm';
 import { keyframes, styled } from 'styled-components';
 import { useForm } from '../../hooks/useForm';
+import { updateUserPassword } from '../helpers/updateUserPassword';
+import { updateUserEmail } from '../helpers/updateUserEmail';
+import { UserData } from '../interfaces/UserData';
+import { updateUserName } from '../helpers/updateUserName';
+import {
+	NavigateFunction,
+	Params,
+	redirect,
+	useNavigate,
+	useParams,
+} from 'react-router';
+import { useSearchParams } from 'react-router-dom';
+import { deactivateUser } from '../helpers/deactivateUser';
+const fadeMessage = keyframes`
+0% {
+	opacity: 0
+}
+20%{
+	opacity: 1
+}
+
+80% {
+	opacity: 1
+}
+100% {
+ opacity: 0
+}`;
 
 const ModalInfoParagraph = styled.p`
 	width: 400px;
 	padding: 0 40px;
 	background-color: #f4d0a0;
 	line-height: 2;
+`;
+
+const UpdateUserDataInfoStyled = styled.p.attrs<{
+	$status: 'success' | 'failure';
+}>(props => ({
+	$status: props.$status,
+}))`
+	background-color: ${props =>
+		props.$status === 'success' ? '#80d0a0' : '#f07070'};
+	border-radius: 10px;
+	font-size: 8px;
+	color: #ffffff;
+	font-weight: 700;
+	padding: 20px;
+	animation-name: ${fadeMessage};
+	animation-fill-mode: forwards;
+	animation-duration: 3s;
 `;
 
 const ProfileButtonStyled = styled.button`
@@ -127,6 +171,134 @@ enum FormType {
 	deactivate,
 }
 
+type SubmitFormType<Type> = Type extends FormType.email
+	? { email: string }
+	: Type extends FormType.username
+	? { username: string }
+	: Type extends FormType.password
+	? { oldPassword: string; newPassword: string }
+	: null;
+
+function onSubmit(
+	form: Form,
+	type: FormType | null,
+	token: string,
+	setUserUpdateDataInfo: React.Dispatch<
+		React.SetStateAction<{
+			value: string;
+			status: 'success' | 'failure';
+		} | null>
+	>,
+	setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
+	setUser: React.Dispatch<React.SetStateAction<UserData>>,
+	navigate: NavigateFunction
+) {
+	console.log('en el submit');
+	switch (type) {
+		case FormType.password: {
+			console.log({
+				token,
+				obj: {
+					oldPassword: form.oldPassword,
+					newPassword: form.newPassword,
+				},
+			});
+
+			if (form.oldPassword === form.newPassword) {
+				setShowModal(false);
+				setUserUpdateDataInfo({
+					status: 'failure',
+					value: 'Las contraseñas no pueden ser iguales',
+				});
+				return;
+			}
+
+			updateUserPassword(token, {
+				oldPassword: form.oldPassword,
+				newPassword: form.newPassword,
+			})
+				.then(response => {
+					if (response === 'PASSWORD_NOT_MATCH') {
+						setShowModal(false);
+						return setUserUpdateDataInfo({
+							value: 'La contraseña del usuario es incorrecta',
+							status: 'failure',
+						});
+					}
+					setUserUpdateDataInfo({
+						value: 'Contraseña cambiada correctamente',
+						status: 'success',
+					});
+					setShowModal(false);
+				})
+				.catch(error => console.log(error));
+			break;
+		}
+
+		case FormType.email: {
+			console.log({ token, email: form.email });
+			updateUserEmail(token, { newUserEmail: form.email })
+				.then(response => {
+					console.log(response);
+					setShowModal(false);
+					setUser(user => {
+						user.userData.correo = response.userUpdated.newEmail;
+						localStorage.setItem('userData', JSON.stringify(user));
+						return user;
+					});
+					return setUserUpdateDataInfo({
+						status: 'success',
+						value: `El correo fue cambiado correctamente a ${response.userUpdated.newEmail}`,
+					});
+				})
+				.catch((err: Error) => {
+					console.log(err.message);
+					if (err.message === 'EMAIL_ALREADY_USED') {
+						setShowModal(false);
+
+						return setUserUpdateDataInfo({
+							status: 'failure',
+							value: 'El correo ya está en uso por usted mismo u otro usuario',
+						});
+					}
+				});
+			break;
+		}
+
+		case FormType.username: {
+			console.log({ token, username: form.username });
+			updateUserName(token, { newUserName: form.username })
+				.then(response => {
+					console.log(response);
+					setShowModal(false);
+					setUser(user => {
+						user.clientData = response.clientUpdated;
+						localStorage.setItem('userData', JSON.stringify(user));
+						navigate(`/${response.clientUpdated.nombre}`, {
+							replace: true,
+						});
+						return user;
+					});
+					return setUserUpdateDataInfo({
+						status: 'success',
+						value: 'Nombre de usuario cambiado correctamente',
+					});
+				})
+				.catch((err: Error) => {
+					console.log(err.message);
+					if (err.message === 'NAME_ALREADY_USED') {
+						setShowModal(false);
+						return setUserUpdateDataInfo({
+							status: 'failure',
+							value: 'El nombre de usuario ya está en uso por usted u otro usuario',
+						});
+					}
+				});
+			break;
+		}
+	}
+}
+
 export const ProfilePage = () => {
 	const {
 		user: {
@@ -137,6 +309,8 @@ export const ProfilePage = () => {
 		user,
 		setUser,
 	} = useContext(AuthContext);
+
+	const navigate = useNavigate();
 
 	const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files?.[0] !== undefined)
@@ -163,21 +337,41 @@ export const ProfilePage = () => {
 				.catch(err => console.log(err));
 	};
 
+	const updateUserDataRef = useRef<HTMLParagraphElement>(null);
+
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const [editButton, setEditButton] = useState<{
 		element: HTMLElement;
 		mouseleave: boolean;
 	} | null>(null);
+	const [updateUserDataInfo, setUpdateUserDataInfo] = useState<{
+		value: string;
+		status: 'success' | 'failure';
+	} | null>(null);
 	const [formType, setFormType] = useState<FormType | null>(null);
-	const { email, username, newPassword, oldPassword, onInputChange } =
-		useForm<Form>({
-			email: correo,
-			username: nombre,
-			newPassword: '',
-			oldPassword: '',
-		});
+	const {
+		email,
+		username,
+		newPassword,
+		oldPassword,
+		formState,
+		onInputChange,
+	} = useForm<Form>({
+		email: correo,
+		username: nombre,
+		newPassword: '',
+		oldPassword: '',
+	});
 	const timeoutId = useRef<number | null>(null);
+
+	useEffect(() => {
+		if (updateUserDataRef.current) {
+			setTimeout(() => {
+				setUpdateUserDataInfo(null);
+			}, 3000);
+		}
+	}, [updateUserDataInfo]);
 
 	return (
 		<>
@@ -321,6 +515,16 @@ export const ProfilePage = () => {
 									Desactivar Cuenta
 								</DeleteButtonStyled>
 							</ProfileButtonContainerStyled>
+							{updateUserDataInfo !== null ? (
+								<UpdateUserDataInfoStyled
+									ref={updateUserDataRef}
+									$status={updateUserDataInfo.status}
+								>
+									{updateUserDataInfo.value}
+								</UpdateUserDataInfoStyled>
+							) : (
+								<></>
+							)}
 						</div>
 					</div>
 				</div>
@@ -383,7 +587,36 @@ export const ProfilePage = () => {
 				</ModalContent>
 				{formType === FormType.deactivate ? (
 					<DecisionButtonsContainer>
-						<YesButton>Aceptar</YesButton>
+						<YesButton
+							onClick={() => {
+								deactivateUser(token)
+									.then(response => {
+										if (
+											response ===
+											'USER_DESACTIVATED_SUCCESSFULLY'
+										) {
+											localStorage.clear();
+											setUser({
+												clientData: {
+													id: -1,
+													imagen: '',
+													nombre: '',
+												},
+												token: '',
+												userData: {
+													correo: '',
+													createdAt: '',
+													tipoId: -1,
+												},
+											});
+											navigate('/');
+										}
+									})
+									.catch(err => console.log(err));
+							}}
+						>
+							Aceptar
+						</YesButton>
 						<NoButton onClick={() => setShowModal(false)}>
 							Cancelar
 						</NoButton>
@@ -391,7 +624,17 @@ export const ProfilePage = () => {
 				) : (
 					<ModalFormSubmitButton
 						title="Subir cambios"
-						handleClick={() => false}
+						handleClick={() =>
+							onSubmit(
+								formState,
+								formType,
+								token,
+								setUpdateUserDataInfo,
+								setShowModal,
+								setUser,
+								navigate
+							)
+						}
 					/>
 				)}
 			</Modal>
