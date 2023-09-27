@@ -31,15 +31,11 @@
 }
 
 .misTiendas__grid {
-	padding: 20px 40px;
 	display: flex;
-	flex: 5 1 auto;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	gap: 20px;
-	grid-template-columns: repeat(3, 1fr);
-	grid-auto-rows: 500px;
+	flex-wrap: wrap;
+	overflow-wrap: break-word;
+	flex-direction: row;
+	width: 100%;
 }
 
 .Perfil__tienda .menu-dashboard {

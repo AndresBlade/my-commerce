@@ -1714,7 +1714,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	flex-direction: column;
 	text-decoration: none;
 	gap: 10px;
-	align-items: center;
+	width: 40%;
 	background-color: #ccd4ff;
 	padding: 10px 20px;
 	border-radius: 20px;
@@ -1733,10 +1733,16 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	width: 200px;
 	object-fit: cover;
 	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .misTiendas__title {
 	font-weight: 700;
+}
+
+.misTiendas__tienda p{
+	text-align: center;
 }
 
 .misTiendas__nombre {
