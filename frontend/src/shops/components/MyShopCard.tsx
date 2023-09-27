@@ -81,6 +81,7 @@ export const MyShopCard = ({
 						e.preventDefault();
 						setShowModal(true);
 						setEditShop(true);
+						console.log(shop);
 						setInitialState({
 							RIF: shop.RIF,
 							descripcion: shop.descripcion,

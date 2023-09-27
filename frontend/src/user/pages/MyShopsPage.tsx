@@ -17,6 +17,7 @@ import { ModalContent } from '../../ui/components/ModalContent';
 import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 import { ModalFormSubmitButton } from '../../ui/components/ModalFormSubmitButton';
 import { editShop } from '../../shops/helpers/editShop';
+import { updateTiendaData } from '../../shops/helpers/updateTiendaData';
 
 const onEditSubmit = (
 	form: ShopForm,
@@ -43,6 +44,24 @@ const onEditSubmit = (
 		return setError('La descripción debe tener mínimo 30 caracteres');
 
 	const formData = new FormData();
+
+	formData.append('RIF', RIF.toString());
+	formData.append('nombre', name);
+	formData.append('descripcion', descripcion);
+	formData.append('imagen', Image[0]);
+	formData.append('region_id[]', region);
+
+	updateTiendaData(formData, token)
+		.then(response => {
+			console.log(response);
+			getShopsByUser(id)
+				.then(response => {
+					setShops(response.datosTienda);
+					if (setShowModal) setShowModal(false);
+				})
+				.catch(err => console.log(err));
+		})
+		.catch(err => console.log(err));
 
 	console.log(region);
 
