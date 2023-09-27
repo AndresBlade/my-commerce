@@ -155,7 +155,9 @@ export const deleteTienda = async (req:Request, res:Response) =>{
 export const updateTiendaData = async (req:Request, res:Response) =>{ 
     try{        
         const dataTienda = matchedData(req);
-        let { RIF, nombre,descripcion, imagen} = dataTienda;
+        if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGE');
+        const imagen = req.body.imagen.trim(); 
+        let { RIF, nombre,descripcion} = dataTienda;
         const regiones_id:Array<number> = dataTienda['region_id'];
         console.log(dataTienda)
 
@@ -173,7 +175,7 @@ export const updateTiendaData = async (req:Request, res:Response) =>{
 
 
                 
-                return res.status(200).send('TIENDA_DATA_UPDATED_SUCCESSFULLY');
+            return res.status(200).send('TIENDA_DATA_UPDATED_SUCCESSFULLY');
         }
         catch(error:any){
         console.log(error);
