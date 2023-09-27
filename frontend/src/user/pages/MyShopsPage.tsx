@@ -17,8 +17,8 @@ import { ModalContent } from '../../ui/components/ModalContent';
 import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 import { ModalFormSubmitButton } from '../../ui/components/ModalFormSubmitButton';
 
-const onSubmit: SubmitType<Form, Shop[], UserData> = (
-	form: Form,
+const onSubmit: SubmitType<ShopForm, Shop[], UserData> = (
+	form: ShopForm,
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
 	{ clientData: { id }, token }: UserData,
 	setShops: React.Dispatch<React.SetStateAction<Shop[] | null>>,
@@ -64,7 +64,7 @@ const onSubmit: SubmitType<Form, Shop[], UserData> = (
 		.catch(err => console.log(err));
 };
 
-interface Form {
+export interface ShopForm {
 	RIF: number;
 	name: string;
 	descripcion: string;
@@ -118,6 +118,10 @@ export const MyShopsPage = () => {
 			.catch(err => console.log(err));
 	}, [token, id]);
 
+	const [editShop, setEditShop] = useState<boolean>(false);
+
+	const [initialState, setInitialState] = useState<ShopForm>();
+
 	const {
 		RIF,
 		descripcion,
@@ -128,7 +132,8 @@ export const MyShopsPage = () => {
 		onTextareaChange,
 		formState,
 		onFileInputChange,
-	} = useForm<Form>({
+		setFormState,
+	} = useForm<ShopForm>({
 		RIF: 0,
 		name: '',
 		descripcion: '',
@@ -143,8 +148,17 @@ export const MyShopsPage = () => {
 				setShowModal={setShowModal}
 				buttonTitle="Agregar Tienda"
 			/>
-			<MyShopList shops={shops} />
-			<Modal setShowModal={setShowModal} showModal={showModal}>
+			<MyShopList
+				shops={shops}
+				setShowModal={setShowModal}
+				setInitialState={setFormState}
+				setEditShop={setEditShop}
+			/>
+			<Modal
+				setShowModal={setShowModal}
+				showModal={showModal}
+				setInitialState={setFormState}
+			>
 				<ModalContent>
 					<ModalTitle title="Agregar Tienda" />
 					<ModalForm setError={setError} error={error}>

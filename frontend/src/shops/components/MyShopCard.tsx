@@ -14,15 +14,36 @@ import { deactivateShop } from '../helpers/desactivateShop';
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import { ElementRef } from 'react';
+import styled from 'styled-components';
+import { ShopForm } from '../../user/pages/MyShopsPage';
+interface Props {
+	shop: Shop;
+	setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+	setInitialState: React.Dispatch<React.SetStateAction<ShopForm>>;
+	setEditShop: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const EditButtonStyled = styled.button`
+	display: flex;
+	justify-content: center;
+	padding: 1rem 3rem;
+	cursor: pointer;
+	border-radius: 10rem;
+	/* font-size: 20px; */
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--letrasBlancas-color);
+	background-color: var(--letrasAzules-color);
+	border-color: var(--letrasBlancas-color);
+	text-decoration: none;
+`;
 
 export const MyShopCard = ({
-	RIF,
-	descripcion,
-	createdAt,
-	imagen,
-	nombre,
-}: Shop) => {
-	const [showModal, setShowModal] = useState(false);
+	shop,
+	setShowModal,
+	setInitialState,
+	setEditShop,
+}: Props) => {
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const containerRef = useRef<ElementRef<'a'>>(null);
 
@@ -30,12 +51,13 @@ export const MyShopCard = ({
 		user: { token },
 	} = useContext(AuthContext);
 
+	const { RIF, descripcion, createdAt, imagen, nombre } = shop;
 	return (
 		<>
 			<Link
 				to={RIF.toString()}
-				ref={containerRef}
 				className="misTiendas__tienda"
+				ref={containerRef}
 			>
 				<h3 className="misTiendas__nombre">{nombre}</h3>
 				<p>
@@ -53,17 +75,37 @@ export const MyShopCard = ({
 					<span className="misTiendas__title">Descripción:</span>
 					{descripcion}
 				</p>
-				<DeleteButtonStyled
+
+				<EditButtonStyled
 					onClick={e => {
 						e.preventDefault();
 						setShowModal(true);
+						setEditShop(true);
+						setInitialState({
+							RIF: shop.RIF,
+							descripcion: shop.descripcion,
+							Image: null,
+							name: shop.nombre,
+							region: shop.regionesTienda[0].id.toString(),
+						});
+					}}
+				>
+					Editar Tienda
+				</EditButtonStyled>
+				<DeleteButtonStyled
+					onClick={e => {
+						e.preventDefault();
+						setShowDeleteModal(true);
 					}}
 				>
 					Borrar Tienda
 				</DeleteButtonStyled>
 			</Link>
 
-			<Modal showModal={showModal} setShowModal={setShowModal}>
+			<Modal
+				showModal={showDeleteModal}
+				setShowModal={setShowDeleteModal}
+			>
 				<ModalContent>
 					<ModalInfoParagraph>
 						Estás seguro de querer desactivar tu cuenta? ya no
@@ -81,12 +123,12 @@ export const MyShopCard = ({
 										containerRef.current?.remove();
 									})
 									.catch(err => console.log(err));
-								setShowModal(false);
+								setShowDeleteModal(false);
 							}}
 						>
 							Aceptar
 						</YesButton>
-						<NoButton onClick={() => setShowModal(false)}>
+						<NoButton onClick={() => setShowDeleteModal(false)}>
 							Cancelar
 						</NoButton>
 					</DecisionButtonsContainer>

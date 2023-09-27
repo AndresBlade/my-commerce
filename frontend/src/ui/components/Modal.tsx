@@ -1,9 +1,11 @@
 import { ElementRef, ReactNode, useCallback, useRef } from 'react';
+import { ShopForm } from '../../user/pages/MyShopsPage';
 
 type Props = {
 	showModal: boolean;
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 	children: ReactNode;
+	setInitialState?: React.Dispatch<React.SetStateAction<ShopForm>>;
 };
 
 export type SubmitType<FormType, DataType, UserDataType> = {
@@ -17,12 +19,24 @@ export type SubmitType<FormType, DataType, UserDataType> = {
 	): void;
 };
 
-export const Modal = ({ showModal, setShowModal, children }: Props) => {
+export const Modal = ({
+	showModal,
+	setShowModal,
+	children,
+	setInitialState,
+}: Props) => {
 	const modalRef = useRef<ElementRef<'div'>>(null);
 
 	const closeModal = useCallback(() => {
 		console.log('cerrar');
 		setShowModal(false);
+		setInitialState({
+			RIF: 0,
+			name: '',
+			descripcion: '',
+			Image: null,
+			region: '-1',
+		});
 	}, [setShowModal]);
 
 	return (
