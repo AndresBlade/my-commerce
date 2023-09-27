@@ -38,7 +38,7 @@ const fadeMessage = keyframes`
  opacity: 0
 }`;
 
-const ModalInfoParagraph = styled.p`
+export const ModalInfoParagraph = styled.p`
 	width: 400px;
 	padding: 0 40px;
 	background-color: #f4d0a0;
@@ -88,7 +88,7 @@ const ProfileButtonContainerStyled = styled.div`
 	gap: 1rem;
 `;
 
-const DecisionButtonsContainer = styled.div`
+export const DecisionButtonsContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -96,7 +96,7 @@ const DecisionButtonsContainer = styled.div`
 	padding-bottom: 10px;
 `;
 
-const DecisionButton = styled.button`
+export const DecisionButton = styled.button`
 	width: 100px;
 	text-align: center;
 	padding: 15px 20px;
@@ -105,11 +105,11 @@ const DecisionButton = styled.button`
 	cursor: pointer;
 `;
 
-const YesButton = styled(DecisionButton)`
+export const YesButton = styled(DecisionButton)`
 	background-color: #c04040;
 `;
 
-const NoButton = styled(DecisionButton)`
+export const NoButton = styled(DecisionButton)`
 	background-color: var(--letrasAzules-color);
 `;
 
