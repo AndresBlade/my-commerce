@@ -60,7 +60,6 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
             };
         })
 
-
         return res.status(200).send({
             tienda: resultTransaction.newTienda,
             regionesID: resultTransaction.regiones_id  
@@ -154,18 +153,29 @@ export const deleteTienda = async (req:Request, res:Response) =>{
 
 
 export const updateTiendaData = async (req:Request, res:Response) =>{ 
-    try{
-        let { tiendaRIF = '' } = req.params;
-        
-        const {nombre, descripcion} = req.body;
+    try{        
+        const dataTienda = matchedData(req);
+        let { RIF, nombre,descripcion, imagen} = dataTienda;
+        const regiones_id:Array<number> = dataTienda['region_id'];
+        console.log(dataTienda)
 
-        //validar que el clientID no sea un string
-        if(!parseInt(tiendaRIF)) return res.send('TIENDA_RIF_CAN_NOT_BE_A_STRING');
-        const rifUpdateTienda = parseInt(tiendaRIF);
-		const tiendaUpdate = await TiendaModel.update({nombre, descripcion}, {where:{RIF:rifUpdateTienda}});
-        if(!tiendaUpdate) return res.status(400).send('ERROR_UPDATING_TIENDA');
-        else return res.status(200).send('TIENDA_DATA_UPDATED_SUCCESSFULLY');
-    }catch(error:any){
+            const regionsUpdates = await regiones_id.map((region_id: number) => {
+                return {
+                      region_id,
+                      tienda_id: RIF,
+                    }  
+            })
+
+            const tiendasUpdated = await TiendaModel.update({nombre:nombre, descripcion:descripcion, imagen:imagen}, {where:{RIF:RIF}});
+            await TiendasRegionesModel.destroy({where:{tienda_id:RIF}});
+            const regionesUpdated = await TiendasRegionesModel.bulkCreate(regionsUpdates);
+            if(!tiendasUpdated || !regionesUpdated) return res.send('CANNOT_UPDATE_TIENDA_DATA')
+
+
+                
+                return res.status(200).send('TIENDA_DATA_UPDATED_SUCCESSFULLY');
+        }
+        catch(error:any){
         console.log(error);
         return handleHttpErrors(error);
     }

@@ -51,9 +51,12 @@ router.put("/updateTiendaImagen/:tiendaRIF",
             updateTiendaImagen,
             );
 
-router.put("/updateTiendaData/:tiendaRIF",
+router.put("/updateTiendaData",
             authMiddleware,
             checkRole(['CLIENTE']),
+            imageRoute('tiendaProfile'),
+            uploadMiddleware.single('imagen'),
+            validatorRegisterTienda,
             updateTiendaData,
             );
 
