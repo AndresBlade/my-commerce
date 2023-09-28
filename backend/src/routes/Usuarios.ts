@@ -44,7 +44,7 @@ router.post(
 router.put(
 	'/updateUserImage',
 	authMiddleware,
-	checkRole(['CLIENTE']),
+	checkRole(['CLIENTE', 'ADMINISTRADOR']),
 	imagenRoute('userProfile'),
 	uploadMiddleware.single('imagen'),
 	updateUserImage
@@ -53,14 +53,14 @@ router.put(
 router.put(
 	'/updateUserPassword',
 	authMiddleware,
-	checkRole(['CLIENTE']),
+	checkRole(['CLIENTE', 'ADMINISTRADOR']),
 	updateUserPassword
 );
 
 router.put(
 	'/updateUserName',
 	authMiddleware,
-	checkRole(['CLIENTE']),
+	checkRole(['CLIENTE', 'ADMINISTRADOR']),
 	updateUserName
 );
 

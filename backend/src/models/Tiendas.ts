@@ -116,9 +116,9 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
     };
 
 
-    static findAllTiendasWhitRegion = async function(page:number, size:number):Promise<{ count: number,totalPages:number, currentPage:number,rows: TiendaModel[] }>{
+    static findAllTiendasWhitRegion = async function(page:number, size:number, status:string):Promise<{ count: number,totalPages:number, currentPage:number,rows: TiendaModel[] }>{
         const result = await TiendaModel.findAndCountAll({
-            where:{status:'0'}, //Devuelve solo las tiendas que esten activas/aceptadas
+            where:{status: status}, //Devuelve solo las tiendas que tengan el status que se le pase por parametro (0,1,2)
             limit: +size,
             offset: +page * +size,
             distinct:true,

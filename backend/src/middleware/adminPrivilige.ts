@@ -32,7 +32,7 @@ export const adminPrivilige = (privilegios:Array<string>) => async (_req:Request
         console.log(adminPrivilige);
         const checkValueRole = privilegios.some((privilegio) => adminPrivilige.includes(privilegio));
 
-        if(!checkValueRole) return handleHttpErrors(res, 'ADMIN_DO_NOT_ENOUGTH_PRIVILIGIE', 403);
+        if(!checkValueRole) return handleHttpErrors(res, 'ADMIN_DO_NOT_HAVE_ENOUGTH_PRIVILIGIE', 403);
 
         return next();
     }catch(e:any){

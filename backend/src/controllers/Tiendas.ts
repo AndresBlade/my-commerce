@@ -79,7 +79,7 @@ export const getTiendas = async (req:Request, res:Response) =>{
         const pageSize = parseInt(size.toString());
 
 
-        const tiendas = await TiendaModel.findAllTiendasWhitRegion(pageNumber, pageSize);
+        const tiendas = await TiendaModel.findAllTiendasWhitRegion(pageNumber, pageSize, '1');
         return res.send({tiendas});
     }catch(error:any){
         console.log(error);
