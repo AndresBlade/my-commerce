@@ -262,7 +262,7 @@ export const MyShopsPage = () => {
 							name={'region'}
 							title={'Región'}
 							value={region}
-							disabled={editShop}
+							// disabled={editShop}
 							options={regions.map(region => {
 								return {
 									description: region.descripcion,

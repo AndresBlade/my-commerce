@@ -155,31 +155,42 @@ export const deleteTienda = async (req:Request, res:Response) =>{
 export const updateTiendaData = async (req:Request, res:Response) =>{ 
     try{        
         const dataTienda = matchedData(req);
+        const {RIF, nombre,descripcion} = dataTienda;
+
+        //recupera la imagen
         if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGE');
         const imagen = req.body.imagen.trim(); 
-        let { RIF, nombre,descripcion} = dataTienda;
-        const regiones_id:Array<number> = dataTienda['region_id'];
-        console.log(dataTienda)
 
+        const resultTransaction = await sequelize.transaction(async (t:any) => {
+            //crea objeto de los ids de las regiones y los ids de las tiendas que se van a guardar en la tabla tiendas_regiones
+            const regiones_id:Array<number> = dataTienda['region_id'];
             const regionsUpdates = await regiones_id.map((region_id: number) => {
                 return {
-                      region_id,
-                      tienda_id: RIF,
+                        region_id,
+                        tienda_id: RIF,
                     }  
             })
 
+            //actualiza la tienda directamente
             const tiendasUpdated = await TiendaModel.update({nombre:nombre, descripcion:descripcion, imagen:imagen}, {where:{RIF:RIF}});
+
+            //elimina los registros anteriores asosiacidos a la tienda en la tabla tiendas_regiones
             await TiendasRegionesModel.destroy({where:{tienda_id:RIF}});
-            const regionesUpdated = await TiendasRegionesModel.bulkCreate(regionsUpdates);
+
+            //crea los nuevos registros en la tabla tiendas_regiones con el array de objetos anteriormente creado 
+            const regionesUpdated = await TiendasRegionesModel.bulkCreate(regionsUpdates, {transaction:t});
+            
             if(!tiendasUpdated || !regionesUpdated) return res.send('CANNOT_UPDATE_TIENDA_DATA')
 
+            return true;
+        })
 
-                
-            return res.status(200).send('TIENDA_DATA_UPDATED_SUCCESSFULLY');
-        }
-        catch(error:any){
+        if(!resultTransaction) return res.send('CANNOT_UPDATE_TIENDA_DATA')
+        
+        return res.status(200).send('TIENDA_DATA_UPDATED_SUCCESSFULLY');
+    }catch(error:any){
         console.log(error);
-        return handleHttpErrors(error);
+        return handleHttpErrors(error); 
     }
 }
 
@@ -188,7 +199,6 @@ export const updateTiendaImagen = async (req:Request, res:Response) =>{
         const {tiendaRIF} = req.params;
         if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGE');
         const imagen = req.body.imagen.trim(); 
-        console.log(imagen)
 
         const tiendasUpdated = await TiendaModel.update({imagen:imagen}, {where:{RIF:tiendaRIF}});
         if(!tiendasUpdated) return res.send('CANNOT_UPDATE_CLIENT_IMAGE')
