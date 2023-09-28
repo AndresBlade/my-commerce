@@ -20,7 +20,7 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
         if (tienda) return res.status(400).send('Tienda ya registrada, ingrese otro RIF');
 
 
-        const status = '1'; //En espera de aprobacion
+        const status = '0'; //En espera de aprobacion
         const saldo = 0;
 
 

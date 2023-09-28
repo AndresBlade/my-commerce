@@ -208,6 +208,17 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
 
         return true;   
     }
+
+    static rejectTiendaOnStandby =async (RIF:number) => {
+        const tienda = await TiendaModel.findOne({
+            where: { RIF: RIF },
+        });
+
+        if(!tienda) throw new Error('ERROR_GETTING_TIENDA_BY_RIF');
+        tienda.update({status: '2'});
+
+        return true;   
+    }
 }
 
 

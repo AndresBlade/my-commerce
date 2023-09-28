@@ -22,6 +22,8 @@ export async function getTiendasOnStandby(req:Request, res:Response){
     return res.status(200).send({message: 'Hello from Admin Controller'})
 } 
 
+
+
 export async function acceptTiendaOnStandby(req:Request, res:Response){
     let {tiendaRIF = ''} = req.params;
     if(!parseInt(tiendaRIF)) return res.send('TIENDA_RIF_CAN_NOT_BE_A_STRING');
@@ -32,6 +34,22 @@ export async function acceptTiendaOnStandby(req:Request, res:Response){
         if(!acceptTienda) return res.status(505).send('ERROR_ACCEPTING_TIENDA_ON_STANDBY');
 
         return res.send('TIENDA_ACCEPTED_SUCCESSFULLY');
+    }catch(err:any){
+        console.log(err);
+        return handleHttpErrors(res, err.message, 500);
+    }
+}
+
+export async function rejectTiendaOnStandby(req:Request, res:Response){
+    let {tiendaRIF = ''} = req.params;
+    if(!parseInt(tiendaRIF)) return res.send('TIENDA_RIF_CAN_NOT_BE_A_STRING');
+    try{
+        const tienda_rif = parseInt(tiendaRIF);
+        const rejectTienda = await TiendaModel.rejectTiendaOnStandby(tienda_rif);
+
+        if(!rejectTienda) return res.status(505).send('ERROR_REJECTING_TIENDA_ON_STANDBY');
+
+        return res.send('TIENDA_DENIED_SUCCESSFULLY');
     }catch(err:any){
         console.log(err);
         return handleHttpErrors(res, err.message, 500);

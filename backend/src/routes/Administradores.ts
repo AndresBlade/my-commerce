@@ -3,6 +3,7 @@ import {authMiddleware} from '../middleware/session';
 import checkRole from '../middleware/checkRole';
 import {getTiendasOnStandby,
         acceptTiendaOnStandby,
+        rejectTiendaOnStandby,
 } from '../controllers/Administradores'
 import {adminPrivilige} from '../middleware/adminPrivilige';
 
@@ -22,6 +23,14 @@ router.put("/acceptTiendaOnStandby/:tiendaRIF",
             adminPrivilige(['MEDIO', 'ALTO']),
             acceptTiendaOnStandby
 )
+
+router.put("/rejectTiendaOnStandby/:tiendaRIF",
+            authMiddleware,
+            checkRole(['ADMINISTRADOR']),
+            adminPrivilige(['MEDIO', 'ALTO']),
+            rejectTiendaOnStandby
+)
+
 
 
 module.exports = router;
