@@ -2,6 +2,7 @@ import express from 'express';
 import {authMiddleware} from '../middleware/session';
 import checkRole from '../middleware/checkRole';
 import {getTiendasOnStandby,
+        acceptTiendaOnStandby,
 } from '../controllers/Administradores'
 import {adminPrivilige} from '../middleware/adminPrivilige';
 
@@ -14,5 +15,13 @@ router.get("/getTiendasOnStandby/:page?/:size?",
             adminPrivilige(['MEDIO', 'ALTO']),
             getTiendasOnStandby
 )
+
+router.put("/acceptTiendaOnStandby/:tiendaRIF",
+            authMiddleware,
+            checkRole(['ADMINISTRADOR']),
+            adminPrivilige(['MEDIO', 'ALTO']),
+            acceptTiendaOnStandby
+)
+
 
 module.exports = router;
