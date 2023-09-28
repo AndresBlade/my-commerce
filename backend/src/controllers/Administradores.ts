@@ -18,11 +18,25 @@ export async function getTiendasOnStandby(req:Request, res:Response){
         console.log(err);
         return handleHttpErrors(res, err.message, 500);
     }
-
-    return res.status(200).send({message: 'Hello from Admin Controller'})
 } 
 
+export async function getTiendasRejected(req:Request, res:Response){
+    try{
+        const { page = 0, size = 10 } = req.query;
 
+        const pageNumber = parseInt(page.toString());
+        const pageSize = parseInt(size.toString());
+        
+        const tiendasRejected = await TiendaModel.findAllTiendasWhitRegion(pageNumber, pageSize, '2');
+
+        if(!tiendasRejected) return res.status(505).send('ERROR_GETTING_TIENDAS_REJECTED');
+
+        return res.send({tiendasRejected: tiendasRejected});
+    }catch(err:any){
+        console.log(err);
+        return handleHttpErrors(res, err.message, 500);
+    }
+} 
 
 export async function acceptTiendaOnStandby(req:Request, res:Response){
     let {tiendaRIF = ''} = req.params;
