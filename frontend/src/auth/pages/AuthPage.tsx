@@ -181,7 +181,7 @@ export const AuthPage = ({ register }: Props) => {
 						<ErrorMessage message={error} setError={setError} />
 					)}
 					<button
-						type="submit"
+						type="button"
 						className="flex m-4 px-12 py-3 text-blanco bg-dark-blue hover:opacity-80 cursor-pointer rounded-full mx-auto"
 						onClick={() =>
 							onSubmit(
