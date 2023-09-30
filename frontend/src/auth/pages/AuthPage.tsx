@@ -213,9 +213,6 @@ export const AuthPage = ({ register }: Props) => {
 							</label>
 						</div>
 					)}
-					{error && (
-						<ErrorMessage message={error} setError={setError} />
-					)}
 				</form>
 				<div className="text-[.8rem] mt-6">
 					{register ? (
