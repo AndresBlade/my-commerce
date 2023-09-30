@@ -11,8 +11,8 @@ export const ProductPage = () => {
 
 	return (
 		<>
-			<main>
-				<section className="content">
+			<main className="bg-bg-degradado">
+				<section className="w-[90%] flex justify-around mx-auto ">
 					<ProductGallery {...product} />
 					<ProductDetails {...product} />
 				</section>

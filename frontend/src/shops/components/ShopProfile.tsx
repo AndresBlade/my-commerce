@@ -5,26 +5,32 @@ export const ShopProfile = () => {
 	const { shopData } = useLoaderData() as ShopLoader;
 	const { datosTienda } = shopData;
 	return (
-		<aside className="menu-dashboard">
-			<div className="sidebar-content">
-				<div className="menu-logo">
+		<aside className="bg-azul sticky">
+			<div className="flex flex-col p-4">
+				<div className="flex flex-wrap items-center gap-3 justify-center">
 					<img
-						className="tienda_logo"
+						className="w-28 rounded-full"
 						alt="Tienda-logo"
-						src={datosTienda[0].imagen}
+						src={datosTienda.imagen}
 					/>
-					<h1 className="tienda_nombre">{datosTienda[0].nombre}</h1>
+					<h1 className="text-[2rem] text-blanco">
+						{datosTienda.nombre}
+					</h1>
 				</div>
-				<p className="tienda_descripcion">
-					{datosTienda[0].descripcion}
+				<p className="text-center md:text-left font-thin my-4 text-blanco">
+					{datosTienda.descripcion}
 				</p>
 				<ul>
-					<h2 className="about">Acerca de {datosTienda[0].nombre}</h2>
-					<li className="RIF">{datosTienda[0].RIF}</li>
-					<li className="createdAt">
-						Creada: {datosTienda[0].createdAt.split('T')[0]}
+					<h2 className="font-semibold text-blanco text-center">
+						Acerca de {datosTienda.nombre}
+					</h2>
+					<li className="text-blanco text-center">
+						{datosTienda.RIF}
 					</li>
-					<li>Ubicación: Lara</li>
+					<li className="text-blanco text-center">
+						Creada: {datosTienda.createdAt.split('T')}
+					</li>
+					<li className="text-blanco text-center">Lara</li>
 				</ul>
 			</div>
 		</aside>

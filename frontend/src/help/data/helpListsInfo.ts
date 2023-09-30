@@ -25,8 +25,4 @@ export const helpLists: HelpListInformation[] = [
 		heading: 'Ayuda con mi cuenta',
 		helpCardInformation: [{ title: 'Configuración de mi cuenta o tienda' }],
 	},
-	{
-		heading: 'Consulta Personalizada',
-		helpCardInformation: [{ title: 'Contáctanos' }],
-	},
 ];

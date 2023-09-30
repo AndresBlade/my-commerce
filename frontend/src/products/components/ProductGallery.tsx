@@ -27,15 +27,15 @@ export const ProductGallery = ({ imagenes }: Product) => {
 	};
 
 	return (
-		<article className="gallery">
+		<article className="w-[40%] cursor-pointer">
 			<div
-				className="gallery__container_img"
+				className="h-[500px] bg-cover rounded-lg mb-8"
 				ref={galleryContainerImg}
 			></div>
 			<div className="gallery__thumnails">
 				{imagenes.map((image, index) => (
 					<img
-						className="gallery__thumnail"
+						className="w-[90px] max-w-[100%] rounded-2xl h-24"
 						src={image.ruta}
 						id={index.toString()}
 						alt="Imagen del producto"

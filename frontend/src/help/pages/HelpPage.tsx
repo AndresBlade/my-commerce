@@ -8,13 +8,13 @@ interface Props {
 export const HelpPage = ({ helpLists }: Props) => {
 	return (
 		<>
-			<div className="contact-form-text">
-				<h2>¿En qué podemos ayudarte?</h2>
-
+			<div>
+				<h2 className='text-amarillo text-[2rem] font-medium'>¿En qué podemos ayudarte?</h2>
 				{helpLists.map((helpListInfo, index) => (
 					<HelpList {...helpListInfo} key={index} />
 				))}
 			</div>
 		</>
+// >>>>>>> main
 	);
 };

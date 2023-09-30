@@ -33,30 +33,30 @@ export const ProductDetails = ({
 	} = useContext(AuthContext);
 	console.log(tiendaProducto);
 	return (
-		<article className="details">
-			<div className="container_tienda">
+		<article className="w-[550px] h-[550px] bg-blanco flex rounded-lg flex-col p-8">
+			<div className="w-full mb-4 flex gap-8 items-center">
 				<img
 					src={tiendaProducto.imagen}
-					className="img_tienda"
+					className="w-[100px] h-[100px] rounded-full"
 					alt={tiendaProducto.nombre}
 				/>
 				<Link
 					to={`/tienda/${tiendaProducto.RIF}`}
-					className="tiendaName"
+					className="text-[2rem] font-normal"
 				>
 					{tiendaProducto.nombre}
 				</Link>
 			</div>
-			<h2 className="productName">{nombre}</h2>
-			<p className="descripcion">{descripcion}</p>
-			<p className="price">{precio}</p>
+			<h2 className="text-[1.7rem] mb-10 font-semibold">{nombre}</h2>
+			<p className="text-[.9rem] mb-10">{descripcion}</p>
+			<p className="text-[1.7rem] font-semibold w-full mb-12">{precio}</p>
 			<button
-				className={`button compraProducto__btnComprar ${
+				className={` flex items-center justify-center bg-dark-blue px-12 py-4 w-full rounded-lg border-none text-blanco text-[.9rem] font-bold hover:opacity-70 ${
 					purchaseCompleted === undefined
 						? ''
 						: purchaseCompleted
-						? 'compraProducto__btnComprar--comprado'
-						: 'compraProducto__btnComprar--error'
+						? 'bg-green-500 cursor-not-allowed'
+						: 'bg-red-500 cursor-not-allowed '
 				}`}
 				onClick={() =>
 					handleSubmit(
@@ -72,7 +72,7 @@ export const ProductDetails = ({
 				{purchaseCompleted === undefined
 					? 'Comprar Ahora'
 					: purchaseCompleted
-					? 'Comprado exitosamente!'
+					? '¡Comprado exitosamente!'
 					: 'Error al comprar'}
 			</button>
 		</article>

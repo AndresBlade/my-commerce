@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+	--main-color: #1e5bd6;
+	--background-color: #dde6f5;
+	--rectangulo-color: #f4f0a4;
+	--letrasBlancas-color: #f1f4fe;
+	--letrasAzules-color: #4d7cff;
+	--degradadoFondo-color: linear-gradient(
+		265deg,
+		#3145e3cc 0%,
+		#4d62ffcc 51%,
+		#7c92ffcc 100%
+	);
+
+	/*
+	Degradado viejo
+	--degradadoFondo-color: 
+	linear-gradient(50.94deg,
+	#7c92ffcc 1.31%,
+	#4d62ffcc 42.31%,
+	#3145e3cc 74.71%)
+
+	
+	*/
+}
+
+.content
+{
+    background: var(--degradadoFondo-color);
+    display: flex;
+    flex-wrap: wrap ;
+    padding: 90px 50px;
+    gap: 124px;
+}
+
+/*-------- GALLERY -------*/
+
+main .gallery
+{
+    width: 450px;
+    cursor: pointer;
+}
+
+.gallery__container_img
+{
+    height: 500px;
+    width: 100%;
+
+    border-radius: 1.2rem;
+    background-size: cover;
+    margin-bottom: 2rem;
+}
+
+.gallery__thumnails {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.gallery__thumnail {
+    width: 90px;
+    max-width: 100%;
+    border-radius: 16px;
+    height: 90px;
+  }
+
+  .gallery__thumnail:hover {
+    cursor: pointer;
+    border: 2px solid var(--main-color);
+  }
+
+  .gallery__previus 
+{
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 170px;
+    left: 15px;
+}
+
+  .gallery__previus:hover
+{
+    cursor: pointer;
+}
+
+.gallery__next 
+{
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 170px;
+    left: 320px;
+  }
+  .gallery__next:hover 
+  {
+    cursor: pointer;
+  }
+
+/*---------------- DETAILS -------------- */
+.details{
+    padding: 2rem;
+}
+
+main .details{
+    width: 550px;
+    height: 550px;
+    display: flex;
+    border-radius: 8px;
+    flex-direction: column;
+    background: var(--letrasBlancas-color); 
+}
+
+.container_tienda {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    text-decoration: none;
+}
+
+.container_tienda .img_tienda{
+    width: 100px; 
+    height: 100px;
+    border-radius: 50%;
+}
+
+.container_tienda .tiendaName{
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.details .productName{
+    font-size: 2em;
+    margin-bottom: 48px;
+    font-weight: 600;
+}
+
+.details .descripcion{
+    font-size: .90rem;
+    margin-bottom: 37px;
+}
+
+.details .price{
+    font-size: 2rem;
+    font-weight: 700;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.button{
+  background-color: var(--letrasAzules-color);
+  padding: 1rem 3rem;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  color: var(--letrasBlancas-color);
+  font-size: 0.9em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+/*---------------- CONTAINER MORE PRODUCT -------------- */
+
+
+  /*Modal galeria*/
+
+  .modal-gallery__background {
+    background-color: #00000080;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    display: none;
+    place-content: center;
+  }
+  .modal-gallery__close-container {
+    text-align: right;
+    height: 30px;
+  }
+  .modal-gallery__close {
+    width: 20px;
+    margin-top: 5rem;
+  }
+  .modal-gallery__close:hover {
+    cursor: pointer;
+    content: url("../img/icon-close-orange.svg");
+  }
+  .modal-gallery__image-container {
+    background-image: url("../img/BolsitosKio.jpg");
+    height: 446px;
+    background-size: cover;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    margin-top: 6rem;
+    position: relative;
+  }
+  .modal-gallery__thumnails {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+    margin: auto;
+  }
+  .modal-gallery__thumnail {
+    width: 90px;
+    border-radius: 16px;
+  }
+  .modal-gallery__thumnail:hover {
+    cursor: pointer;
+    border: 2px solid var(--letrasAzules-color);
+  }
+  .modal-gallery__previus {
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 190px;
+    left: -15px;
+  }
+  .modal-gallery__previus:hover {
+    cursor: pointer;
+  }
+  @media (min-width: 1115px) {
+    .modal-gallery__previus {
+      display: block;
+    }
+  }
+  .modal-gallery__next {
+    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    padding: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 190px;
+    left: 520px;
+  }
+  .modal-gallery__next:hover {
+    cursor: pointer;
+  }
+  @media (min-width: 1115px) {
+    .modal-gallery__next {
+      display: block;
+    }
+  }
+  

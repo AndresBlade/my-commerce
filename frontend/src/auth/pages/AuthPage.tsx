@@ -60,6 +60,7 @@ const onSubmit = (
 				console.log('registrado');
 				console.log(user);
 				setUserData(user);
+				console.log(user.clientData.nombre);
 				navigate(`/${user.clientData.nombre}`);
 				localStorage.setItem('userData', JSON.stringify(user));
 			})
@@ -76,6 +77,7 @@ const onSubmit = (
 		.then(user => {
 			console.log('recibido');
 			setUserData(user);
+			console.log(user.clientData.nombre);
 			navigate(`/${user.clientData.nombre}`);
 			localStorage.setItem('userData', JSON.stringify(user));
 		})
@@ -123,61 +125,64 @@ export const AuthPage = ({ register }: Props) => {
 	const navigate = useNavigate();
 	return (
 		<div
-			className="background-degradado"
+			className="bg-bg-degradado"
 			style={{ height: (100).toString() + 'vh', padding: `${50}px` }}
 		>
-			<div className="box-body">
-				<div className="wrapper" style={{ margin: `${0} auto` }}>
-					<h1>{register ? 'Regístrate' : 'Inicia Sesión'}</h1>
-					<form action="../index.html" className="userForm">
-						{register && (
-							<input
-								type="text"
-								className="userForm__name"
-								placeholder="Nombre"
-								name="username"
-								value={username}
-								maxLength={45}
-								required
-								onChange={onInputChange}
-							/>
-						)}
+			<div
+				className="w-80 py-8 px-4 my-12 mx-auto bg-blanco rounded-[10px] text-center shadow-2xl"
+				style={{ margin: `${0} auto` }}
+			>
+				<h1 className="mb-4">
+					{register ? 'Regístrate' : 'Inicia Sesión'}
+				</h1>
+				<form action="../index.html">
+					{register && (
 						<input
 							type="text"
-							className="userForm__email"
-							name="email"
-							placeholder="Correo"
-							value={email}
-							onChange={onInputChange}
+							className=""
+							placeholder="Nombre"
+							name="username"
+							value={username}
+							maxLength={45}
 							required
+							onChange={onInputChange}
 						/>
+					)}
+					<input
+						type="text"
+						className=""
+						name="email"
+						placeholder="Correo"
+						value={email}
+						onChange={onInputChange}
+						required
+					/>
+					<input
+						type="password"
+						name="password"
+						className=""
+						placeholder="Contraseña"
+						value={password}
+						onChange={onInputChange}
+						required
+					/>
+					{register && (
 						<input
 							type="password"
-							name="password"
-							className="userForm__password"
-							placeholder="Contraseña"
-							value={password}
+							name="confirmPassword"
+							className=""
+							placeholder="Confirmar Contraseña"
+							value={confirmPassword}
 							onChange={onInputChange}
 							required
 						/>
-						{register && (
-							<input
-								type="password"
-								name="confirmPassword"
-								className="userForm__confirmPassword"
-								placeholder="Confirmar Contraseña"
-								value={confirmPassword}
-								onChange={onInputChange}
-								required
-							/>
-						)}
-						{error && (
-							<ErrorMessage message={error} setError={setError} />
-						)}
-					</form>
+					)}
+					{error && (
+						<ErrorMessage message={error} setError={setError} />
+					)}
 					<button
 						type="submit"
-						className="btn-login"
+						className="flex m-4 px-12 py-3 text-blanco bg-dark-blue hover:opacity-80 cursor-pointer rounded-full mx-auto"
 						onClick={() =>
 							onSubmit(
 								formState,
@@ -208,20 +213,28 @@ export const AuthPage = ({ register }: Props) => {
 							</label>
 						</div>
 					)}
-
-					<div className="member">
-						{register ? (
-							<>
-								Ya esta Registrado?
-								<Link to="/login"> Inicia Sesión aqui</Link>
-							</>
-						) : (
-							<>
-								¿Aun no te has registrado?
-								<Link to="/register"> Regístrate aqui</Link>
-							</>
-						)}
-					</div>
+					{error && (
+						<ErrorMessage message={error} setError={setError} />
+					)}
+				</form>
+				<div className="text-[.8rem] mt-6">
+					{register ? (
+						<>
+							¿Ya está registrado?
+							<Link to="/login" className="text-dark-blue">
+								{' '}
+								Inicia sesión aquí
+							</Link>
+						</>
+					) : (
+						<>
+							¿Aún no te has registrado?
+							<Link to="/register" className="text-dark-blue">
+								{' '}
+								Regístrate aquí
+							</Link>
+						</>
+					)}
 				</div>
 			</div>
 		</div>

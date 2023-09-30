@@ -8,9 +8,11 @@ const HeaderButton = styled.button`
 	background-color: transparent;
 	font-family: 'Poppins', sans-serif;
 	cursor: pointer;
-	font-size: 1.1em;
-	text-transform: uppercase;
+	font-size: 1rem;
 	color: #fff;
+
+	@media (max-width: 1023.9px) {
+    }
 
 	&::before {
 		content: '';
@@ -21,7 +23,7 @@ const HeaderButton = styled.button`
 		transition: transform 0.5s ease-in-out;
 		transform-origin: right;
 		width: 100%;
-		height: 2px;
+		height: 1.5px;
 	}
 	&:hover::before {
 		transform: scaleY(1);
@@ -29,17 +31,15 @@ const HeaderButton = styled.button`
 	}
 `;
 
-//estilos de mrd que arrechos son
+//Angei: estilos de mrd que arrechos son // CesarPro: Anda y metete tus styles components por el #%**
 
 export const LogoutButton = () => {
 	const { setShowModal } = useContext(SesionModalContext);
 	return (
 		<>
-			<li>
-				<HeaderButton onClick={() => setShowModal(true)}>
-					Cerrar Sesión
-				</HeaderButton>
-			</li>
+			<HeaderButton onClick={() => setShowModal(true)}>
+				Cerrar Sesión
+			</HeaderButton>
 		</>
 	);
 };

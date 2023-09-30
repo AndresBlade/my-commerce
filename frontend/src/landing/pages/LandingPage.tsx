@@ -9,21 +9,21 @@ export default function LandingPage() {
 			<main>
 				<LandingHero />
 				{/* <!-- Tiendas destacadas --> */}
-				<div className="tiendas-destacadas_heading">
-					<h2 className="heading">Tiendas Destacadas</h2>
-					<div className="rectangulo-2"></div>
+				<div className="w-[90%] mx-auto my-10">
+					<h2 className="text-[1.3rem] font-normal md:text-3xl">Tiendas Destacadas <a href='explorar' className='ml-2 text-sm text-azul font-semibold'>Ver tiendas</a></h2>
+					<div className="h-[5px] bg-azul w-[35%] mt-3"></div>
 				</div>
 
-				<section className="tiendas-destacadas">
+				<section className="w-[95%] mx-auto">
 					<ShopList />
 				</section>
 
-				<section>
-					<div className="productos-destacados_heading">
-						<h2 className="heading">Productos Destacados</h2>
-						<div className="rectangulo-2"></div>
-					</div>
-
+				<div className="w-[90%] mx-auto my-10">
+					<h2 className="text-[1.3rem] font-normal md:text-3xl">Productos Destacados <a href='explorar' className='ml-2 text-sm text-azul font-semibold'>Ver Productos</a></h2>
+					<div className="h-[5px] bg-azul w-[35%] mt-3"></div>
+				</div>
+				
+				<section className="w-[95%] mx-auto mb-10">
 					<ProductList />
 				</section>
 			</main>
