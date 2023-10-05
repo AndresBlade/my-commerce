@@ -1,18 +1,43 @@
-import { Outlet } from 'react-router';
-import { DashboardSection } from './DashboardSection';
+import { Outlet } from 'react-router';import { DashboardSection } from './DashboardSection';
+import { useContext } from "react";
+import { SideBarContext } from '../context/SideBarContext';
+import { SideBarProvider } from '../context/SideBarProvider';
+import { CgProfile, CgShoppingBag } from 'react-icons/cg';
+import { PiHandshake } from 'react-icons/Pi';
+import { AiOutlineShop } from 'react-icons/Ai';
+import { LuChevronFirst, LuChevronLast } from 'react-icons/Lu';
 
 export const Dashboard = () => {
+	const { open, setOpen } = useContext(SideBarContext);
+
+	const SideBarClick = () => {
+		setOpen(!open);
+	  };
+
 	return (
-		<div className="perfil__container">
-			<section className="menu-dashboard">
-				<div className="menu">
-					<DashboardSection title="Mi Perfil" url="" />
-					<DashboardSection title="Compras" url="compras" />
-					<DashboardSection title="Ventas" url="ventas" />
-					<DashboardSection title="Mis Tiendas" url="tiendas" />
-				</div>
-			</section>
-			<Outlet />
-		</div>
+		<SideBarProvider>
+			<div className="flex">
+				<aside className='h-screen'>
+					<nav className="h-full flex flex-col border-r shadow-xl">
+						<div className="p-4 pb-2 mx-auto sm:mr-0">
+							<button
+								onClick={SideBarClick}
+								className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-200"
+								>
+								{open ? <LuChevronFirst size={20} /> : <LuChevronLast size={20}/>}
+							</button>
+						</div>
+
+						<div className="px-4">
+							<DashboardSection title="Mi Perfil" url="" icon={<CgProfile size={20}/>}/>
+							<DashboardSection title="Compras" url="compras" icon={<CgShoppingBag size={20}/>}/>
+							<DashboardSection title="Ventas" url="ventas" icon={<PiHandshake size={20}/>}/>
+							<DashboardSection title="Tiendas" url="tiendas" icon={<AiOutlineShop size={20}/>}/>
+						</div>
+					</nav>
+				</aside>
+				<Outlet />
+			</div>
+		</SideBarProvider>
 	);
 };

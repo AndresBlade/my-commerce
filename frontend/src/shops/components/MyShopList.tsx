@@ -16,7 +16,7 @@ export const MyShopList = ({
 	setEditShop,
 }: Props) => {
 	return (
-		<div className="misTiendas__grid">
+		<div className="p-8 overflow-hidden w-[80%] mx-auto flex flex-col gap-4">
 			{shops?.map(shop => (
 				<MyShopCard
 					shop={shop}

@@ -19,7 +19,7 @@ export const PurchaseList = () => {
 			.catch(err => console.log(err));
 	}, [token]);
 	return (
-		<div className="compras__flex">
+		<div className="p-5 flex flex-col w-full mx-auto overflow-hidden">
 			{purchases?.map(purchase => (
 				<PurchaseCard key={purchase.ventasCabecera.id} {...purchase} />
 			))}

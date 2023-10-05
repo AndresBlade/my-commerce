@@ -20,10 +20,10 @@ export const SaleList = ({ nombre, RIF }: Shop) => {
 	}, [RIF, token]);
 
 	return (
-		<div className="ventas__tienda">
+		<div className="bg-blanco flex flex-col items-center p-5 rounded-t-md shadow-md">
 			<h2>{nombre}</h2>
 			{ProductsSold.length > 0 && (
-				<div className="ventas__contenedor">
+				<div className="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{ProductsSold.filter(
 						product => product.ProductosVendidos.length > 0
 					).map(product => (

@@ -13,30 +13,30 @@ export const SaleCard = ({
 	},
 }: Props) => {
 	return (
-		<div className="ventas__venta">
-			<p className="ventas__nombreProducto">
+		<div className="flex flex-col gap-3 bg-gris p-5 rounded-md">
+			<p>
 				<span className="ventas__title">Nombre del producto: </span>
 				{nombre}
 			</p>
-			<p className="ventas__fechaCompraProducto">
+			<p>
 				<span className="ventas__title">Fecha de compra: </span>
 				{fechaCreacion.split('T')[0] +
-					' ' +
-					fechaCreacion.split('T')[1].split('.')[0]}
+					' (' +
+					fechaCreacion.split('T')[1].split('.')[0] + ')'}
 			</p>
-			<p className="ventas__precioProducto">
+			<p>
 				<span className="ventas__title">Precio individual: </span>
 				{precio}
 			</p>
-			<p className="ventas__cantidadProducto">
+			<p>
 				<span className="ventas__title">Cantidad: </span>
 				{cantidad}
 			</p>
-			<p className="ventas__totalProducto">
+			<p>
 				<span className="ventas__title">Total: </span>
 				{cantidad * parseFloat(precio)}
 			</p>
-			<p className="ventas__nroFactura">
+			<p>
 				<span className="ventas__title">Número de Factura: </span>
 				{ventas_cabecera_id}
 			</p>

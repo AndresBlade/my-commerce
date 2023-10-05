@@ -12,6 +12,14 @@
 	.bg-modal {
 		@apply fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.2)];
 	}
+
+	.text-title-shops {
+		@apply font-normal text-[1rem];
+	}
+
+	.ventas__title {
+		@apply font-semibold text-[1rem];
+	}
 }
 
 ion-icon {
@@ -98,13 +106,7 @@ header ul {
 	display: list-item;
 }
 
-.navigation {
-	font-size: 1rem;
 
-	& li {
-		color: #fff;
-	}
-}
 
 header .search {
 	position: relative;
@@ -921,17 +923,16 @@ header .search {
 }
 
 /* ======================================*/
+
 .perfil__container {
 	display: flex;
 	width: 100%;
 }
 
 .tiendas-miPerfil {
-	display: grid;
 	flex: 5 1 auto;
 	justify-content: center;
 	align-content: center;
-	grid-template-columns: repeat(1, 1fr);
 }
 
 .tiendas-miPerfil .heading {
@@ -951,7 +952,7 @@ header .search {
 }
 
 .tiendas-miPerfil .box-container-miPerfil .box-miPerfil {
-	width: calc(55% - 1rem);
+	width: 55%;
 	margin: 2rem;
 	text-align: center;
 	border-radius: 10px;
@@ -1851,9 +1852,7 @@ section .contacto-form .info .info-rrss ion-icon:hover {
 	border-radius: 20px;
 }
 
-.ventas__title {
-	font-weight: 700;
-}
+
 
 .compras {
 	width: 100%;
