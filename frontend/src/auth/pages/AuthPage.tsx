@@ -60,11 +60,14 @@ const onSubmit = (
 				console.log('registrado');
 				console.log(user);
 				setUserData(user);
-				console.log(user.specificData?.nombre);
+				console.log(user.specificData.nombre);
 				navigate(`/${user.specificData.nombre}`);
 				localStorage.setItem('userData', JSON.stringify(user));
 			})
-			.catch(err => console.log(err));
+			.catch((err: Error) => {
+				if (err.message === 'CORREO_ALREADY_REGISTERED')
+					return setError('Este correo ya ha sido registrado');
+			});
 
 		return;
 	}
@@ -78,10 +81,6 @@ const onSubmit = (
 			console.log(user);
 			console.log('recibido');
 			setUserData(user);
-			console.log({
-				client: user.specificData?.nombre,
-				admin: user.specificData?.nombre,
-			});
 			navigate(`/${user.specificData.nombre}`);
 			localStorage.setItem('userData', JSON.stringify(user));
 		})

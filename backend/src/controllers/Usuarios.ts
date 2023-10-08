@@ -69,7 +69,7 @@ export const registerUser = async (req: Request, res: Response) => {
 		return res.status(200).send({
 			token: resultTransaction.token,
 			userData: resultTransaction.userData,
-			clientData: resultTransaction.clientData,
+			specificData: resultTransaction.clientData,
 		});
 	} catch (error: any) {
 		console.log(error);

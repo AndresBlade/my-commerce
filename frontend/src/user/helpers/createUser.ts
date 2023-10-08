@@ -15,7 +15,9 @@ export const createUser = (user: {
 		body: JSON.stringify(user),
 	}).then(response => {
 		if (!response.ok) {
-			throw new Error(response.statusText);
+			return response.text().then(text => {
+				throw new Error(text);
+			});
 		}
 		return response.json() as Promise<UserData>;
 	});
