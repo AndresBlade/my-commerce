@@ -1,5 +1,4 @@
 import { useLoaderData } from 'react-router';
-import { SesionModal } from '../../ui/components/SesionModal';
 import { SingleProductWrapper } from '../interfaces/SingleProductWrapper';
 import { ProductGallery } from '../components/ProductGallery';
 import { ProductDetails } from '../components/ProductDetails';
@@ -17,8 +16,6 @@ export const ProductPage = () => {
 					<ProductDetails {...product} />
 				</section>
 			</main>
-
-			<SesionModal />
 		</>
 	);
 };

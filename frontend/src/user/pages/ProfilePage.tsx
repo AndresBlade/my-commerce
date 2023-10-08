@@ -14,14 +14,7 @@ import { updateUserPassword } from '../helpers/updateUserPassword';
 import { updateUserEmail } from '../helpers/updateUserEmail';
 import { UserData } from '../interfaces/UserData';
 import { updateUserName } from '../helpers/updateUserName';
-import {
-	NavigateFunction,
-	Params,
-	redirect,
-	useNavigate,
-	useParams,
-} from 'react-router';
-import { useSearchParams } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router';
 import { deactivateUser } from '../helpers/deactivateUser';
 const fadeMessage = keyframes`
 0% {
@@ -171,13 +164,13 @@ enum FormType {
 	deactivate,
 }
 
-type SubmitFormType<Type> = Type extends FormType.email
-	? { email: string }
-	: Type extends FormType.username
-	? { username: string }
-	: Type extends FormType.password
-	? { oldPassword: string; newPassword: string }
-	: null;
+// type SubmitFormType<Type> = Type extends FormType.email
+// 	? { email: string }
+// 	: Type extends FormType.username
+// 	? { username: string }
+// 	: Type extends FormType.password
+// 	? { oldPassword: string; newPassword: string }
+// 	: null;
 
 function onSubmit(
 	form: Form,
@@ -272,7 +265,10 @@ function onSubmit(
 					console.log(response);
 					setShowModal(false);
 					setUser(user => {
-						user.clientData = response.clientUpdated;
+						user.specificData = {
+							...response.clientUpdated,
+							admin: false,
+						};
 						localStorage.setItem('userData', JSON.stringify(user));
 						navigate(`/${response.clientUpdated.nombre}`, {
 							replace: true,
@@ -302,7 +298,7 @@ function onSubmit(
 export const ProfilePage = () => {
 	const {
 		user: {
-			clientData: { imagen, nombre },
+			specificData: { imagen, nombre },
 			userData: { correo },
 			token,
 		},
@@ -318,8 +314,8 @@ export const ProfilePage = () => {
 				.then(response => {
 					setUser({
 						...user,
-						clientData: {
-							...user.clientData,
+						specificData: {
+							...user.specificData,
 							imagen: response.nuevaImagen,
 						},
 					});
@@ -327,8 +323,8 @@ export const ProfilePage = () => {
 						'userData',
 						JSON.stringify({
 							...user,
-							clientData: {
-								...user.clientData,
+							specificData: {
+								...user.specificData,
 								imagen: response.nuevaImagen,
 							},
 						})
@@ -597,10 +593,11 @@ export const ProfilePage = () => {
 										) {
 											localStorage.clear();
 											setUser({
-												clientData: {
+												specificData: {
 													id: -1,
 													imagen: '',
 													nombre: '',
+													admin: false,
 												},
 												token: '',
 												userData: {

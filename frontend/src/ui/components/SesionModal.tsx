@@ -37,10 +37,11 @@ export const SesionModal = () => {
 								navigate('/');
 								setTimeout(() => {
 									setUser({
-										clientData: {
+										specificData: {
 											id: -1,
 											imagen: '',
 											nombre: '',
+											admin: false,
 										},
 										token: '',
 										userData: {

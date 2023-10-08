@@ -10,7 +10,7 @@ export const ShopList = () => {
 
 	const {
 		user: {
-			clientData: { id },
+			specificData: { id },
 			token,
 		},
 	} = useContext(AuthContext);
