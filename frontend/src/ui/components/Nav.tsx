@@ -13,7 +13,7 @@ export const Nav = () => {
 	const {
 		user: {
 			token,
-			clientData: { nombre, imagen },
+			specificData: { nombre, imagen },
 		},
 	} = useContext(AuthContext);
 

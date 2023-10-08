@@ -16,13 +16,12 @@ import { ModalTitle } from '../../ui/components/ModalTitle';
 import { ModalContent } from '../../ui/components/ModalContent';
 import { ModalFormDivider } from '../../ui/components/ModalFormDivider';
 import { ModalFormSubmitButton } from '../../ui/components/ModalFormSubmitButton';
-import { editShop } from '../../shops/helpers/editShop';
 import { updateTiendaData } from '../../shops/helpers/updateTiendaData';
 
 const onEditSubmit = (
 	form: ShopForm,
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
-	{ clientData: { id }, token }: UserData,
+	{ specificData: { id }, token }: UserData,
 	setShops: React.Dispatch<React.SetStateAction<Shop[] | null>>,
 	setShowModal: React.Dispatch<React.SetStateAction<boolean>>
 ): void => {
@@ -71,7 +70,7 @@ const onEditSubmit = (
 const onSubmit: SubmitType<ShopForm, Shop[], UserData> = (
 	form: ShopForm,
 	setError: React.Dispatch<React.SetStateAction<string | null>>,
-	{ clientData: { id }, token }: UserData,
+	{ specificData: { id }, token }: UserData,
 	setShops: React.Dispatch<React.SetStateAction<Shop[] | null>>,
 	setShowModal?: React.Dispatch<React.SetStateAction<boolean>>
 ): void => {
@@ -150,7 +149,7 @@ export const MyShopsPage = () => {
 	const {
 		user,
 		user: {
-			clientData: { id },
+			specificData: { id },
 			token,
 		},
 	} = useContext(AuthContext);

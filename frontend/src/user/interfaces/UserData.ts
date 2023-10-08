@@ -1,7 +1,7 @@
 export interface UserData {
 	token: string;
 	userData: User;
-	clientData: Costumer;
+	specificData: Costumer;
 }
 
 interface User {
@@ -14,4 +14,5 @@ interface Costumer {
 	id: number;
 	nombre: string;
 	imagen: string;
+	admin: boolean;
 }

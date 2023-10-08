@@ -60,8 +60,8 @@ const onSubmit = (
 				console.log('registrado');
 				console.log(user);
 				setUserData(user);
-				console.log(user.clientData.nombre);
-				navigate(`/${user.clientData.nombre}`);
+				console.log(user.specificData?.nombre);
+				navigate(`/${user.specificData.nombre}`);
 				localStorage.setItem('userData', JSON.stringify(user));
 			})
 			.catch(err => console.log(err));
@@ -75,10 +75,14 @@ const onSubmit = (
 
 	getUser({ correo: form.email, contrasenna: form.password })
 		.then(user => {
+			console.log(user);
 			console.log('recibido');
 			setUserData(user);
-			console.log(user.clientData.nombre);
-			navigate(`/${user.clientData.nombre}`);
+			console.log({
+				client: user.specificData?.nombre,
+				admin: user.specificData?.nombre,
+			});
+			navigate(`/${user.specificData.nombre}`);
 			localStorage.setItem('userData', JSON.stringify(user));
 		})
 		.catch(err => {

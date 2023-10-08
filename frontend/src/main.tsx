@@ -35,6 +35,8 @@ import { MyShopDashboard } from './shops/components/MyShopDashboard';
 import { MySingleShopPage } from './user/pages/MySingleShopPage';
 import { PurchasesPage } from './user/pages/PurchasesPage';
 import { SalesPage } from './user/pages/SalesPage';
+import { SpecificRoleRoutes } from './router/SpecificRoleRoutes';
+import { PendingShopRequestsPage } from './admin/pages/PendingShopRequestsPage';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -82,16 +84,40 @@ const router = createBrowserRouter([
 								children: [
 									{ index: true, element: <ProfilePage /> },
 									{
-										path: 'compras',
-										element: <PurchasesPage />,
+										element: (
+											<SpecificRoleRoutes
+												roleIsAdmin={false}
+											/>
+										),
+										children: [
+											{
+												path: 'compras',
+												element: <PurchasesPage />,
+											},
+											{
+												path: 'tiendas',
+												element: <MyShopsPage />,
+											},
+											{
+												path: 'ventas',
+												element: <SalesPage />,
+											},
+										],
 									},
 									{
-										path: 'tiendas',
-										element: <MyShopsPage />,
-									},
-									{
-										path: 'ventas',
-										element: <SalesPage />,
+										element: (
+											<SpecificRoleRoutes
+												roleIsAdmin={true}
+											/>
+										),
+										children: [
+											{
+												path: `tiendasPendientes`,
+												element: (
+													<PendingShopRequestsPage />
+												),
+											},
+										],
 									},
 								],
 							},

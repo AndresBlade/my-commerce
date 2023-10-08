@@ -8,7 +8,7 @@ type Props = {
 
 export const AuthProvider = ({ children }: Props) => {
 	const [user, setUser] = useState<UserData>({
-		clientData: { id: -1, imagen: '', nombre: '' },
+		specificData: { id: -1, imagen: '', nombre: '', admin: false },
 		token: '',
 		userData: { correo: '', createdAt: '', tipoId: -1 },
 	});

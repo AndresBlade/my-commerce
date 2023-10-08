@@ -10,9 +10,9 @@ export const ProtectedRoutes = () => {
 		return <Navigate to={'/login'} />;
 	}
 
-	console.log({ clientDataNombre: user.clientData.nombre, username });
+	console.log({ clientDataNombre: user.specificData.nombre, username });
 
-	if (user.clientData.nombre !== username) {
+	if (user.specificData.nombre !== username) {
 		throw new Error(
 			'Este contenido no se se encuentra disponible en este momento.'
 		);
