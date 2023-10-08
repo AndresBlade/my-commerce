@@ -1,4 +1,7 @@
+import { AuthContext } from '../../auth/context/AuthContext';
 import { PendingRegisterShop } from '../../shops/interfaces/PendingRegisterShop';
+import { useContext } from 'react';
+import { determineShopRegister } from '../helpers/DetermineShopRegister';
 
 interface Props {
 	shop: PendingRegisterShop;
@@ -8,6 +11,10 @@ interface Props {
 }
 
 export const ShopRegisterCard = ({ shop, setPendingShops }: Props) => {
+	const {
+		user: { token },
+	} = useContext(AuthContext);
+
 	const reviewNextShop = () => {
 		setPendingShops(pendingShops => {
 			const newPendingShops = pendingShops ? pendingShops.slice(1) : null;
@@ -31,13 +38,31 @@ export const ShopRegisterCard = ({ shop, setPendingShops }: Props) => {
 			<p>{shop.descripcion}</p>
 			<button
 				onClick={() => {
-					reviewNextShop();
+					determineShopRegister(shop.RIF, token, true)
+						//TIENDA_ACCEPTED_SUCCESSFULLY
+						//TIENDA_DENIED_SUCCESSFULLY
+						.then(response => {
+							console.log(response);
+							reviewNextShop();
+						})
+						.catch((err: Error) => {
+							//NOT_PAYLOAD_DATA
+							return console.log(err.message);
+						});
 				}}
 			>
 				Aceptar
 			</button>
 			<button
 				onClick={() => {
+					determineShopRegister(shop.RIF, token, false)
+						.then(response => {
+							console.log(response);
+							reviewNextShop();
+						})
+						.catch((err: Error) => {
+							return console.log(err.message);
+						});
 					reviewNextShop();
 				}}
 			>
