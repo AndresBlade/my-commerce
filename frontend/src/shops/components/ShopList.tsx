@@ -7,7 +7,7 @@ export const ShopList = () => {
 
 	console.log(useLoaderData());
 	return (
-		<div className="grid" id="gridTienda">
+		<div className="flex flex-wrap justify-center gap-5 mx-auto mb-10" id="gridTienda">
 			{ShopsData.tiendas.rows.map(shop => (
 				<ShopCard key={shop.RIF} {...shop} />
 			))}

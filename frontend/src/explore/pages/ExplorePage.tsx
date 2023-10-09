@@ -1,7 +1,14 @@
 import { ProductList } from '../../products/components/ProductList';
+import { Category } from '../../categories/components/CategoriesCard';
 import { ShopList } from '../../shops/components/ShopList';
 import { ExplorarParams } from '../interfaces/ExplorarParams';
 import { useNavigate, useParams } from 'react-router-dom';
+import img from '../../../../banner.png'
+import { CategoryFilter } from '../../categories/components/CategoriesFilter';
+import { PriceFilter } from '../../categories/components/PriceFilter';
+import { MdLaptop } from 'react-icons/md';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+
 
 export const ExplorePage = () => {
 	// const [productPageCount, setProductPageCount] = useState(0);
@@ -22,87 +29,141 @@ export const ExplorePage = () => {
 		typeof shopPageParam === 'undefined' ? 0 : parseInt(shopPageParam);
 	return (
 		<main>
-			<section>
-				<div className="w-[90%] mx-auto my-10">
-					<h2 className="text-[1.3rem] font-normal md:text-3xl">Productos Destacados</h2>
-					<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
+			<section className='w-[90%] mx-auto relative group cursor-pointer'> 
+				<div>
+					<img src={img} alt="Publicidad" 
+					className='h-auto object-cover'/>
 				</div>
-
-				<div className="flex">
-					<button
-						className="bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
-						id="btn-pagina-productos-anterior"
-						onClick={() => {
-							// console.log(searchParams.get('productPage'));
-							// console.log(searchParams.get('shopPage'));
-							// searchParams.set(
-							// 	'productPage',
-							// 	(
-							// 		parseInt(
-							// 			searchParams.get('productPage') || '0'
-							// 		) - 1
-							// 	).toString()
-							// );
-							// searchParams.set(
-							// 	'shopPage',
-							// 	parseInt(
-							// 		searchParams.get('shopPage') || '0'
-							// 	).toString()
-							// );
-							// setSearchParams(searchParams);
-							navigate(
-								`/explorar/${
-									productPage === 0 ? 0 : --productPage
-								}/${shopPage}`
-							);
-						}}
-					>
-						Anterior
-					</button>
-					<button
-						className="bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
-						id="btn-pagina-productos-siguiente"
-						onClick={() => {
-							navigate(`/explorar/${++productPage}/${shopPage}`);
-						}}
-					>
-						Siguiente
-					</button>
+				<div className='absolute top-1/2 left-0 transform -translate-y-1/2 opacity-0 group-hover:opacity-100'>
+					<div className='bg-gris flex items-center justify-center h-12 w-9 rounded-r-full'><AiOutlineLeft size={20}/></div>
 				</div>
-				{/* <div className="grid" id="gridPorducts"></div> */}
-				<ProductList />
+				<div className='absolute top-1/2 right-0 transform -translate-y-1/2 opacity-0 group-hover:opacity-100'>
+					<div className='bg-gris flex items-center justify-center h-12 w-9 rounded-l-full'><AiOutlineRight size={20}/></div>
+				</div>
 			</section>
 
-			<section>
-				<div className="w-[90%] mx-auto my-10">
-					<h2 className="text-[1.3rem] font-normal md:text-3xl">Tiendas Destacadas</h2>
-					<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
+
+
+			<div className='w-[95%] mx-auto grid-cols-3 gap-6 sm:grid'>
+				<aside className='col-span-1'>
+					<div className="w-[90%] mx-auto my-10">
+						<h2 className="text-[1.3rem] font-normal md:text-3xl">Filtrar</h2>
+						<div className="h-[5px] bg-azul w-[25%] mt-3"></div>
+					</div>
+					
+					<p className='text-[.8rem] mb-4 font-semibold sm:text-[1rem]'>Categorías</p>
+					<CategoryFilter categoryName='Electronica'/>
+					<CategoryFilter categoryName='Alimentos y Bebidas'/>
+					<CategoryFilter categoryName='Animales y Mascotas'/>
+					<CategoryFilter categoryName='Antigüedades y Colecciones'/>
+					<CategoryFilter categoryName='Arte'/>
+
+					<PriceFilter/>
+				</aside>
+
+				<section className='col-span-2'>
+					<div className="w-[90%] mx-auto my-10">
+						<h2 className="text-[1.3rem] font-normal md:text-3xl">Productos Destacados</h2>
+						<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
+					</div>
+
+					<article>
+						<div className="flex">
+							<button
+								className="bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
+								id="btn-pagina-productos-anterior"
+								onClick={() => {
+									// console.log(searchParams.get('productPage'));
+									// console.log(searchParams.get('shopPage'));
+									// searchParams.set(
+									// 	'productPage',
+									// 	(
+									// 		parseInt(
+									// 			searchParams.get('productPage') || '0'
+									// 		) - 1
+									// 	).toString()
+									// );
+									// searchParams.set(
+									// 	'shopPage',
+									// 	parseInt(
+									// 		searchParams.get('shopPage') || '0'
+									// 	).toString()
+									// );
+									// setSearchParams(searchParams);
+									navigate(
+										`/explorar/${
+											productPage === 0 ? 0 : --productPage
+										}/${shopPage}`
+									);
+								}}
+							>
+								Anterior
+							</button>
+							<button
+								className="bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
+								id="btn-pagina-productos-siguiente"
+								onClick={() => {
+									navigate(`/explorar/${++productPage}/${shopPage}`);
+								}}
+							>
+								Siguiente
+							</button>
+						</div>
+						<ProductList />
+					</article>
+
+					<section>
+						<div className="w-[90%] mx-auto my-10">
+							<h2 className="text-[1.3rem] font-normal md:text-3xl">Tiendas Destacadas</h2>
+							<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
+						</div>
+						<div className="flex">
+							<button
+								className= "bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
+								id="btn-pagina-tiendas-anterior"
+								onClick={() => {
+									navigate(
+										`/explorar/${productPage}/${
+											shopPage === 0 ? 0 : --shopPage
+										}`
+									);
+								}}
+							>
+								Anterior
+							</button>
+							<button
+								className= "bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
+								id="btn-pagina-tiendas-siguiente"
+								onClick={() => {
+									navigate(`/explorar/${productPage}/${++shopPage}`);
+								}}
+							>
+								Siguiente
+							</button>
+						</div>
+						<ShopList />
+					</section>
+					{/* <div className="grid" id="gridPorducts"></div> */}
+				</section>
+			</div>
+
+			
+			<div className="w-[90%] mx-auto my-10">
+				<h2 className="text-[1.3rem] font-normal md:text-3xl">Te podría interesar</h2>
+				<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
+			</div>
+				{/*<CategoriesList /> */}
+
+			<section className='w-[90%] mx-auto'>
+				<div className='flex justify-center gap-8 flex-wrap md:flex-nowrap'>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
 				</div>
-				<div className="flex">
-					<button
-						className= "bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
-						id="btn-pagina-tiendas-anterior"
-						onClick={() => {
-							navigate(
-								`/explorar/${productPage}/${
-									shopPage === 0 ? 0 : --shopPage
-								}`
-							);
-						}}
-					>
-						Anterior
-					</button>
-					<button
-						className= "bg-dark-blue rounded-[16px] w-28 h-12 justify-center text-blanco cursor-pointer flex items-center font-semibold my-2.5 mx-auto outline-none transition-all duration-300 ease-in-out will-change-transform hover:opacity-70 hover:shadow-md hover:-translate-y-0.5 active:shadow-none active:translate-y-0"
-						id="btn-pagina-tiendas-siguiente"
-						onClick={() => {
-							navigate(`/explorar/${productPage}/${++shopPage}`);
-						}}
-					>
-						Siguiente
-					</button>
-				</div>
-				<ShopList />
 			</section>
 		</main>
 	);
