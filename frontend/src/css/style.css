@@ -98,13 +98,6 @@ header ul {
 	display: list-item;
 }
 
-.navigation {
-	font-size: 1rem;
-
-	& li {
-		color: #fff;
-	}
-}
 
 header .search {
 	position: relative;
