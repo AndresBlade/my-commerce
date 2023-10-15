@@ -3,11 +3,12 @@ import { Category } from '../../categories/components/CategoriesCard';
 import { ShopList } from '../../shops/components/ShopList';
 import { ExplorarParams } from '../interfaces/ExplorarParams';
 import { useNavigate, useParams } from 'react-router-dom';
-import img from '../../../../banner.png'
+
 import { CategoryFilter } from '../../categories/components/CategoriesFilter';
 import { PriceFilter } from '../../categories/components/PriceFilter';
 import { MdLaptop } from 'react-icons/md';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import img from '../../../../banner.jpg'
 
 
 export const ExplorePage = () => {
@@ -42,7 +43,23 @@ export const ExplorePage = () => {
 				</div>
 			</section>
 
+				{/*<CategoriesList /> */}
+			<div className="w-[90%] mx-auto my-10">
+				<h2 className="text-[1.3rem] font-normal md:text-3xl">Te podría interesar</h2>
+				<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
+			</div>
 
+			<section className='w-[90%] mx-auto'>
+				<div className='flex justify-center gap-8 flex-wrap md:flex-nowrap'>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
+				</div>
+			</section>
 
 			<div className='w-[95%] mx-auto grid-cols-3 gap-6 sm:grid'>
 				<aside className='col-span-1'>
@@ -148,23 +165,7 @@ export const ExplorePage = () => {
 			</div>
 
 			
-			<div className="w-[90%] mx-auto my-10">
-				<h2 className="text-[1.3rem] font-normal md:text-3xl">Te podría interesar</h2>
-				<div className="h-[5px] bg-azul w-[28%] mt-3"></div>
-			</div>
-				{/*<CategoriesList /> */}
 
-			<section className='w-[90%] mx-auto'>
-				<div className='flex justify-center gap-8 flex-wrap md:flex-nowrap'>
-					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
-					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
-					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
-					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
-					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
-					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
-					<Category categoryName='Electronica' iconCategory={<MdLaptop size={50} />}/>
-				</div>
-			</section>
 		</main>
 	);
 };
