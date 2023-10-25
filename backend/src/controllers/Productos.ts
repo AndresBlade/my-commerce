@@ -82,6 +82,24 @@ export async function getAllProducts(req:Request, res:Response) {
 }
 
 
+export async function getAllProductsByCategoria(req:Request, res:Response) {
+    try{
+        const { page = 0, size = 10, categoria_id = 0} = req.query;
+
+        const pageNumber = parseInt(page.toString());
+        const pageSize = parseInt(size.toString());
+        const categoriaId = parseInt(categoria_id.toString());
+
+        const products = await ProductoModel.findAllProductsByCategoria(pageNumber, pageSize, categoriaId);
+        res.status(200).send({products})
+    }catch(err:any){
+        console.log(err)
+        res.status(500).send('ERROR_FINDING_ALL_PRODUCTS')
+    }
+}
+
+
+
 export async function getProductByTiendaRIF(req:Request, res:Response) {
     try{
         const {tiendaRif = ''} = req.params;

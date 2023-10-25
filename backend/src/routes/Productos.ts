@@ -10,7 +10,7 @@ import {CreateProduct,
         getProductByName,
         getProductByID,
         getAllProducts,
-
+        getAllProductsByCategoria,
 } from "../controllers/Productos";
 
 const router = express.Router();
@@ -35,6 +35,10 @@ router.get('/getProductById/:productId',
 
 router.get('/getAllProducts', 
             getAllProducts);
+
+router.get('/getAllProductsByCategoria', 
+            getAllProductsByCategoria);
+
 
 module.exports = router;
 
