@@ -65,6 +65,39 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
         };
     }
 
+    static async findAllProductsByCategoria(page: number, size: number, categoriaId:number ): Promise<{ count: number,totalPages:number, currentPage:number,rows: ProductoModel[] }>{
+        const result = await ProductoModel.findAndCountAll({
+            where:{
+                status:'0', //devulve solo los productos que esten activos,
+                categoria_id: categoriaId
+            },
+            limit: +size,
+            offset: +page * +size,
+            attributes: ['id', 'nombre', 'precio', 'descripcion', 'cantidad', 'createdAt'],
+            distinct:true,
+            include:[
+                {
+                    model: PorductImagenModel,
+                    as: 'imagenes',
+                    attributes: ['ruta'],
+                },
+                {
+                    model: CategoriaModel,
+                    as: 'categoria',
+                    attributes: ['id', 'descripcion']
+                }
+            ],
+        });
+        const totalRecords = result.count;
+        const totalPages = Math.ceil(totalRecords / +size);
+        return {
+            count: totalRecords,
+            totalPages: totalPages,
+            currentPage: ++page,
+            rows: result.rows
+        };
+    }
+
 
     static findProductByID = async function(productID:number):Promise<ProductoModel | null>{
         const products = ProductoModel.findOne({
