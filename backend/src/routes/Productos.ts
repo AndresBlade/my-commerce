@@ -11,9 +11,12 @@ import {CreateProduct,
         getProductByID,
         getAllProducts,
         getAllProductsByCategoria,
+        deleProduct,
 } from "../controllers/Productos";
 
+
 const router = express.Router();
+
 
 router.post("/createProduct", 
             authMiddleware,
@@ -24,20 +27,31 @@ router.post("/createProduct",
             validatorRegisterProduct,
             CreateProduct);
 
+
 router.get("/getProductsByTienda/:tiendaRif", 
             getProductByTiendaRIF);
+
 
 router.get('/getProductByName/:productName', 
             getProductByName);
 
+
 router.get('/getProductById/:productId', 
             getProductByID);
+
 
 router.get('/getAllProducts', 
             getAllProducts);
 
+
 router.get('/getAllProductsByCategoria', 
             getAllProductsByCategoria);
+
+
+router.put('/deleteProduct/:productId',
+            authMiddleware,
+            checkRole(['CLIENTE']),
+            deleProduct);
 
 
 module.exports = router;

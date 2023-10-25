@@ -178,8 +178,7 @@ class TiendaModel extends Model<TiendaModelAttributes> implements TiendaModelAtt
         tienda.increment('saldo', {by: cantidad * price})
     };
 
-    static deleteTienda = async function(tiendaRIF:number){
-        
+    static deleteTienda = async function(tiendaRIF:number){ 
         const resultTransaction = await sequelize.transaction(async (t:any) => {
             const tienda = await TiendaModel.findOne({
                 where: { RIF: tiendaRIF },
