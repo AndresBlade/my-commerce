@@ -139,3 +139,23 @@ export async function getProductByID(req:Request, res:Response) {
         return res.status(500).send('ERROR_FINDING_PRODUCTS_BY_ID')
     }
 }
+
+
+export async function deleProduct(req:Request, res:Response) {
+    try{
+        const {productId = ''} = req.params;
+        console.log(productId)
+        //validar que el ProductoID no sea un string
+        if(!parseInt(productId)) return res.status(505).send('ID_CAN_NOT_BE_A_STRING')
+
+        const product_id = parseInt(productId);
+        const product = await ProductoModel.deleteProduct(product_id);
+
+        if(!product) return res.status(200).send('ERROR_DELETING_PRODUCT');
+
+        return res.status(200).send('PRODUCT_DELETED_SUCCESSFULLY');
+    }catch(err:any){
+        console.log(err)
+        return res.status(500).send('ERROR_DELETING_PRODUCT')
+    }
+}

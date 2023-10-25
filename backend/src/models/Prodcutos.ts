@@ -183,6 +183,18 @@ class ProductoModel extends Model<ProductoModelAttributes> implements ProductoMo
         return products
     };
 
+    static deleteProduct = async function(productId:number):Promise<boolean>{
+        const product = await ProductoModel.findOne({
+            where: { id: productId },
+        });
+        if(!product) throw new Error('ERROR_GETTING_PRODUCT_BY_RIF');
+
+        await product.update({status: '1'});
+        if(!product) throw new Error('ERROR_DELETING_PRODUCT');
+        
+        return true;
+    }
+
     static desactivateProductsPerTienda = async function (RIF: number) {
          //este método lo que hace es desactivar todos los productos de una tienda
         try {

@@ -137,7 +137,6 @@ export const getTiendaByClient = async (req:Request, res:Response) =>{
 export const deleteTienda = async (req:Request, res:Response) =>{ 
     try{
         let { tiendaRIF = '' } = req.params;
-         console.log(tiendaRIF)
 
         //validar que el clientID no sea un string
         if(!parseInt(tiendaRIF)) return res.send('CLIENT_ID_CAN_NOT_BE_A_STRING');
