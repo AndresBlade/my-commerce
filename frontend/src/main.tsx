@@ -52,9 +52,11 @@ const exploreContext: {
 	shops: ShopWrapper;
 	productPage: number;
 	shopPage: number;
+	category: number;
 } = {
 	productPage: 0,
 	shopPage: 0,
+	category: -1,
 	products: await getProducts(),
 	shops: await getShops(),
 };
@@ -183,7 +185,7 @@ const router = createBrowserRouter([
 
 							let productPage = 0;
 							let shopPage = 0;
-							let category = 0;
+							let category = -1;
 
 							console.log({ productPage, shopPage, params });
 
@@ -199,9 +201,7 @@ const router = createBrowserRouter([
 								category = parseInt(explorarParams.category);
 							}
 
-							console.log({ productPage, shopPage });
-
-							console.log(category);
+							console.log({ productPage, shopPage, category });
 
 							const data: LandingLoader = {
 								ShopsData:
@@ -210,8 +210,12 @@ const router = createBrowserRouter([
 										: exploreContext.shops,
 								ProductsData:
 									// exploreContext.productPage !== productPage
-									/*?*/ category === -1
-										? await getProducts(productPage)
+									/*?*/ category === -1 ||
+									category === undefined
+										? exploreContext.productPage !==
+										  productPage
+											? await getProducts(productPage)
+											: exploreContext.products
 										: await getProductsByCategory(
 												productPage,
 												4,
@@ -224,6 +228,7 @@ const router = createBrowserRouter([
 							exploreContext.products = data.ProductsData;
 							exploreContext.shopPage = shopPage;
 							exploreContext.shops = data.ShopsData;
+							exploreContext.category = category;
 
 							return data;
 						},
