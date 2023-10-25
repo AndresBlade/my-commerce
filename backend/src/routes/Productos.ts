@@ -1,6 +1,6 @@
 import express from 'express';
 import {authMiddleware} from '../middleware/session';
-import validatorRegisterProduct from '../validators/ProductoValidator';
+import {ValidatorRegisterProduct, ValidatorUpdatedProduct} from '../validators/ProductoValidator';
 import uploadMiddleware from '../utils/handleStorage';
 import imageRoute from "../middleware/imagenRoute";
 import checkRole from '../middleware/checkRole';
@@ -12,6 +12,7 @@ import {CreateProduct,
         getAllProducts,
         getAllProductsByCategoria,
         deleProduct,
+        updateProduct,
 } from "../controllers/Productos";
 
 
@@ -24,7 +25,7 @@ router.post("/createProduct",
             CheckTiendasPerClient,
             imageRoute('tiendaProducts'),
             uploadMiddleware.array('Imagenes'),
-            validatorRegisterProduct,
+            ValidatorRegisterProduct,
             CreateProduct);
 
 
@@ -52,6 +53,15 @@ router.put('/deleteProduct/:productId',
             authMiddleware,
             checkRole(['CLIENTE']),
             deleProduct);
+
+
+router.put('/updateProduct/:productId',
+            authMiddleware,
+            checkRole(['CLIENTE']),
+            imageRoute('tiendaProducts'),
+            uploadMiddleware.array('Imagenes'),
+            ValidatorUpdatedProduct,
+            updateProduct);
 
 
 module.exports = router;

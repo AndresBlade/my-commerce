@@ -159,3 +159,66 @@ export async function deleProduct(req:Request, res:Response) {
         return res.status(500).send('ERROR_DELETING_PRODUCT')
     }
 }
+
+
+export async function updateProduct(req:Request, res:Response) {
+    try{
+        const dataTienda = matchedData(req);
+        const {nombre,descripcion, precio, categoria_id, cantidad} = dataTienda;
+        let { productId = '' } = req.params;
+
+        //validar que el clientID no sea un string
+        if(!parseInt(productId)) return res.send('CLIENT_ID_CAN_NOT_BE_A_STRING');
+        const deleteId = parseInt(productId);
+
+        //recupera la imagen
+        if(!req.body.imagen) return res.status(400).send('ERROR_GETTING_IMAGE');
+
+        const resultTransaction = await sequelize.transaction(async (t:any) => {
+                await ProductoModel.update(
+                    {
+                    nombre,
+                    precio,
+                    categoria_id,
+                    descripcion,
+                    cantidad,
+                }, {where:{id:deleteId}});
+
+
+              // crear objeto de imagenes que se van a guardar en la tabla productoImagenes
+              let imagenesReq = req.body.imagen.trim();
+              const imagenObject: Array<string> = imagenesReq.split(' ');
+              const imagenes = await imagenObject.map((imagen: string) => {
+                  return {
+                      producto_id: deleteId,
+                      ruta: imagen
+                  }
+              });
+              await PorductImagenModel.destroy({where:{producto_id:deleteId}});
+              const updatedImagesProduct = await PorductImagenModel.bulkCreate(imagenes, {transaction:t});
+
+
+              return {
+                productoUpdated:{
+                    nombre,
+                    precio,
+                    categoria_id,
+                    descripcion,
+                    cantidad,
+                },
+                updatedImagesProduct,
+              }
+        });
+
+        if(!resultTransaction) return res.status(200).send('ERROR_UPDATING_PRODUCT');
+
+        return res.status(200).send({
+            productEdited: resultTransaction.productoUpdated,
+            productImagenesUpdated: resultTransaction.updatedImagesProduct
+        })
+    }catch(err:any){
+        console.log(err)
+        return res.status(500).send('ERROR_DELETING_PRODUCT')
+    }
+}
+
