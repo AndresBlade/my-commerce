@@ -21,7 +21,7 @@ export const SaleList = ({ nombre, RIF }: Shop) => {
 
 	return (
 		<div className="bg-blanco flex flex-col items-center p-5 rounded-t-md shadow-md">
-			<h2>{nombre}</h2>
+			<h1 className='text-lg font-semibold'>{nombre}</h1>
 			{ProductsSold.length > 0 && (
 				<div className="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{ProductsSold.filter(
@@ -41,6 +41,10 @@ export const SaleList = ({ nombre, RIF }: Shop) => {
 					))}
 				</div>
 			)}
+			<button className="bg-dark-blue m-4 transition-all hover:scale-105 font-semibold block text-center text-md w-64 p-3 rounded-full text-blanco shadow-xl mx-auto"
+				>
+				Descargar PDF
+			</button>
 		</div>
 	);
 };

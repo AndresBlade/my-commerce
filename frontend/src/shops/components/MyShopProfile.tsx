@@ -8,7 +8,7 @@ export const MyShopProfile = ({
 	shop: { RIF, nombre, imagen, createdAt },
 }: Props) => {
 	return (
-		<div className="sidebar-perfil">
+		<div className="sidebar-perfi">
 			<div className="perfilTienda__contenedor">
 				{/* <div> */}
 				<img className="perfilTienda__imagen" src={imagen} />
