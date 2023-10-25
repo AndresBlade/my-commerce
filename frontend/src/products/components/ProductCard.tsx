@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Product } from '../interfaces/Product';
+import { useRef } from 'react';
 
 export const ProductCard = ({ imagenes, nombre, precio, id }: Product) => {
+	const imageSrc = useRef(
+		imagenes[Math.floor(Math.random() * imagenes.length)].ruta
+	);
+
 	return (
 		<Link
 			to={`/producto/${id}`}
 			className="mx-auto max-w-[12rem] min-w-[12rem] flex flex-col rounded-md shadow-md bg-white cursor-pointer transition-shadow duration-300 hover:shadow-xl"
 		>
 			<img
-				src={imagenes[Math.floor(Math.random() * imagenes.length)].ruta}
+				src={imageSrc.current}
 				className="max-h-[12rem] min-h-[12rem] object-contain"
 				alt={nombre}
 			/>

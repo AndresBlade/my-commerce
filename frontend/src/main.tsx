@@ -37,6 +37,7 @@ import { PurchasesPage } from './user/pages/PurchasesPage';
 import { SalesPage } from './user/pages/SalesPage';
 import { SpecificRoleRoutes } from './router/SpecificRoleRoutes';
 import { PendingShopRequestsPage } from './admin/pages/PendingShopRequestsPage';
+import { getProductsByCategory } from './products/helpers/getProductsByCategory';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -174,7 +175,7 @@ const router = createBrowserRouter([
 						},
 					},
 					{
-						path: 'explorar/:productPage?/:shopPage?',
+						path: 'explorar/:productPage?/:shopPage?/:category?',
 						element: <ExplorePage />,
 						loader: async ({ params }) => {
 							const explorarParams: ExplorarParams =
@@ -182,20 +183,25 @@ const router = createBrowserRouter([
 
 							let productPage = 0;
 							let shopPage = 0;
+							let category = 0;
 
 							console.log({ productPage, shopPage, params });
 
 							if (
 								explorarParams.productPage !== undefined &&
-								explorarParams.shopPage !== undefined
+								explorarParams.shopPage !== undefined &&
+								explorarParams.category !== undefined
 							) {
 								productPage = parseInt(
 									explorarParams.productPage
 								);
 								shopPage = parseInt(explorarParams.shopPage);
+								category = parseInt(explorarParams.category);
 							}
 
 							console.log({ productPage, shopPage });
+
+							console.log(category);
 
 							const data: LandingLoader = {
 								ShopsData:
@@ -203,9 +209,15 @@ const router = createBrowserRouter([
 										? await getShops(shopPage)
 										: exploreContext.shops,
 								ProductsData:
-									exploreContext.productPage !== productPage
+									// exploreContext.productPage !== productPage
+									/*?*/ category === -1
 										? await getProducts(productPage)
-										: exploreContext.products,
+										: await getProductsByCategory(
+												productPage,
+												4,
+												category
+										  ),
+								// : exploreContext.products,
 							};
 
 							exploreContext.productPage = productPage;
