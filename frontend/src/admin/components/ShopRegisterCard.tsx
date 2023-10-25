@@ -1,10 +1,11 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import { PendingRegisterShop } from '../../shops/interfaces/PendingRegisterShop';
-import { determineShopRegister } from '../helpers/DetermineShopRegister';
+// import { determineShopRegister } from '../helpers/DetermineShopRegister';
 import foto1 from '../../assets/foto1.webp';
 import foto2 from '../../assets/foto2.jpg';
 import foto3 from '../../assets/foto3.jpg';
+import { determineShopRegister } from '../helpers/determineShopRegister';
 
 interface Props {
 	shop: PendingRegisterShop;
