@@ -5,7 +5,7 @@ export const PurchaseCard = ({
 	detallesVenta: { cantidad },
 }: Purchase) => {
 	return (
-		<div className="compras__compra">
+		<div className="flex flex-col md:flex-row rounded-md justify-between p-4 nth-[2n-1]:bg-azul">
 			<p>
 				<span className="bold">Nombre: </span>
 				{nombre}

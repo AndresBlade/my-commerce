@@ -68,6 +68,11 @@ export const ProfileButtonStyled = styled.button`
 	background-color: var(--letrasAzules-color);
 	border-color: var(--letrasBlancas-color);
 	text-decoration: none;
+
+	@media (max-width: 768px) {
+		font-size: 12px;
+		padding: 1rem auto;
+	}
 `;
 
 export const DeleteButtonStyled = styled(ProfileButtonStyled)`
@@ -120,7 +125,7 @@ const PopUpEditIcon = styled.i.attrs<{
 	$mouseleave: props.$mouseleave,
 }))`
 	position: fixed;
-	display: inline-block;
+	display: flex;
 	font-size: 25px;
 	height: 25px;
 	margin: 0 auto;
@@ -398,130 +403,127 @@ export const ProfilePage = () => {
 					$mouseleave={editButton.mouseleave}
 				></PopUpEditIcon>
 			)}
-			<section className="tiendas-miPerfil">
-				<div className="box-container-miPerfil">
-					<div className="box-miPerfil">
-						<div className="inner-container-miPerfil arriba">
-							<label className="labelImg" htmlFor="input-file">
-								<img
-									src={imagen || defaultUserImage}
-									id="profile-pic"
-									alt=""
-									className="circular-miPerfil"
-								/>
-							</label>
-							<input
-								type="file"
-								className="input-fileImg"
-								accept="image/*"
-								id="input-file"
-								onChange={handleImageChange}
+			<section className="w-full overflow-hidden">
+				<div className="w-[90%] mx-auto bg-blanco shadow-2xl m-8 text-center rounded-xl">
+					<div className="">
+						<label className="flex justify-center mx-auto w-52 py-4 cursor-pointer" htmlFor="input-file">
+							<img
+								src={imagen || defaultUserImage}
+								id="profile-pic"
+								alt=""
+								className="rounded-full object-cover w-20 h-20 md:w-40 md:h-40"
 							/>
-							<h1 className="heading heading--nombreTienda">
-								<TriggerParagraph
-									className="userProfile__name"
-									onClick={() => {
-										setFormType(FormType.username);
-										setShowModal(true);
-									}}
-									onMouseEnter={e => {
-										if (
-											typeof timeoutId.current ===
-											'number'
-										)
-											clearTimeout(timeoutId.current);
-										setEditButton({
-											element: e.currentTarget,
-											mouseleave: false,
-										});
-									}}
-									onMouseLeave={e => {
-										if (
-											typeof timeoutId.current ===
-											'number'
-										)
-											clearTimeout(timeoutId.current);
-										setEditButton({
-											element: e.currentTarget,
-											mouseleave: true,
-										});
-										timeoutId.current = setTimeout(() => {
-											setEditButton(null);
-										}, 200);
-									}}
-								>
-									{nombre}
-								</TriggerParagraph>
-							</h1>
-						</div>
-
-						<div className="miPerfil__info">
+						</label>
+						<input
+							type="file"
+							className="hidden"
+							accept="image/*"
+							id="input-file"
+							onChange={handleImageChange}
+						/>
+						<h1 className="text-[1.2rem] md:text-[2rem] py-6">
 							<TriggerParagraph
 								onClick={() => {
-									setFormType(FormType.email);
+									setFormType(FormType.username);
 									setShowModal(true);
 								}}
-								className="userProfile__email"
 								onMouseEnter={e => {
-									if (typeof timeoutId.current === 'number')
+									if (
+										typeof timeoutId.current ===
+										'number'
+									)
 										clearTimeout(timeoutId.current);
-									if (e.currentTarget.parentElement)
-										setEditButton({
-											element:
-												e.currentTarget.parentElement,
-											mouseleave: false,
-										});
+									setEditButton({
+										element: e.currentTarget,
+										mouseleave: false,
+									});
 								}}
 								onMouseLeave={e => {
-									if (typeof timeoutId.current === 'number')
+									if (
+										typeof timeoutId.current ===
+										'number'
+									)
 										clearTimeout(timeoutId.current);
-									if (e.currentTarget.parentElement)
-										setEditButton({
-											element:
-												e.currentTarget.parentElement,
-											mouseleave: true,
-										});
+									setEditButton({
+										element: e.currentTarget,
+										mouseleave: true,
+									});
 									timeoutId.current = setTimeout(() => {
 										setEditButton(null);
 									}, 200);
 								}}
 							>
-								{correo}
+								{nombre}
 							</TriggerParagraph>
-							<ProfileButtonContainerStyled>
-								{/* <ProfileButtonStyled
-									onClick={() => setShowModal(true)}
-								>
-									Editar Datos Personales
-								</ProfileButtonStyled> */}
-								<ProfileButtonStyled
-									onClick={() => {
-										setShowModal(true);
-										setFormType(FormType.password);
-									}}
-								>
-									Cambiar contraseña
-								</ProfileButtonStyled>
-								<DeleteButtonStyled
-									onClick={() => {
-										setShowModal(true);
-										setFormType(FormType.deactivate);
-									}}
-								>
-									Desactivar Cuenta
-								</DeleteButtonStyled>
-							</ProfileButtonContainerStyled>
-							{updateUserDataInfo !== null ? (
-								<UpdateUserDataInfoStyled
-									ref={updateUserDataRef}
-									$status={updateUserDataInfo.status}
-								>
-									{updateUserDataInfo.value}
-								</UpdateUserDataInfoStyled>
-							) : (
-								<></>
-							)}
-						</div>
+						</h1>
+					</div>
+
+					<div className="flex flex-col items-center">
+						<TriggerParagraph
+							onClick={() => {
+								setFormType(FormType.email);
+								setShowModal(true);
+							}}
+							className="text-[.9rem] md:text-[1.5rem] py-4"
+							onMouseEnter={e => {
+								if (typeof timeoutId.current === 'number')
+									clearTimeout(timeoutId.current);
+								if (e.currentTarget.parentElement)
+									setEditButton({
+										element:
+											e.currentTarget.parentElement,
+										mouseleave: false,
+									});
+							}}
+							onMouseLeave={e => {
+								if (typeof timeoutId.current === 'number')
+									clearTimeout(timeoutId.current);
+								if (e.currentTarget.parentElement)
+									setEditButton({
+										element:
+											e.currentTarget.parentElement,
+										mouseleave: true,
+									});
+								timeoutId.current = setTimeout(() => {
+									setEditButton(null);
+								}, 200);
+							}}
+						>
+							{correo}
+						</TriggerParagraph>
+						<ProfileButtonContainerStyled>
+							{/* <ProfileButtonStyled
+								onClick={() => setShowModal(true)}
+							>
+								Editar Datos Personales
+							</ProfileButtonStyled> */}
+							<ProfileButtonStyled
+								onClick={() => {
+									setShowModal(true);
+									setFormType(FormType.password);
+								}}
+							>
+								Cambiar contraseña
+							</ProfileButtonStyled>
+							<DeleteButtonStyled
+								onClick={() => {
+									setShowModal(true);
+									setFormType(FormType.deactivate);
+								}}
+							>
+								Desactivar Cuenta
+							</DeleteButtonStyled>
+						</ProfileButtonContainerStyled>
+						{updateUserDataInfo !== null ? (
+							<UpdateUserDataInfoStyled
+								ref={updateUserDataRef}
+								$status={updateUserDataInfo.status}
+							>
+								{updateUserDataInfo.value}
+							</UpdateUserDataInfoStyled>
+						) : (
+							<></>
+						)}
 					</div>
 				</div>
 			</section>

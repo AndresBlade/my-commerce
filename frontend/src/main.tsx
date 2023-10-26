@@ -28,6 +28,7 @@ import { ContactUsPage } from './contactUs/pages/ContactUsPage';
 import { AuthLayout } from './ui/pages/AuthLayout';
 import { ProfilePage } from './user/pages/ProfilePage';
 import { Dashboard } from './ui/components/Dashboard';
+import { SideBarProvider } from './ui/context/SideBarProvider';
 import { SesionModal } from './ui/components/SesionModal';
 import { SesionModalProvider } from './ui/context/SesionModalProvider';
 import { MyShopsPage } from './user/pages/MyShopsPage';
@@ -83,7 +84,11 @@ const router = createBrowserRouter([
 
 						children: [
 							{
-								element: <Dashboard />,
+								element: (
+									<SideBarProvider>
+										<Dashboard />
+									</SideBarProvider>
+								),
 								children: [
 									{ index: true, element: <ProfilePage /> },
 									{

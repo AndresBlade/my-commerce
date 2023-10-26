@@ -35,6 +35,7 @@ const EditButtonStyled = styled.button`
 	background-color: var(--letrasAzules-color);
 	border-color: var(--letrasBlancas-color);
 	text-decoration: none;
+	margin-bottom: 1rem;
 `;
 
 export const MyShopCard = ({
@@ -56,25 +57,27 @@ export const MyShopCard = ({
 		<>
 			<Link
 				to={RIF.toString()}
-				className="misTiendas__tienda"
+				className="p-5 overflow-hidden flex flex-col bg-blanco shadow-md hover:scale-95 hover:shadow-lg"
 				ref={containerRef}
 			>
-				<h3 className="misTiendas__nombre">{nombre}</h3>
-				<p>
-					<span className="misTiendas__title">RIF:</span>
-					{RIF}
-				</p>
-				<img src={imagen} alt={nombre} className="misTiendas__img" />
-				<p>
-					<span className="misTiendas__title">
-						Fecha de Creación:
-					</span>
-					{createdAt.split('T')[0]}
-				</p>
-				<p className="misTiendas__descripcion">
-					<span className="misTiendas__title">Descripción:</span>
-					{descripcion}
-				</p>
+				<div className='flex flex-col items-center md:flex-row'>
+					<img src={imagen} alt={nombre} className="w-24 h-24 object-cover rounded-full md:w-24 md:h-24" />
+					<div className='flex flex-col text-center gap-3 p-4 md:text-left'>
+						<h3 className="font-semibold text-[1.1rem] md:text-[1.5rem]">{nombre}</h3>
+						<p className="text-title-shops">{descripcion}</p>
+
+						<p className="text-title-shops">
+							<span>RIF-</span>
+							{RIF}
+						</p>
+						<p>
+							<span className="text-title-shops">
+								Fecha de Creación:
+							</span>
+							{` ${createdAt.split('T')[0]}`}
+						</p>
+					</div>
+				</div>
 
 				<EditButtonStyled
 					onClick={e => {

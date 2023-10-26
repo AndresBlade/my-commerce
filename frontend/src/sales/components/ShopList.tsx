@@ -22,7 +22,7 @@ export const ShopList = () => {
 	}, [id, token]);
 
 	return (
-		<div className="ventas__flex">
+		<div className="p-5 flex flex-col gap-4 w-full overflow-hidden">
 			{shops?.map(shop => (
 				<SaleList {...shop} key={shop.RIF} />
 			))}
