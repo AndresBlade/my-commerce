@@ -81,7 +81,12 @@ export const DeleteButtonStyled = styled(ProfileButtonStyled)`
 
 const ProfileButtonContainerStyled = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+
+	@media (max-width: 768px) {
+		flex-direction: column
+	}
+
 	padding-bottom: 2rem;
 	gap: 1rem;
 `;
@@ -132,7 +137,7 @@ const PopUpEditIcon = styled.i.attrs<{
 	transition: none;
 	animation: ${props => (props.$mouseleave ? fadeout : fadein)} 0.2s linear
 		forwards;
-	left: ${props => props.$left}px;
+	left: ${props => props.$left + 60}px;
 	top: ${props => props.$top}px;
 	color: transparent;
 `;
@@ -374,6 +379,25 @@ export const ProfilePage = () => {
 		}
 	}, [updateUserDataInfo]);
 
+	const [cantidadRecarga, setCantidadRecarga] = useState<number | ''>('');
+
+	function recargarSaldo(event: React.MouseEvent<HTMLButtonElement>) {
+			
+		event.preventDefault();
+
+		if (cantidadRecarga !== '' && !isNaN(cantidadRecarga) && cantidadRecarga >= 0) {
+			
+			const saldoString = localStorage.getItem('saldo');
+			const saldoActual = saldoString !== null ? parseFloat(saldoString) : 0;
+			const nuevoSaldo = saldoActual + cantidadRecarga;
+			setCantidadRecarga('');
+			localStorage.setItem('saldo', nuevoSaldo.toString());
+
+		} else {
+		  console.log('no puede ser negativo webon');
+		}
+	  }
+
 	return (
 		<>
 			{editButton?.element && (
@@ -406,22 +430,26 @@ export const ProfilePage = () => {
 			<section className="w-full overflow-hidden">
 				<div className="w-[90%] mx-auto bg-blanco shadow-2xl m-8 text-center rounded-xl">
 					<div className="">
-						<label className="flex justify-center mx-auto w-52 py-4 cursor-pointer" htmlFor="input-file">
-							<img
-								src={imagen || defaultUserImage}
-								id="profile-pic"
-								alt=""
-								className="rounded-full object-cover w-20 h-20 md:w-40 md:h-40"
-							/>
-						</label>
-						<input
-							type="file"
-							className="hidden"
-							accept="image/*"
-							id="input-file"
-							onChange={handleImageChange}
-						/>
-						<h1 className="text-[1.2rem] md:text-[2rem] py-6">
+						<div>
+							<label className="flex flex-col items-center justify-center mx-auto w-52 py-4 cursor-pointer" htmlFor="input-file">
+								<img
+									src={imagen || defaultUserImage}
+									id="profile-pic"
+									alt=""
+									className="rounded-full object-cover w-20 h-20 md:w-40 md:h-40"
+								/>
+
+								<input
+									type="file"
+									className="hidden"
+									accept="image/*"
+									id="input-file"
+									onChange={handleImageChange}
+								/>
+							</label>
+						</div>
+
+						<h1 className="text-[1rem] sm:text-[1.5rem]">
 							<TriggerParagraph
 								onClick={() => {
 									setFormType(FormType.username);
@@ -456,41 +484,63 @@ export const ProfilePage = () => {
 								{nombre}
 							</TriggerParagraph>
 						</h1>
+
+						<h2>
+							<TriggerParagraph
+								onClick={() => {
+									setFormType(FormType.email);
+									setShowModal(true);
+								}}
+								className="text-[.9rem] md:text-[1.5rem] py-4"
+								onMouseEnter={e => {
+									if (typeof timeoutId.current === 'number')
+										clearTimeout(timeoutId.current);
+									if (e.currentTarget.parentElement)
+										setEditButton({
+											element:
+												e.currentTarget.parentElement,
+											mouseleave: false,
+										});
+								}}
+								onMouseLeave={e => {
+									if (typeof timeoutId.current === 'number')
+										clearTimeout(timeoutId.current);
+									if (e.currentTarget.parentElement)
+										setEditButton({
+											element:
+												e.currentTarget.parentElement,
+											mouseleave: true,
+										});
+									timeoutId.current = setTimeout(() => {
+										setEditButton(null);
+									}, 200);
+								}}
+							>
+								{correo}
+							</TriggerParagraph>
+						</h2>
+
+						<div>
+							<div className="w-[50%] mx-auto bg-green-200 mb-4 rounded-lg shadow-md py-6">
+								<h1 className="text-[1rem] font-semibold text-green-700 md:text-[1.5rem]">Saldo</h1>
+								<p className="text-[.8rem] font-semibold text-green-800 md:text-[1.2rem]">{`$${localStorage.getItem('saldo')}`}</p>
+
+								<input
+								type="number"
+								placeholder="Ingrese la cantidad a recargar"
+								className='m-4 p-4 rounded-lg placeholder:text-[.8rem] w-[50%] md:w-[6-%]'
+								value={cantidadRecarga}
+								onChange={(e) => setCantidadRecarga(parseFloat(e.target.value))}
+								/>
+								<button className='bg-green-800 text-white text-sm md:text-md rounded-lg p-2 hover:opacity-80'
+								 onClick={(e) => recargarSaldo(e)}>Recargar
+								 </button>
+							</div>
+   				 		</div>
+
 					</div>
 
 					<div className="flex flex-col items-center">
-						<TriggerParagraph
-							onClick={() => {
-								setFormType(FormType.email);
-								setShowModal(true);
-							}}
-							className="text-[.9rem] md:text-[1.5rem] py-4"
-							onMouseEnter={e => {
-								if (typeof timeoutId.current === 'number')
-									clearTimeout(timeoutId.current);
-								if (e.currentTarget.parentElement)
-									setEditButton({
-										element:
-											e.currentTarget.parentElement,
-										mouseleave: false,
-									});
-							}}
-							onMouseLeave={e => {
-								if (typeof timeoutId.current === 'number')
-									clearTimeout(timeoutId.current);
-								if (e.currentTarget.parentElement)
-									setEditButton({
-										element:
-											e.currentTarget.parentElement,
-										mouseleave: true,
-									});
-								timeoutId.current = setTimeout(() => {
-									setEditButton(null);
-								}, 200);
-							}}
-						>
-							{correo}
-						</TriggerParagraph>
 						<ProfileButtonContainerStyled>
 							{/* <ProfileButtonStyled
 								onClick={() => setShowModal(true)}

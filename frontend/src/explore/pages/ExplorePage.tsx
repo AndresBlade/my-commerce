@@ -3,9 +3,9 @@ import { Category } from '../../categories/components/CategoriesCard';
 import { ShopList } from '../../shops/components/ShopList';
 import { ExplorarParams } from '../interfaces/ExplorarParams';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { CategoryFilter } from '../../categories/components/CategoriesFilter';
 import { PriceFilter } from '../../categories/components/PriceFilter';
+import { SaldoButton } from '../components/createSaldoButton';
 import { MdLaptop } from 'react-icons/md';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import img from '../../../../banner.jpg';
@@ -41,8 +41,16 @@ export const ExplorePage = () => {
 			: parseInt(productPageParam);
 	shopPage =
 		typeof shopPageParam === 'undefined' ? 0 : parseInt(shopPageParam);
+
+	
+	const saldoString = localStorage.getItem('saldo');
+	const saldo = saldoString !== null ? parseFloat(saldoString) : 0;
 	return (
 		<main>
+			<SaldoButton 
+				saldoValue={'Saldo disponible:  ' + saldo.toString() + '$'}
+			/>
+
 			<section className="w-[90%] mx-auto relative group cursor-pointer">
 				<div>
 					<img

@@ -27,9 +27,9 @@ export const ProductGallery = ({ imagenes }: Product) => {
 	};
 
 	return (
-		<article className="w-[40%] cursor-pointer">
+		<article className="w-full lg:w-[40%] cursor-pointer">
 			<div
-				className="h-[500px] bg-cover rounded-lg mb-8"
+				className="h-[300px] lg:h-[500px] bg-cover rounded-lg mb-8"
 				ref={galleryContainerImg}
 			></div>
 			<div className="gallery__thumnails">
