@@ -7,6 +7,7 @@ import ClientModel from '../models/Clientes';
 import { getClientID, getUserId } from '../utils/getClientID';
 import { sequelize } from '../config/db';
 import AdministradorModel from '../models/Administradores';
+import { createLogFilePerUser } from '../middleware/bitacoraHandlers';
 const PUBLIC_URL = process.env['PUBLIC_URL'] || 'http://localhost:3000';
 
 export const registerUser = async (req: Request, res: Response) => {
@@ -65,6 +66,9 @@ export const registerUser = async (req: Request, res: Response) => {
 				};
 			}
 		);
+
+		const UserName = resultTransaction.clientData.nombre; 
+		createLogFilePerUser(UserName, req)
 
 		return res.status(200).send({
 			token: resultTransaction.token,
