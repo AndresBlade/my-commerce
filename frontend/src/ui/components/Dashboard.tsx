@@ -3,10 +3,19 @@ import { useContext } from "react";
 import { SideBarContext } from '../context/SideBarContext';
 import { CgProfile, CgShoppingBag } from 'react-icons/cg';
 import { PiHandshake } from 'react-icons/Pi';
+import { MdPendingActions } from 'react-icons/md';
 import { BsShop } from 'react-icons/Bs';
 import { LuChevronFirst, LuChevronLast } from 'react-icons/Lu';
+import { AuthContext } from '../../auth/context/AuthContext';
+
 
 export const Dashboard = () => {
+	const {
+		user: {
+			specificData: { admin },
+		},
+	} = useContext(AuthContext);
+
 	const { open, setOpen } = useContext(SideBarContext);
 
 	const SideBarClick = () => {
@@ -31,9 +40,20 @@ export const Dashboard = () => {
 
 					<div className="px-4">
 						<DashboardSection title="Mi Perfil" url="" icon={<CgProfile size={20}/>}/>
+
+						{admin ? (
+						<>
+							<DashboardSection title="Solicitudes de tiendas"
+							 url="tiendasPendientes" icon={<MdPendingActions size={20}/>}/>
+						</>
+					) : (
+						<>
 						<DashboardSection title="Compras" url="compras" icon={<CgShoppingBag size={20}/>}/>
 						<DashboardSection title="Ventas" url="ventas" icon={<PiHandshake size={20}/>}/>
 						<DashboardSection title="Tiendas" url="tiendas" icon={<BsShop size={20}/>}/>
+						</>
+					)}
+
 					</div>
 				</nav>
 			</aside>

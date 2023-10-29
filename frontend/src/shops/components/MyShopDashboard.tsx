@@ -149,7 +149,7 @@ export const MyShopDashboard = () => {
 
 	return (
 		<>
-			<main className="misTiendas">
+			<main className="">
 				<div className="Perfil__tienda">
 					<CreateButton
 						buttonTitle="Agregar Producto"
