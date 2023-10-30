@@ -6,6 +6,12 @@ export function getClientID(res:Response){
     return clientID;
 }
 
+export function getClient(res:Response){
+    const {user = ''} = res.locals;
+    const client = user.clientBelongToUser;
+    return client;
+}
+
 export function getUserId(res:Response){
     const {user = ''} = res.locals;
     const userID = user.id;
