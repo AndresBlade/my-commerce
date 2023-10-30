@@ -19,12 +19,12 @@ export const MyShopProductCard = memo(
 					alt={nombre}
 					className="productosTienda__imagenProducto"
 				/>
-				<p className="productosTienda__precioProducto">{precio}</p>
-				<h4 className="productosTienda__nombreProducto">{nombre}</h4>
-				<span className="productosTienda__descripcionProducto">
+				<p className="">{precio}</p>
+				<h4 className="">{nombre}</h4>
+				<span className="">
 					{descripcion}
 				</span>
-				<span className="productosTienda__categoriaProducto">
+				<span className="">
 					{categoryDescription}
 				</span>
 			</div>

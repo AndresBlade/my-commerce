@@ -56,6 +56,10 @@ ion-icon {
 	color: white;
 }
 
+.color_icono path{
+	color: #7c92ff;
+}
+
 * {
 	font-family: 'Poppins', sans-serif;
 	margin: 0;

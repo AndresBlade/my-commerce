@@ -149,18 +149,20 @@ export const MyShopDashboard = () => {
 
 	return (
 		<>
-			<main className="">
-				<div className="Perfil__tienda">
-					<CreateButton
-						buttonTitle="Agregar Producto"
-						setShowModal={setShowModal}
-					/>
-					<aside className="menu-dashboard">
-						{shop && <MyShopProfile shop={shop} />}
-					</aside>
+			<main className="flex">
+				<aside className="w-[50%]">
+					<nav className='h-full flex flex-col border-r shadow-xl'>
+						<CreateButton
+							buttonTitle="Agregar Producto"
+							setShowModal={setShowModal}
+						/>
+						<div className="">
+							{shop && <MyShopProfile shop={shop} />}
+						</div>
+					</nav>
+				</aside>
+				<Outlet context={{ products }} />
 
-					<Outlet context={{ products }} />
-				</div>
 				<Modal setShowModal={setShowModal} showModal={showModal}>
 					<ModalTitle title="Agregar Producto" />
 					<ModalContent>

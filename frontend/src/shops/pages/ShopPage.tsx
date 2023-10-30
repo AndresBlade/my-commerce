@@ -11,11 +11,10 @@ export const ShopPage = () => {
 	console.log(products);
 	return (
 		<>
-			{/* bienvenido, emprendedor          en el header */}
 			<div className="flex">
 				<ShopProfile />
 
-				<div className="flex bg-blanco w-full justify-center lg:justify-between p-4 gap-8 flex-wrap">
+				<div className="flex bg-blanco w-full justify-center xl:justify-start p-4 gap-8 flex-wrap">
 					{products.map(product => (
 						<ShopProductCard key={product.id} {...product} />
 					))}

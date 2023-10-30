@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { createPurchase } from '../../purchases/helpers/createPurchase';
-import { useContext } from 'react';
 import { AuthContext } from '../../auth/context/AuthContext';
 import { Product } from '../interfaces/Product';
 import visa from '../../assets/visa.png';
