@@ -9,8 +9,9 @@ const router = express.Router();
 
 router.post('/createLog', async (req:Request, res:Response) =>{
     const {action, username, userId} = req.body; 
+
     await createLogFilePerUserAction(action, username, userId, req);
-    res.status(200).send('LOG_CREATED');
+    res.status(200).json({ message: 'LOG_CREATED' });
 })
 
 router.get('/downloadUserLogFile', 

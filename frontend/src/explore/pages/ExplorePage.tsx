@@ -13,6 +13,7 @@ import { useForm } from '../../hooks/useForm';
 import { useEffect, useState } from 'react';
 import { getCategories } from '../../products/helpers/getCategories';
 import { Region } from '../../shops/interfaces/ShopRegion';
+import { logUserAction } from '../../user/helpers/logUserAction';
 
 export const ExplorePage = () => {
 	// const [productPageCount, setProductPageCount] = useState(0);
@@ -45,6 +46,16 @@ export const ExplorePage = () => {
 	
 	const saldoString = localStorage.getItem('saldo');
 	const saldo = saldoString !== null ? parseFloat(saldoString) : 0;
+
+	{/* Aca ocurre el error porque estoy usando el useEffect 
+	y dentro de el hay un useContext*/}
+
+	useEffect(() => {
+		logUserAction('El usuario está en explorar');
+	}, []);
+
+
+
 	return (
 		<main>
 			<SaldoButton 
