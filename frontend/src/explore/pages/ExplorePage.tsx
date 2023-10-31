@@ -9,11 +9,9 @@ import { SaldoButton } from '../components/createSaldoButton';
 import { MdLaptop } from 'react-icons/md';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import img from '../../../../banner.jpg';
-import { useForm } from '../../hooks/useForm';
 import { useEffect, useState } from 'react';
 import { getCategories } from '../../products/helpers/getCategories';
 import { Region } from '../../shops/interfaces/ShopRegion';
-import { logUserAction } from '../../user/helpers/logUserAction';
 
 export const ExplorePage = () => {
 	// const [productPageCount, setProductPageCount] = useState(0);
@@ -43,20 +41,19 @@ export const ExplorePage = () => {
 	shopPage =
 		typeof shopPageParam === 'undefined' ? 0 : parseInt(shopPageParam);
 
-	
 	const saldoString = localStorage.getItem('saldo');
 	const saldo = saldoString !== null ? parseFloat(saldoString) : 0;
 
-	{/* Aca ocurre el error porque estoy usando el useEffect 
-	y dentro de el hay un useContext*/}
+	{
+		/* Aca ocurre el error porque estoy usando el useEffect 
+	y dentro de el hay un useContext*/
+	}
 
-		logUserAction('El usuario está en explorar');
-
-
+	// logUserAction('El usuario está en explorar');
 
 	return (
 		<main>
-			<SaldoButton 
+			<SaldoButton
 				saldoValue={'Saldo disponible:  ' + saldo.toString() + '$'}
 			/>
 
