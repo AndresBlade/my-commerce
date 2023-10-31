@@ -37,13 +37,13 @@ export async function createCategory(req: Request, res: Response) {
 export async function editCategory(req: Request, res: Response) {
 	try {
 		
-		const {categoriaID = ''} = req.params;
+		const {categoryID = ''} = req.params;
 		const {categoryName= ''} = req.body 
 		
-		if(!categoriaID) return res.send('ERROR_CATEGORY_ID_REQUIRED');
+		if(!categoryID) return res.send('ERROR_CATEGORY_ID_REQUIRED');
 		if(!categoryName) return res.send('ERROR_CATEGORY_NAME_REQUIRED');
 
-		await CategoriaModel.update({descripcion:categoryName}, {where:{id:categoriaID}});
+		await CategoriaModel.update({descripcion:categoryName}, {where:{id:categoryID}});
 
 		return res.status(200).send('CATEGORIA_UPDATED_SUCCESSFULLY');
 	} catch (error: any) {

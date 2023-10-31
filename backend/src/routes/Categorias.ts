@@ -17,7 +17,7 @@ router.post('/createCategory',
             createCategory);
 
 
-router.post('/editCategory/:categoryID',
+router.put('/editCategory/:categoryID?',
         authMiddleware,
         checkRole(['ADMINISTRADOR']),
         editCategory);
