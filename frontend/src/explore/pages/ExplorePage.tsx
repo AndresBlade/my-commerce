@@ -50,9 +50,7 @@ export const ExplorePage = () => {
 	{/* Aca ocurre el error porque estoy usando el useEffect 
 	y dentro de el hay un useContext*/}
 
-	useEffect(() => {
 		logUserAction('El usuario está en explorar');
-	}, []);
 
 
 
