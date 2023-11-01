@@ -40,6 +40,7 @@ import { SalesPage } from './user/pages/SalesPage';
 import { SpecificRoleRoutes } from './router/SpecificRoleRoutes';
 import { PendingShopRequestsPage } from './admin/pages/PendingShopRequestsPage';
 import { getProductsByCategory } from './products/helpers/getProductsByCategory';
+import { LogBook } from './log/components/LogBook';
 declare global {
 	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace JSX {
@@ -65,202 +66,230 @@ const exploreContext: {
 
 const router = createBrowserRouter([
 	{
-		element: <AuthLayout />,
-		children: [
-			{ path: 'login', element: <AuthPage /> },
-			{ path: 'register', element: <AuthPage register /> },
-		],
-	},
-	{
-		element: <SesionModal />,
+		element: <LogBook />,
 		children: [
 			{
-				path: '/',
-				element: <Layout />,
-
+				element: <AuthLayout />,
+				children: [
+					{ path: 'login', element: <AuthPage /> },
+					{ path: 'register', element: <AuthPage register /> },
+				],
+			},
+			{
+				element: <SesionModal />,
 				children: [
 					{
-						path: `:username`,
-						element: <ProtectedRoutes />,
+						path: '/',
+						element: <Layout />,
 
 						children: [
 							{
-								element: (
-									<SideBarProvider>
-										<Dashboard />
-									</SideBarProvider>
-								),
+								path: `:username`,
+								element: <ProtectedRoutes />,
+
 								children: [
-									{ index: true, element: <ProfilePage /> },
 									{
 										element: (
-											<SpecificRoleRoutes
-												roleIsAdmin={false}
-											/>
+											<SideBarProvider>
+												<Dashboard />
+											</SideBarProvider>
 										),
 										children: [
 											{
-												path: 'compras',
-												element: <PurchasesPage />,
+												index: true,
+												element: <ProfilePage />,
 											},
 											{
-												path: 'tiendas',
-												element: <MyShopsPage />,
-											},
-											{
-												path: 'ventas',
-												element: <SalesPage />,
-											},
-										],
-									},
-									{
-										element: (
-											<SpecificRoleRoutes
-												roleIsAdmin={true}
-											/>
-										),
-										children: [
-											{
-												path: `bitacora`,
-												element: <Bitacora />,
-											},
-											{
-												path: `tiendasPendientes`,
 												element: (
-													<PendingShopRequestsPage />
+													<SpecificRoleRoutes
+														roleIsAdmin={false}
+													/>
 												),
+												children: [
+													{
+														path: 'compras',
+														element: (
+															<PurchasesPage />
+														),
+													},
+													{
+														path: 'tiendas',
+														element: (
+															<MyShopsPage />
+														),
+													},
+													{
+														path: 'ventas',
+														element: <SalesPage />,
+													},
+												],
+											},
+											{
+												element: (
+													<SpecificRoleRoutes
+														roleIsAdmin={true}
+													/>
+												),
+												children: [
+													{
+														path: `bitacora`,
+														element: <Bitacora />,
+													},
+													{
+														path: `tiendasPendientes`,
+														element: (
+															<PendingShopRequestsPage />
+														),
+													},
+												],
 											},
 										],
-
-
+									},
+									{
+										element: <MyShopDashboard />,
+										children: [
+											{
+												path: 'tiendas/:RIF',
+												element: <MySingleShopPage />,
+											},
+										],
 									},
 								],
 							},
 							{
-								element: <MyShopDashboard />,
+								index: true,
+								element: <LandingPage />,
+								loader: async () => {
+									const data: LandingLoader = {
+										ShopsData: await getShops(),
+										ProductsData: await getProducts(),
+									};
+
+									return data;
+								},
+							},
+							{
+								path: 'tienda/:RIF',
+								element: <ShopPage />,
+
+								loader: async ({ params }) => {
+									const RIF = params.RIF as string;
+
+									const data: ShopLoader = {
+										shopData: await getSingleShop(RIF),
+										shopProducts:
+											await getSingleShopProducts(RIF),
+									};
+
+									console.log(data);
+
+									return data;
+								},
+							},
+							{
+								path: 'producto/:id',
+								element: <ProductPage />,
+								loader: async ({ params }) => {
+									const id = params.id as string;
+									getSingleProduct(id)
+										.then(response => console.log(response))
+										.catch(err => console.log(err));
+
+									return await getSingleProduct(id);
+								},
+							},
+							{
+								path: 'explorar/:productPage?/:shopPage?/:category?',
+								element: <ExplorePage />,
+								loader: async ({ params }) => {
+									const explorarParams: ExplorarParams =
+										params as ExplorarParams;
+
+									let productPage = 0;
+									let shopPage = 0;
+									let category = -1;
+
+									console.log({
+										productPage,
+										shopPage,
+										params,
+									});
+
+									if (
+										explorarParams.productPage !==
+											undefined &&
+										explorarParams.shopPage !== undefined &&
+										explorarParams.category !== undefined
+									) {
+										productPage = parseInt(
+											explorarParams.productPage
+										);
+										shopPage = parseInt(
+											explorarParams.shopPage
+										);
+										category = parseInt(
+											explorarParams.category
+										);
+									}
+
+									console.log({
+										productPage,
+										shopPage,
+										category,
+									});
+
+									const data: LandingLoader = {
+										ShopsData:
+											exploreContext.shopPage !== shopPage
+												? await getShops(shopPage)
+												: exploreContext.shops,
+										ProductsData:
+											// exploreContext.productPage !== productPage
+											/*?*/ category === -1 ||
+											category === undefined
+												? exploreContext.productPage !==
+												  productPage
+													? await getProducts(
+															productPage
+													  )
+													: exploreContext.products
+												: await getProductsByCategory(
+														productPage,
+														4,
+														category
+												  ),
+										// : exploreContext.products,
+									};
+
+									exploreContext.productPage = productPage;
+									exploreContext.products = data.ProductsData;
+									exploreContext.shopPage = shopPage;
+									exploreContext.shops = data.ShopsData;
+									exploreContext.category = category;
+
+									return data;
+								},
+							},
+							{
+								element: <SideContactInfoPage />,
 								children: [
 									{
-										path: 'tiendas/:RIF',
-										element: <MySingleShopPage />,
+										path: 'ayuda',
+										element: (
+											<HelpPage helpLists={helpLists} />
+										),
+									},
+									{
+										path: 'contactanos',
+										element: <ContactUsPage />,
 									},
 								],
 							},
 						],
-					},
-					{
-						index: true,
-						element: <LandingPage />,
-						loader: async () => {
-							const data: LandingLoader = {
-								ShopsData: await getShops(),
-								ProductsData: await getProducts(),
-							};
 
-							return data;
-						},
-					},
-					{
-						path: 'tienda/:RIF',
-						element: <ShopPage />,
-
-						loader: async ({ params }) => {
-							const RIF = params.RIF as string;
-
-							const data: ShopLoader = {
-								shopData: await getSingleShop(RIF),
-								shopProducts: await getSingleShopProducts(RIF),
-							};
-
-							console.log(data);
-
-							return data;
-						},
-					},
-					{
-						path: 'producto/:id',
-						element: <ProductPage />,
-						loader: async ({ params }) => {
-							const id = params.id as string;
-							getSingleProduct(id)
-								.then(response => console.log(response))
-								.catch(err => console.log(err));
-
-							return await getSingleProduct(id);
-						},
-					},
-					{
-						path: 'explorar/:productPage?/:shopPage?/:category?',
-						element: <ExplorePage />,
-						loader: async ({ params }) => {
-							const explorarParams: ExplorarParams =
-								params as ExplorarParams;
-
-							let productPage = 0;
-							let shopPage = 0;
-							let category = -1;
-
-							console.log({ productPage, shopPage, params });
-
-							if (
-								explorarParams.productPage !== undefined &&
-								explorarParams.shopPage !== undefined &&
-								explorarParams.category !== undefined
-							) {
-								productPage = parseInt(
-									explorarParams.productPage
-								);
-								shopPage = parseInt(explorarParams.shopPage);
-								category = parseInt(explorarParams.category);
-							}
-
-							console.log({ productPage, shopPage, category });
-
-							const data: LandingLoader = {
-								ShopsData:
-									exploreContext.shopPage !== shopPage
-										? await getShops(shopPage)
-										: exploreContext.shops,
-								ProductsData:
-									// exploreContext.productPage !== productPage
-									/*?*/ category === -1 ||
-									category === undefined
-										? exploreContext.productPage !==
-										  productPage
-											? await getProducts(productPage)
-											: exploreContext.products
-										: await getProductsByCategory(
-												productPage,
-												4,
-												category
-										  ),
-								// : exploreContext.products,
-							};
-
-							exploreContext.productPage = productPage;
-							exploreContext.products = data.ProductsData;
-							exploreContext.shopPage = shopPage;
-							exploreContext.shops = data.ShopsData;
-							exploreContext.category = category;
-
-							return data;
-						},
-					},
-					{
-						element: <SideContactInfoPage />,
-						children: [
-							{
-								path: 'ayuda',
-								element: <HelpPage helpLists={helpLists} />,
-							},
-							{
-								path: 'contactanos',
-								element: <ContactUsPage />,
-							},
-						],
+						errorElement: <PaginaError />,
 					},
 				],
-
-				errorElement: <PaginaError />,
 			},
 		],
 	},
