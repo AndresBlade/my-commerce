@@ -28,7 +28,7 @@ import { ContactUsPage } from './contactUs/pages/ContactUsPage';
 import { AuthLayout } from './ui/pages/AuthLayout';
 import { ProfilePage } from './user/pages/ProfilePage';
 import { Dashboard } from './ui/components/Dashboard';
-import { Bitacora } from './admin/components/BitacoraPage';
+import { BitacoraPage } from './admin/pages/BitacoraPage';
 import { SideBarProvider } from './ui/context/SideBarProvider';
 import { SesionModal } from './ui/components/SesionModal';
 import { SesionModalProvider } from './ui/context/SesionModalProvider';
@@ -133,7 +133,9 @@ const router = createBrowserRouter([
 												children: [
 													{
 														path: `bitacora`,
-														element: <Bitacora />,
+														element: (
+															<BitacoraPage />
+														),
 													},
 													{
 														path: `tiendasPendientes`,
