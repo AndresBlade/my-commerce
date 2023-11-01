@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router';
 import { ShopLoader } from '../interfaces/ShopLoader';
 import { useState } from 'react';
 import { Star } from '../../ui/components/starRating';
+import { SetStar } from '../../ui/components/setStarRating';
 import neutral from '../../assets/neutro.webp'
 
 export const ShopProfile = () => {
@@ -29,7 +30,7 @@ export const ShopProfile = () => {
 	const bg_darkCalificar = showModalCalificar ? 'bg-modal z-10' : 'bg-modal hidden';
 
 	const modalCalificar = showModalCalificar
-		? 'z-20 fixed left-0 right-0 top-0 bottom-0 m-auto bg-white w-[80%] h-[70%] rounded-lg'
+		? 'z-20 fixed left-0 right-0 top-0 bottom-0 m-auto bg-white w-[40%] h-[40%] rounded-lg'
 		: 'hidden';
 
 	return (
@@ -136,8 +137,14 @@ export const ShopProfile = () => {
 								<h1 className='text-2xl font-normal mt-5'>¿Cómo calificarías a {datosTienda.nombre}?</h1>
 								<div className='h-[.2rem] bg-azul mr-auto mt-2 w-[50%]'></div>
 							</div>
+						<img src={datosTienda.imagen} alt="" className='w-16 h-16 rounded-full' />
+						</div>
 
-							<img src={datosTienda.imagen} alt="" className='w-16 h-16 rounded-full' />
+						<div className='flex flex-col gap-4 my-5'>
+							<div className='bg-blanco rounded-lg p-4 text-center'>
+								<h2 className='text-lg font-semibold'>Calificación Promedio</h2>							
+								<SetStar initialRating={0}/>
+							</div>
 						</div>
 					</div>
 

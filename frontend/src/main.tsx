@@ -102,6 +102,17 @@ const router = createBrowserRouter([
 												element: <ProfilePage />,
 											},
 											{
+												element: (
+													<SpecificRoleRoutes
+														roleIsAdmin={false}
+													/>
+												),
+										children: [
+											{
+												path: 'compras',
+												element: <PurchasesPage />,
+											},
+											{
 												path: 'tiendas',
 												element: <MyShopsPage />,
 											},
@@ -111,57 +122,6 @@ const router = createBrowserRouter([
 											},
 										],
 									},
-									{
-										element: (
-											<SpecificRoleRoutes
-												roleIsAdmin={true}
-											/>
-										),
-										children: [
-											{
-												path: `bitacora`,
-												element: (
-													<BitacoraPage />
-												),
-											},
-											{
-												path: `crearCategorias`,
-												element: (
-													<CrearCategoriasPage />
-												),
-											},
-											{
-												path: `crearRegiones`,
-												element: (
-													<CrearRegionesPage />
-												),
-											},
-											{
-												path: `tiendasPendientes`,
-												element: (
-													<SpecificRoleRoutes
-														roleIsAdmin={false}
-													/>
-												),
-												children: [
-													{
-														path: 'compras',
-														element: (
-															<PurchasesPage />
-														),
-													},
-													{
-														path: 'tiendas',
-														element: (
-															<MyShopsPage />
-														),
-													},
-													{
-														path: 'ventas',
-														element: <SalesPage />,
-													},
-												],
-											},
 											{
 												element: (
 													<SpecificRoleRoutes
@@ -173,6 +133,18 @@ const router = createBrowserRouter([
 														path: `bitacora`,
 														element: (
 															<BitacoraPage />
+														),
+													},
+													{
+														path: `crearCategorias`,
+														element: (
+															<CrearCategoriasPage />
+														),
+													},
+													{
+														path: `crearRegiones`,
+														element: (
+															<CrearRegionesPage />
 														),
 													},
 													{
