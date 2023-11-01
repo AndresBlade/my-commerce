@@ -35,10 +35,11 @@ export const ProductDetails = ({
 		setShowModal(!showModal);
 	};
 
+	const total_iva = parseFloat(precio) * 0.16;
 	const bg_dark = showModal ? 'bg-modal' : 'bg-modal hidden';
 
 	const modal = showModal
-		? 'fixed left-0 right-0 top-0 bottom-0 m-auto bg-white w-[50%] h-[65%] rounded-lg'
+		? 'fixed left-0 right-0 top-10 bottom-0 m-auto bg-white w-[80%] h-[70%] rounded-lg'
 		: 'hidden';
 
 		const actualizarSaldo = ( 
@@ -117,73 +118,104 @@ export const ProductDetails = ({
 
 			<div className={modal}>
 				<div className='relative m-6'>
-					<h1 className='text-xl font-normal mt-5'>Opciones de pago</h1>
-					<div className='h-[.2rem] bg-azul mr-auto mt-2 w-[20%]'></div>
-
-					<div className='flex flex-col mt-8'>
-						<div className='flex-col flex gap-4 w-full'>
-							<div className='flex gap-2 bg-gris p-4 rounded-xl'>
-								<input 
-									type="radio" 
-									value='Nueva Tarjeta'
-									checked={metodoPago === "Nueva Tarjeta"}
-									onChange={(e) => setMetodoPago(e.target.value)}
-								/>
-								<div className='flex gap-2 items-center'>
-									<p>Agregar una nueva tarjeta</p>
-									<img className='ring-1 ring-azul w-12 h-6 object-contain' src={visa} alt="visa"/>
-									<img className='ring-1 ring-azul w-20 h-6 object-contain' src={bancamiga} alt="bancamiga"/>
-								</div>
-							</div>
-
-							<input 
-								type="text" 
-								value={nroTarjeta}
-								onChange={(e) => setNroTarjeta(e.target.value)}
-								placeholder='Nro. Tarjeta'
-								className='ring-2 ring-gris p-4'
-							/>
-
-							<div className='flex gap-2 bg-gris p-4 rounded-xl'>
-								<input 
-									type="radio"
-									value='PayPal'
-									checked={metodoPago === "PayPal"}
-									onChange={(e) => setMetodoPago(e.target.value)} 
-								/>
-								<div className='flex gap-2 items-center'>	
-									<p>Pagar con PayPal</p>
-									<img className='ring-1 ring-azul w-16 h-6 object-contain' src={paypal} alt="paypal" />
-								</div>
-							</div>
-
-							<button className={`w-full text-md font-semibold text-blanco bg-azul p-4 block mt-auto hover:opacity-90 ${
-								purchaseCompleted === undefined
-								? ''
-								: purchaseCompleted
-								? 'bg-green-500 cursor-not-allowed'
-								: 'bg-red-500 cursor-pointer'
-							}`}
-						
-								onClick={() => {
-									handleSubmit(
-										{
-										producto_id: id,
-										cantidad: 1,
-										},
-										token,
-										setPurchaseCompleted,
-									);
-								}} >
-								{purchaseCompleted === undefined
-									? 'Procesar Compra'
-								: purchaseCompleted
-									? '¡Comprado exitosamente!'
-									: 'Error al comprar'}
-							</button>
+					<div className='flex justify-between w-full'>
+						<div className=''>
+							<h1 className='text-xl font-normal mt-5'>Opciones de pago</h1>
+							<div className='h-[.2rem] bg-azul mr-auto mt-2 w-[30%]'></div>
+						</div>
+						<div>
+							<h1 className='text-xl font-normal mt-5'>Detalles de pago</h1>
+							<div className='h-[.2rem] bg-azul ml-auto mt-2 w-[30%] mb-2'></div>
 						</div>
 					</div>
 
+					<div className='flex justify-between gap-2'>
+						<div className='flex flex-col mt-8'>
+							<div className='flex-col flex gap-4 w-full'>
+								<div className='flex gap-2 bg-gris p-4 rounded-xl'>
+									<input 
+										type="radio" 
+										value='Nueva Tarjeta'
+										checked={metodoPago === "Nueva Tarjeta"}
+										onChange={(e) => setMetodoPago(e.target.value)}
+									/>
+									<div className='flex gap-2 items-center'>
+										<p>Agregar una nueva tarjeta</p>
+										<img className='ring-1 ring-azul w-12 h-6 object-contain' src={visa} alt="visa"/>
+										<img className='ring-1 ring-azul w-20 h-6 object-contain' src={bancamiga} alt="bancamiga"/>
+									</div>
+								</div>
+
+								<input 
+									type="text" 
+									value={nroTarjeta}
+									onChange={(e) => setNroTarjeta(e.target.value)}
+									placeholder='Nro. Tarjeta'
+									className='ring-2 ring-gris p-4'
+								/>
+
+								<div className='flex gap-2 bg-gris p-4 rounded-xl'>
+									<input 
+										type="radio"
+										value='PayPal'
+										checked={metodoPago === "PayPal"}
+										onChange={(e) => setMetodoPago(e.target.value)} 
+									/>
+									<div className='flex gap-2 items-center'>	
+										<p>Pagar con PayPal</p>
+										<img className='ring-1 ring-azul w-16 h-6 object-contain' src={paypal} alt="paypal" />
+									</div>
+								</div>
+
+								<button className={`w-full text-md font-semibold text-blanco bg-azul p-4 block mt-auto hover:opacity-90 ${
+									purchaseCompleted === undefined
+									? ''
+									: purchaseCompleted
+									? 'bg-green-500 cursor-not-allowed'
+									: 'bg-red-500 cursor-pointer'
+								}`}
+							
+									onClick={() => {
+										handleSubmit(
+											{
+											producto_id: id,
+											cantidad: 1,
+											},
+											token,
+											setPurchaseCompleted,
+										);
+									}} >
+									{purchaseCompleted === undefined
+										? 'Procesar Compra'
+									: purchaseCompleted
+										? '¡Comprado exitosamente!'
+										: 'Error al comprar'}
+								</button>
+							</div>
+						</div>
+
+						<div className='w-[50%] bg-blanco rounded-lg p-4'>
+							<div className='flex justify-between mb-2'>
+								<h1 className='text-2xl font-semibold'>{nombre}</h1>
+								<img className='w-16 h-16 rounded-full' src={tiendaProducto.imagen } alt="" />
+							</div>
+							<div className='bg-white w-full p-4 mb-2'>
+								<div className='flex items-center justify-between gap-2 mb-4'>			
+									<h2 className='text-xl'>Costo del producto:</h2>
+									<span className='text-2xl'>{precio}$</span>
+								</div>
+								<div className='flex items-center justify-between gap-2'>			
+									<h2 className='text-xl'>IVA (16%):</h2>
+									<span className='text-xl'>{total_iva}$</span>
+								</div>
+							</div>
+						
+							<div className='flex items-center justify-between gap-2 p-4 bg-white'>			
+								<h2 className='text-xl'>Total</h2>
+								<span className='text-xl'>{parseFloat(precio) + total_iva}$</span>
+							</div>
+						</div>
+					</div>
 				</div>
 				{showMessage && (
 					<div className='relative p-2 bottom-0 w-[70%] text-center text-sm text-white rounded-xl bg-red-500 block mx-auto transition-all'>

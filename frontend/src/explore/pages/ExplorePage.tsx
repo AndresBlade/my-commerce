@@ -47,11 +47,7 @@ export const ExplorePage = () => {
 	const saldoString = localStorage.getItem('saldo');
 	const saldo = saldoString !== null ? parseFloat(saldoString) : 0;
 
-	{/* Aca ocurre el error porque estoy usando el useEffect 
-	y dentro de el hay un useContext*/}
-
-		logUserAction('El usuario está en explorar');
-
+	
 
 
 	return (

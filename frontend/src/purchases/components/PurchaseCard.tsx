@@ -4,8 +4,11 @@ export const PurchaseCard = ({
 	detallesProducto: { nombre, precio },
 	detallesVenta: { cantidad },
 }: Purchase) => {
+	const total_iva = precio * 0.16;
+	const precioTotal = precio + total_iva;
+
 	return (
-		<div className="flex flex-col md:flex-row rounded-md justify-between p-4 nth-[2n-1]:bg-azul">
+		<div className="grid md:grid-cols-4 rounded-md justify-between p-4 nth-[2n-1]:bg-azul">
 			<p>
 				<span className="bold">Nombre: </span>
 				{nombre}
@@ -21,11 +24,11 @@ export const PurchaseCard = ({
 			</p>
 			<p>
 				<span className="bold">Precio individual: </span>
-				{precio}
+				{precioTotal}$
 			</p>
 			<p>
 				<span className="bold">Total: </span>
-				{precio * cantidad}
+				{precioTotal * cantidad}$
 			</p>
 		</div>
 	);
