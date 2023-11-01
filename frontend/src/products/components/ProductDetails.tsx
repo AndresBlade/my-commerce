@@ -48,7 +48,7 @@ export const ProductDetails = ({
 			const saldo = saldoString !== null ? parseFloat(saldoString) : 0;
 
 			if (parseFloat(precio) <= saldo) {
-				const saldoAct = saldo - parseFloat(precio);
+				const saldoAct = saldo - parseFloat(precio + total_iva);
 				localStorage.setItem('saldo', saldoAct.toString());
 				console.log('El saldo restante es:' + saldoAct);
 			} else {

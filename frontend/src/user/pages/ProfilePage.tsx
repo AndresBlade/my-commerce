@@ -394,7 +394,7 @@ export const ProfilePage = () => {
 			localStorage.setItem('saldo', nuevoSaldo.toString());
 
 		} else {
-		  console.log('no puede ser negativo webon');
+		  console.log('no puede ser negativo');
 		}
 	  }
 
