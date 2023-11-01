@@ -6,6 +6,7 @@ import { PiHandshake, PiMagnifyingGlassBold } from 'react-icons/Pi';
 import { MdPendingActions } from 'react-icons/md';
 import { BsShop } from 'react-icons/Bs';
 import { LuChevronFirst, LuChevronLast } from 'react-icons/Lu';
+import { BiCategoryAlt, BiMapAlt } from 'react-icons/Bi';
 import { AuthContext } from '../../auth/context/AuthContext';
 
 
@@ -47,6 +48,10 @@ export const Dashboard = () => {
 							 url="tiendasPendientes" icon={<MdPendingActions size={20}/>}/>
 							<DashboardSection title="Bitacora"
 							 url="bitacora" icon={<PiMagnifyingGlassBold size={20}/>}/>
+							<DashboardSection title="Crear Categorías"
+							 url="crearCategorias" icon={<BiCategoryAlt size={20}/>}/>
+							<DashboardSection title="Crear Regiones"
+							 url="crearRegiones" icon={<BiMapAlt size={20}/>}/>
 						</>
 					) : (
 						<>
