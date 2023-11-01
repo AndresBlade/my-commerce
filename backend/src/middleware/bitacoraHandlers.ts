@@ -60,11 +60,11 @@ const createLogFilePerUserAction = async (Action:string, UserName:string, UserId
 
 
 const downloadLogFile = async (req:Request, res:Response) => {
-        const {username} = req.body;
+        const {userName} = req.params;
         // Ruta del archivo 
-        const logFile = path.join(__dirname, `../../storage/bitacoras/${username}.txt`);
+        const logFile = path.join(__dirname, `../../storage/bitacoras/${userName}.txt`);
         // Nombre del archivo como será descargado
-        const fileName = `${username}-bitacora.txt`;
+        const fileName = `${userName}-bitacora.txt`;
       
         // Comprueba si el archivo existe
         fs.access(logFile, fs.constants.F_OK, (err) => {

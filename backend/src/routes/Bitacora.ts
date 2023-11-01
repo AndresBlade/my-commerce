@@ -14,7 +14,7 @@ router.post('/createLog', async (req:Request, res:Response) =>{
     res.status(200).json({ message: 'LOG_CREATED' });
 })
 
-router.get('/downloadUserLogFile', 
+router.get('/downloadUserLogFile/:userName', 
     authMiddleware,
     checkRole(['ADMINISTRADOR']),    
     downloadLogFile
