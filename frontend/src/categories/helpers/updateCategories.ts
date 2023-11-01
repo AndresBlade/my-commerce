@@ -1,24 +1,17 @@
-interface CategoryUpdatedProps {
-	categoryUpdated: { id: number; nombre: string};
-}
-
-export const updateCategory = (
-	token: string,
-	body: { newCategoryName: string }
-): Promise<CategoryUpdatedProps> =>
-	fetch(`http://127.0.0.1:3000/api/categorias/editCategory/5`, {
+export function updateCategory(categoryName:string, categoriaID:number, token:string) {
+	
+	return fetch(`http://127.0.0.1:3000/api/categorias/editCategory/${categoriaID}`, {
 		method: 'PUT',
-		body: JSON.stringify(body),
 		headers: {
+			'Authorization': 'Bearer ' + token,
 			'Content-Type': 'application/json',
-			Authorization: 'Bearer ' + token,
 		},
+		body: JSON.stringify({categoryName, categoriaID}),
 	}).then(response => {
 		console.log(response);
 		if (!response.ok) {
-			return response.text().then(err => {
-				throw new Error(err);
-			});
+			throw new Error(response.statusText);
 		}
-		return response.json() as Promise<CategoryUpdatedProps>;
-	});
+		return response.json();
+	  });
+}
