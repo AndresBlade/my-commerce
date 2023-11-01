@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 
 export const useForm = <T>(initialForm: T) => {
-	console.log(initialForm);
 	const [formState, setFormState] = useState(initialForm);
 
 	function onInputChange({ target }: ChangeEvent<HTMLInputElement>) {

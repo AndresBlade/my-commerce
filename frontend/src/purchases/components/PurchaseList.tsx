@@ -34,9 +34,9 @@ export const PurchaseList = () => {
 			const rows = purchases.map(purchase => [
 				purchase.detallesProducto.nombre,
 				purchase.detallesVenta.cantidad,
-				purchase.detallesProducto.precio,
+				((purchase.detallesProducto.precio * 0.16) + purchase.detallesProducto.precio)+'$',
 				purchase.detallesVenta.cantidad *
-					purchase.detallesProducto.precio,
+				((purchase.detallesProducto.precio * 0.16) + purchase.detallesProducto.precio)+'$',
 			]);
 
 			doc.text('MyCommerce', 15, 15);

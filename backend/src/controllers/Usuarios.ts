@@ -4,9 +4,10 @@ import handleHttpErrors from '../utils/handleErrors';
 import { encryptPassword, comparePassword } from '../utils/handlePassword';
 import UserModel from '../models/Usuarios';
 import ClientModel from '../models/Clientes';
-import { getClientID, getUserId } from '../utils/getClientID';
+import { getClient, getClientID, getUserId } from '../utils/getClientID';
 import { sequelize } from '../config/db';
 import AdministradorModel from '../models/Administradores';
+import { createLogFilePerUserAction, createLogFilePerUserLogued, createLogFilePerUserRegistered } from '../middleware/bitacoraHandlers';
 const PUBLIC_URL = process.env['PUBLIC_URL'] || 'http://localhost:3000';
 
 export const registerUser = async (req: Request, res: Response) => {
@@ -66,6 +67,9 @@ export const registerUser = async (req: Request, res: Response) => {
 			}
 		);
 
+		const UserName = resultTransaction.clientData.nombre; 
+		createLogFilePerUserRegistered(UserName, req)
+
 		return res.status(200).send({
 			token: resultTransaction.token,
 			userData: resultTransaction.userData,
@@ -110,8 +114,11 @@ export const loginUser = async (req: Request, res: Response) => {
 			const userAndClient = await ClientModel.findClientByUserID(
 				userLogued.id
 			);
+
+			const token = await tokenSign(userLogued);
+			await createLogFilePerUserLogued(token, userAndClient!.nombre, req)
 			return res.status(200).send({
-				token: await tokenSign(userLogued),
+				token,
 				userData,
 				specificData: {
 					id: userAndClient?.id,
@@ -125,6 +132,9 @@ export const loginUser = async (req: Request, res: Response) => {
 			const admin = await AdministradorModel.getAdminByUserId(
 				userLogued.id
 			);
+
+			const token = await tokenSign(userLogued);
+			await createLogFilePerUserLogued(token, admin!.nombre, req)
 			return res.status(200).send({
 				token: await tokenSign(userLogued),
 				userData,
@@ -144,7 +154,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
 export const updateUserImage = async (req: Request, res: Response) => {
 	try {
+		const client = getClient(res);
 		const client_id = getClientID(res);
+		const user_id = getUserId(res);
+
 		if (!req.body.imagen)
 			return res.status(400).send('ERROR_GETTING_IMAGE');
 		const imagen = req.body.imagen.trim();
@@ -155,6 +168,7 @@ export const updateUserImage = async (req: Request, res: Response) => {
 		);
 		if (!clientUpdated) return res.send('CANNOT_UPDATE_CLIENT_IMAGE');
 
+		await createLogFilePerUserAction('Actulizar foto de perfil', client.nombre, user_id, req)
 		return res.status(200).send({ nuevaImagen: imagen });
 	} catch (error: any) {
 		console.log(error);
@@ -259,6 +273,8 @@ export const updateUserPassword = async (req: Request, res: Response) => {
 		);
 		if (!userUpdated) return res.send('CANNOT_UPDATE_USER_PASSWORD');
 
+		const client = await ClientModel.findClientByUserID(userId);
+		await createLogFilePerUserAction('cambio de contraseña', client!.nombre, userId, req)
 		return res.status(200).send('PASSWORD_UPDATED_SUCCESSFULLY');
 	} catch (error: any) {
 		console.log(error);
@@ -269,6 +285,7 @@ export const updateUserPassword = async (req: Request, res: Response) => {
 export const updateUserName = async (req: Request, res: Response) => {
 	try {
 		const ClientID = getClientID(res);
+		const user_id = getUserId(res);
 		const { newUserName } = req.body;
 
 		const checkClientName = await ClientModel.findOne({
@@ -294,7 +311,7 @@ export const updateUserName = async (req: Request, res: Response) => {
 			nombre: clientData.nombre,
 			imagen: clientData.imagen,
 		};
-
+		await createLogFilePerUserAction('cambio de nombre', clientData.nombre, user_id, req)
 		return res.status(200).send({ clientUpdated: userUpdated });
 	} catch (error: any) {
 		console.log(error);
@@ -305,6 +322,7 @@ export const updateUserName = async (req: Request, res: Response) => {
 export const updateUserEmail = async (req: Request, res: Response) => {
 	try {
 		const UserID = getUserId(res);
+		const client = getClient(res);
 		const { newUserEmail } = req.body;
 
 		const checkClientEmail = await UserModel.findOne({
@@ -327,6 +345,7 @@ export const updateUserEmail = async (req: Request, res: Response) => {
 			newEmail: userData.correo,
 		};
 
+		await createLogFilePerUserAction('desactivar usuario', client.nombre, UserID, req)
 		return res.status(200).send({ userUpdated });
 	} catch (error: any) {
 		console.log(error);
@@ -337,6 +356,7 @@ export const updateUserEmail = async (req: Request, res: Response) => {
 export const desactivateUser = async (_req: Request, res: Response) => {
 	try {
 		const userID = getUserId(res);
+		const client = getClient(res);
 		const clientID = getClientID(res);
 
 		//inicia una transacción para desactivar el usuario, sus tiendas asoadas y los productos que pertenecen a esas tiendas
@@ -360,6 +380,7 @@ export const desactivateUser = async (_req: Request, res: Response) => {
 		);
 		if (!resultTransaction) throw new Error('ERROR_DESACTIVATING_USER');
 
+		await createLogFilePerUserAction('desactivar usuario', client.nombre, userID, _req)
 		return res.status(200).send('USER_DESACTIVATED_SUCCESSFULLY');
 	} catch (error: any) {
 		console.log(error);

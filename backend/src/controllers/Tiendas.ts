@@ -5,6 +5,7 @@ import TiendaModel  from "../models/Tiendas";
 import TiendasRegionesModel from "../models/Tiendas_regiones";
 import  {sequelize}  from "../config/db";
 import {getClientID} from "../utils/getClientID";
+import { createLogFilePerUserAction } from "../middleware/bitacoraHandlers";
 
 
 export const tiendaRegister = async (req:Request, res:Response) =>{ 
@@ -59,6 +60,8 @@ export const tiendaRegister = async (req:Request, res:Response) =>{
                 regiones_id
             };
         })
+
+        await createLogFilePerUserAction('','CLIENTE', cliente_id, req)
 
         return res.status(200).send({
             tienda: resultTransaction.newTienda,

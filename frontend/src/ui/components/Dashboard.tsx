@@ -2,7 +2,7 @@ import { Outlet } from 'react-router';import { DashboardSection } from './Dashbo
 import { useContext } from "react";
 import { SideBarContext } from '../context/SideBarContext';
 import { CgProfile, CgShoppingBag } from 'react-icons/cg';
-import { PiHandshake } from 'react-icons/Pi';
+import { PiHandshake, PiMagnifyingGlassBold } from 'react-icons/Pi';
 import { MdPendingActions } from 'react-icons/md';
 import { BsShop } from 'react-icons/Bs';
 import { LuChevronFirst, LuChevronLast } from 'react-icons/Lu';
@@ -45,6 +45,8 @@ export const Dashboard = () => {
 						<>
 							<DashboardSection title="Solicitudes de tiendas"
 							 url="tiendasPendientes" icon={<MdPendingActions size={20}/>}/>
+							<DashboardSection title="Bitacora"
+							 url="bitacora" icon={<PiMagnifyingGlassBold size={20}/>}/>
 						</>
 					) : (
 						<>

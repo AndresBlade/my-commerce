@@ -9,7 +9,6 @@ import { SaldoButton } from '../components/createSaldoButton';
 import { MdLaptop } from 'react-icons/md';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import img from '../../../../banner.jpg';
-import { useForm } from '../../hooks/useForm';
 import { useEffect, useState } from 'react';
 import { getCategories } from '../../products/helpers/getCategories';
 import { Region } from '../../shops/interfaces/ShopRegion';
@@ -42,12 +41,12 @@ export const ExplorePage = () => {
 	shopPage =
 		typeof shopPageParam === 'undefined' ? 0 : parseInt(shopPageParam);
 
-	
 	const saldoString = localStorage.getItem('saldo');
 	const saldo = saldoString !== null ? parseFloat(saldoString) : 0;
+
 	return (
 		<main>
-			<SaldoButton 
+			<SaldoButton
 				saldoValue={'Saldo disponible:  ' + saldo.toString() + '$'}
 			/>
 

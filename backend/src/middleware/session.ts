@@ -40,7 +40,8 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
 
             const userData = {
                 ...user?.dataValues,
-                clientBelongToUser
+                clientBelongToUser,
+                dataToken
             }
 
             res.locals['user'] = userData;
@@ -49,7 +50,8 @@ const authMiddleware = async (req:Request, res:Response, next:NextFunction) =>{
             const adminBelongToUser = await AdministradorModel.getAdminByUserId(userID);
             const userData = {
                 ...user?.dataValues,
-                adminBelongToUser
+                adminBelongToUser,
+                dataToken
             }
             res.locals['user'] = userData;
             return next();

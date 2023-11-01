@@ -28,7 +28,9 @@ router.get(
 );
 
 
-router.post('/loginUser', loginUser);
+router.post('/loginUser',
+ 	loginUser
+);
 
 
 router.post(
